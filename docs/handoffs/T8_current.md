@@ -4,138 +4,102 @@ Last updated: 2026-07-14
 
 ## Thread Role And Current Status
 
-T8al completed the bounded units/dtype metadata-contract hardening for the
-accepted 18×8 Kirchhoff Eq. (47) scalar comparison baseline.
+T8am completed the bounded, read-only Fig.5/Fig.6 review-grid diagnostics
+slice from the accepted T8aj exact 18×8 artifact and accepted T8al Kirchhoff
+scalar comparison baseline.
 
-Decision:
+Exact decision:
 
 ```text
-GREEN / FIG5-FIG6 KIRCHHOFF METADATA CONTRACT HARDENED
+GREEN / FIG5-FIG6 REVIEW-GRID DIAGNOSTICS GENERATED
 ```
 
-The correction is metadata-only. Every non-metadata array is byte-identical
-to T8ak and retains its frozen NumPy-array SHA256 fingerprint. The formula,
-branches, backend, dps, grid, numerical values, masks, phases, and non-claims
-are unchanged. T7bt was dispatched successfully to existing T7 task
-`019f5ed1-b421-7ec2-9bac-8d134855a1ed` with `gpt-5.6-sol`, thinking `high`;
-T0 task `019f5ec5-84ba-79e2-8c77-1160b150a636` was notified.
+The predecessor T8al handoff is archived at
+`docs/handoffs/archive/T8_2026-07-14_pre_t8am_review_grid_diagnostics.md`.
 
 ## Completed Work
 
-- Executed `docs/superpowers/plans/2026-07-14-t8al-kirchhoff-metadata-contract.md`
-  using `executing-plans`, TDD, and fresh completion verification.
-- Added exact `units` and `dtype` mappings for all 16 non-metadata arrays to
-  embedded NPZ metadata, JSON sidecar, and manifest.
-- Bumped schema to
-  `phase5_t8al_kirchhoff_review_grid_v2_units_dtype`.
-- Added fail-closed runtime validation that actual array dtypes exactly match
-  the frozen mapping.
-- Preserved the T8ak artifacts under
-  `/tmp/schwo_t8al_pre_metadata_contract/` and regenerated only the same three
-  project artifact paths.
-- Commit `7966be1 fix: record Kirchhoff units and dtypes` contains exactly
-  `src/schwgw/io/kirchhoff.py` and
-  `tests/unit/test_kirchhoff_artifact.py`.
+- Executed the frozen T8am plan, with loader/metrics/rendering/CLI/tests
+  restricted to the five authorized code/test paths.
+- Generated exactly eight artifacts under
+  `runs/phase5/fig5_fig6_review_grid_plots/` from saved values only.
+- Recovered after the UI-reported `Selected model is at capacity` interruption
+  without rerunning a solver, recomputing physics, restarting TDD, or changing
+  any source triplet.
+- Retained `f6d32b1 feat: add Fig5 Fig6 review-grid diagnostics`; follow-up
+  commit `1542f5e fix: reserve review-grid diagnostic layout margins` makes the
+  minimal authorized constrained-layout repair. Together they touch exactly:
+  `src/schwgw/viz/tablei_review_grid.py`, `src/schwgw/viz/__init__.py`,
+  `src/schwgw/cli.py`, `tests/unit/test_viz_tablei_review_grid.py`, and
+  `tests/regression/test_plot_review_grid_cli.py`.
 
 ## Artifacts And Hashes
 
-Accepted T8aj source hashes remain unchanged:
-
 ```text
-a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb  runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz
-2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537  runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz.json
-86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf  runs/phase5/fig5_fig6_dense_review_grid/manifest.md
+f8ffcee55ce2a4d07e9a2ff91320baa0122bd37f43701cfde8d5eab5e963c386  fig5_near_axis_review_grid.png
+e19c28ca4a6532adc079f99137853115b9f90e0764bed84957d133d3b9167c11  fig5_near_axis_review_grid.pdf
+627903f91de69edf3d4e527419511a6a898979e8ae8c6dd57e6cee70ee93cb98  fig5_near_axis_review_grid.json
+e949bd7436617bf8cadb59515a3861e8bc8503e17337347a81be7598ef061855  fig6_far_axis_review_grid.png
+02b05bbe092f0c5934bcc389ca16d305208202637182c88038eeb5ff511a77ec  fig6_far_axis_review_grid.pdf
+06142d333dabba5dd17f76642a4a792dfa6603beee6a73ce8cc712c07073f534  fig6_far_axis_review_grid.json
+cb40d6cae967699b86f0ef3d863e8cbe9ce2555f56dcd3427f8f5d64d44190a4  sampling_diagnostics.json
+f09c24abb30c1ec64abcd3cd9dd2679061dfa23d746c2c96c49ffdd4e04c327b  manifest.md
 ```
 
-T8al output hashes:
+All six accepted source hashes were freshly rechecked and match their frozen
+values. The output directory contains no ninth file.
 
-```text
-66c59851e6eaf6bf5691c8026e0d528edbf304ae4bbcfc47a0290c14f87fdb55  runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz
-0b20d62be1fe39b48ce90ca2a8d0f7798fff489a777f18b2bf2d7c268376fdf3  runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz.json
-fb138038b783d2a511df94f6552a5d77a06ae7f1a32dc4c80ea54ee7f3c5e632  runs/phase5/fig5_fig6_kirchhoff_baseline/manifest.md
-```
+## Diagnostic Result
+
+- Exact recommendation: `DELTA_0P1_PROVISIONAL_REVIEW`.
+- All four diagnostic phase proxies pass; this is not a production approval.
+- Maximum observed unwrapped-phase slopes:
+  - near `F_plus`: 2.796164802757737 at `near_axis_x1_z30`, [3.75, 4.0];
+  - near `F_cross`: 3.625714958231235 at `near_axis_x2_z30`, [2.75, 3.0];
+  - far `F_plus`: 8.763007426859136 at `far_axis_x20_z30`, [0.3, 0.5];
+  - far `F_cross`: 7.5544095996424385 at `far_axis_x10_z30`, [1.5, 1.75].
 
 ## Tests And Verification
 
-- Required TDD RED: old schema assertion failed; implementation then passed.
-- Focused pytest: `9 passed in 0.36s`.
+- Focused tests: `10 passed in 1.69s`.
 - Ruff: `All checks passed!`.
-- Numerical identity: `T8AL_NUMERICAL_ARRAY_IDENTITY=PASS` for all 16
-  non-metadata arrays, including exact equality and frozen `.npy` SHA256.
-- Metadata surfaces: `T8AL_METADATA_SURFACES=PASS`.
-- Full pytest: `558 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests
-  passed in 311.85s`.
-- Forbidden production-source diff and forbidden downstream-output searches
-  were empty; baseline directory contains exactly three files.
-- Existing warnings are the prior Weyl/Wigner/radial numerical warnings; no
-  Kirchhoff warning or non-finite value was introduced.
-
-## Incomplete Work
-
-- T7bt must independently review this metadata-only correction.
-- T0 must close the gate after T7bt reports its exact decision.
-- No plotting, dense production, fixture, or paper-style stage is authorized.
-
-## Blocking Issues And Non-Blocking Warnings
-
-- No T8al blocker remains.
-- The shared working tree contains accumulated coordination-document changes;
-  they were preserved and excluded from the scoped code commit.
-- T7bt independent acceptance is still required before T0 milestone handling.
-
-## Files The Next Thread Must Read
-
-1. `status.md`
-2. `docs/prompts/phase5_t7bt_fig5_fig6_kirchhoff_metadata_contract_review.md`
-3. `docs/superpowers/plans/2026-07-14-t8al-kirchhoff-metadata-contract.md`
-4. `docs/handoffs/T7_current.md`
-5. `docs/handoffs/T8_current.md`
-6. `src/schwgw/io/kirchhoff.py`
-7. `tests/unit/test_kirchhoff_artifact.py`
-8. `runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz`
-9. `runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz.json`
-10. `runs/phase5/fig5_fig6_kirchhoff_baseline/manifest.md`
-11. `/tmp/schwo_t8al_pre_metadata_contract/`
+- Full pytest: `568 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests
+  passed in 288.83s`.
+- Independent source/output/cardinality/provenance/hash audit: PASS.
+- Independent adjacent-metric recomputation: PASS.
+- Both regenerated PNGs and both rendered one-page PDFs were individually
+  inspected. The far-axis frozen subtitle and bottom point caption/legend are
+  fully inside the frame, with no overlap.
+- The retained warnings are the existing Weyl/Wigner/radial warnings; no
+  diagnostics-path warning was introduced.
 
 ## Frozen Decisions
 
-- Eq. (47), its branches, positive-frequency no-conjugation policy,
-  coordinate-derived eta, backend `mpmath 1.4.1`, and `dps=60` are unchanged.
-- All non-metadata arrays and their frozen fingerprints are immutable.
-- Kirchhoff remains scalar, polarization-independent, and comparison-only.
-- It must not enter solver, denominator, masks, normalization, calibration,
-  Q018, boundary policy, or polarization channels.
+- Exact spin-2 values use markers and thin adjacent-valid-sample guides only.
+- Kirchhoff is scalar, polarization-independent, dashed comparison-only data;
+  it never enters masks, normalization, solver logic, or polarization channels.
+- No interpolation, smoothing, fill, clipping, inference, solver rerun,
+  physics recomputation, 40/79-frequency production, fixture, or paper-style
+  claim is authorized by this diagnostic result.
 
-## Forbidden Actions
+## Downstream And Exact Next Task
 
-- Do not modify or regenerate T8al implementation/artifacts during T7bt.
-- Do not create plots, 40-frequency/dense production, fixtures, interpolation,
-  smoothing, Appendix D/E, or paper-style candidates.
-- Do not modify formula, precision, source grid, solver, configs, or regression
-  fixtures, and do not push GitHub from T7/T8.
-- Scientific/test failures must not be bypassed by changing model.
+T7bu was dispatched to the existing T7 task
+`019f5ed1-b421-7ec2-9bac-8d134855a1ed` using `gpt-5.6-sol`, thinking `high`.
+It must execute
+`docs/prompts/phase5_t7bu_fig5_fig6_review_grid_diagnostics_review.md`,
+perform an independent read-only review, report one exact decision to T0, and
+must not modify artifacts or begin production.
 
-## Superseded Prompts
+T0 task `019f5ec5-84ba-79e2-8c77-1160b150a636` receives this GREEN, the
+two commits, eight hashes, maxima, recommendation, and verification evidence.
 
-- T8ak and T8al implementation prompts are complete and must not be reused by
-  T7bt to repair source or artifacts.
-- T12/T12b and all later-stage plotting/production prompts remain superseded.
+## Allowed/Forbidden Files And Definition Of Done
 
-## Exact Next Task
-
-T7bt is now running in existing T7 task
-`019f5ed1-b421-7ec2-9bac-8d134855a1ed` with `gpt-5.6-sol`, thinking `high`.
-It must independently execute
-`docs/prompts/phase5_t7bt_fig5_fig6_kirchhoff_metadata_contract_review.md`
-and send its exact decision to T0 task
-`019f5ec5-84ba-79e2-8c77-1160b150a636`.
-
-## Allowed Files, Verification Commands, And Definition Of Done
-
-- T7bt may modify only `status.md`, `docs/handoffs/T7_current.md`, and its
-  required archive. It is review-only.
-- T7bt must independently verify all nine checks in its frozen prompt,
-  including every per-array fingerprint, all metadata surfaces, focused pytest,
-  Ruff, full pytest, source hashes, directory cardinality, and forbidden scope.
-- T8al exact GREEN requires all recorded checks, fresh status/T8 handoff
-  verification, successful T7bt dispatch, and T0 notification.
+- T8am implementation is complete. Its code commit range is frozen to the
+  five paths named above; generated files live only in the eight-file output
+  directory; coordination changes are limited to `status.md`, this handoff,
+  and the archived predecessor handoff.
+- T7bu is review-only. Any visualization, provenance, metric, test, scope, or
+  scientific failure must return to T0 as YELLOW/RED and must not be bypassed
+  by changing models or starting a later stage.

@@ -12,12 +12,234 @@
 
 | 项 | 状态 |
 |---|---|
-| 当前阶段 | Phase 5：T0 已独立核验并接受 T7bt 的 **ACCEPT GREEN / FIG5-FIG6 KIRCHHOFF METADATA CONTRACT ACCEPTED**，Kirchhoff review-grid comparison-baseline metadata gate 正式关闭。T0 fresh 九项门禁与全量测试通过；重大节点已按明确范围非 force 同步至私人 GitHub `main`，并验证 `origin/main == HEAD`。 |
-| 当前目标 | **PAUSED / USER CODEX UPDATE**。按用户要求进入 Codex 更新维护暂停：不设计、不提供 prompt、不派发或启动任何下一阶段，直至用户明确恢复。 |
+| 当前阶段 | Phase 5：T0 已独立核验并接受 T7bu 的 **ACCEPT GREEN / FIG5-FIG6 REVIEW GRID SUPPORTS DELTA KM 0.1 PRODUCTION PILOT**；Fig.5/Fig.6 review-grid diagnostic spacing gate 正式关闭。该结论仅允许 T0 下一轮设计独立、有界的 `Delta(kM)=0.1` pilot，不是 production 授权。 |
+| 当前目标 | 本轮 T8am→T7bu→T0 收口并同步私人 GitHub。不得在本轮启动 40/79-frequency production、midpoint/0.05 scan、fixtures 或 paper-style stage；下一步须先单独冻结 bounded `Delta(kM)=0.1` pilot 的设计、计划与审查门槛。 |
 | 代码状态 | T2 Schwarzschild background、RW/Zerilli potentials、Sector enum、T3 angular public API、T4 radial ODE/matching/diagnostics plus Q018 `evanescent_tail_suppressed` policy and Route A `required_eval_radius` fail-closed guard plus T4o experimental Q018 oracle prerequisite boundary, T4p experimental Riccati/log-derivative oracle prototype, T4q opt-in broader oracle validation tests, T4r production-integration design/contract tests, T4s reviewed explicit opt-in production adapter/tests, T7an independent review acceptance, T4u continuous `ell=153..180` run-level opt-in oracle dispatch/tests, T4v metadata-only `kM=4` Table-I radial/Q018 preflight report, T7bn independent batch gate review without source/test/config/run mutation, T4w metadata-only direct experimental `kM=4` transition-oracle probe report, T7bo independent acceptance for T4x adapter design without source/test/config/run mutation, T12 Stage 1 YELLOW closeout/metadata without source/test/config mutation, T4x structured radial error handling plus opt-in `q018_tablei_km4_transition` adapter/tests/metadata, T7bp independent adapter-gate acceptance without source/test/config/run mutation, T12b Stage 0 smoke plus Stage 1 YELLOW blocker metadata without source/test/config mutation, T4y review-grid radial classification plus opt-in `q018_tablei_review_grid_transition` adapter/tests/metadata, T7bq independent radial-gate acceptance, T8aj conservative 18×8 review-grid artifact generation, and T7br independent data acceptance without source/test/config/artifact mutation 已完成；T5 waves incident API、T6b RW-gauge metric reconstruction、T6c Weyl/tetrad transform、T6d polarization/partial-wave assembly、T6m pointwise amplification pure API、T8a IO/CLI、T8b plotting-from-results、T8c saved convergence history、T8e run-scoped radial cache saved benchmark runner、T8f x-z plane saved-result schema/smoke plotting、T8g R60_K1 Li Fig.3-lite x-z saved benchmark config/artifacts、T8h read-only Fig.3-lite plus/cross panel、T8i high-sampling single-frequency x-z saved result and plot metadata、T8j read-only multi-frequency plotting interface/configs、T8l four-frequency Fig.3-lite saved artifacts、T8n range-based x-z config and Fig.3 DPI/final-pair sidecar hardening、T8o full M4-production first-pass configs/artifacts、T8p M5 amplification saved-output schema/CLI smoke、T8q M5 saved amplification read-only plotting smoke 已实现；T8r generated first archived M5 amplification artifact under `runs/phase5/m5_first_amplification_artifact/`；T8s generated four-frequency M5 archived amplification artifacts under `runs/phase5/m5_four_frequency_amplification_artifacts/` with source-SHA metadata hardening；T8t added optional Q018 boundary schema/metadata/cache-key support and bounded smoke config；T8u generated the bounded selected-probe NPZ artifact with final-pair convergence passing；T8v created bounded angular-pilot config and NPZ artifact with final-pair convergence passing；T8w added angular/convergence `theta_range/phi_range` parsing and metadata preservation, created bounded range-schema smoke artifact and non-run production draft；T8x generated the single R60_K2 angular production NPZ without source/code changes; T7as independently accepted that NPZ; T8y added read-only Fig.4 exact angular plotting helper/CLI and generated the fixed-`phi=0` PNG/sidecar; T8z added lower-frequency Fig.4 draft/smoke configs and generated three selected-probe readiness NPZs; T8aa generated three lower-frequency full angular production NPZs; T8ab added all-frequency read-only Fig.4 exact angular plotting helper/CLI/tests and generated the fixed-`phi=0` PNG/sidecar; T8ae generated the single-frequency Fig.3 `kM=2.0`, `dx=0.25M` high-resolution pilot artifacts without source/test code changes; T8af hardened the two Fig.3 pilot PNG sidecars without source/test/config/NPZ/PNG changes; T8ag created four-frequency `dx=0.25M` production plan and not-run draft configs without source/test/runs changes; T7bi independently accepted the planning package without running production; T8ah generated four-frequency `dx=0.25M` production artifacts/plots/manifest without source/test/config changes; T7bj independently accepted that production archive without source/test/artifact mutation; T7bk documented closeout without source/test/config/artifact mutation; T7bl accepted figure-quality gate for read-only publication rendering without source/test/config/artifact mutation; T8ai added read-only Fig.3 multifrequency publication render style/CLI/test and generated nearest/bilinear/bicubic publication-rendering artifacts from accepted NPZs; T7bm independently accepted that rendering package without source/test/config/artifact mutation; generic incident direction 未实现 |
 | 物理 convention | T1 已冻结 `docs/physics_spec.md` v0.1-frozen；T1j 已冻结 Kirchhoff Eq. (47) scalar comparison baseline convention；后续实现不得无记录改变 Fourier/harmonic/tetrad/master-variable/Kirchhoff branch convention |
 | CI 状态 | 未建立 |
 | 最新可运行命令 | `PYTHONPATH=src /opt/homebrew/bin/python3 -m pytest -q` |
+
+### 2026-07-14 T0 Fig.5/Fig.6 Review-Grid Diagnostic Spacing Gate Closeout
+
+- T0 exact decision:
+  - **ACCEPT GREEN / FIG5-FIG6 REVIEW-GRID DIAGNOSTIC SPACING GATE CLOSED**.
+  - **DESIGN AUTHORIZED / BOUNDED DELTA KM 0.1 PILOT ONLY**.
+  - This does not authorize running the pilot, any 40/79-frequency production,
+    midpoint/`0.05` scans, fixtures, interpolation, smoothing, or paper-style
+    work. A separate frozen design/plan/prompt and independent gate are still
+    required before execution.
+- T0 independent fresh verification:
+  - Combined commit range `f6d32b1^..1542f5e` changes exactly the frozen five
+    implementation/test paths.
+  - All six accepted source SHA256 values and all eight diagnostic-output
+    SHA256 values match; the output directory contains exactly eight files.
+  - Direct-NPZ phase/recommendation recomputation passed:
+    `T0_T7BU_PHASE_AND_RECOMMENDATION_AUDIT=PASS`, with exact recommendation
+    `DELTA_0P1_PROVISIONAL_REVIEW`.
+  - Focused pytest: `10 passed in 1.81s`; Ruff: `All checks passed!`.
+  - Full pytest: `568 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests
+    passed in 277.82s (0:04:37)`.
+  - Forbidden production diff and downstream-output checks are empty.
+- Visualization verification:
+  - Both PNGs are native `2100x1620`; both PDFs are unencrypted, one-page
+    `504x388.8 pt` documents and were independently rasterized at 180 DPI.
+  - Titles, subtitles, four panels, legends, axes, and bottom captions are
+    visibly present with nonzero white margins and no non-white edge pixels.
+  - `pdftotext -bbox` reports two rotated y-axis font boxes per PDF with
+    `xMin=-1.727017`; the actual raster begins 13 pixels inside the left edge.
+    T0 treats this as a nonblocking font-bbox/tool discrepancy, not visible
+    clipping, and records it rather than repeating the stronger literal claim
+    that every extracted font bbox lies inside the page box.
+- Scientific interpretation:
+  - All four phase-safety projections are below `pi/2`, so a bounded
+    `Delta(kM)=0.1` pilot is justified as the next design target.
+  - The far-axis `F_cross` magnitude limitation remains material: maximum
+    absolute step `1.7643213800514306` and relative step
+    `0.8039700767407513` at `far_axis_x15_z30` over `[0.75,1.0]`.
+  - Therefore no band limitation or production convergence has been proved.
+- Major-node handling:
+  - This closed independent diagnostic gate is classified as a major project
+    node under `project.md`; T0 will perform a scope-explicit, non-force sync
+    to the private GitHub `main` after updating this status/handoff record.
+  - Ignored `runs/` products and unrelated T1/T2/T3/T5/T6 handoff changes are
+    excluded from the GitHub scope.
+
+### 2026-07-14 T7bu Fig.5/Fig.6 Review-Grid Diagnostics Independent Review
+
+- Exact decision:
+  - **ACCEPT GREEN / FIG5-FIG6 REVIEW GRID SUPPORTS DELTA KM 0.1 PRODUCTION PILOT**.
+  - Meaning is deliberately narrow: current evidence supports T0 designing a
+    separate bounded `Delta(kM)=0.1` pilot. It is not production authorization,
+    a band-limit theorem, or acceptance of future production data.
+- Independent nine-gate evidence:
+  - Commits `f6d32b1` and `1542f5e` together touch exactly the five frozen
+    implementation/test paths; forbidden code/config/fixture/handoff diff is
+    empty.
+  - The new plotting module has no solver/scattering/radial/Q018/compute/solve
+    import or call. The CLI path forwards only saved source paths and rendering
+    options.
+  - Both accepted source contracts pass: exact schemas/grids/points/shapes/
+    masks/polarization meaning and scalar Kirchhoff flags/units/dtypes are
+    consistent; all three masks are `144/144` true.
+  - Direct independent recomputation, without T8am's metric API, matches all
+    272 adjacent records, maxima, point/interval attribution, `0.1`
+    projections, factor `1.5`, and proxy flags:
+    `T7BU_ALL_ADJACENT_METRICS=PASS records=272`.
+  - Exactly eight output files exist; their hashes, provenance, sidecar flags,
+    manifest, PNG/PDF/JSON readability, and both source triplets agree.
+  - Both native PNGs and independently rendered one-page PDFs were inspected.
+    Four panels, near/far membership, distinct colors/markers, saved-sample
+    guides, dashed `Kirchhoff scalar comparison`, axes/units, legends, and
+    diagnostic-only subtitle are readable and unclipped.
+- Phase-proxy maxima:
+  - near `F_plus`: slope `2.796164802757737`, safety projection
+    `0.4194247204136605` rad.
+  - near `F_cross`: slope `3.625714958231235`, safety projection
+    `0.5438572437346854` rad.
+  - far `F_plus`: slope `8.763007426859136`, safety projection
+    `1.3144511140288706` rad.
+  - far `F_cross`: slope `7.5544095996424385`, safety projection
+    `1.1331614399463659` rad.
+  - All are `< pi/2`. Magnitude has no frozen automatic threshold; the large
+    far-axis steps remain a limitation to evaluate in the future pilot, not a
+    hidden production-pass claim.
+- Accepted source SHA256, unchanged:
+  - exact NPZ/JSON/manifest:
+    `a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb`,
+    `2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537`,
+    `86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf`.
+  - Kirchhoff NPZ/JSON/manifest:
+    `66c59851e6eaf6bf5691c8026e0d528edbf304ae4bbcfc47a0290c14f87fdb55`,
+    `0b20d62be1fe39b48ce90ca2a8d0f7798fff489a777f18b2bf2d7c268376fdf3`,
+    `fb138038b783d2a511df94f6552a5d77a06ae7f1a32dc4c80ea54ee7f3c5e632`.
+- Eight diagnostics SHA256:
+  - Fig.5 PNG/PDF/JSON:
+    `f8ffcee55ce2a4d07e9a2ff91320baa0122bd37f43701cfde8d5eab5e963c386`,
+    `e19c28ca4a6532adc079f99137853115b9f90e0764bed84957d133d3b9167c11`,
+    `627903f91de69edf3d4e527419511a6a898979e8ae8c6dd57e6cee70ee93cb98`.
+  - Fig.6 PNG/PDF/JSON:
+    `e949bd7436617bf8cadb59515a3861e8bc8503e17337347a81be7598ef061855`,
+    `02b05bbe092f0c5934bcc389ca16d305208202637182c88038eeb5ff511a77ec`,
+    `06142d333dabba5dd17f76642a4a792dfa6603beee6a73ce8cc712c07073f534`.
+  - sampling/manifest:
+    `cb40d6cae967699b86f0ef3d863e8cbe9ce2555f56dcd3427f8f5d64d44190a4`,
+    `f09c24abb30c1ec64abcd3cd9dd2679061dfa23d746c2c96c49ffdd4e04c327b`.
+- Fresh verification:
+  - Focused pytest: `10 passed in 1.76s`.
+  - Ruff: `All checks passed!`.
+  - Full pytest: `568 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests
+    passed in 282.63s (0:04:42)`.
+  - Forbidden production diff and downstream-output checks are empty; warnings
+    remain the known Weyl/Wigner/radial warnings.
+- Review-only changed paths:
+  - `status.md`.
+  - `docs/handoffs/T7_current.md`.
+  - `docs/handoffs/archive/T7_2026-07-14_pre_t7bu_review_grid_diagnostics.md`.
+- Next owner:
+  - T0 must inspect this decision and may separately design a bounded pilot.
+    T7bu modified no implementation/artifact and starts no later task.
+
+### 2026-07-14 T0 Resume And Fig.5/Fig.6 Next-Stage Design Selection
+
+- User explicitly ended the Codex-update maintenance pause and authorized
+  return to the normal T0 design/review workflow.
+- T0 selected the conservative read-only Stage-4 direction as the best next
+  step: combine only the independently accepted T8aj exact 18×8 review-grid
+  artifact and T8al Kirchhoff comparison-baseline artifact in diagnostic
+  plots before authorizing any 40-frequency solver work.
+- Rationale:
+  - it introduces no solver or scientific recomputation;
+  - it tests whether the sparse, nonuniform review grid is adequate for
+    selecting `Δ(kM)=0.1` versus `0.05`;
+  - it preserves the distinction between exact spin-2 plus/cross amplification
+    and the polarization-independent scalar Kirchhoff baseline;
+  - it prevents paper-style claims from sparse review data.
+- Fresh read-only sampling audit:
+  - near-axis unwrapped phase steps are all below `pi/2`;
+  - far-axis data contain three component/interval steps above `pi/2` but none
+    above `pi`, with maxima about `1.75` and `1.89` radians;
+  - therefore far-axis sampling adequacy is a real open question that should
+    be diagnosed before production frequency spacing is frozen.
+- Approved/frozen gate:
+  - user instructed T0 to choose the best route and then said to start
+    execution directly; this authorizes the selected read-only diagnostic
+    design without another presentation-only pause;
+  - design spec is frozen in
+    `docs/superpowers/specs/2026-07-14-t8am-t7bu-review-grid-diagnostics-design.md`
+    at commit `259a020`;
+  - implementation plan is frozen in
+    `docs/superpowers/plans/2026-07-14-t8am-review-grid-diagnostics.md`;
+  - T8am prompt is frozen in
+    `docs/prompts/phase5_t8am_fig5_fig6_review_grid_diagnostics.md`;
+  - T7bu prompt is frozen in
+    `docs/prompts/phase5_t7bu_fig5_fig6_review_grid_diagnostics_review.md`;
+  - plan and both prompts are committed at `62e3a1f`.
+- Dispatch policy:
+  - T8am starts in existing T8 task
+    `019f5ece-f578-7b91-8f61-df882c656591` with `gpt-5.6-sol`, thinking
+    `high`;
+  - only exact
+    `GREEN / FIG5-FIG6 REVIEW-GRID DIAGNOSTICS GENERATED` may dispatch T7bu
+    to existing T7 task `019f5ed1-b421-7ec2-9bac-8d134855a1ed` with the same
+    model/reasoning level;
+  - YELLOW, RED, incomplete, ambiguous, scientific/test/visual/scope failure
+    must stop at T0; no model switch may bypass such a failure;
+  - T7bu never starts production. Only T0 may interpret its exact decision and
+    design a later pilot.
+- Dispatch result:
+  - existing T8 task accepted the frozen T8am message and is confirmed
+    `active`;
+  - heartbeat automation `monitor-t8am-t7bu-diagnostics-gate` is active at a
+    20-minute interval and enforces same-task capacity-only recovery, exact
+    GREEN downstream dispatch, independent T7bu review, and no automatic
+    production continuation.
+
+### 2026-07-14 T0 T8am System-Interruption And Visual-Gate Stop
+
+- T8am created scoped commit `f6d32b1 feat: add Fig5 Fig6 review-grid
+  diagnostics`, containing exactly the five authorized implementation/test
+  paths, and generated exactly eight files in the frozen output directory.
+- Before completion, T8am independently identified a real visual blocker:
+  the far-axis subtitle and bottom point legend/caption were clipped. The task
+  then ended with Codex thread status `systemError` before recording an exact
+  T8am decision, updating the T8 handoff, running full pytest, or dispatching
+  T7bu.
+- T0 safe-state audit after interruption:
+  - all six accepted source SHA256 values still match the frozen hashes;
+  - scoped commit paths are exact;
+  - focused tests fresh pass: `10 passed in 1.80s`;
+  - Ruff is clean;
+  - output directory contains exactly the eight frozen filenames;
+  - current near-axis PNG is readable, but the current far-axis PNG still
+    lacks the frozen subtitle and clips the bottom point caption/legend.
+- T0 monitor decision:
+  - this is an unresolved visualization-contract failure, not a pure
+    model-capacity interruption;
+  - do not send the Terra/high recovery message and do not dispatch T7bu;
+  - stop and report to the user. No production or later scientific stage is
+    authorized.
+- The heartbeat monitor is deleted after recording this stop because the
+  automatic chain has no safe autonomous continuation under its frozen rules.
+
+### 2026-07-14 T0 Capacity Clarification And Same-Task Recovery
+
+- The user confirmed that the T8 interface explicitly reported
+  `Selected model is at capacity. Please try a different model.`
+- T0 therefore distinguishes the interruption cause from the unfinished work:
+  the visual clipping is an in-progress bounded layout defect, while the task
+  stopped because Sol was at capacity rather than because T8 issued a final
+  scientific/test/visual rejection.
+- Safe-state recovery was sent to the same T8 task with
+  `gpt-5.6-terra`, thinking `high`, and the task is confirmed active.
+- Recovery must reuse commit `f6d32b1`, the accepted source checks, focused
+  test/Ruff evidence, and current artifacts. It must not restart TDD, rerun
+  solver/physics, amend history, or enlarge scope.
+- The only immediate edit is a minimal authorized plotting-layout correction;
+  T8 must then regenerate the same eight names, inspect both PNGs and PDFs,
+  rerun artifact/metric/hash checks, focused tests, Ruff, full pytest, and
+  forbidden checks, and record an exact T8am decision.
+- The T8am→T7bu heartbeat monitor has been recreated. T7bu remains forbidden
+  until exact T8am GREEN with all fresh evidence.
 
 ### 2026-07-14 T0 Kirchhoff Metadata Gate Closeout And Maintenance Pause
 
@@ -14492,3 +14714,48 @@ Next action:
     - Pytest not run because this task changed only documentation/status handoff files and did not modify `src/`, tests, configs, or artifacts.
   - Open issues:
     - Generic incident direction remains unimplemented and gated behind a future Wigner-D rotation design/review.
+
+### 2026-07-14 T8am Fig.5/Fig.6 Read-Only Review-Grid Diagnostics
+
+- Exact T8am decision:
+  - **GREEN / FIG5-FIG6 REVIEW-GRID DIAGNOSTICS GENERATED**.
+- Capacity recovery and scope:
+  - The interrupted turn ended because the interface explicitly reported
+    `Selected model is at capacity`; the recovery reused the accepted T8aj and
+    T8al triplets and did not rerun a solver or recompute physics.
+  - `f6d32b1 feat: add Fig5 Fig6 review-grid diagnostics` remains intact.
+    Follow-up commit `1542f5e fix: reserve review-grid diagnostic layout
+    margins` repairs only constrained-layout margins for the frozen subtitle
+    and bottom point caption/legend.
+  - The combined two-commit range changes exactly the five frozen paths:
+    `src/schwgw/viz/tablei_review_grid.py`, `src/schwgw/viz/__init__.py`,
+    `src/schwgw/cli.py`, `tests/unit/test_viz_tablei_review_grid.py`, and
+    `tests/regression/test_plot_review_grid_cli.py`.
+- Outputs and source boundary:
+  - Exactly eight artifacts were regenerated in
+    `runs/phase5/fig5_fig6_review_grid_plots/`; both PNGs and both one-page
+    PDFs were individually inspected after regeneration.
+  - All six accepted T8aj/T8al source SHA256 values match their frozen values.
+    Independent output-cardinality/provenance/hash audit and independent
+    adjacent-phase-metric recomputation both passed.
+  - No solver rerun, physical recomputation, interpolation, smoothing, fill,
+    40/79-frequency production, fixture, paper-style artifact, or source/test/
+    config change occurred outside the frozen scope.
+- Diagnostic result:
+  - All four phase proxies pass; the recorded recommendation is exactly
+    `DELTA_0P1_PROVISIONAL_REVIEW` (diagnostic only, not production approval).
+  - Maximum observed unwrapped-phase slopes are: near `F_plus` 2.796164802757737
+    at `near_axis_x1_z30` over [3.75, 4.0]; near `F_cross`
+    3.625714958231235 at `near_axis_x2_z30` over [2.75, 3.0]; far `F_plus`
+    8.763007426859136 at `far_axis_x20_z30` over [0.3, 0.5]; far `F_cross`
+    7.5544095996424385 at `far_axis_x10_z30` over [1.5, 1.75].
+- Fresh verification:
+  - Focused diagnostics tests: `10 passed in 1.69s`.
+  - Ruff: `All checks passed!`.
+  - Full pytest: `568 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests
+    passed in 288.83s`.
+  - Existing warnings remain the project’s known Weyl/Wigner/radial warnings;
+    no warning is attributed to the read-only diagnostics path.
+- Downstream:
+  - T7bu has been dispatched to the existing T7 task for the frozen,
+    independent read-only review. It must not start production.

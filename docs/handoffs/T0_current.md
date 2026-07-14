@@ -6,176 +6,159 @@ Thread: T0, project coordination and gate scheduling.
 
 ## Current Status
 
-The bounded T8al/T7bt Kirchhoff units/dtype metadata-contract gate is closed.
+The T8am/T7bu Fig.5/Fig.6 read-only review-grid diagnostic spacing gate is
+closed.
 
-T7bt exact decision:
+T8am exact decision:
 
 ```text
-ACCEPT GREEN / FIG5-FIG6 KIRCHHOFF METADATA CONTRACT ACCEPTED
+GREEN / FIG5-FIG6 REVIEW-GRID DIAGNOSTICS GENERATED
+```
+
+T7bu exact decision:
+
+```text
+ACCEPT GREEN / FIG5-FIG6 REVIEW GRID SUPPORTS DELTA KM 0.1 PRODUCTION PILOT
 ```
 
 T0 exact decision:
 
 ```text
-ACCEPT GREEN / FIG5-FIG6 KIRCHHOFF METADATA GATE CLOSED
+ACCEPT GREEN / FIG5-FIG6 REVIEW-GRID DIAGNOSTIC SPACING GATE CLOSED
+DESIGN AUTHORIZED / BOUNDED DELTA KM 0.1 PILOT ONLY
 ```
 
-All nine frozen checks pass. The accepted correction is metadata-only: every
-one of the 16 non-metadata arrays has canonical NumPy `.npy` bytes identical
-to the frozen, hash-verified T8ak backup and matches its frozen fingerprint.
-Embedded NPZ metadata, JSON sidecar, manifest, and actual dtypes agree on the
-exact units/dtype contract.
+This is deliberately narrow. T0 may next design a separate bounded
+`Delta(kM)=0.1` pilot, but no pilot or production run is authorized by this
+gate. No 40/79-frequency production, midpoint probes, `Delta(kM)=0.05` scan,
+fixture generation, interpolation/smoothing, or paper-style stage has been
+started.
 
-No scientific or production stage follows this gate. The user requested a
-Codex-update maintenance pause after the current T8/T7/T0 round.
+## T0 Independent Verification
 
-## T0 Fresh Verification
-
-- Commit `7966be1 fix: record Kirchhoff units and dtypes` contains exactly:
-  - `src/schwgw/io/kirchhoff.py`
-  - `tests/unit/test_kirchhoff_artifact.py`
-- Direct backup/current audit, without calling the serializer or compute API:
+- `git diff --name-only f6d32b1^..1542f5e` contains exactly:
+  - `src/schwgw/cli.py`
+  - `src/schwgw/viz/__init__.py`
+  - `src/schwgw/viz/tablei_review_grid.py`
+  - `tests/regression/test_plot_review_grid_cli.py`
+  - `tests/unit/test_viz_tablei_review_grid.py`
+- All six frozen T8aj/T8al source SHA256 values match.
+- All eight diagnostic-output SHA256 values match and the output directory
+  contains exactly eight files.
+- Independent direct-NPZ recomputation passed:
 
 ```text
-T0_T7BT_NINE_GATE_CORE_AUDIT=PASS arrays=16
+T0_T7BU_PHASE_AND_RECOMMENDATION_AUDIT=PASS
+DELTA_0P1_PROVISIONAL_REVIEW
 ```
 
-- All 16 canonical `np.save(..., allow_pickle=False)` byte streams are
-  old-vs-new identical and match the frozen SHA256 mapping.
-- Schema is exactly
-  `phase5_t8al_kirchhoff_review_grid_v2_units_dtype`.
-- Embedded and sidecar `units`/`dtype` mappings cover all and only the 16
-  non-metadata arrays; manifest lines and actual array dtypes agree.
-- The baseline directory contains exactly the NPZ, JSON sidecar, and manifest.
-- Focused pytest: `9 passed in 0.39s`.
+- Focused pytest: `10 passed in 1.81s`.
 - Ruff: `All checks passed!`.
-- T0 full pytest:
-  `558 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests passed in
-  317.86s (0:05:17)`.
+- Full pytest:
+  `568 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests passed in
+  277.82s (0:04:37)`.
 - Forbidden production diff and downstream-output checks are empty.
-- Existing warnings remain the known Weyl/Wigner/radial numerical warnings.
+- Warnings remain the known Weyl/Wigner/radial warnings.
+
+## Visualization Check And Recorded Qualification
+
+- Both PNGs are native `2100x1620` RGBA images.
+- Both PDFs are unencrypted one-page `504x388.8 pt` documents; both were
+  independently rasterized at 180 DPI and inspected with the PNGs.
+- Titles, diagnostic-only subtitles, four panels, saved-sample guides,
+  legends, axes, units, and bottom captions are visibly present and unclipped.
+- Actual rasters have nonzero white margins, no non-white edge pixels, and
+  first non-white content 13 pixels inside the left edge.
+- `pdftotext -bbox` nevertheless reports two rotated y-axis font boxes per PDF
+  with `xMin=-1.727017`. T0 records this as a nonblocking font-bbox extraction
+  discrepancy, not visible clipping. The stronger literal statement that
+  every extracted font bbox lies inside the page box is therefore not adopted
+  by T0, while the frozen visual gate itself still passes.
+
+## Scientific Interpretation
+
+All four independently recomputed phase-safety projections are below `pi/2`:
+
+- near `F_plus`: `0.4194247204136605` rad;
+- near `F_cross`: `0.5438572437346854` rad;
+- far `F_plus`: `1.3144511140288706` rad;
+- far `F_cross`: `1.1331614399463659` rad.
+
+This supports a bounded finer-spacing pilot. It does not prove band limitation
+or production convergence. In particular, far `F_cross` has maximum absolute
+magnitude step `1.7643213800514306` and maximum relative step
+`0.8039700767407513` at `far_axis_x15_z30` over `[0.75,1.0]`; the frozen gate
+has no automatic magnitude threshold, so this remains an explicit pilot risk.
 
 ## Accepted Hashes
 
-Pre-hardening T8ak backup:
+T8aj exact review-grid source:
 
 ```text
-a91f0a5f5eb672ac897ea776f7577d4f33b89c72154dc1b665c8ced06cbec53c  tablei_kirchhoff_baseline_values.npz
-86670c426ada2284d334a017b6abdfc36443d0fb7ea82606f3d544de17788a19  tablei_kirchhoff_baseline_values.npz.json
-53d852b25bd73bb25cecb37518e72a010c5b3882cf5e86799e4b695178586d49  manifest.md
+a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb  NPZ
+2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537  JSON
+86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf  manifest
 ```
 
-Accepted T8aj inputs:
+T8al Kirchhoff comparison source:
 
 ```text
-a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb  tablei_dense_review_values.npz
-2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537  tablei_dense_review_values.npz.json
-86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf  manifest.md
+66c59851e6eaf6bf5691c8026e0d528edbf304ae4bbcfc47a0290c14f87fdb55  NPZ
+0b20d62be1fe39b48ce90ca2a8d0f7798fff489a777f18b2bf2d7c268376fdf3  JSON
+fb138038b783d2a511df94f6552a5d77a06ae7f1a32dc4c80ea54ee7f3c5e632  manifest
 ```
 
-Accepted T8al outputs:
+T8am diagnostics:
 
 ```text
-66c59851e6eaf6bf5691c8026e0d528edbf304ae4bbcfc47a0290c14f87fdb55  tablei_kirchhoff_baseline_values.npz
-0b20d62be1fe39b48ce90ca2a8d0f7798fff489a777f18b2bf2d7c268376fdf3  tablei_kirchhoff_baseline_values.npz.json
-fb138038b783d2a511df94f6552a5d77a06ae7f1a32dc4c80ea54ee7f3c5e632  manifest.md
+f8ffcee55ce2a4d07e9a2ff91320baa0122bd37f43701cfde8d5eab5e963c386  fig5 PNG
+e19c28ca4a6532adc079f99137853115b9f90e0764bed84957d133d3b9167c11  fig5 PDF
+627903f91de69edf3d4e527419511a6a898979e8ae8c6dd57e6cee70ee93cb98  fig5 JSON
+e949bd7436617bf8cadb59515a3861e8bc8503e17337347a81be7598ef061855  fig6 PNG
+02b05bbe092f0c5934bcc389ca16d305208202637182c88038eeb5ff511a77ec  fig6 PDF
+06142d333dabba5dd17f76642a4a792dfa6603beee6a73ce8cc712c07073f534  fig6 JSON
+cb40d6cae967699b86f0ef3d863e8cbe9ce2555f56dcd3427f8f5d64d44190a4  sampling JSON
+f09c24abb30c1ec64abcd3cd9dd2679061dfa23d746c2c96c49ffdd4e04c327b  manifest
 ```
-
-## Frozen Scientific Boundary
-
-- Eq. (47), principal branches, positive-frequency no-conjugation policy,
-  coordinate-derived eta, backend `mpmath 1.4.1`, and `dps=60` are unchanged.
-- The accepted 18-frequency by eight-Table-I-point grid and every numerical
-  array, mask, phase, and non-claim are unchanged.
-- Kirchhoff remains a scalar, polarization-independent comparison baseline.
-- It must not enter the solver, denominator, masks, normalization,
-  calibration, Q018/boundary policy, or polarization channels.
-- No plot, dense/40-frequency production, fixture, interpolation, smoothing,
-  Appendix D/E, or paper-style candidate is authorized.
 
 ## GitHub Milestone Synchronization
 
-This independent GREEN is a high-risk-gate major node under `project.md`.
+This independent GREEN closes a high-risk gate and is a major node under
+`project.md`.
 
 Authorized synchronization scope:
 
-- six existing T8ak/T8al implementation/design/plan commits from `d6519e4`
-  through `7966be1`;
-- `project.md` with the user-approved Codex auto-dispatch and GitHub milestone
-  rules;
+- the four committed design/plan/implementation commits from `259a020`
+  through `1542f5e`;
 - `status.md`;
 - current T0/T7/T8 handoffs;
-- T0/T7/T8 archives belonging to the T8aj→T7br→T8ak→T7bs→T8al→T7bt chain.
+- T7/T8 archives belonging to the T8am/T7bu chain.
 
 Explicitly excluded:
 
-- independent T1/T2/T3/T5/T6 handoff changes;
-- ignored `runs/` artifacts and `/tmp` backups;
-- raw/private data, secrets/credentials, unexpected large files, and any
+- unrelated T1/T2/T3/T5/T6 handoff changes;
+- ignored `runs/` artifacts;
+- secrets/credentials, raw/private data, unexpected large files, and any
   unrelated or unreviewed path.
 
-Remote preflight:
+Synchronization is pending a fresh private-remote/authentication/divergence,
+scope, secret, and large-file preflight. Only non-force `main` push is
+authorized; no PR, force push, history rewrite, branch deletion, or visibility
+change is authorized.
 
-- configured repository is private;
-- default/current authorized branch is `main`;
-- `origin/main...HEAD` was `0 6` after fresh fetch;
-- GitHub authentication is available;
-- outgoing committed secret scan is clean;
-- force push, history rewrite, branch deletion, PR creation, and repository
-  visibility changes are not authorized.
+## Runtime Tasks And Monitor
 
-Synchronization result:
+- T0 task: `019f5ec5-84ba-79e2-8c77-1160b150a636`.
+- T8 task: `019f5ece-f578-7b91-8f61-df882c656591`.
+- T7 task: `019f5ed1-b421-7ec2-9bac-8d134855a1ed`.
+- T8am and T7bu are complete.
+- Heartbeat `monitor-t8am-t7bu-diagnostics-gate` must be deleted after the
+  T0 closeout and GitHub equality check.
 
-```text
-GitHub sync completed
-```
+## Exact Next Action
 
-- Primary scoped closeout commit:
-  `4c46628 docs: close Kirchhoff metadata gate`.
-- Non-force `main -> origin/main` push succeeded.
-- Fresh fetch after the primary push reported divergence `0 0` and exact
-  object equality: `FIRST_GITHUB_SYNC=PASS`.
-- The final durable sync record uses commit subject
-  `docs: record Kirchhoff milestone sync`; it is part of the same explicit
-  document scope and requires a second non-force push plus equality check.
-
-## Runtime Task And Monitor State
-
-- T0 task: `019f5ec5-84ba-79e2-8c77-1160b150a636`
-- T8 task: `019f5ece-f578-7b91-8f61-df882c656591`
-- T7 task: `019f5ed1-b421-7ec2-9bac-8d134855a1ed`
-
-T8al and T7bt are complete. Neither task starts any later work. The heartbeat
-automation `monitor-t8ak-t7bs-gate` must be deleted after the GitHub sync and
-final T0 verification.
-
-## Maintenance Pause And Exact Next Action
-
-No next-task prompt is provided. This is intentional and required because the
-user asked to update Codex after the current round.
-
-Current state:
-
-```text
-PAUSED / USER CODEX UPDATE
-```
-
-During the pause:
-
-- do not design, schedule, dispatch, or start another task;
-- do not reuse T8ak/T8al/T7bs/T7bt prompts;
-- do not create a new monitor or thread;
-- wait for an explicit user instruction to resume.
-
-## Definition Of Done
-
-- T7bt exact GREEN independently accepted by T0.
-- T0 fresh artifact, fingerprint, schema, scope, focused, Ruff, and full-suite
-  checks pass.
-- Closeout status and T0 handoff are committed in the explicit milestone
-  scope.
-- Current `main` is pushed non-force and `origin/main == HEAD` is verified
-  after the final sync-record commit.
-- GitHub completion is recorded durably in `status.md` and this handoff.
-- The gate monitor is deleted.
-- T0 enters maintenance pause without a next-stage prompt or dispatch.
+After milestone synchronization and monitor deletion, T0 may separately
+design the bounded `Delta(kM)=0.1` pilot. It must freeze scope, cost ceiling,
+checkpoint/restart behavior, source hashes, numerical and magnitude acceptance
+criteria, tests, output provenance, and a separate T7 review before any run.
+No next-stage prompt is frozen or dispatched in this closeout turn.
