@@ -124,11 +124,20 @@ Remote preflight:
 - force push, history rewrite, branch deletion, PR creation, and repository
   visibility changes are not authorized.
 
-Pre-push status:
+Synchronization result:
 
 ```text
-GitHub sync authorized; completion verification pending
+GitHub sync completed
 ```
+
+- Primary scoped closeout commit:
+  `4c46628 docs: close Kirchhoff metadata gate`.
+- Non-force `main -> origin/main` push succeeded.
+- Fresh fetch after the primary push reported divergence `0 0` and exact
+  object equality: `FIRST_GITHUB_SYNC=PASS`.
+- The final durable sync record uses commit subject
+  `docs: record Kirchhoff milestone sync`; it is part of the same explicit
+  document scope and requires a second non-force push plus equality check.
 
 ## Runtime Task And Monitor State
 
@@ -145,7 +154,7 @@ final T0 verification.
 No next-task prompt is provided. This is intentional and required because the
 user asked to update Codex after the current round.
 
-After the scope-explicit non-force push is verified:
+Current state:
 
 ```text
 PAUSED / USER CODEX UPDATE
@@ -165,7 +174,8 @@ During the pause:
   checks pass.
 - Closeout status and T0 handoff are committed in the explicit milestone
   scope.
-- Current `main` is pushed non-force and `origin/main == HEAD` is verified.
-- GitHub completion is recorded durably.
+- Current `main` is pushed non-force and `origin/main == HEAD` is verified
+  after the final sync-record commit.
+- GitHub completion is recorded durably in `status.md` and this handoff.
 - The gate monitor is deleted.
 - T0 enters maintenance pause without a next-stage prompt or dispatch.
