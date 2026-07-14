@@ -59,10 +59,15 @@
   - Therefore no band limitation or production convergence has been proved.
 - Major-node handling:
   - This closed independent diagnostic gate is classified as a major project
-    node under `project.md`; T0 will perform a scope-explicit, non-force sync
-    to the private GitHub `main` after updating this status/handoff record.
+    node under `project.md`; T0 performed a scope-explicit, non-force sync to
+    the private GitHub `main` after updating this status/handoff record.
   - Ignored `runs/` products and unrelated T1/T2/T3/T5/T6 handoff changes are
     excluded from the GitHub scope.
+  - Primary closeout commit: `96d8aac docs: close review-grid diagnostic
+    gate`. The non-force push succeeded; a fresh fetch reported divergence
+    `0 0` and exact `origin/main == HEAD` (`FIRST_GITHUB_SYNC=PASS`).
+  - A final documentation-only sync-record commit and second non-force push
+    record this result durably; no later scientific task is dispatched here.
 
 ### 2026-07-14 T7bu Fig.5/Fig.6 Review-Grid Diagnostics Independent Review
 

@@ -141,10 +141,28 @@ Explicitly excluded:
 - secrets/credentials, raw/private data, unexpected large files, and any
   unrelated or unreviewed path.
 
-Synchronization is pending a fresh private-remote/authentication/divergence,
-scope, secret, and large-file preflight. Only non-force `main` push is
-authorized; no PR, force push, history rewrite, branch deletion, or visibility
-change is authorized.
+Synchronization result:
+
+```text
+GitHub sync completed
+```
+
+- The configured repository is private and its default/current branch is
+  `main`; authentication was available.
+- Fresh preflight showed `origin/main...HEAD = 0 4` before closeout, and the
+  outgoing scope/secret/binary checks passed.
+- `status.md` is a known tracked text ledger: it grew from `1,177,642` to
+  `1,192,689` bytes. No newly added file exceeds 1 MiB and no binary file is
+  included.
+- Primary scoped closeout commit:
+  `96d8aac docs: close review-grid diagnostic gate`.
+- Non-force `main -> origin/main` push succeeded. Fresh fetch reported
+  divergence `0 0` and exact object equality:
+  `FIRST_GITHUB_SYNC=PASS`.
+- The final durable sync-record commit changes only `status.md` and this T0
+  handoff and is followed by a second non-force push/equality check.
+- No PR, force push, history rewrite, branch deletion, visibility change, or
+  unrelated handoff upload occurred.
 
 ## Runtime Tasks And Monitor
 
@@ -152,8 +170,8 @@ change is authorized.
 - T8 task: `019f5ece-f578-7b91-8f61-df882c656591`.
 - T7 task: `019f5ed1-b421-7ec2-9bac-8d134855a1ed`.
 - T8am and T7bu are complete.
-- Heartbeat `monitor-t8am-t7bu-diagnostics-gate` must be deleted after the
-  T0 closeout and GitHub equality check.
+- Heartbeat `monitor-t8am-t7bu-diagnostics-gate` is deleted after the final T0
+  closeout and GitHub equality check.
 
 ## Exact Next Action
 
