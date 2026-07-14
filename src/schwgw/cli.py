@@ -43,6 +43,8 @@ def main(argv: list[str] | None = None) -> int:
         return _plot_amplification(args)
     if args.command == "plot-tablei-four-frequency":
         return _plot_tablei_four_frequency(args)
+    if args.command == "plot-tablei-review-grid":
+        return _plot_tablei_review_grid(args)
     if args.command == "compute-amplification":
         return _compute_amplification(args)
     if args.command == "extract-tablei-four-frequency":
@@ -199,6 +201,23 @@ def _plot_tablei_four_frequency(args: argparse.Namespace) -> int:
         )
     except (RuntimeError, ValueError) as exc:
         print(f"schwgw plot-tablei-four-frequency: {exc}", file=sys.stderr)
+        return 2
+    return 0
+
+
+def _plot_tablei_review_grid(args: argparse.Namespace) -> int:
+    try:
+        from schwgw.viz import plot_tablei_review_grid_diagnostics
+
+        plot_tablei_review_grid_diagnostics(
+            args.exact_result,
+            args.kirchhoff_result,
+            output_dir=args.out_dir,
+            dpi=args.dpi,
+            created_by_cli=True,
+        )
+    except (RuntimeError, ValueError) as exc:
+        print(f"schwgw plot-tablei-review-grid: {exc}", file=sys.stderr)
         return 2
     return 0
 
@@ -533,6 +552,18 @@ def _build_parser() -> argparse.ArgumentParser:
         default=180,
         help="figure DPI for raster output; default is 180",
     )
+    review = subparsers.add_parser(
+        "plot-tablei-review-grid",
+        help="plot accepted exact and Kirchhoff Table-I review-grid diagnostics",
+    )
+    review.add_argument("exact_result", help="accepted exact review-grid NPZ")
+    review.add_argument(
+        "kirchhoff_result", help="accepted Kirchhoff review-grid NPZ"
+    )
+    review.add_argument(
+        "--out-dir", required=True, help="diagnostic output directory"
+    )
+    review.add_argument("--dpi", type=_positive_int, default=300)
     amplification = subparsers.add_parser(
         "compute-amplification",
         help="compute saved M5 pointwise amplification fields from a saved lensed result",
