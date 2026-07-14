@@ -6,8 +6,17 @@ Thread: T0, project coordination and gate scheduling.
 
 ## Current Status
 
-The T8am/T7bu Fig.5/Fig.6 read-only review-grid diagnostic spacing gate is
-closed.
+The T8am/T7bu diagnostic spacing gate is closed, and the user has reviewed and
+approved the next bounded `Delta(kM)=0.1` risk-pilot design for direct start.
+
+Current exact state:
+
+```text
+AUTHORIZED / T4Z DELTA0P1 RISK-PILOT RADIAL GATE
+```
+
+Only T4z is authorized now. T8an remains blocked until T4z exact GREEN is
+independently accepted by T7bv and T0 dispatches the frozen T8an prompt.
 
 T8am exact decision:
 
@@ -28,11 +37,9 @@ ACCEPT GREEN / FIG5-FIG6 REVIEW-GRID DIAGNOSTIC SPACING GATE CLOSED
 DESIGN AUTHORIZED / BOUNDED DELTA KM 0.1 PILOT ONLY
 ```
 
-This is deliberately narrow. T0 may next design a separate bounded
-`Delta(kM)=0.1` pilot, but no pilot or production run is authorized by this
-gate. No 40/79-frequency production, midpoint probes, `Delta(kM)=0.05` scan,
-fixture generation, interpolation/smoothing, or paper-style stage has been
-started.
+The approved pilot remains narrow: nine new point-only frequencies, not full
+production. No 40/79-frequency production, `Delta(kM)=0.05` scan, fixture,
+plot, interpolation/smoothing/fill, or paper-style stage is authorized.
 
 ## T0 Independent Verification
 
@@ -167,16 +174,30 @@ GitHub sync completed
 ## Runtime Tasks And Monitor
 
 - T0 task: `019f5ec5-84ba-79e2-8c77-1160b150a636`.
+- T4 task: `019f5fa6-1288-7c01-8a87-4c4370cf5517`.
 - T8 task: `019f5ece-f578-7b91-8f61-df882c656591`.
 - T7 task: `019f5ed1-b421-7ec2-9bac-8d134855a1ed`.
-- T8am and T7bu are complete.
-- Heartbeat `monitor-t8am-t7bu-diagnostics-gate` is deleted after the final T0
-  closeout and GitHub equality check.
+- T8am and T7bu are complete; their old monitor is deleted.
+- A new T4z→T7bv→T8an→T7bw monitor is created only after T4z dispatch.
 
 ## Exact Next Action
 
-After milestone synchronization and monitor deletion, T0 may separately
-design the bounded `Delta(kM)=0.1` pilot. It must freeze scope, cost ceiling,
-checkpoint/restart behavior, source hashes, numerical and magnitude acceptance
-criteria, tests, output provenance, and a separate T7 review before any run.
-No next-stage prompt is frozen or dispatched in this closeout turn.
+Frozen design:
+
+- `docs/superpowers/specs/2026-07-14-t4z-t8an-delta0p1-risk-pilot-design.md`
+  (`cb9bbfc`).
+
+Frozen plans/prompts (`55b843f`):
+
+- `docs/superpowers/plans/2026-07-14-t4z-delta0p1-risk-pilot-radial-gate.md`;
+- `docs/superpowers/plans/2026-07-14-t8an-delta0p1-nine-frequency-risk-pilot.md`;
+- `docs/prompts/phase5_t4z_delta0p1_risk_pilot_radial_gate.md`;
+- `docs/prompts/phase5_t7bv_delta0p1_risk_pilot_radial_review.md`;
+- `docs/prompts/phase5_t8an_delta0p1_nine_frequency_risk_pilot.md`;
+- `docs/prompts/phase5_t7bw_delta0p1_risk_pilot_review.md`.
+
+Exact next action: send the frozen T4z prompt to existing T4 task with
+`gpt-5.6-sol/high`. Only exact T4z GREEN dispatches T7bv. T7bv never starts
+T8an; it returns to T0, which alone may dispatch T8an after independently
+checking exact GREEN. T8an exact GREEN may dispatch T7bw. Every other state
+stops and returns to T0.

@@ -12,12 +12,59 @@
 
 | 项 | 状态 |
 |---|---|
-| 当前阶段 | Phase 5：T0 已独立核验并接受 T7bu 的 **ACCEPT GREEN / FIG5-FIG6 REVIEW GRID SUPPORTS DELTA KM 0.1 PRODUCTION PILOT**；Fig.5/Fig.6 review-grid diagnostic spacing gate 正式关闭。该结论仅允许 T0 下一轮设计独立、有界的 `Delta(kM)=0.1` pilot，不是 production 授权。 |
-| 当前目标 | 本轮 T8am→T7bu→T0 收口并同步私人 GitHub。不得在本轮启动 40/79-frequency production、midpoint/0.05 scan、fixtures 或 paper-style stage；下一步须先单独冻结 bounded `Delta(kM)=0.1` pilot 的设计、计划与审查门槛。 |
+| 当前阶段 | Phase 5：用户已审阅并批准 bounded `Delta(kM)=0.1` nine-frequency risk-pilot 设计；T0 已冻结 T4z→T7bv→T8an→T7bw 双门禁实施包。当前授权仅为先启动 T4z exact radial/Q018 gate。 |
+| 当前目标 | T4z 对九个风险定向频率做完整 default-path classification、direct-oracle validation、atomic checkpoints，并仅在证据通过时增加 exact fail-closed adapter；exact GREEN 后才派发 T7bv。不得提前启动 T8an、40/79-frequency production、`0.05` scan、fixtures、plots 或 paper-style stage。 |
 | 代码状态 | T2 Schwarzschild background、RW/Zerilli potentials、Sector enum、T3 angular public API、T4 radial ODE/matching/diagnostics plus Q018 `evanescent_tail_suppressed` policy and Route A `required_eval_radius` fail-closed guard plus T4o experimental Q018 oracle prerequisite boundary, T4p experimental Riccati/log-derivative oracle prototype, T4q opt-in broader oracle validation tests, T4r production-integration design/contract tests, T4s reviewed explicit opt-in production adapter/tests, T7an independent review acceptance, T4u continuous `ell=153..180` run-level opt-in oracle dispatch/tests, T4v metadata-only `kM=4` Table-I radial/Q018 preflight report, T7bn independent batch gate review without source/test/config/run mutation, T4w metadata-only direct experimental `kM=4` transition-oracle probe report, T7bo independent acceptance for T4x adapter design without source/test/config/run mutation, T12 Stage 1 YELLOW closeout/metadata without source/test/config mutation, T4x structured radial error handling plus opt-in `q018_tablei_km4_transition` adapter/tests/metadata, T7bp independent adapter-gate acceptance without source/test/config/run mutation, T12b Stage 0 smoke plus Stage 1 YELLOW blocker metadata without source/test/config mutation, T4y review-grid radial classification plus opt-in `q018_tablei_review_grid_transition` adapter/tests/metadata, T7bq independent radial-gate acceptance, T8aj conservative 18×8 review-grid artifact generation, and T7br independent data acceptance without source/test/config/artifact mutation 已完成；T5 waves incident API、T6b RW-gauge metric reconstruction、T6c Weyl/tetrad transform、T6d polarization/partial-wave assembly、T6m pointwise amplification pure API、T8a IO/CLI、T8b plotting-from-results、T8c saved convergence history、T8e run-scoped radial cache saved benchmark runner、T8f x-z plane saved-result schema/smoke plotting、T8g R60_K1 Li Fig.3-lite x-z saved benchmark config/artifacts、T8h read-only Fig.3-lite plus/cross panel、T8i high-sampling single-frequency x-z saved result and plot metadata、T8j read-only multi-frequency plotting interface/configs、T8l four-frequency Fig.3-lite saved artifacts、T8n range-based x-z config and Fig.3 DPI/final-pair sidecar hardening、T8o full M4-production first-pass configs/artifacts、T8p M5 amplification saved-output schema/CLI smoke、T8q M5 saved amplification read-only plotting smoke 已实现；T8r generated first archived M5 amplification artifact under `runs/phase5/m5_first_amplification_artifact/`；T8s generated four-frequency M5 archived amplification artifacts under `runs/phase5/m5_four_frequency_amplification_artifacts/` with source-SHA metadata hardening；T8t added optional Q018 boundary schema/metadata/cache-key support and bounded smoke config；T8u generated the bounded selected-probe NPZ artifact with final-pair convergence passing；T8v created bounded angular-pilot config and NPZ artifact with final-pair convergence passing；T8w added angular/convergence `theta_range/phi_range` parsing and metadata preservation, created bounded range-schema smoke artifact and non-run production draft；T8x generated the single R60_K2 angular production NPZ without source/code changes; T7as independently accepted that NPZ; T8y added read-only Fig.4 exact angular plotting helper/CLI and generated the fixed-`phi=0` PNG/sidecar; T8z added lower-frequency Fig.4 draft/smoke configs and generated three selected-probe readiness NPZs; T8aa generated three lower-frequency full angular production NPZs; T8ab added all-frequency read-only Fig.4 exact angular plotting helper/CLI/tests and generated the fixed-`phi=0` PNG/sidecar; T8ae generated the single-frequency Fig.3 `kM=2.0`, `dx=0.25M` high-resolution pilot artifacts without source/test code changes; T8af hardened the two Fig.3 pilot PNG sidecars without source/test/config/NPZ/PNG changes; T8ag created four-frequency `dx=0.25M` production plan and not-run draft configs without source/test/runs changes; T7bi independently accepted the planning package without running production; T8ah generated four-frequency `dx=0.25M` production artifacts/plots/manifest without source/test/config changes; T7bj independently accepted that production archive without source/test/artifact mutation; T7bk documented closeout without source/test/config/artifact mutation; T7bl accepted figure-quality gate for read-only publication rendering without source/test/config/artifact mutation; T8ai added read-only Fig.3 multifrequency publication render style/CLI/test and generated nearest/bilinear/bicubic publication-rendering artifacts from accepted NPZs; T7bm independently accepted that rendering package without source/test/config/artifact mutation; generic incident direction 未实现 |
 | 物理 convention | T1 已冻结 `docs/physics_spec.md` v0.1-frozen；T1j 已冻结 Kirchhoff Eq. (47) scalar comparison baseline convention；后续实现不得无记录改变 Fourier/harmonic/tetrad/master-variable/Kirchhoff branch convention |
 | CI 状态 | 未建立 |
 | 最新可运行命令 | `PYTHONPATH=src /opt/homebrew/bin/python3 -m pytest -q` |
+
+### 2026-07-14 T0 Delta(kM)=0.1 Risk-Pilot Design And Execution Authorization
+
+- User decision:
+  - accepted the nine risk-directed frequency design;
+  - permits long background execution;
+  - explicitly reviewed the written spec and instructed T0 to continue and
+    start directly.
+- Selected frequencies:
+  - `kM=[0.4,0.8,0.9,1.6,1.7,2.8,2.9,3.8,3.9]`.
+  - They cover the five accepted intervals with the strongest phase-slope or
+    far-`F_cross` magnitude-step evidence.
+- Critical radial boundary:
+  - existing `q018_tablei_review_grid_transition` supports only seven old
+    discrete review frequencies and is forbidden for the new high-frequency
+    points;
+  - T4z must first measure the complete new mode/radius transition set and may
+    add only `q018_tablei_delta0p1_risk_pilot_transition` with exact membership.
+- Frozen documents and commits:
+  - design spec:
+    `docs/superpowers/specs/2026-07-14-t4z-t8an-delta0p1-risk-pilot-design.md`
+    at `cb9bbfc`;
+  - T4z plan:
+    `docs/superpowers/plans/2026-07-14-t4z-delta0p1-risk-pilot-radial-gate.md`;
+  - T8an plan:
+    `docs/superpowers/plans/2026-07-14-t8an-delta0p1-nine-frequency-risk-pilot.md`;
+  - prompts:
+    `docs/prompts/phase5_t4z_delta0p1_risk_pilot_radial_gate.md`,
+    `docs/prompts/phase5_t7bv_delta0p1_risk_pilot_radial_review.md`,
+    `docs/prompts/phase5_t8an_delta0p1_nine_frequency_risk_pilot.md`, and
+    `docs/prompts/phase5_t7bw_delta0p1_risk_pilot_review.md`;
+  - both plans and all four prompts are frozen at `55b843f`.
+- Gated execution:
+  - T4z exact GREEN may dispatch T7bv in the existing T7 task;
+  - T7bv returns only to T0; only T0 may then dispatch T8an;
+  - T8an exact GREEN may dispatch T7bw;
+  - T7bw returns only to T0 and cannot start full-grid or `0.05` work.
+- Runtime/recovery:
+  - four hours per computational stage is a soft alert, not a scientific
+    failure threshold;
+  - progress is atomically checkpointed per frequency;
+  - only explicit capacity/system interruption with healthy scientific/test/
+    scope state permits same-task Terra/high recovery.
+- Non-claims:
+  - no 40/79-frequency production, `0.05` scan, Kirchhoff recomputation,
+    interpolation/smoothing/fill, plot, fixture, or paper-style stage is
+    authorized by this package.
 
 ### 2026-07-14 T0 Fig.5/Fig.6 Review-Grid Diagnostic Spacing Gate Closeout
 
