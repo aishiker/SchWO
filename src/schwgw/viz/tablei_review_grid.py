@@ -564,6 +564,12 @@ def _render_group(
     figure, axes = plt.subplots(
         2, 2, figsize=(7.0, 5.4), dpi=dpi, constrained_layout=True, sharex=True
     )
+    figure.get_layout_engine().set(
+        h_pad=0.12,
+        w_pad=0.08,
+        hspace=0.08,
+        wspace=0.08,
+    )
     panels = (
         (sources["abs_plus"], sources["plus_mask"], "magnitude", r"$|F_+|$", "(A)"),
         (
@@ -658,6 +664,7 @@ def _render_group(
         point_labels,
         ncol=4,
         loc="outside lower center",
+        borderaxespad=2.0,
         fontsize=7,
         frameon=False,
         title="Table-I points at z/M=30",
