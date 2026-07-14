@@ -1,0 +1,39 @@
+case_id: R60_K1_XZ_PLANE_RANGE_SMOKE
+output: /tmp/r60_k1_xz_plane_range_smoke.npz
+background:
+  M: 1.0
+wave:
+  kM: 1.0
+  A_plus:
+    real: 0.9
+    imag: 1.1
+  A_cross:
+    real: 0.4
+    imag: 0.6
+observer:
+  kind: xz_plane
+  x_range:
+    start: -3.0
+    stop: 3.0
+    step: 3.0
+    endpoint: true
+  z_range:
+    start: -3.0
+    stop: 3.0
+    step: 3.0
+    endpoint: true
+  invalid_radius_policy: mask
+numerics:
+  lmax: 4
+  boundary:
+    r_in_eps: 1.0e-6
+    r_out: 80.0
+    rtol: 1.0e-8
+    atol: 1.0e-10
+convergence:
+  enabled: true
+  lmax_values: [2, 3, 4]
+  theta_values: [0.0, 0.2]
+  phi_values: [0.0]
+  selected_threshold: 1.0e-4
+  near_axis_threshold: 1.0e-3

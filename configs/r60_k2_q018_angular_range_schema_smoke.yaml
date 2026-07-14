@@ -1,0 +1,45 @@
+case_id: R60_K2_Q018_ANGULAR_RANGE_SCHEMA_SMOKE
+output: runs/phase5/q018_r60_k2_angular_range_schema_smoke/r60_k2_q018_angular_range_schema_smoke.npz
+background:
+  M: 1.0
+wave:
+  kM: 2.0
+  A_plus: {real: 0.9, imag: 1.1}
+  A_cross: {real: 0.4, imag: 0.6}
+observer:
+  kind: angular
+  r: 60.0
+  theta_range:
+    start: 0.0
+    stop: 3.141592653589793
+    step: 0.7853981633974483
+    endpoint: true
+  phi_range:
+    start: 0.0
+    stop: 6.283185307179586
+    step: 1.5707963267948966
+    endpoint: false
+numerics:
+  lmax: 180
+  boundary:
+    r_in_eps: 1.0e-6
+    r_out: 300.0
+    rtol: 1.0e-10
+    atol: 1.0e-12
+    required_eval_radius: 60.0
+    experimental_required_radius_oracle: q018_riccati
+convergence:
+  enabled: true
+  lmax_values: [108, 132, 156, 180]
+  theta_range:
+    start: 0.0
+    stop: 3.141592653589793
+    step: 0.7853981633974483
+    endpoint: true
+  phi_range:
+    start: 0.0
+    stop: 6.283185307179586
+    step: 1.5707963267948966
+    endpoint: false
+  selected_threshold: 1.0e-4
+  near_axis_threshold: 1.0e-3

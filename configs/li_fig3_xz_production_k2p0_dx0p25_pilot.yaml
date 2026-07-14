@@ -1,0 +1,39 @@
+case_id: LI_FIG3_XZ_K2P0_DX0P25_HIRES_PILOT
+output: runs/phase5/fig3_k2_dx0p25_hires_pilot/t8ae_li_fig3_xz_k2p0_dx0p25.npz
+background:
+  M: 1.0
+wave:
+  kM: 2.0
+  A_plus:
+    real: 0.9
+    imag: 1.1
+  A_cross:
+    real: 0.4
+    imag: 0.6
+observer:
+  kind: xz_plane
+  x_range:
+    start: -30.0
+    stop: 30.0
+    step: 0.25
+    endpoint: true
+  z_range:
+    start: -30.0
+    stop: 30.0
+    step: 0.25
+    endpoint: true
+  invalid_radius_policy: mask
+numerics:
+  lmax: 180
+  boundary:
+    r_in_eps: 1.0e-6
+    r_out: 300.0
+    rtol: 1.0e-10
+    atol: 1.0e-12
+convergence:
+  enabled: true
+  lmax_values: [108, 132, 156, 180]
+  theta_values: [0.0, 0.05, 0.2, 1.0, 2.0, 3.0]
+  phi_values: [0.0, 3.141592653589793]
+  selected_threshold: 1.0e-4
+  near_axis_threshold: 1.0e-3

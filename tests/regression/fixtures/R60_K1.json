@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.2",
+  "case_id": "R60_K1",
+  "conventions": {
+    "fourier": "exp(-i k t)",
+    "units": "G=c=M=1",
+    "gauge": "Regge-Wheeler"
+  },
+  "parameters": {
+    "M": 1.0,
+    "kM": 1.0,
+    "r_obs": 60.0,
+    "A_plus": {"real": 0.9, "imag": 1.1},
+    "A_cross": {"real": 0.4, "imag": 0.6},
+    "lmax": 108,
+    "lmax_values": [60, 72, 84, 96, 108]
+  },
+  "observables": {
+    "selected_points": [
+      {
+        "r": 60.0,
+        "theta": 0.0,
+        "phi": 0.0,
+        "h_plus": {"real": 2.152341645203601, "imag": -1.284110979161381},
+        "h_cross": {"real": 1.285292805620045, "imag": 2.1527579344233767}
+      },
+      {
+        "r": 60.0,
+        "theta": 0.05,
+        "phi": 0.0,
+        "h_plus": {"real": 1.7497967721703878, "imag": -1.2301168758442578},
+        "h_cross": {"real": 1.2177784704967682, "imag": 1.755933131358087}
+      },
+      {
+        "r": 60.0,
+        "theta": 0.2,
+        "phi": 0.0,
+        "h_plus": {"real": -0.26172459480807264, "imag": 0.39975304458025385},
+        "h_cross": {"real": -0.6672074858374689, "imag": -1.179588516124614}
+      },
+      {
+        "r": 60.0,
+        "theta": 1.0,
+        "phi": 0.0,
+        "h_plus": {"real": -0.03488084042106032, "imag": 0.016505372013122244},
+        "h_cross": {"real": -0.3609656752121142, "imag": 0.7651158293764893}
+      }
+    ]
+  },
+  "diagnostics": {
+    "boundary_residual": 7.488863730937846e-16,
+    "wronskian_residual": 9.999994887289445e-09,
+    "flux_residual": 9.999994887289445e-09,
+    "match_condition_number": 1.006711409395973,
+    "lmax_convergence": 7.842210417708576e-13,
+    "near_axis_lmax_convergence": 7.842210417708576e-13,
+    "final_lmax_pair": [96, 108],
+    "radial_diagnostic_warnings": []
+  }
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Rigorous calculation of scalar scattering in Schwarzschild background: the convergence of partial-wave series and Poisson spot",
+    "offset": 3157
+  },
+  {
+    "title": "I Introduction",
+    "offset": 6032
+  },
+  {
+    "title": "II Incident scalar plane wave",
+    "offset": 25831
+  },
+  {
+    "title": "III Newtonian scattering: Weak-field approximated solution",
+    "offset": 65752
+  },
+  {
+    "title": "III.1 Wave equation",
+    "offset": 65915
+  },
+  {
+    "title": "III.2 Solution in paraboloidal coordinate",
+    "offset": 77560
+  },
+  {
+    "title": "III.3 Partial-wave method",
+    "offset": 131120
+  },
+  {
+    "title": "III.4 Differential cross section and its divergence",
+    "offset": 157436
+  },
+  {
+    "title": "IV Black hole scattering",
+    "offset": 220068
+  },
+  {
+    "title": "IV.1 Computational procedure",
+    "offset": 220240
+  },
+  {
+    "title": "IV.2 Numerical results",
+    "offset": 257120
+  },
+  {
+    "title": "IV.3 Scalar scattering as the high-frequency approximation of gravitational wave scattering",
+    "offset": 290294
+  },
+  {
+    "title": "V Summary And Discussion",
+    "offset": 319963
+  },
+  {
+    "title": "Appendix A Series reduction method and differential cross section",
+    "offset": 349142
+  },
+  {
+    "title": "Appendix B Eikonal expansion of linearized Einstein equation",
+    "offset": 368966
+  },
+  {
+    "title": "References",
+    "offset": 386373
+  }
+]

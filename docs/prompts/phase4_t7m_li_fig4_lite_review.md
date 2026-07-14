@@ -1,0 +1,169 @@
+# Phase 4 T7m Prompt: Li Fig.4-Lite Benchmark Review
+
+你现在是 `T7：验证与基准` 线程，slice 名称为 `T7m`。
+
+## 启动条件
+
+- 只在 T8d 完成后启动。
+- 如果 T8d 未生成 `configs/r60_k1_li_fig4_lite.yaml` 或未运行 saved-result benchmark，不要代替 T8 实现；记录 review blocker 并交回 T8/T0。
+
+## 先读
+
+1. `project.md`
+2. `status.md`
+3. `docs/phase3_closeout.md`
+4. `docs/physics_spec.md`
+5. `docs/equation_map.md`
+6. `docs/architecture.md`
+7. `docs/numerics.md`
+8. `docs/validation_plan.md`
+9. `docs/prompts/phase4_t8d_li_fig4_lite_saved_benchmark.md`
+10. `references/manifest.md`
+11. `references/notes/li_hou_zhao_2025_spin_wave_optics.md`
+12. `tests/regression/fixtures/R60_K1.json`
+13. `configs/r60_k1_li_fig4_lite.yaml`
+14. T8d-changed files
+
+## 目标
+
+独立复核 T8d 是否真正建立了第一组 Li Fig.4-like saved benchmark：
+
+- saved result 来自 production CLI `run`
+- plots 只读 saved result
+- convergence metadata 可审计
+- final adjacent pair 通过
+- output 未混入 plotting-side physics formulas
+- T8d 没有把 full Fig.3 spatial wavefield 或 R60_K2/R60_K4 混进本 slice
+
+## 允许修改
+
+- `tests/regression/*`，仅限轻量 review tests 或 metadata checks
+- `docs/validation_plan.md`，仅限 review checklist
+- `status.md`
+
+原则上不要修改 `src/`、`configs/` 或 T8d outputs。若发现问题，优先记录 review failure 并交回 T8/T0。
+
+## 禁止修改
+
+- 不修改 T2-T6 physics code。
+- 不修改 radial solver、Wigner-D/angular code。
+- 不改变 thresholds 或 convention。
+- 不生成 R60_K2/R60_K4。
+- 不实现 transmission factor。
+- 不实现 full Fig.3 x-z spatial-grid schema。
+- 不把 T8c smoke convergence 当作 benchmark evidence。
+
+## 复核任务
+
+1. Config review
+   - Confirm `configs/r60_k1_li_fig4_lite.yaml` uses:
+     - `case_id=R60_K1_LI_FIG4_LITE`
+     - `M=1`
+     - `kM=1`
+     - `r=60`
+     - `A_plus=0.9+1.1j`
+     - `A_cross=0.4+0.6j`
+     - `lmax_values=[60,72,84,96,108]`
+     - `numerics.lmax=108`
+   - Confirm it is fixed-radius angular output, not spatial x-z plane.
+
+2. Saved-result review
+   - Re-run T8d NPZ artifact or inspect existing `/tmp/t8d_r60_k1_li_fig4_lite.npz`.
+   - Confirm metadata JSON is parseable without pickle.
+   - Confirm arrays are finite and complex:
+     - `h_plus.shape == (9,1)` unless T8d documented a smaller stopped run.
+     - `h_cross.shape == (9,1)` unless T8d documented a smaller stopped run.
+   - Confirm `diagnostics.lmax_convergence_history` exists.
+   - Confirm `diagnostics.final_lmax_pair == [96,108]`.
+   - Confirm `diagnostics.lmax_convergence_policy.final_pair_passed is true`.
+   - Compare selected points `[theta=0,0.05,0.2,1.0,phi=0]` against `tests/regression/fixtures/R60_K1.json` within a strict regression tolerance, unless T8d explicitly stopped before generating a benchmark-quality result.
+
+3. Plot review
+   - Generate or inspect:
+     - `/tmp/t7m_r60_k1_hplus_abs.png`
+     - `/tmp/t7m_r60_k1_hcross_abs.png`
+     - `/tmp/t7m_r60_k1_convergence.png`
+   - Confirm PNGs are non-empty and sidecar JSON records:
+     - source result path
+     - case id
+     - component/quantity for wavefield plots
+     - `kM`
+     - observer radius
+     - `lmax_values`
+     - final adjacent pair
+     - thresholds
+     - final pass/fail flag
+
+4. Read-only plotting boundary
+   - Scan `src/schwgw/viz/*`.
+   - Confirm no imports from:
+     - `schwgw.scattering`
+     - `schwgw.perturbations`
+     - `schwgw.angular`
+     - `schwgw.numerics`
+     - `schwgw.backgrounds`
+   - Confirm `plot-convergence` does not call `compute_polarization(...)` or `run_solver_grid(...)`.
+
+5. Physics scope review
+   - Confirm Q014 remains closed and Route B unchanged.
+   - Confirm Q015 remains a separate warning/metadata issue.
+   - Confirm Q016 permanent high-`ell` tests still run.
+   - Confirm T8d result is described as Fig.4-like angular diffraction lite only.
+   - Confirm full Li Fig.3 x-z spatial wavefield is still deferred to a later T8e schema/output slice.
+
+## 必须运行
+
+```bash
+PYTHONPATH=src /opt/homebrew/bin/python3 -m pytest -q tests/unit/test_io_config.py tests/unit/test_io_results.py tests/unit/test_viz_results.py tests/unit/test_wigner.py tests/unit/test_spin_weighted_harmonics.py tests/regression
+PYTHONPATH=src /opt/homebrew/bin/python3 -m schwgw.cli run configs/r60_k1_li_fig4_lite.yaml --out /tmp/t7m_r60_k1_li_fig4_lite.npz
+PYTHONPATH=src /opt/homebrew/bin/python3 -m schwgw.cli plot-wavefield /tmp/t7m_r60_k1_li_fig4_lite.npz --component h_plus --quantity abs --out /tmp/t7m_r60_k1_hplus_abs.png
+PYTHONPATH=src /opt/homebrew/bin/python3 -m schwgw.cli plot-wavefield /tmp/t7m_r60_k1_li_fig4_lite.npz --component h_cross --quantity abs --out /tmp/t7m_r60_k1_hcross_abs.png
+PYTHONPATH=src /opt/homebrew/bin/python3 -m schwgw.cli plot-convergence /tmp/t7m_r60_k1_li_fig4_lite.npz --out /tmp/t7m_r60_k1_convergence.png
+PYTHONPATH=src /opt/homebrew/bin/python3 -m pytest -q
+```
+
+Run an explicit metadata inspection script or one-liner of your choice and record:
+
+- final pair
+- final pair pass/fail
+- max relative change
+- near-axis max relative change
+- max boundary residual
+- max Wronskian/flux residual
+- radial warning count
+- selected-point regression differences versus `tests/regression/fixtures/R60_K1.json`
+
+If HDF5 was generated by T8d and `h5py` is available:
+
+```bash
+PYTHONPATH=src /opt/homebrew/bin/python3 -m schwgw.cli plot-convergence /tmp/t8d_r60_k1_li_fig4_lite.h5 --out /tmp/t7m_r60_k1_convergence_h5.png
+```
+
+## 停止条件
+
+Stop and report to T0 if any of these occur:
+
+- final pair does not pass thresholds.
+- selected-point values disagree with R60_K1 fixture beyond numerical tolerance.
+- T8d changed production physics or conventions.
+- plotting imports or calls physics solver.
+- result metadata lacks convergence history or final pass/fail.
+- tests fail outside this review's allowed scope.
+- result is too slow for repeatable local review.
+
+## 完成后
+
+Update `status.md` with:
+
+- changed files
+- commands run
+- test results
+- artifact paths
+- convergence metadata summary
+- selected-point regression comparison
+- read-only plotting boundary result
+- open issues
+- go/no-go recommendation:
+  - If passed: next T8 slice should be `T8e` spatial x-z grid schema for Li Fig.3-lite, still no transmission factor.
+  - If failed: return to T8d with exact failure mode.
+

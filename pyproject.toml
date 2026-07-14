@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "schw-gw-waveoptics"
+version = "0.0.0"
+description = "Finite-radius partial-wave solver for Schwarzschild gravitational-wave wave optics"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "scipy",
+  "matplotlib",
+  "pyyaml",
+  "h5py",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy"]
+perf = ["numba", "joblib"]
+oracle = ["mpmath"]
+
+[project.scripts]
+schwgw = "schwgw.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "physics: tests that require implemented physics or numerical solver oracles",
+  "regression: selected-value regression fixture checks",
+  "full_regression: larger benchmark/regression checks outside the fast local suite",
+]

@@ -1,0 +1,23 @@
+case_id: R60_K1_SMOKE
+output: /tmp/r60_k1_smoke.npz
+background:
+  M: 1.0
+wave:
+  kM: 1.0
+  A_plus:
+    real: 0.9
+    imag: 1.1
+  A_cross:
+    real: 0.4
+    imag: 0.6
+observer:
+  r: 60.0
+  theta_values: [0.0]
+  phi_values: [0.0]
+numerics:
+  lmax: 2
+  boundary:
+    r_in_eps: 1.0e-6
+    r_out: 120.0
+    rtol: 1.0e-9
+    atol: 1.0e-11

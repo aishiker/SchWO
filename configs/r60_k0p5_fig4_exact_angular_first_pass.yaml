@@ -1,0 +1,61 @@
+case_id: R60_K0P5_FIG4_EXACT_ANGULAR_FIRST_PASS
+output: runs/phase5/fig4_exact_angular_k0p5/r60_k0p5_fig4_exact_angular_first_pass.npz
+background:
+  M: 1.0
+wave:
+  kM: 0.5
+  A_plus: {real: 0.9, imag: 1.1}
+  A_cross: {real: 0.4, imag: 0.6}
+observer:
+  kind: angular
+  r: 60.0
+  theta_range:
+    start: 0.0
+    stop: 3.141592653589793
+    step: 0.04908738521234052
+    endpoint: true
+  phi_range:
+    start: 0.0
+    stop: 6.283185307179586
+    step: 0.09817477042468103
+    endpoint: false
+numerics:
+  lmax: 84
+  boundary:
+    r_in_eps: 1.0e-6
+    r_out: 300.0
+    rtol: 1.0e-10
+    atol: 1.0e-12
+    required_eval_radius: 60.0
+convergence:
+  enabled: true
+  lmax_values: [36, 48, 60, 72, 84]
+  theta_values:
+    - 0.0
+    - 0.19634954084936207
+    - 0.39269908169872414
+    - 0.5890486225480862
+    - 0.7853981633974483
+    - 0.9817477042468103
+    - 1.1780972450961724
+    - 1.3744467859455345
+    - 1.5707963267948966
+    - 1.7671458676442586
+    - 1.9634954084936207
+    - 2.1598449493429825
+    - 2.356194490192345
+    - 2.552544031041707
+    - 2.748893571891069
+    - 2.945243112740431
+    - 3.141592653589793
+  phi_values:
+    - 0.0
+    - 0.7853981633974483
+    - 1.5707963267948966
+    - 2.356194490192345
+    - 3.141592653589793
+    - 3.9269908169872414
+    - 4.71238898038469
+    - 5.497787143782138
+  selected_threshold: 1.0e-4
+  near_axis_threshold: 1.0e-3
