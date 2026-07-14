@@ -29,6 +29,12 @@ from schwgw.io.tablei import (
     builtin_tablei_points,
     extract_tablei_four_frequency_from_amplification_results,
 )
+from schwgw.io.tablei_risk_pilot import (
+    PILOT_FREQUENCIES,
+    PILOT_LMAX_VALUES,
+    PilotContractError,
+    run_delta0p1_risk_pilot,
+)
 
 __all__ = [
     "BackgroundConfig",
@@ -39,6 +45,9 @@ __all__ = [
     "AmplificationGridResult",
     "NumericsConfig",
     "ObserverConfig",
+    "PILOT_FREQUENCIES",
+    "PILOT_LMAX_VALUES",
+    "PilotContractError",
     "ResultFormatError",
     "SolverConfig",
     "TABLEI_POINTS",
@@ -54,4 +63,5 @@ __all__ = [
     "run_solver_grid",
     "save_amplification_results",
     "save_results",
+    "run_delta0p1_risk_pilot",
 ]
