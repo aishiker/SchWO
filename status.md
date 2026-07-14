@@ -61,6 +61,14 @@
   - progress is atomically checkpointed per frequency;
   - only explicit capacity/system interruption with healthy scientific/test/
     scope state permits same-task Terra/high recovery.
+- Dispatch result:
+  - frozen T4z prompt was sent to existing T4 task
+    `019f5fa6-1288-7c01-8a87-4c4370cf5517` with `gpt-5.6-sol/high`;
+  - the T4 task is confirmed `active`;
+  - T7 and T8 remain unstarted for this chain;
+  - heartbeat `monitor-t4z-t7bv-t8an-t7bw-risk-pilot` is active at a
+    20-minute interval and enforces checkpoint-safe capacity recovery and
+    exact-GREEN-only downstream dispatch.
 - Non-claims:
   - no 40/79-frequency production, `0.05` scan, Kirchhoff recomputation,
     interpolation/smoothing/fill, plot, fixture, or paper-style stage is

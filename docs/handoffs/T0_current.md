@@ -178,7 +178,11 @@ GitHub sync completed
 - T8 task: `019f5ece-f578-7b91-8f61-df882c656591`.
 - T7 task: `019f5ed1-b421-7ec2-9bac-8d134855a1ed`.
 - T8am and T7bu are complete; their old monitor is deleted.
-- A new T4z→T7bv→T8an→T7bw monitor is created only after T4z dispatch.
+- T4z prompt was sent to the existing T4 task with `gpt-5.6-sol/high`; the
+  task is confirmed active.
+- Heartbeat `monitor-t4z-t7bv-t8an-t7bw-risk-pilot` is active every 20
+  minutes. It enforces exact-GREEN-only dispatch and same-task,
+  checkpoint-safe capacity recovery.
 
 ## Exact Next Action
 
@@ -196,8 +200,8 @@ Frozen plans/prompts (`55b843f`):
 - `docs/prompts/phase5_t8an_delta0p1_nine_frequency_risk_pilot.md`;
 - `docs/prompts/phase5_t7bw_delta0p1_risk_pilot_review.md`.
 
-Exact next action: send the frozen T4z prompt to existing T4 task with
-`gpt-5.6-sol/high`. Only exact T4z GREEN dispatches T7bv. T7bv never starts
+Exact next action: monitor the active T4z task without interfering with a
+healthy long run. Only exact T4z GREEN dispatches T7bv. T7bv never starts
 T8an; it returns to T0, which alone may dispatch T8an after independently
 checking exact GREEN. T8an exact GREEN may dispatch T7bw. Every other state
 stops and returns to T0.
