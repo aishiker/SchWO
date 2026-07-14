@@ -349,6 +349,33 @@ class RadialSolverPhysicsTests(unittest.TestCase):
                 self.assertIn("bidirectional", metadata["fallback_failure_message"])
                 json.dumps(metadata)
 
+    def test_delta0p1_risk_pilot_transition_recovers_only_inside_exact_envelope(self) -> None:
+        bg = SchwarzschildBackground(M=1.0)
+        required_radius = float(np.sqrt(15.0**2 + 30.0**2))
+        config = BoundaryConfig(
+            r_in_eps=1e-6,
+            r_out=300.0,
+            rtol=1e-10,
+            atol=1e-12,
+            required_eval_radius=required_radius,
+            experimental_required_radius_oracle=(
+                "q018_tablei_delta0p1_risk_pilot_transition"
+            ),
+        )
+
+        for sector in (Sector.ODD, Sector.EVEN):
+            with self.subTest(sector=sector.value):
+                solution = solve_radial_mode(sector, 164, 2.8, bg, config)
+                self.assertEqual(
+                    solution.diagnostics.solver,
+                    "q018_tablei_delta0p1_risk_pilot_transition_oracle",
+                )
+                self.assertEqual(solution.valid_until_r, required_radius)
+                self.assertEqual(
+                    solution.diagnostics.warnings[0].code,
+                    "q018_tablei_delta0p1_risk_pilot_transition_oracle_used",
+                )
+
 
 def _mode_diagnostic(sector: Sector, ell: int, k: float, r_out: float) -> ModeDiagnostic:
     bg = SchwarzschildBackground(M=1.0)

@@ -16,6 +16,11 @@ from schwgw.numerics.boundary_conditions import (
     radial_domain,
 )
 from schwgw.numerics.matching import match_outer_asymptotic
+from schwgw.numerics.q018_delta0p1_risk_envelope import (
+    FREQUENCIES as _Q018_DELTA0P1_RISK_FREQUENCIES,
+    POINTS as _Q018_DELTA0P1_RISK_POINTS,
+    TRANSITION_SEGMENTS as _Q018_DELTA0P1_RISK_TRANSITION_SEGMENTS,
+)
 from schwgw.perturbations import Sector, V_RW, V_Zerilli
 
 
@@ -39,6 +44,10 @@ _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME = (
 )
 _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_SOLVER = (
     "q018_tablei_review_grid_transition_oracle"
+)
+_Q018_DELTA0P1_RISK_ORACLE_NAME = "q018_tablei_delta0p1_risk_pilot_transition"
+_Q018_DELTA0P1_RISK_ORACLE_SOLVER = (
+    "q018_tablei_delta0p1_risk_pilot_transition_oracle"
 )
 _Q018_REQUIRED_RADIUS = 60.0
 _Q018_REQUIRED_R_OUT = 300.0
@@ -201,6 +210,7 @@ _SUPPORTED_REQUIRED_RADIUS_ORACLE_NAMES = (
     _Q018_REQUIRED_RADIUS_ORACLE_NAME,
     _Q018_TABLEI_KM4_TRANSITION_ORACLE_NAME,
     _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME,
+    _Q018_DELTA0P1_RISK_ORACLE_NAME,
 )
 
 
@@ -367,6 +377,17 @@ def solve_radial_mode(
         )
     if oracle_name == _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME:
         _validate_q018_tablei_review_grid_transition_oracle_envelope(
+            sector=sector_enum,
+            ell=ell,
+            k=k,
+            background=background,
+            config=config,
+            r_out=r_out,
+            barrier_action=barrier_action,
+            validate_mode=False,
+        )
+    if oracle_name == _Q018_DELTA0P1_RISK_ORACLE_NAME:
+        _validate_q018_delta0p1_risk_oracle_envelope(
             sector=sector_enum,
             ell=ell,
             k=k,
@@ -1299,6 +1320,28 @@ def _solve_radial_mode_required_radius_oracle(
         experimental_evidence = (
             "T4y complete measured Fig.5/Fig.6 review-grid transition set"
         )
+    elif oracle_name == _Q018_DELTA0P1_RISK_ORACLE_NAME:
+        _validate_q018_delta0p1_risk_oracle_envelope(
+            sector=sector,
+            ell=ell,
+            k=k,
+            background=background,
+            config=config,
+            r_out=r_out,
+            barrier_action=barrier_action,
+        )
+        solver_name = _Q018_DELTA0P1_RISK_ORACLE_SOLVER
+        warning_code = "q018_tablei_delta0p1_risk_pilot_transition_oracle_used"
+        ode_status = "Q018 Delta0p1 risk-pilot transition opt-in oracle used"
+        warning_message = (
+            "Reviewed Q018 opt-in required-radius oracle used for the "
+            "T4z Delta0p1 risk-pilot transition envelope; the returned "
+            "solution is only certified at required_eval_radius."
+        )
+        production_review_id = "T4z/T7bv-pending"
+        experimental_evidence = (
+            "T4z complete measured Delta0p1 risk-pilot transition set"
+        )
     else:
         raise ValueError(
             "unsupported experimental_required_radius_oracle: "
@@ -1398,6 +1441,10 @@ def _solve_radial_mode_required_radius_oracle(
     }
     if oracle_name == _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME:
         point_id = _q018_tablei_review_grid_point_id(required_radius)
+        if point_id is not None:
+            oracle_metadata["review_grid_point_id"] = point_id
+    elif oracle_name == _Q018_DELTA0P1_RISK_ORACLE_NAME:
+        point_id = _q018_delta0p1_risk_point_id(required_radius)
         if point_id is not None:
             oracle_metadata["review_grid_point_id"] = point_id
     warning = RadialDiagnosticWarning(
@@ -1730,6 +1777,127 @@ def _q018_tablei_review_grid_mode_allowed(
     point_id: str,
 ) -> bool:
     for ell_min, ell_max, point_ids in _Q018_TABLEI_REVIEW_GRID_TRANSITION_SEGMENTS[k]:
+        if ell_min <= int(ell) <= ell_max and point_id in point_ids:
+            return True
+    return False
+
+
+def _validate_q018_delta0p1_risk_oracle_envelope(
+    *,
+    sector: Sector,
+    ell: int,
+    k: float,
+    background: StaticSphericalBackground,
+    config: BoundaryConfig,
+    r_out: float,
+    barrier_action: float,
+    validate_mode: bool = True,
+) -> None:
+    """Require literal T4z risk-pilot membership, without interpolation."""
+    reasons: list[str] = []
+    point_id = (
+        None
+        if config.required_eval_radius is None
+        else _q018_delta0p1_risk_point_id(float(config.required_eval_radius))
+    )
+    normalized_k = _q018_delta0p1_risk_k(float(k))
+    if getattr(background, "name", None) != "schwarzschild":
+        reasons.append("background is not Schwarzschild")
+    if not _strict_float_equal(float(getattr(background, "M", np.nan)), _Q018_REQUIRED_M):
+        reasons.append("M is not 1")
+    if validate_mode and sector not in (Sector.ODD, Sector.EVEN):
+        reasons.append("sector is outside reviewed matrix")
+    if normalized_k is None:
+        reasons.append("k is outside measured risk-pilot matrix")
+    if config.required_eval_radius is None:
+        reasons.append("required_eval_radius is missing")
+    elif point_id is None:
+        reasons.append("required_eval_radius is outside measured Table-I radii")
+    if (
+        validate_mode
+        and normalized_k is not None
+        and point_id is not None
+        and not _q018_delta0p1_risk_mode_allowed(
+            k=normalized_k,
+            ell=ell,
+            point_id=point_id,
+        )
+    ):
+        reasons.append("mode is outside measured transition set")
+    if not _strict_float_equal(float(r_out), _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT):
+        reasons.append("r_out is outside reviewed matrix")
+    if not _strict_float_equal(float(config.r_in_eps), _Q018_REQUIRED_R_IN_EPS):
+        reasons.append("r_in_eps is outside reviewed matrix")
+    if not _strict_float_equal(float(config.rtol), _Q018_REQUIRED_RTOL):
+        reasons.append("rtol is outside reviewed matrix")
+    if not _strict_float_equal(float(config.atol), _Q018_REQUIRED_ATOL):
+        reasons.append("atol is outside reviewed matrix")
+
+    if reasons:
+        metadata: dict[str, str | int | float | bool] = {
+            "code": "q018_experimental_oracle_out_of_envelope",
+            "severity": "error",
+            "message": (
+                "Q018 reviewed opt-in oracle was requested outside the "
+                "T4z Delta0p1 risk-pilot transition validated envelope."
+            ),
+            "experimental_required_radius_oracle": _Q018_DELTA0P1_RISK_ORACLE_NAME,
+            "sector": sector.value,
+            "ell": int(ell),
+            "k": float(k),
+            "background_name": str(getattr(background, "name", "<unknown>")),
+            "M": float(getattr(background, "M", np.nan)),
+            "r_out": float(r_out),
+            "required_eval_radius": (
+                float("nan")
+                if config.required_eval_radius is None
+                else float(config.required_eval_radius)
+            ),
+            "r_in_eps": float(config.r_in_eps),
+            "rtol": float(config.rtol),
+            "atol": float(config.atol),
+            "barrier_action": float(barrier_action),
+            "allowed_k": ",".join(
+                f"{allowed_k:.17g}" for allowed_k in _Q018_DELTA0P1_RISK_FREQUENCIES
+            ),
+            "allowed_M": _Q018_REQUIRED_M,
+            "allowed_required_eval_radii": ",".join(
+                f"{radius:.17g}" for _, radius in _Q018_DELTA0P1_RISK_POINTS
+            ),
+            "allowed_r_out": _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT,
+            "review_grid_point_id": "" if point_id is None else point_id,
+            "validated_transition_segments": (
+                "T4z complete measured Delta0p1 risk-pilot transition set"
+            ),
+            "rejection_reasons": "; ".join(reasons),
+        }
+        raise RuntimeError(
+            "q018_experimental_oracle_out_of_envelope: structured radial no-go; "
+            f"metadata={json.dumps(metadata, sort_keys=True)}"
+        )
+
+
+def _q018_delta0p1_risk_point_id(required_radius: float) -> str | None:
+    for point_id, radius in _Q018_DELTA0P1_RISK_POINTS:
+        if _strict_float_equal(float(required_radius), radius):
+            return point_id
+    return None
+
+
+def _q018_delta0p1_risk_k(k: float) -> float | None:
+    for allowed_k in _Q018_DELTA0P1_RISK_FREQUENCIES:
+        if _strict_float_equal(float(k), allowed_k):
+            return allowed_k
+    return None
+
+
+def _q018_delta0p1_risk_mode_allowed(
+    *,
+    k: float,
+    ell: int,
+    point_id: str,
+) -> bool:
+    for ell_min, ell_max, point_ids in _Q018_DELTA0P1_RISK_TRANSITION_SEGMENTS[k]:
         if ell_min <= int(ell) <= ell_max and point_id in point_ids:
             return True
     return False

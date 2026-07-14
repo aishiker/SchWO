@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 import schwgw.numerics as public_numerics
+import schwgw.numerics.radial_solver as radial_solver_module
 from schwgw.backgrounds.schwarzschild import SchwarzschildBackground
 from schwgw.numerics import BoundaryConfig, RadialSolution, solve_radial_mode
 import schwgw.numerics.experimental.q018_rescaled_oracle as q018_oracle_module
@@ -11,6 +12,7 @@ from schwgw.numerics.experimental.q018_rescaled_oracle import (
     RescaledOracleRequest,
     solve_q018_rescaled_oracle,
 )
+from schwgw.numerics.q018_delta0p1_risk_envelope import POINTS as RISK_POINTS
 from schwgw.perturbations import Sector
 
 
@@ -45,6 +47,27 @@ Q018_REVIEW_GRID_TRANSITION_ANCHORS = (
     (Sector.EVEN, 3.5, 172, "near_axis_x2_z30", float(np.sqrt(2.0**2 + 30.0**2))),
     (Sector.ODD, 3.75, 228, "far_axis_x25_z30", float(np.sqrt(25.0**2 + 30.0**2))),
     (Sector.EVEN, 4.0, 240, "far_axis_x25_z30", float(np.sqrt(25.0**2 + 30.0**2))),
+)
+
+Q018_DELTA0P1_RISK_FREQUENCIES = (0.4, 0.8, 0.9, 1.6, 1.7, 2.8, 2.9, 3.8, 3.9)
+Q018_DELTA0P1_RISK_ORACLE = "q018_tablei_delta0p1_risk_pilot_transition"
+Q018_DELTA0P1_LMAX = {
+    0.4: (24, 36, 60, 84),
+    0.8: (24, 36, 60, 84),
+    0.9: (24, 36, 60, 84),
+    1.6: (72, 96, 120, 144),
+    1.7: (84, 108, 132, 156),
+    2.8: (180, 204, 228, 252),
+    2.9: (192, 216, 240, 264),
+    3.8: (276, 300, 324, 348),
+    3.9: (288, 312, 336, 360),
+}
+Q018_DELTA0P1_POINT_RADII = dict(RISK_POINTS)
+Q018_DELTA0P1_RISK_TRANSITION_ANCHORS = (
+    (Sector.ODD, 2.8, 164, "far_axis_x15_z30"),
+    (Sector.EVEN, 2.9, 165, "near_axis_x0_z30"),
+    (Sector.ODD, 3.8, 175, "near_axis_x0_z30"),
+    (Sector.EVEN, 3.9, 176, "near_axis_x0_z30"),
 )
 
 
@@ -105,6 +128,207 @@ def _tablei_review_grid_oracle_request(
         precision_dps=80,
         method_hint="rescaled_log_amplitude",
     )
+
+
+def _delta0p1_risk_boundary_config(
+    required_eval_radius: float,
+    **overrides,
+) -> BoundaryConfig:
+    return _tablei_review_grid_boundary_config(required_eval_radius, **overrides)
+
+
+def _delta0p1_risk_oracle_request(
+    sector: Sector,
+    k: float,
+    ell: int,
+    required_radius: float,
+) -> RescaledOracleRequest:
+    return _tablei_review_grid_oracle_request(sector, k, ell, required_radius)
+
+
+def test_delta0p1_risk_adapter_name_is_supported() -> None:
+    background = SchwarzschildBackground(M=1.0)
+    config = _tablei_review_grid_boundary_config(
+        float(np.sqrt(25.0**2 + 30.0**2)),
+        experimental_required_radius_oracle=Q018_DELTA0P1_RISK_ORACLE,
+    )
+
+    solution = solve_radial_mode(Sector.ODD, 190, 2.8, background, config)
+
+    assert isinstance(solution, RadialSolution)
+
+
+@pytest.mark.physics
+@pytest.mark.parametrize(
+    ("sector", "k", "ell", "point_id"),
+    Q018_DELTA0P1_RISK_TRANSITION_ANCHORS,
+)
+def test_delta0p1_risk_adapter_returns_oracle_solution_on_each_transition_frequency(
+    sector: Sector,
+    k: float,
+    ell: int,
+    point_id: str,
+) -> None:
+    required_radius = Q018_DELTA0P1_POINT_RADII[point_id]
+    background = SchwarzschildBackground(M=1.0)
+    config = _delta0p1_risk_boundary_config(
+        required_radius,
+        experimental_required_radius_oracle=Q018_DELTA0P1_RISK_ORACLE,
+    )
+
+    solution = solve_radial_mode(sector, ell, k, background, config)
+
+    assert isinstance(solution, RadialSolution)
+    assert solution.sector is sector
+    assert solution.ell == ell
+    assert solution.k == k
+    assert solution.valid_until_r == required_radius
+    assert solution.diagnostics.solver == (
+        "q018_tablei_delta0p1_risk_pilot_transition_oracle"
+    )
+    assert solution.diagnostics.ode_status == (
+        "Q018 Delta0p1 risk-pilot transition opt-in oracle used"
+    )
+    assert len(solution.diagnostics.warnings) == 1
+    metadata = solution.diagnostics.warnings[0].to_metadata()
+    assert metadata["code"] == (
+        "q018_tablei_delta0p1_risk_pilot_transition_oracle_used"
+    )
+    assert metadata["experimental_required_radius_oracle"] == Q018_DELTA0P1_RISK_ORACLE
+    assert metadata["production_integration_review_id"] == "T4z/T7bv-pending"
+    assert metadata["experimental_evidence"] == (
+        "T4z complete measured Delta0p1 risk-pilot transition set"
+    )
+    assert metadata["review_grid_point_id"] == point_id
+    assert metadata["required_eval_radius"] == required_radius
+    assert metadata["outer_boundary_residual"] < 1e-8
+    assert metadata["normalization_residual"] < 1e-8
+    assert metadata["log_derivative_match_residual"] < 1e-7
+
+
+@pytest.mark.parametrize(
+    ("sector", "k", "ell", "point_id"),
+    Q018_DELTA0P1_RISK_TRANSITION_ANCHORS,
+)
+def test_delta0p1_risk_adapter_matches_direct_oracle_on_transition_anchors(
+    sector: Sector,
+    k: float,
+    ell: int,
+    point_id: str,
+) -> None:
+    required_radius = Q018_DELTA0P1_POINT_RADII[point_id]
+    background = SchwarzschildBackground(M=1.0)
+    config = _delta0p1_risk_boundary_config(
+        required_radius,
+        experimental_required_radius_oracle=Q018_DELTA0P1_RISK_ORACLE,
+    )
+
+    solution = solve_radial_mode(sector, ell, k, background, config)
+    oracle = solve_q018_rescaled_oracle(
+        _delta0p1_risk_oracle_request(sector, k, ell, required_radius),
+        background,
+    )
+
+    assert solution.A_in == pytest.approx(oracle.A_in, rel=0.0, abs=1e-12)
+    assert solution.A_out == pytest.approx(oracle.A_out, rel=1e-12, abs=1e-18)
+    assert solution.psi_at(required_radius) == pytest.approx(
+        oracle.psi,
+        rel=1e-12,
+        abs=1e-24,
+    )
+    assert solution.dpsi_dr_at(required_radius) == pytest.approx(
+        oracle.dpsi_dr,
+        rel=1e-12,
+        abs=1e-24,
+    )
+
+
+@pytest.mark.physics
+@pytest.mark.parametrize("k", Q018_DELTA0P1_RISK_FREQUENCIES)
+@pytest.mark.parametrize("sector", (Sector.ODD, Sector.EVEN))
+def test_delta0p1_risk_opt_in_keeps_default_covered_modes_on_production_path(
+    sector: Sector,
+    k: float,
+) -> None:
+    required_radius = Q018_DELTA0P1_POINT_RADII["near_axis_x0_z30"]
+    background = SchwarzschildBackground(M=1.0)
+    config = _delta0p1_risk_boundary_config(
+        required_radius,
+        experimental_required_radius_oracle=Q018_DELTA0P1_RISK_ORACLE,
+    )
+
+    solution = solve_radial_mode(sector, 2, k, background, config)
+
+    assert isinstance(solution, RadialSolution)
+    assert solution.diagnostics.solver != (
+        "q018_tablei_delta0p1_risk_pilot_transition_oracle"
+    )
+    assert all(
+        warning.code != "q018_tablei_delta0p1_risk_pilot_transition_oracle_used"
+        for warning in solution.diagnostics.warnings
+    )
+
+
+@pytest.mark.parametrize(
+    ("background", "k", "required_radius", "config_overrides"),
+    (
+        (SchwarzschildBackground(M=1.01), 2.8, Q018_DELTA0P1_POINT_RADII["far_axis_x15_z30"], {}),
+        (SchwarzschildBackground(M=1.0), 2.81, Q018_DELTA0P1_POINT_RADII["far_axis_x15_z30"], {}),
+        (SchwarzschildBackground(M=1.0), 2.8, 36.1, {}),
+        (SchwarzschildBackground(M=1.0), 2.8, Q018_DELTA0P1_POINT_RADII["far_axis_x15_z30"], {"r_out": 301.0}),
+        (SchwarzschildBackground(M=1.0), 2.8, Q018_DELTA0P1_POINT_RADII["far_axis_x15_z30"], {"rtol": 1e-9}),
+        (SchwarzschildBackground(M=1.0), 2.8, Q018_DELTA0P1_POINT_RADII["far_axis_x15_z30"], {"atol": 1e-11}),
+    ),
+)
+def test_delta0p1_risk_adapter_rejects_out_of_envelope_global_axes(
+    background: SchwarzschildBackground,
+    k: float,
+    required_radius: float,
+    config_overrides: dict[str, float],
+) -> None:
+    config = _delta0p1_risk_boundary_config(
+        required_radius,
+        experimental_required_radius_oracle=Q018_DELTA0P1_RISK_ORACLE,
+        **config_overrides,
+    )
+
+    with pytest.raises(
+        RuntimeError,
+        match="q018_experimental_oracle_out_of_envelope",
+    ) as raised:
+        solve_radial_mode(Sector.ODD, 164, k, background, config)
+
+    metadata = json.loads(str(raised.value).split("metadata=", 1)[1])
+    assert metadata["experimental_required_radius_oracle"] == Q018_DELTA0P1_RISK_ORACLE
+
+
+@pytest.mark.parametrize(
+    ("ell", "point_id"),
+    ((164, "near_axis_x0_z30"), (163, "far_axis_x15_z30")),
+)
+def test_delta0p1_risk_adapter_rejects_unmeasured_ell_or_point_membership(
+    ell: int,
+    point_id: str,
+) -> None:
+    background = SchwarzschildBackground(M=1.0)
+    config = _delta0p1_risk_boundary_config(Q018_DELTA0P1_POINT_RADII[point_id])
+
+    with pytest.raises(
+        RuntimeError,
+        match="q018_experimental_oracle_out_of_envelope",
+    ) as raised:
+        radial_solver_module._validate_q018_delta0p1_risk_oracle_envelope(
+            sector=Sector.ODD,
+            ell=ell,
+            k=2.8,
+            background=background,
+            config=config,
+            r_out=300.0,
+            barrier_action=800.0,
+        )
+
+    metadata = json.loads(str(raised.value).split("metadata=", 1)[1])
+    assert "mode is outside measured transition set" in metadata["rejection_reasons"]
 
 
 @pytest.mark.physics
