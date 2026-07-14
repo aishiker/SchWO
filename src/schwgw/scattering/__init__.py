@@ -1,5 +1,9 @@
 """Partial-wave assembly and observable extraction."""
 
+from schwgw.scattering.kirchhoff import (
+    KirchhoffEq47Result,
+    compute_kirchhoff_eq47,
+)
 from schwgw.scattering.tetrads import (
     NullTetrad,
     incident_cartesian_tetrad,
@@ -46,6 +50,7 @@ from schwgw.scattering.weyl import (
 
 __all__ = [
     "ElectricTidalComponents",
+    "KirchhoffEq47Result",
     "NullTetrad",
     "PackagedPolarizationScalars",
     "PointwiseAmplificationResult",
@@ -57,6 +62,7 @@ __all__ = [
     "compute_flat_no_lens_partial_wave_diagnostic",
     "compute_flat_no_lens_partial_wave_strict_np_weyl",
     "compute_packaged_polarization_scalars",
+    "compute_kirchhoff_eq47",
     "compute_polarization",
     "compute_pointwise_amplification",
     "direct_cartesian_tt_packaged_weyl",
