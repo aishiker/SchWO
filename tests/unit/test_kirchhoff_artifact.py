@@ -49,6 +49,44 @@ POINT_IDS = np.array(
 )
 PAPER_XI = np.array([0.0, 0.0913, 0.1828, 0.2745, 0.9372, 1.4479, 2.0015, 2.6038])
 
+EXPECTED_UNITS = {
+    "kM_values": "dimensionless (M k)",
+    "point_ids": "identifier",
+    "point_x": "dimensionless (x/M)",
+    "point_y": "dimensionless (y/M)",
+    "point_z": "dimensionless (z/M)",
+    "point_r": "dimensionless (r/M)",
+    "point_theta": "radian",
+    "paper_xi_over_xi0": "dimensionless",
+    "gamma": "dimensionless",
+    "eta": "dimensionless",
+    "eta_minus_paper": "dimensionless",
+    "F_kirchhoff_complex": "dimensionless",
+    "abs_F_kirchhoff": "dimensionless",
+    "arg_F_kirchhoff_principal": "radian",
+    "arg_F_kirchhoff_unwrapped": "radian",
+    "valid_kirchhoff_mask": "boolean",
+}
+
+EXPECTED_DTYPES = {
+    "kM_values": "float64",
+    "point_ids": "<U16",
+    "point_x": "float64",
+    "point_y": "float64",
+    "point_z": "float64",
+    "point_r": "float64",
+    "point_theta": "float64",
+    "paper_xi_over_xi0": "float64",
+    "gamma": "float64",
+    "eta": "float64",
+    "eta_minus_paper": "float64",
+    "F_kirchhoff_complex": "complex128",
+    "abs_F_kirchhoff": "float64",
+    "arg_F_kirchhoff_principal": "float64",
+    "arg_F_kirchhoff_unwrapped": "float64",
+    "valid_kirchhoff_mask": "bool",
+}
+
 
 def _file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -116,7 +154,28 @@ def test_generate_kirchhoff_review_grid_artifact_contract(tmp_path: Path) -> Non
         assert data["F_kirchhoff_complex"].shape == (18, 8)
         assert data["valid_kirchhoff_mask"].all()
         assert np.max(np.abs(data["eta_minus_paper"])) < 5.0e-5
+        embedded = json.loads(str(data["metadata_json"].item()))
+        assert embedded["schema_version"] == (
+            "phase5_t8al_kirchhoff_review_grid_v2_units_dtype"
+        )
+        assert embedded["units"] == EXPECTED_UNITS
+        assert embedded["dtype"] == EXPECTED_DTYPES
+        for name, expected_dtype in EXPECTED_DTYPES.items():
+            assert str(data[name].dtype) == expected_dtype
     metadata = json.loads(sidecar.read_text(encoding="utf-8"))
+    assert metadata["schema_version"] == (
+        "phase5_t8al_kirchhoff_review_grid_v2_units_dtype"
+    )
+    assert metadata["units"] == EXPECTED_UNITS
+    assert metadata["dtype"] == EXPECTED_DTYPES
+    manifest_text = manifest.read_text(encoding="utf-8")
+    assert "## Units and dtypes" in manifest_text
+    for name in EXPECTED_UNITS:
+        expected_line = (
+            f"- `{name}`: unit=`{EXPECTED_UNITS[name]}`; "
+            f"dtype=`{EXPECTED_DTYPES[name]}`"
+        )
+        assert expected_line in manifest_text
     assert metadata["comparison_only"] is True
     assert metadata["not_denominator"] is True
     assert metadata["not_mask"] is True

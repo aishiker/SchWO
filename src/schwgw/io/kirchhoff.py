@@ -55,6 +55,44 @@ _EXPECTED_PAPER_XI = np.asarray(
 )
 _ETA_MISMATCH_LIMIT = 5.0e-5
 
+_ARRAY_UNITS = {
+    "kM_values": "dimensionless (M k)",
+    "point_ids": "identifier",
+    "point_x": "dimensionless (x/M)",
+    "point_y": "dimensionless (y/M)",
+    "point_z": "dimensionless (z/M)",
+    "point_r": "dimensionless (r/M)",
+    "point_theta": "radian",
+    "paper_xi_over_xi0": "dimensionless",
+    "gamma": "dimensionless",
+    "eta": "dimensionless",
+    "eta_minus_paper": "dimensionless",
+    "F_kirchhoff_complex": "dimensionless",
+    "abs_F_kirchhoff": "dimensionless",
+    "arg_F_kirchhoff_principal": "radian",
+    "arg_F_kirchhoff_unwrapped": "radian",
+    "valid_kirchhoff_mask": "boolean",
+}
+
+_EXPECTED_ARRAY_DTYPES = {
+    "kM_values": "float64",
+    "point_ids": "<U16",
+    "point_x": "float64",
+    "point_y": "float64",
+    "point_z": "float64",
+    "point_r": "float64",
+    "point_theta": "float64",
+    "paper_xi_over_xi0": "float64",
+    "gamma": "float64",
+    "eta": "float64",
+    "eta_minus_paper": "float64",
+    "F_kirchhoff_complex": "complex128",
+    "abs_F_kirchhoff": "float64",
+    "arg_F_kirchhoff_principal": "float64",
+    "arg_F_kirchhoff_unwrapped": "float64",
+    "valid_kirchhoff_mask": "bool",
+}
+
 
 def generate_kirchhoff_review_grid_artifact(
     source_npz: str | Path,
@@ -107,9 +145,30 @@ def generate_kirchhoff_review_grid_artifact(
         dps=dps,
     )
     baseline_metadata = dict(result.metadata["baseline"])
+    output_arrays = {
+        **arrays,
+        "gamma": result.gamma,
+        "eta": eta,
+        "eta_minus_paper": eta_minus_paper,
+        "F_kirchhoff_complex": result.F_complex,
+        "abs_F_kirchhoff": result.abs_F,
+        "arg_F_kirchhoff_principal": result.arg_F_principal,
+        "arg_F_kirchhoff_unwrapped": np.unwrap(result.arg_F_principal, axis=0),
+        "valid_kirchhoff_mask": result.valid_mask,
+    }
+    actual_dtypes = {
+        name: str(np.asarray(value).dtype) for name, value in output_arrays.items()
+    }
+    if actual_dtypes != _EXPECTED_ARRAY_DTYPES:
+        raise RuntimeError(
+            "Kirchhoff artifact dtype contract mismatch: "
+            f"expected {_EXPECTED_ARRAY_DTYPES}, got {actual_dtypes}"
+        )
     metadata = {
         "case_id": "FIG5_FIG6_REVIEW_GRID_KIRCHHOFF_EQ47_BASELINE",
-        "schema_version": "phase5_t8ak_kirchhoff_review_grid_v1",
+        "schema_version": "phase5_t8al_kirchhoff_review_grid_v2_units_dtype",
+        "units": dict(_ARRAY_UNITS),
+        "dtype": dict(actual_dtypes),
         "created_at": datetime.now(timezone.utc).isoformat(),
         "quantity_kind": "kirchhoff_eq47_scalar_comparison",
         "source_npz_path": str(source),
@@ -147,15 +206,7 @@ def generate_kirchhoff_review_grid_artifact(
     manifest = output_directory / "manifest.md"
     np.savez_compressed(
         output_npz,
-        **arrays,
-        gamma=result.gamma,
-        eta=eta,
-        eta_minus_paper=eta_minus_paper,
-        F_kirchhoff_complex=result.F_complex,
-        abs_F_kirchhoff=result.abs_F,
-        arg_F_kirchhoff_principal=result.arg_F_principal,
-        arg_F_kirchhoff_unwrapped=np.unwrap(result.arg_F_principal, axis=0),
-        valid_kirchhoff_mask=result.valid_mask,
+        **output_arrays,
         metadata_json=np.asarray(json.dumps(metadata, sort_keys=True)),
     )
     output_npz_sha256 = _file_sha256(output_npz)
@@ -215,6 +266,14 @@ def _file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _array_contract_manifest() -> str:
+    return "\n".join(
+        f"- `{name}`: unit=`{_ARRAY_UNITS[name]}`; "
+        f"dtype=`{_EXPECTED_ARRAY_DTYPES[name]}`"
+        for name in _ARRAY_UNITS
+    )
+
+
 def _manifest_text(
     *,
     source_hashes: dict[str, str],
@@ -251,4 +310,8 @@ It is not a solver output, production denominator, mask, normalization,
 - Maximum absolute coordinate-derived eta minus rounded paper xi/xi0:
   `{max_eta_mismatch:.17g}` (required `< {_ETA_MISMATCH_LIMIT:.1e}`).
 - Principal phase is numerical evidence; unwrapped phase is display-only.
+
+## Units and dtypes
+
+{_array_contract_manifest()}
 """
