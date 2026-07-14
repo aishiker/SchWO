@@ -22,6 +22,7 @@ from schwgw.io.results import (
     save_amplification_results,
     save_results,
 )
+from schwgw.io.kirchhoff import generate_kirchhoff_review_grid_artifact
 from schwgw.io.tablei import (
     TABLEI_POINTS,
     TableIPoint,
@@ -45,6 +46,7 @@ __all__ = [
     "WaveConfig",
     "builtin_tablei_points",
     "extract_tablei_four_frequency_from_amplification_results",
+    "generate_kirchhoff_review_grid_artifact",
     "load_config",
     "load_amplification_results",
     "load_results",
