@@ -4,7 +4,7 @@
 
 状态文件版本：v0.1-template
 
-当前日期：2026-07-09
+当前日期：2026-07-14
 
 > 规则：任何线程开始或完成任务，都必须更新本文件。状态记录优先于聊天记录；Codex 恢复上下文时先读本文件。
 
@@ -12,12 +12,595 @@
 
 | 项 | 状态 |
 |---|---|
-| 当前阶段 | Phase 5：T7bq accepted Fig.5/Fig.6 review-grid radial gate after T4y |
-| 当前目标 | T7bq 独立复核 T4y：T12b `kM=2.5`, `ell=160` Table-I required-radius blocker 已复现并结构化；高频 review-grid radial coverage 已完整分类，`7774` total records 中 `6156` default-covered、`1582` structured-uncovered、`36` structured solver-failed、`0` default other errors；measured transition set 为 `1618` records，源码 compressed adapter envelope 与 metadata set 完全一致；direct oracle validation 覆盖全部 `1618` records，最大 effective/outer residual `8.0629e-16`，最大 match condition number `4.0269`；新增显式 opt-in `q018_tablei_review_grid_transition` 与 `q018_riccati`、`q018_tablei_km4_transition` 分离，默认 production path 不使用 oracle，ordinary default-covered modes 保持 normal path。T7bq fresh checks 通过，结论为 `ACCEPT GREEN / FIG5-FIG6 REVIEW-GRID RADIAL GATE PASSED`。T0 可调度一个 T8 resume prompt，从 T12b Stage 1 boundary 恢复 conservative eight-point review-grid scan；T7bq 未启动 T8、未生成 Kirchhoff baseline、review-grid plots、dense production 或 paper-style artifacts。当前 Fig.3 paper-draft primary rendering仍为 `runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bilinear_600dpi.png` 和 `.pdf`；nearest 保留为 numerical audit evidence，bicubic 仅为 display-only alternate。不声明 final journal-grade 或 pixel-level reproduction。`dx=0.2M`、R60/R60_K4、Fig.2 strict `Psi4`、fixtures、dense Fig.5/Fig.6 production、Kirchhoff implementation、Appendix D/E 和 convention/threshold/`lmax`/boundary 变更仍 gated。 |
-| 代码状态 | T2 Schwarzschild background、RW/Zerilli potentials、Sector enum、T3 angular public API、T4 radial ODE/matching/diagnostics plus Q018 `evanescent_tail_suppressed` policy and Route A `required_eval_radius` fail-closed guard plus T4o experimental Q018 oracle prerequisite boundary, T4p experimental Riccati/log-derivative oracle prototype, T4q opt-in broader oracle validation tests, T4r production-integration design/contract tests, T4s reviewed explicit opt-in production adapter/tests, T7an independent review acceptance, T4u continuous `ell=153..180` run-level opt-in oracle dispatch/tests, T4v metadata-only `kM=4` Table-I radial/Q018 preflight report, T7bn independent batch gate review without source/test/config/run mutation, T4w metadata-only direct experimental `kM=4` transition-oracle probe report, T7bo independent acceptance for T4x adapter design without source/test/config/run mutation, T12 Stage 1 YELLOW closeout/metadata without source/test/config mutation, T4x structured radial error handling plus opt-in `q018_tablei_km4_transition` adapter/tests/metadata, T7bp independent adapter-gate acceptance without source/test/config/run mutation, T12b Stage 0 smoke plus Stage 1 YELLOW blocker metadata without source/test/config mutation, T4y review-grid radial classification plus opt-in `q018_tablei_review_grid_transition` adapter/tests/metadata, and T7bq independent radial-gate acceptance without source/test/config/run mutation 已完成；T8 resume not started by T7bq、T5 waves incident API、T6b RW-gauge metric reconstruction、T6c Weyl/tetrad transform、T6d polarization/partial-wave assembly、T6m pointwise amplification pure API、T8a IO/CLI、T8b plotting-from-results、T8c saved convergence history、T8e run-scoped radial cache saved benchmark runner、T8f x-z plane saved-result schema/smoke plotting、T8g R60_K1 Li Fig.3-lite x-z saved benchmark config/artifacts、T8h read-only Fig.3-lite plus/cross panel、T8i high-sampling single-frequency x-z saved result and plot metadata、T8j read-only multi-frequency plotting interface/configs、T8l four-frequency Fig.3-lite saved artifacts、T8n range-based x-z config and Fig.3 DPI/final-pair sidecar hardening、T8o full M4-production first-pass configs/artifacts、T8p M5 amplification saved-output schema/CLI smoke、T8q M5 saved amplification read-only plotting smoke 已实现；T8r generated first archived M5 amplification artifact under `runs/phase5/m5_first_amplification_artifact/`；T8s generated four-frequency M5 archived amplification artifacts under `runs/phase5/m5_four_frequency_amplification_artifacts/` with source-SHA metadata hardening；T8t added optional Q018 boundary schema/metadata/cache-key support and bounded smoke config；T8u generated the bounded selected-probe NPZ artifact with final-pair convergence passing；T8v created bounded angular-pilot config and NPZ artifact with final-pair convergence passing；T8w added angular/convergence `theta_range/phi_range` parsing and metadata preservation, created bounded range-schema smoke artifact and non-run production draft；T8x generated the single R60_K2 angular production NPZ without source/code changes; T7as independently accepted that NPZ; T8y added read-only Fig.4 exact angular plotting helper/CLI and generated the fixed-`phi=0` PNG/sidecar; T8z added lower-frequency Fig.4 draft/smoke configs and generated three selected-probe readiness NPZs; T8aa generated three lower-frequency full angular production NPZs; T8ab added all-frequency read-only Fig.4 exact angular plotting helper/CLI/tests and generated the fixed-`phi=0` PNG/sidecar; T8ae generated the single-frequency Fig.3 `kM=2.0`, `dx=0.25M` high-resolution pilot artifacts without source/test code changes; T8af hardened the two Fig.3 pilot PNG sidecars without source/test/config/NPZ/PNG changes; T8ag created four-frequency `dx=0.25M` production plan and not-run draft configs without source/test/runs changes; T7bi independently accepted the planning package without running production; T8ah generated four-frequency `dx=0.25M` production artifacts/plots/manifest without source/test/config changes; T7bj independently accepted that production archive without source/test/artifact mutation; T7bk documented closeout without source/test/config/artifact mutation; T7bl accepted figure-quality gate for read-only publication rendering without source/test/config/artifact mutation; T8ai added read-only Fig.3 multifrequency publication render style/CLI/test and generated nearest/bilinear/bicubic publication-rendering artifacts from accepted NPZs; T7bm independently accepted that rendering package without source/test/config/artifact mutation; generic incident direction 未实现 |
+| 当前阶段 | Phase 5：T0 已独立核验并接受 T7bt 的 **ACCEPT GREEN / FIG5-FIG6 KIRCHHOFF METADATA CONTRACT ACCEPTED**，Kirchhoff review-grid comparison-baseline metadata gate 正式关闭。T0 fresh 核验覆盖九项门禁、16 个 canonical `.npy` byte/fingerprint、九个 artifact/backup/source hashes、focused pytest、Ruff、full pytest 与禁止范围；准备执行本重大节点的 scope-explicit 私人 GitHub 同步。 |
+| 当前目标 | 仅完成本重大节点的非 force GitHub 同步与同步后验证；随后立即进入用户要求的 Codex 更新维护暂停。不设计、不提供 prompt、不派发或启动任何下一阶段，直至用户明确恢复。 |
+| 代码状态 | T2 Schwarzschild background、RW/Zerilli potentials、Sector enum、T3 angular public API、T4 radial ODE/matching/diagnostics plus Q018 `evanescent_tail_suppressed` policy and Route A `required_eval_radius` fail-closed guard plus T4o experimental Q018 oracle prerequisite boundary, T4p experimental Riccati/log-derivative oracle prototype, T4q opt-in broader oracle validation tests, T4r production-integration design/contract tests, T4s reviewed explicit opt-in production adapter/tests, T7an independent review acceptance, T4u continuous `ell=153..180` run-level opt-in oracle dispatch/tests, T4v metadata-only `kM=4` Table-I radial/Q018 preflight report, T7bn independent batch gate review without source/test/config/run mutation, T4w metadata-only direct experimental `kM=4` transition-oracle probe report, T7bo independent acceptance for T4x adapter design without source/test/config/run mutation, T12 Stage 1 YELLOW closeout/metadata without source/test/config mutation, T4x structured radial error handling plus opt-in `q018_tablei_km4_transition` adapter/tests/metadata, T7bp independent adapter-gate acceptance without source/test/config/run mutation, T12b Stage 0 smoke plus Stage 1 YELLOW blocker metadata without source/test/config mutation, T4y review-grid radial classification plus opt-in `q018_tablei_review_grid_transition` adapter/tests/metadata, T7bq independent radial-gate acceptance, T8aj conservative 18×8 review-grid artifact generation, and T7br independent data acceptance without source/test/config/artifact mutation 已完成；T5 waves incident API、T6b RW-gauge metric reconstruction、T6c Weyl/tetrad transform、T6d polarization/partial-wave assembly、T6m pointwise amplification pure API、T8a IO/CLI、T8b plotting-from-results、T8c saved convergence history、T8e run-scoped radial cache saved benchmark runner、T8f x-z plane saved-result schema/smoke plotting、T8g R60_K1 Li Fig.3-lite x-z saved benchmark config/artifacts、T8h read-only Fig.3-lite plus/cross panel、T8i high-sampling single-frequency x-z saved result and plot metadata、T8j read-only multi-frequency plotting interface/configs、T8l four-frequency Fig.3-lite saved artifacts、T8n range-based x-z config and Fig.3 DPI/final-pair sidecar hardening、T8o full M4-production first-pass configs/artifacts、T8p M5 amplification saved-output schema/CLI smoke、T8q M5 saved amplification read-only plotting smoke 已实现；T8r generated first archived M5 amplification artifact under `runs/phase5/m5_first_amplification_artifact/`；T8s generated four-frequency M5 archived amplification artifacts under `runs/phase5/m5_four_frequency_amplification_artifacts/` with source-SHA metadata hardening；T8t added optional Q018 boundary schema/metadata/cache-key support and bounded smoke config；T8u generated the bounded selected-probe NPZ artifact with final-pair convergence passing；T8v created bounded angular-pilot config and NPZ artifact with final-pair convergence passing；T8w added angular/convergence `theta_range/phi_range` parsing and metadata preservation, created bounded range-schema smoke artifact and non-run production draft；T8x generated the single R60_K2 angular production NPZ without source/code changes; T7as independently accepted that NPZ; T8y added read-only Fig.4 exact angular plotting helper/CLI and generated the fixed-`phi=0` PNG/sidecar; T8z added lower-frequency Fig.4 draft/smoke configs and generated three selected-probe readiness NPZs; T8aa generated three lower-frequency full angular production NPZs; T8ab added all-frequency read-only Fig.4 exact angular plotting helper/CLI/tests and generated the fixed-`phi=0` PNG/sidecar; T8ae generated the single-frequency Fig.3 `kM=2.0`, `dx=0.25M` high-resolution pilot artifacts without source/test code changes; T8af hardened the two Fig.3 pilot PNG sidecars without source/test/config/NPZ/PNG changes; T8ag created four-frequency `dx=0.25M` production plan and not-run draft configs without source/test/runs changes; T7bi independently accepted the planning package without running production; T8ah generated four-frequency `dx=0.25M` production artifacts/plots/manifest without source/test/config changes; T7bj independently accepted that production archive without source/test/artifact mutation; T7bk documented closeout without source/test/config/artifact mutation; T7bl accepted figure-quality gate for read-only publication rendering without source/test/config/artifact mutation; T8ai added read-only Fig.3 multifrequency publication render style/CLI/test and generated nearest/bilinear/bicubic publication-rendering artifacts from accepted NPZs; T7bm independently accepted that rendering package without source/test/config/artifact mutation; generic incident direction 未实现 |
 | 物理 convention | T1 已冻结 `docs/physics_spec.md` v0.1-frozen；T1j 已冻结 Kirchhoff Eq. (47) scalar comparison baseline convention；后续实现不得无记录改变 Fourier/harmonic/tetrad/master-variable/Kirchhoff branch convention |
 | CI 状态 | 未建立 |
 | 最新可运行命令 | `PYTHONPATH=src /opt/homebrew/bin/python3 -m pytest -q` |
+
+### 2026-07-14 T0 Kirchhoff Metadata Gate Closeout And Maintenance Pause
+
+- Exact T0 decision:
+  - **ACCEPT GREEN / FIG5-FIG6 KIRCHHOFF METADATA GATE CLOSED**.
+  - T0 independently accepts T7bt's exact GREEN and closes the bounded
+    T8al/T7bt metadata-contract correction gate.
+- Fresh T0 evidence:
+  - Commit `7966be1` contains exactly
+    `src/schwgw/io/kirchhoff.py` and
+    `tests/unit/test_kirchhoff_artifact.py`.
+  - Direct old-backup/current-artifact audit reports
+    `T0_T7BT_NINE_GATE_CORE_AUDIT=PASS arrays=16`: canonical
+    `np.save(..., allow_pickle=False)` bytes are identical and all 16 SHA256
+    fingerprints match the frozen plan.
+  - Embedded NPZ metadata, JSON sidecar, manifest, and actual dtypes agree on
+    the exact 16-entry units/dtype contract and schema
+    `phase5_t8al_kirchhoff_review_grid_v2_units_dtype`.
+  - The three T8ak backup hashes, three accepted T8aj source hashes, and three
+    current T8al hashes all match the frozen/accepted records; the current
+    baseline directory contains exactly three files.
+  - Focused pytest: `9 passed in 0.39s`; Ruff: clean.
+  - T0 full pytest: `558 passed, 117 skipped, 1 xfailed, 85 warnings, 79
+    subtests passed in 317.86s (0:05:17)`.
+  - Forbidden production diff and forbidden downstream-output checks are
+    empty. Existing warnings remain the known Weyl/Wigner/radial warnings.
+- Scientific boundary retained:
+  - Eq. (47), branches, no-conjugation policy, backend `mpmath 1.4.1`,
+    `dps=60`, grid, numerical arrays, masks, phases, and non-claims are
+    unchanged.
+  - Kirchhoff remains scalar, polarization-independent, comparison-only, and
+    excluded from solver, denominator, mask, normalization, calibration,
+    Q018, boundary-policy, and polarization paths.
+- Scope-explicit GitHub synchronization:
+  - Authorized scope is the six existing T8ak/T8al code/plan commits plus
+    `project.md`, `status.md`, current T0/T7/T8 handoffs, and the T0/T7/T8
+    archives belonging to this Kirchhoff gate chain.
+  - T1/T2/T3/T5/T6 handoff changes, ignored `runs/` artifacts, temporary
+    backups, private/raw data, secrets, and unrelated files are excluded.
+  - Remote is the configured private repository, default branch `main`; fetch
+    shows no remote-ahead commits, authentication is available, outgoing
+    secret scan is clean, and only non-force push is authorized.
+  - Pre-push state: `GitHub sync authorized; completion verification pending`.
+- Maintenance pause:
+  - No next-stage prompt is provided because the user explicitly requested a
+    Codex-update pause after this T8/T7/T0 round.
+  - After the scoped sync and monitor deletion, T0 must remain idle until the
+    user explicitly resumes the project.
+
+### 2026-07-14 T7bt Kirchhoff Units/Dtype Metadata Contract Independent Review
+
+- Exact decision:
+  - **ACCEPT GREEN / FIG5-FIG6 KIRCHHOFF METADATA CONTRACT ACCEPTED**.
+- Nine required checks:
+  - Commit `7966be1` contains exactly the serializer and artifact-contract
+    test; schema is exactly
+    `phase5_t8al_kirchhoff_review_grid_v2_units_dtype`.
+  - Embedded NPZ metadata and JSON sidecar have equal, exact top-level `units`
+    and `dtype` mappings covering all and only the 16 non-metadata arrays.
+    Every actual array dtype equals its declaration, and the manifest contains
+    the identical 16 unit/dtype pairs.
+  - Independent canonical `.npy` serialization proves every current array's
+    bytes equal the hash-verified T8ak backup. All 16 recomputed SHA256 values
+    match the frozen mapping in the T8al plan:
+    `T7BT_ARRAY_BYTE_IDENTITY_AND_FINGERPRINTS=PASS`.
+  - T8aj hashes are unchanged; the baseline directory contains exactly three
+    files; forbidden production diff and downstream-output checks are empty.
+- Current T8al output SHA256:
+  - NPZ: `66c59851e6eaf6bf5691c8026e0d528edbf304ae4bbcfc47a0290c14f87fdb55`.
+  - JSON: `0b20d62be1fe39b48ce90ca2a8d0f7798fff489a777f18b2bf2d7c268376fdf3`.
+  - manifest: `fb138038b783d2a511df94f6552a5d77a06ae7f1a32dc4c80ea54ee7f3c5e632`.
+- Accepted T8aj SHA256, unchanged:
+  - NPZ: `a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb`.
+  - JSON: `2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537`.
+  - manifest: `86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf`.
+- Fresh verification:
+  - Focused pytest: `9 passed in 0.35s`.
+  - Ruff: `All checks passed!`.
+  - Full pytest: `558 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests
+    passed in 313.30s (0:05:13)`.
+  - Warnings are the existing Weyl/Wigner/radial numerical warnings; no new
+    Kirchhoff warning occurred.
+- Review-only changed paths:
+  - `status.md`.
+  - `docs/handoffs/T7_current.md`.
+  - `docs/handoffs/archive/T7_2026-07-14_pre_t7bt_metadata_contract.md`.
+- Scope and next owner:
+  - T7bt modified no implementation, test, script, config, artifact, plot, or
+    dense-production output and starts no later task.
+  - T0 must inspect this GREEN, close the gate, handle any authorized
+    scope-explicit milestone sync, then enter the user-requested maintenance
+    pause.
+
+### 2026-07-14 T8al Kirchhoff Units/Dtype Metadata Contract
+
+- Exact decision:
+  - **GREEN / FIG5-FIG6 KIRCHHOFF METADATA CONTRACT HARDENED**.
+- Scope and implementation:
+  - Added exact `units` and `dtype` mappings for all 16 non-metadata arrays to
+    embedded NPZ metadata, JSON sidecar, and manifest.
+  - Schema is `phase5_t8al_kirchhoff_review_grid_v2_units_dtype`.
+  - Added fail-closed actual-dtype validation; formula, branches, backend,
+    `dps=60`, grid, values, masks, phases, and non-claims are unchanged.
+  - Scoped commit `7966be1 fix: record Kirchhoff units and dtypes` contains
+    exactly `src/schwgw/io/kirchhoff.py` and
+    `tests/unit/test_kirchhoff_artifact.py`.
+- Numerical identity and artifacts:
+  - Preserved T8ak copies under `/tmp/schwo_t8al_pre_metadata_contract/`.
+  - `T8AL_NUMERICAL_ARRAY_IDENTITY=PASS`: all 16 non-metadata arrays are
+    exactly equal to T8ak and match every frozen `.npy` SHA256 fingerprint.
+  - `T8AL_METADATA_SURFACES=PASS` and the baseline directory contains exactly
+    NPZ, JSON sidecar, and manifest.
+  - New NPZ SHA256:
+    `66c59851e6eaf6bf5691c8026e0d528edbf304ae4bbcfc47a0290c14f87fdb55`.
+  - New JSON SHA256:
+    `0b20d62be1fe39b48ce90ca2a8d0f7798fff489a777f18b2bf2d7c268376fdf3`.
+  - New manifest SHA256:
+    `fb138038b783d2a511df94f6552a5d77a06ae7f1a32dc4c80ea54ee7f3c5e632`.
+  - T8aj NPZ/JSON/manifest SHA256 remain respectively
+    `a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb`,
+    `2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537`,
+    and `86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf`.
+- Fresh verification:
+  - Required TDD RED observed on the old schema; focused GREEN is `9 passed in
+    0.36s`; Ruff is clean.
+  - Full pytest: `558 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests
+    passed in 311.85s`.
+  - Forbidden production-source diff and downstream-output searches are empty;
+    no solver, plot, 40-frequency/dense production, fixture, config, or
+    paper-style work occurred.
+- Handoff:
+  - Pre-T8al handoff archived at
+    `docs/handoffs/archive/T8_2026-07-14_pre_t8al_metadata_contract.md`.
+  - Fresh status/T8 handoff checks passed. T7bt automatic dispatch succeeded
+    to existing T7 task `019f5ed1-b421-7ec2-9bac-8d134855a1ed` with
+    `gpt-5.6-sol`, thinking `high`; T0 task
+    `019f5ec5-84ba-79e2-8c77-1160b150a636` was notified.
+
+### 2026-07-14 T0 T7bs YELLOW Verification And T8al/T7bt Metadata Gate
+
+- T0 decision:
+  - **AUTHORIZE / FIG5-FIG6 KIRCHHOFF METADATA CONTRACT HARDENING**.
+  - T0 independently confirmed that the approved artifact contract requires
+    explicit `units` and `dtype`, while the current embedded NPZ metadata,
+    JSON sidecar, and manifest omit both fields.
+  - This is a bounded schema/provenance defect, not a formula, branch,
+    numerical-value, backend, isolation, or test failure.
+- Frozen implementation boundary:
+  - T8al may change only `src/schwgw/io/kirchhoff.py`,
+    `tests/unit/test_kirchhoff_artifact.py`, the three existing files under
+    `runs/phase5/fig5_fig6_kirchhoff_baseline/`, and required status/T8
+    handoff records.
+  - It must add explicit, exact `units` and `dtype` mappings to embedded NPZ
+    metadata and the JSON sidecar, plus a manifest section that records the
+    same contract.
+  - Every non-metadata array must remain exactly equal to T8ak and retain its
+    frozen per-array `.npy` SHA256 fingerprint; formulas, branches, backend,
+    grid ordering, values, masks, phases, and non-claims must not change.
+- Durable plan and frozen prompts:
+  - `docs/superpowers/plans/2026-07-14-t8al-kirchhoff-metadata-contract.md`.
+  - T8al:
+    `docs/prompts/phase5_t8al_fig5_fig6_kirchhoff_metadata_contract.md`.
+  - T7bt:
+    `docs/prompts/phase5_t7bt_fig5_fig6_kirchhoff_metadata_contract_review.md`.
+  - Planning package commit: `20644eb docs: plan Kirchhoff metadata contract hardening`.
+- Automatic gate:
+  - T8al runs in existing T8 task
+    `019f5ece-f578-7b91-8f61-df882c656591` with `gpt-5.6-sol`, thinking
+    `high`; dispatch succeeded.
+  - Only T8al exact GREEN after fresh focused tests, Ruff, full pytest,
+    hashes, array fingerprints, scope checks, status, and T8 handoff may
+    dispatch T7bt to existing T7 task
+    `019f5ed1-b421-7ec2-9bac-8d134855a1ed` with the same model settings.
+  - Any scientific/test/scope failure is YELLOW/RED and must stop the chain;
+    only an explicit model-capacity/system interruption may use the frozen
+    same-task `5.6 Terra High` recovery policy.
+- GitHub:
+  - No push is authorized at this YELLOW correction point. T0 will apply the
+    project milestone-sync rule only after T7bt exact GREEN, T0 verification,
+    and a scope-explicit review of the accumulated dirty worktree.
+- Post-gate pause:
+  - User instruction: after the current T8al/T7bt/T0 round is fully closed,
+    enter a Codex-update maintenance pause.
+  - T0 must not design, dispatch, or start any later stage during the pause;
+    work resumes only after an explicit user instruction.
+
+### 2026-07-14 T7bs Fig.5/Fig.6 Kirchhoff Baseline Independent Review
+
+- Exact decision:
+  - **ACCEPT YELLOW / FIG5-FIG6 REVIEW-GRID KIRCHHOFF BASELINE PARTIAL**.
+  - Formula/branch, backend precision, accepted-grid identity, source/output
+    SHA256, eta tolerance, array shape/finiteness, independent 100-dps values,
+    Kummer corner identities, isolation, scope, and fresh tests all pass.
+  - Exact GREEN is blocked because the approved design requires explicit
+    `units` and `dtype` artifact metadata, but neither the embedded NPZ metadata,
+    JSON sidecar, nor manifest contains those fields. The array is in fact
+    `complex128` and the coordinates are dimensionless, but reviewer inference
+    is not a substitute for the frozen metadata contract.
+- Independent numerical evidence:
+  - Recomputed all 144 complex values independently at 100 dps and converted
+    once to `complex128`; maximum absolute difference from the saved artifact is
+    exactly `0.0`.
+  - Maximum absolute coordinate-derived eta minus rounded paper eta is
+    `4.337937456566632e-05 < 5e-5`.
+  - Independent 120-dps Kummer-transformation checks pass at all four grid
+    corners.
+- Accepted input SHA256, unchanged:
+  - NPZ: `a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb`.
+  - JSON: `2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537`.
+  - manifest: `86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf`.
+- T8ak output SHA256, unchanged:
+  - NPZ: `a91f0a5f5eb672ac897ea776f7577d4f33b89c72154dc1b665c8ced06cbec53c`.
+  - JSON: `86670c426ada2284d334a017b6abdfc36443d0fb7ea82606f3d544de17788a19`.
+  - manifest: `53d852b25bd73bb25cecb37518e72a010c5b3882cf5e86799e4b695178586d49`.
+- Fresh verification:
+  - Focused pytest: `9 passed in 0.26s`.
+  - Focused Ruff: `All checks passed!`.
+  - Full pytest: `558 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests
+    passed in 285.02s (0:04:45)`.
+  - Forbidden production diff and forbidden downstream-output checks are empty;
+    scoped commit contents match the approved implementation boundary.
+- Review-only changed paths:
+  - `status.md`.
+  - `docs/handoffs/T7_current.md`.
+  - `docs/handoffs/archive/T7_2026-07-14_pre_t7bs_kirchhoff_baseline.md`.
+- Next owner/action:
+  - T0 must inspect this YELLOW and decide whether to authorize the bounded
+    explicit-`units`/`dtype` metadata hardening slice. T7bs did not modify source,
+    tests, scripts, configs, artifacts, plots, or dense-production outputs.
+
+### 2026-07-14 T8ak Fig.5/Fig.6 Review-Grid Kirchhoff Eq. (47) Baseline
+
+- Decision:
+  - **GREEN / FIG5-FIG6 REVIEW-GRID KIRCHHOFF BASELINE GENERATED**.
+  - T7bs automatic dispatch succeeded to existing T7 task
+    `019f5ed1-b421-7ec2-9bac-8d134855a1ed` with `gpt-5.6-sol`, thinking
+    `high`; T0 task `019f5ec5-84ba-79e2-8c77-1160b150a636` was notified.
+- Formula and isolation:
+  - Implemented the frozen Li–Hou–Zhao Eq. (47) scalar comparison with
+    `gamma=-2Mk`, coordinate-derived `eta`, principal real log for
+    `-gamma=2Mk>0`, principal complex Gamma, Kummer M, and no conjugation.
+  - The API is isolated from the Schwarzschild solver, Q018, production
+    pointwise amplification, denominator, masks, normalization, and
+    polarization paths.
+- Backend:
+  - Project-local `.venv`, `mpmath 1.4.1`, `dps=60`.
+  - SciPy 1.15.3 complex-parameter `hyp1f1` was confirmed unavailable before
+    installing the already-declared `[dev,oracle]` extras into `.venv`.
+- Accepted source hashes, unchanged:
+  - NPZ: `a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb`.
+  - JSON: `2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537`.
+  - manifest: `86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf`.
+- Output artifacts and SHA256:
+  - `runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz`
+    — `a91f0a5f5eb672ac897ea776f7577d4f33b89c72154dc1b665c8ced06cbec53c`.
+  - `runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz.json`
+    — `86670c426ada2284d334a017b6abdfc36443d0fb7ea82606f3d544de17788a19`.
+  - `runs/phase5/fig5_fig6_kirchhoff_baseline/manifest.md`
+    — `53d852b25bd73bb25cecb37518e72a010c5b3882cf5e86799e4b695178586d49`.
+- Artifact checks:
+  - Exact accepted 18-frequency by eight-Table-I-point ordering; all 144
+    complex values are finite and all baseline validity masks are true.
+  - Maximum absolute coordinate-derived eta minus rounded paper value is
+    `4.337937456566632e-05`, below the frozen `5e-5` limit.
+  - Principal phase and display-only unwrapped phase are stored separately.
+  - All comparison-only/non-denominator/non-mask/non-normalization,
+    polarization-independent, no-solver-rerun, no-plotting,
+    not-40-frequency, no-fixtures, and no-paper-style non-claims are true.
+- TDD and verification:
+  - API RED: collection failed because `schwgw.scattering.kirchhoff` did not
+    exist; GREEN: `7 passed` and Ruff clean.
+  - Artifact RED: collection failed because `schwgw.io.kirchhoff` did not
+    exist; GREEN combined focused suite: `9 passed` and Ruff clean.
+  - Full pytest: `558 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests`
+    in 278.39s.
+  - Forbidden-output and forbidden-source diff checks returned no content;
+    T8aj input hashes remained unchanged.
+- Scoped commits:
+  - `70ef022 feat: add isolated Kirchhoff Eq47 baseline` — exactly three API
+    source/test paths.
+  - `c09bbf9 feat: write Kirchhoff review-grid artifact` — exactly four
+    serializer/script/test paths.
+- Changed paths:
+  - `src/schwgw/scattering/kirchhoff.py`
+  - `src/schwgw/scattering/__init__.py`
+  - `tests/unit/test_kirchhoff.py`
+  - `src/schwgw/io/kirchhoff.py`
+  - `src/schwgw/io/__init__.py`
+  - `scripts/phase5_generate_kirchhoff_baseline.py`
+  - `tests/unit/test_kirchhoff_artifact.py`
+  - `runs/phase5/fig5_fig6_kirchhoff_baseline/`
+  - `status.md`
+  - `docs/handoffs/T8_current.md`
+  - `docs/handoffs/archive/T8_2026-07-14_pre_t8ak_kirchhoff_baseline.md`
+- Warnings and scope:
+  - Full-suite warnings are existing Weyl/Wigner/radial numerical warnings;
+    no new Kirchhoff warning or non-finite value occurred.
+  - No plot, 40-frequency production, fixture, paper-style candidate,
+    config, visualization, solver, Q018, or production normalization change
+    was made. No GitHub push was performed.
+- Dispatch result:
+  - Existing T7 task is running T7bs from
+    `docs/prompts/phase5_t7bs_fig5_fig6_review_grid_kirchhoff_baseline_review.md`.
+  - T8ak starts no later stage and waits for T7bs/T0 handling.
+
+### 2026-07-14 T0 T8ak/T7bs Kirchhoff Gate Design, Plan, And Auto-Dispatch
+
+- Enabling decision:
+  - `ACCEPT GREEN / FIG5-FIG6 CONSERVATIVE REVIEW-GRID DATA ACCEPTED` from
+    T7br was independently inspected by T0.
+  - The accepted T8aj input is exactly 18 frequencies by eight Table-I points.
+- User decision:
+  - Approved option 1: T8ak implementation followed by automatic T7bs
+    independent review.
+  - Default model is `5.6 Sol High`.
+  - Only an explicit model-capacity/system interruption may be recovered in
+    the same task with `5.6 Terra High`; scientific errors, failed tests,
+    non-finite values, or backend instability do not qualify.
+- Durable design and plan:
+  - `docs/superpowers/specs/2026-07-14-t8ak-t7bs-kirchhoff-auto-dispatch-design.md`
+  - `docs/superpowers/plans/2026-07-14-t8ak-kirchhoff-review-grid.md`
+- Frozen prompts:
+  - T8ak:
+    `docs/prompts/phase5_t8ak_fig5_fig6_review_grid_kirchhoff_baseline.md`
+  - T7bs:
+    `docs/prompts/phase5_t7bs_fig5_fig6_review_grid_kirchhoff_baseline_review.md`
+- Scientific boundary:
+  - Implement Li–Hou–Zhao Eq. (47) with the T1j-frozen principal branches,
+    no positive-`k` conjugation, and coordinate-derived eta.
+  - Kirchhoff remains a scalar, polarization-independent comparison baseline
+    only and must not enter the solver, production denominator, masks,
+    normalization, calibration, Q018, or polarization channels.
+  - No plots, 40-frequency production, fixtures, interpolation, smoothing,
+    paper-style candidates, or mutation/rerun of T8aj are authorized.
+- Backend preflight:
+  - `/opt/homebrew/bin/python3` and the project `.venv` both show that SciPy
+    complex `loggamma` is available but complex-parameter `hyp1f1` is not.
+  - `mpmath` is already declared in `pyproject.toml` under optional dependency
+    `oracle` but is not currently installed.
+  - T8ak may install only the existing `[dev,oracle]` extras inside `.venv`;
+    global installation and an unreviewed replacement approximation are
+    forbidden.
+- Auto-dispatch state machine:
+  - T0 target T8 task: `019f5ece-f578-7b91-8f61-df882c656591`.
+  - T8 may target T7 task `019f5ed1-b421-7ec2-9bac-8d134855a1ed` only after
+    exact GREEN plus artifact/tests/status/handoff fresh verification.
+  - YELLOW/RED/incomplete/ambiguous state returns to T0 and does not start T7.
+  - T7 sends its exact decision to T0 task
+    `019f5ec5-84ba-79e2-8c77-1160b150a636` and starts no later stage.
+  - Missing/archived/unavailable targets do not authorize silent task
+    creation.
+- Project rule:
+  - Added the T0 Codex task auto-dispatch hard rule to `project.md`.
+- Handoff:
+  - Archived the pre-dispatch T0 handoff at
+    `docs/handoffs/archive/T0_2026-07-14_pre_t8ak_kirchhoff_dispatch.md`.
+  - Replaced `docs/handoffs/T0_current.md` with the T8ak/T7bs recovery state.
+- GitHub:
+  - `GitHub sync pending` remains recorded. T8ak scheduling is not itself a
+    new independently accepted major node.
+  - After T7bs exact GREEN, T0 must inspect/reconcile the accumulated mixed
+    worktree and perform a scoped non-force sync or record the exact blocker.
+- Tests:
+  - No solver or pytest was run by T0; this slice creates coordination/design/
+    plan/prompt documentation only.
+  - Fresh existence, prompt consistency, whitespace, hash, and worktree-scope
+    checks are required before dispatch.
+
+### 2026-07-14 T7br Fig.5/Fig.6 Conservative Review-Grid Data Independent Review
+
+- Decision:
+  - **ACCEPT GREEN / FIG5-FIG6 CONSERVATIVE REVIEW-GRID DATA ACCEPTED**.
+  - Acceptance is limited to the exact T8aj 18-frequency by eight-Table-I-point
+    artifact and does not authorize 40-frequency production, fixtures,
+    review-grid plots, or paper-style candidates.
+- Artifact/schema review:
+  - Exact `kM` grid and Table-I point IDs/coordinates match the prompt and
+    `src/schwgw/io/tablei.py`.
+  - `F_plus_complex` and `F_cross_complex` are `(18,8)`; plus/cross/norm masks
+    are separate Boolean arrays and all true; all corresponding values are
+    finite.
+  - Saved magnitudes and principal/unwrapped phases reproduce direct NumPy
+    derivations.
+  - All 18 final adjacent pairs pass. Maximum deltas are
+    `5.3077050459232115e-15` for plus and
+    `4.70627521105483e-14` for cross, below `1e-4`.
+  - Every frequency record has prompt-consistent `lmax_values`, final pair,
+    final deltas, pass flag, warning summary, cache counts, and runtime.
+- Radial/Q018 review:
+  - Total structured warnings: `3506`:
+    `2 transition_raw_wronskian_warning`,
+    `1886 evanescent_tail_suppressed`, and
+    `1618 q018_tablei_review_grid_transition_oracle_used`.
+  - The 1618 unique Q018 `(k, point_id, ell, sector)` records exactly match
+    both the T4y classification transition set and oracle-validation set.
+  - Adapter use is restricted to the reviewed
+    `kM={2.5,2.75,3.0,3.25,3.5,3.75,4.0}` Table-I envelope; all oracle records
+    are finite and valid at the required radius.
+- Convention/scope review:
+  - `no_kirchhoff`, `no_plotting`, `no_paper_level_production`,
+    `no_interpolation`, `no_smoothing`, `no_fill`,
+    `not_40_frequency_production`, and `not_fixture` are true.
+  - Baseline is `compute_flat_no_lens_polarization`; normalization is
+    pointwise wave-optics amplification; Route B and `exp(-i k t)` are
+    preserved.
+  - All source hashes and deterministic config hash match current files.
+  - Git reports no T8aj changes under `src/`, `tests/`, or `configs/`.
+- Fresh checks:
+  - Prompt-required artifact assertions:
+    `PROMPT_REQUIRED_ARTIFACT_CHECK=PASS`.
+  - Comprehensive artifact/schema/provenance/set audit:
+    `COMPREHENSIVE_ARTIFACT_AUDIT=PASS`.
+  - Forbidden downstream directory check:
+    `FORBIDDEN_DOWNSTREAM_ARTIFACT_CHECK=PASS (0 files)`.
+  - Source/test/config scope check:
+    `T8AJ_SOURCE_TEST_CONFIG_CHANGE_CHECK=PASS (0 changes)`.
+  - Rechecked artifact hashes exactly match the T8aj manifest/status values;
+    the accepted NPZ/JSON/manifest were not mutated.
+- Tests:
+  - Full pytest was not rerun because T8aj changed no source, tests, or
+    configs. The prompt explicitly permits targeted metadata checks for an
+    artifact-only slice; the comprehensive independent audit directly tested
+    the full T7br acceptance contract.
+- Changed files:
+  - `status.md`
+  - `docs/handoffs/T7_current.md`
+  - `docs/handoffs/archive/T7_2026-07-14_pre_t7br_review_grid_data.md`
+- Non-blocking warning:
+  - Q018 warnings retain the reviewed implementation identifier
+    `production_integration_review_id="T4y/T7bq-pending"`, which is frozen in
+    source/tests. It is not treated as the current gate state; exact set
+    equality, the sidecar enabling gate, and the archived T7bq decision supply
+    independent acceptance evidence. The accepted artifact was not edited.
+- Next:
+  - Return to T0 for independent inspection. Only T0 may issue a new bounded
+    prompt for a separate Kirchhoff Eq. (47) scalar comparison baseline on the
+    same review grid, followed by a separate T7 review.
+
+### 2026-07-14 T8aj Fig.5/Fig.6 Conservative Review-Grid Data
+
+- Decision:
+  - **GREEN / FIG5-FIG6 CONSERVATIVE REVIEW-GRID DATA GENERATED**.
+  - Generated only the conservative 18-frequency by eight-Table-I-point
+    wave-optics data set; no Kirchhoff baseline, plots, 40-frequency
+    production-like scan, fixture, or paper-style candidate was generated.
+- Artifacts:
+  - `runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz`
+    — SHA256 `a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb`.
+  - `runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz.json`
+    — SHA256 `2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537`.
+  - `runs/phase5/fig5_fig6_dense_review_grid/manifest.md`
+    — SHA256 `86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf`.
+  - Preserved T12b error: `stage1_yellow_error.json` SHA256 unchanged at
+    `15802fbf5e4a6a579ec42551d7a6f8db29bafe933ae5e292b7413a07fd911e54`.
+  - Retained `t8aj_run_error_20260714T045939Z.json` as the resolved
+    runner cache-domain diagnostic; it was not deleted or overwritten.
+- Numerical/provenance checks:
+  - Exact `kM_review` has 18 entries and Table-I points are
+    `x/M=[0,1,2,3,10,15,20,25]`, `z/M=30`.
+  - `F_plus_complex` and `F_cross_complex` shapes are both `(18,8)`;
+    magnitudes/phases/final-pair deltas are finite, plus/cross/norm masks are
+    all true, and all 18 adjacent final-pair checks pass below `1e-4`.
+  - JSON has exactly 18 frequency records. The reviewed
+    `q018_tablei_review_grid_transition` adapter was used only for
+    `kM in {2.5,2.75,3.0,3.25,3.5,3.75,4.0}`, with total use count `1618`;
+    no lower-frequency adapter use occurred.
+  - Prompt non-claim flags `no_kirchhoff`, `no_plotting`,
+    `no_paper_level_production`, `no_interpolation`, and `no_smoothing` are
+    all true. Forbidden-output directory check returned no files.
+- Recovery note:
+  - A model-capacity interruption ended the foreground agent turn while the
+    already-started background process continued naturally to completion.
+    T8aj recovery performed only fresh read-only verification; it did not
+    restart the solver or restart from `kM=2.75`.
+- Changed files in this recovery closeout:
+  - `status.md`.
+  - `docs/handoffs/T8_current.md`.
+  - `docs/handoffs/archive/T8_2026-07-14_pre_t8aj_review_grid_data.md`.
+  - No `src/`, `tests/`, or `configs/` files were changed.
+- Fresh commands/checks:
+  - `PYTHONPATH=src /opt/homebrew/bin/python3 - <<'PY' ... artifact assertions ... PY`
+    returned `artifact_checks=PASS`.
+  - Prompt-required forbidden-output `find ... | sort` returned no files.
+  - `shasum -a 256` was recorded for all three artifacts and preserved errors.
+- Exact next task:
+  - `你现在是 T7br：Fig.5/Fig.6 conservative review-grid data independent review 线程。请读取并严格执行 docs/prompts/phase5_t7br_fig5_fig6_review_grid_data_review.md。`
+
+### 2026-07-14 T0 T8aj/T7br Result Reconciliation And GitHub Milestone Rule
+
+- User report:
+  - T8aj and T7br tasks have completed.
+  - Requested T0 to inspect their results, formulate the next plan, and add a
+    rule requiring GitHub synchronization at major project nodes.
+- Evidence checked:
+  - Active project checkout and `runs/phase5/` artifact tree.
+  - `docs/handoffs/T7_current.md`, `docs/handoffs/T8_current.md`, and
+    `docs/handoffs/T0_current.md`.
+  - `status.md` completion markers.
+  - Codex worktree storage and visible Codex task records.
+  - Local Git branch/status, configured `origin`, live remote `main`, and
+    local `HEAD`.
+- Result:
+  - Required T8aj NPZ/JSON/manifest are not present.
+  - T7/T8 handoffs and status contain no T8aj/T7br completion record.
+  - The required directory contains only the preserved T12b
+    `stage1_yellow_error.json`.
+  - Live remote `main` equals local `HEAD` at
+    `bf710bc86a288cf272b3f720aa89e7c7f49b22e8`.
+  - Decision: `YELLOW / T8AJ-T7BR COMPLETION EVIDENCE NOT SYNCED`.
+- Scheduling:
+  - First recover/synchronize already-completed T8aj outputs without rerunning
+    the solver.
+  - Then synchronize T7br's decision and rerun its read-only fresh checks.
+  - Kirchhoff implementation remains gated until T0 verifies an exact T7br
+    GREEN decision and the required artifacts in the active project tree.
+- GitHub rule:
+  - Added a T0 major-node synchronization hard rule to `project.md`.
+  - Major verified nodes must be synchronized after status/T0 handoff updates
+    and fresh verification, using a scoped commit and non-force push.
+  - Secrets, private raw data, unintended large files, unrelated changes, and
+    unreviewed artifacts must be excluded.
+  - If safe sync is blocked, record `GitHub sync pending` with the exact reason.
+- Current GitHub sync:
+  - `GitHub sync pending` because this slice is not a verified project
+    closeout and the active tree contains unrelated handoff/status changes.
+- Changed files:
+  - `project.md`
+  - `status.md`
+  - `docs/handoffs/T0_current.md`
+- Tests:
+  - No solver or pytest run; this slice changes coordination documentation
+    only.
+
+### 2026-07-14 T6 Handoff Creation
+
+- Request:
+  - Read the new handoff rule in `project.md` and
+    `docs/handoffs/README.md`, then generate the T6 thread handoff at the
+    corresponding location.
+- Result:
+  - Created `docs/handoffs/T6_current.md`.
+  - No previous `docs/handoffs/T6_current.md` existed, so no archive copy was
+    needed.
+  - The handoff records T6 current status, completed T6a-T6m work,
+    incomplete/out-of-scope work, warnings, must-read files, frozen decisions,
+    forbidden actions, superseded prompts, exact next-task policy, allowed and
+    forbidden files, verification commands, and definition of done.
+- Changed files:
+  - `docs/handoffs/T6_current.md`
+  - `status.md`
+- Verification:
+  - Confirmed `project.md` contains the handoff hard rule.
+  - Confirmed `docs/handoffs/README.md` required content and location.
+  - Confirmed `docs/handoffs/T6_current.md` exists and contains the required
+    section headings.
+
+### 2026-07-14 T3 Current Handoff Created
+
+- User requested creation of the T3 thread handoff after reading the new
+  project handoff rule and `docs/handoffs/README.md`.
+- Created `docs/handoffs/T3_current.md`.
+- No prior `docs/handoffs/T3_current.md` existed at task start, so no archive
+  copy was required.
+- The handoff records:
+  - T3 role and current status;
+  - completed Phase 1 angular API work;
+  - T3h/Q016 high-`ell` Wigner-D hardening and T7h revalidation;
+  - incomplete generic incident-direction/rotation work;
+  - blockers/warnings, must-read files, frozen decisions, forbidden actions,
+    superseded prompts, exact next task, allowed/forbidden files, verification
+    commands, and definition of done.
+- Commands run:
+  - `rg -n "handoff|交接|handoffs" project.md docs/handoffs/README.md status.md`
+  - `find docs/handoffs -maxdepth 3 -type f | sort`
+  - `sed -n '1,260p' docs/handoffs/README.md`
+  - `sed -n '460,490p' project.md`
+  - `sed -n '1,240p' docs/handoffs/T1_current.md`
+  - `sed -n '1,260p' docs/handoffs/T4_current.md`
+  - `sed -n '5088,5225p' status.md`
+  - `sed -n '11830,11948p' status.md`
+- Tests:
+  - Not run. This task changed only documentation/status handoff files and did
+    not modify source code, tests, configs, or artifacts.
 
 ### 2026-07-09 T0 Next Round After T7bq GREEN
 
@@ -13829,3 +14412,77 @@ Next action:
   - Q018 blocker status:
     - T12b Fig.5/Fig.6 review-grid radial blocker has now passed T7bq review;
       unrestricted dense production remains separately gated.
+
+- 2026-07-14：生成 T2 current handoff 文档。
+  - Request:
+    - Read the newly added project handoff rule and `docs/handoffs/README.md`;
+      generate the corresponding T2 thread handoff document.
+  - Changed files:
+    - `docs/handoffs/T2_current.md`
+    - `status.md`
+  - Content:
+    - Created `docs/handoffs/T2_current.md`; no prior T2 current handoff
+      existed, so no archive copy was required.
+    - The handoff records that T2 foundation is complete and has no active
+      task.
+    - It documents the stable T2 public API:
+      `SchwarzschildBackground`, `f`, `df_dr`, `drstar_dr`, `r_star`,
+      `r_from_r_star`, `V_RW`, `V_Zerilli`, `lambda_parameter`, and
+      `Sector`.
+    - It records must-read files, frozen formula decisions, forbidden actions,
+      superseded prompt `docs/prompts/phase1_t2_background_rwz_goal.md`, exact
+      next-task standby text, allowed/forbidden files, verification commands,
+      and definition of done.
+  - Commands run:
+    - `rg -n "handoff|交接|移交|handoffs" project.md docs status.md README.md pyproject.toml -g '*.md' -g '*.toml'`
+    - `sed -n '1,260p' docs/handoffs/README.md`
+    - `find docs/handoffs -maxdepth 2 -type f | sort`
+    - `sed -n '450,500p' project.md`
+    - `sed -n '1,260p' docs/handoffs/T1_current.md`
+    - `sed -n '1,260p' docs/handoffs/T4_current.md`
+    - `sed -n '1,120p' docs/prompts/phase5_new_thread_startup_T0_T10.md`
+    - `sed -n` inspections of current T2 source and unit tests.
+  - Verification:
+    - `test -f docs/handoffs/T2_current.md && printf 'T2_handoff_exists\n'`
+      -> `T2_handoff_exists`.
+    - `rg -n "Thread Role And Current Status|Completed Work|Incomplete Work|Blocking Issues|Must-Read Files|Frozen Decisions|Forbidden Actions|Superseded Prompts|Exact Next Task|Allowed/Forbidden Files|Definition of done|No active T2 task|SchwarzschildBackground|r_from_r_star|V_RW|V_Zerilli|Sector" docs/handoffs/T2_current.md`
+      -> matched all required handoff sections and key T2 API/status terms.
+    - `rg -n "T2_current|phase1_t2_background_rwz_goal|No active T2 task|Handoff 硬规则|Required Content|Update Rule" project.md docs/handoffs/README.md docs/handoffs/T2_current.md status.md`
+      -> matched the project handoff rule, handoff README requirements,
+      current T2 handoff, superseded prompt, and this status entry.
+    - Full pytest not run because this task changed only handoff/status
+      documentation and did not modify `src/`, tests, configs, or artifacts.
+- 2026-07-14：创建 T5 current handoff 文档；未修改源码、测试、配置或 artifacts。
+  - User request:
+    - 阅读 `project.md` 中新增的 handoff 规则和 `docs/handoffs/README.md`。
+    - 在对应位置生成 T5 线程 handoff 文档。
+  - Changed files:
+    - `docs/handoffs/T5_current.md`
+    - `status.md`
+  - Handoff content:
+    - 记录 T5 role/current status：T5 owns incident plane GW amplitudes and boundary coefficients；当前无 active T5 task。
+    - 记录已完成 API：`linear_to_circular`、`circular_to_linear`、`sigma_l`、`IncidentPlaneGW`、`A_L/A_R`、`A_lm_even/odd`、`c_lm_even/odd`、`flat_space_master_even/odd`。
+    - 记录未完成范围：arbitrary incident direction / Wigner-D rotation、radial ODE、Weyl、metric reconstruction、partial-wave assembly、plotting、IO/CLI、benchmarks/fixtures。
+    - 记录 frozen decisions、forbidden actions、superseded prompts、exact next task、allowed/forbidden files、verification commands 和 definition of done。
+    - 未归档旧 T5 handoff，因为任务开始时 `docs/handoffs/T5_current.md` 不存在。
+  - Commands run:
+    - `rg -n "handoff|Handoff|交接|移交|handoffs" project.md docs status.md -g '*.md'`
+    - `sed -n '1,260p' docs/handoffs/README.md`
+    - `find docs/handoffs -maxdepth 2 -type f | sort`
+    - `sed -n '450,500p' project.md`
+    - `sed -n '1,240p' docs/handoffs/T4_current.md`
+    - `sed -n '1,220p' docs/handoffs/T1_current.md`
+    - `sed -n '5084,5112p' status.md`
+    - `sed -n '13338,13472p' status.md`
+    - `sed -n` inspections of `src/schwgw/waves/*.py`, `tests/unit/test_incident_wave.py`, and `tests/physics/test_incident_flat_space.py`
+    - `test -f docs/handoffs/T5_current.md`
+    - `rg -n "No active T5 task|IncidentPlaneGW|m=±2|arbitrary incident direction|Superseded Prompts|Definition Of Done" docs/handoffs/T5_current.md`
+    - `rg -n "Handoff 硬规则|T\\*_current|Required Content|Update Rule" project.md docs/handoffs/README.md`
+  - Verification:
+    - `docs/handoffs/T5_current.md` exists.
+    - Required handoff-rule language was found in `project.md` and `docs/handoffs/README.md`.
+    - T5 handoff contains the expected current-status, API, warning, superseded-prompt, and definition-of-done markers.
+  - Tests:
+    - Pytest not run because this task changed only documentation/status handoff files and did not modify `src/`, tests, configs, or artifacts.
+  - Open issues:
+    - Generic incident direction remains unimplemented and gated behind a future Wigner-D rotation design/review.

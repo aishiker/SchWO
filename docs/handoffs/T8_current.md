@@ -1,222 +1,141 @@
 # T8 Current Handoff
 
-Last updated: 2026-07-09
+Last updated: 2026-07-14
 
-## Thread Role And Status
+## Thread Role And Current Status
 
-T8ai completed the Fig.3 `dx=0.25M` read-only publication-rendering
-package from the T7bl-accepted archive.
+T8al completed the bounded units/dtype metadata-contract hardening for the
+accepted 18×8 Kirchhoff Eq. (47) scalar comparison baseline.
 
 Decision:
 
 ```text
-GREEN / READY FOR T0 BATCH T7 IMAGE-REVIEW DECISION
+GREEN / FIG5-FIG6 KIRCHHOFF METADATA CONTRACT HARDENED
 ```
 
-This is a rendering/panel-polish package only. It is not a final
-journal-grade claim, not pixel-level reproduction, and not new numerical
-production.
+The correction is metadata-only. Every non-metadata array is byte-identical
+to T8ak and retains its frozen NumPy-array SHA256 fingerprint. The formula,
+branches, backend, dps, grid, numerical values, masks, phases, and non-claims
+are unchanged. T7bt was dispatched successfully to existing T7 task
+`019f5ed1-b421-7ec2-9bac-8d134855a1ed` with `gpt-5.6-sol`, thinking `high`;
+T0 task `019f5ec5-84ba-79e2-8c77-1160b150a636` was notified.
 
 ## Completed Work
 
-- Read and followed
-  `docs/prompts/phase5_t8ai_fig3_dx0p25_publication_rendering_goal.md`.
-- Used Goal mode.
-- Read the required project context, T7/T8/T10 handoffs, closeout, literature
-  review note, accepted production manifest, and Fig.3 plotting code/tests.
-- Read/applied local `scientific-visualization` and
-  `verification-before-completion` skill instructions.
-- Generated a publication-rendering package under:
-  - `runs/phase5/fig3_dx0p25_publication_rendering/`
-- Updated:
-  - `src/schwgw/viz/results.py`
-  - `src/schwgw/cli.py`
-  - `tests/regression/test_plot_cli.py`
-  - `status.md`
-  - `docs/handoffs/T8_current.md`
-- Archived the previous T8 handoff at:
-  - `docs/handoffs/archive/T8_2026-07-09_fig3_dx0p25_publication_rendering_pre.md`
+- Executed `docs/superpowers/plans/2026-07-14-t8al-kirchhoff-metadata-contract.md`
+  using `executing-plans`, TDD, and fresh completion verification.
+- Added exact `units` and `dtype` mappings for all 16 non-metadata arrays to
+  embedded NPZ metadata, JSON sidecar, and manifest.
+- Bumped schema to
+  `phase5_t8al_kirchhoff_review_grid_v2_units_dtype`.
+- Added fail-closed runtime validation that actual array dtypes exactly match
+  the frozen mapping.
+- Preserved the T8ak artifacts under
+  `/tmp/schwo_t8al_pre_metadata_contract/` and regenerated only the same three
+  project artifact paths.
+- Commit `7966be1 fix: record Kirchhoff units and dtypes` contains exactly
+  `src/schwgw/io/kirchhoff.py` and
+  `tests/unit/test_kirchhoff_artifact.py`.
 
-## Source Archive
+## Artifacts And Hashes
 
-Read-only source archive:
-
-- `runs/phase5/fig3_four_frequency_dx0p25_production/`
-
-Accepted source NPZ hashes rechecked:
+Accepted T8aj source hashes remain unchanged:
 
 ```text
-b93582cf10a20f8340b105f6c82f1faed9398c93dd83c6a003270a3417d21873  runs/phase5/fig3_four_frequency_dx0p25_production/t8ah_li_fig3_xz_k0p5_dx0p25.npz
-0de560ce7a2696074e708506240c69e43eb4d40520447ec378208b37f64c0132  runs/phase5/fig3_four_frequency_dx0p25_production/t8ah_li_fig3_xz_k1p0_dx0p25.npz
-1f146a6c67192976538820b68e94118a3a6e636ba71ecebb045cbca123e5e7f2  runs/phase5/fig3_four_frequency_dx0p25_production/t8ah_li_fig3_xz_k1p5_dx0p25.npz
-b560f9ae072495590e59ae7c49d54ee0353e395a0bd9d60b4cf5b717d11c34fc  runs/phase5/fig3_four_frequency_dx0p25_production/t8ah_li_fig3_xz_k2p0_dx0p25.npz
+a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb  runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz
+2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537  runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz.json
+86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf  runs/phase5/fig5_fig6_dense_review_grid/manifest.md
 ```
 
-The accepted source archive was not modified.
-
-## Output Artifacts
-
-Required output directory:
-
-- `runs/phase5/fig3_dx0p25_publication_rendering/`
-
-Files generated:
+T8al output hashes:
 
 ```text
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bicubic.pdf
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bicubic.pdf.json
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bicubic_600dpi.png
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bicubic_600dpi.png.json
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bilinear.pdf
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bilinear.pdf.json
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bilinear_600dpi.png
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bilinear_600dpi.png.json
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_nearest_audit_600dpi.png
-runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_nearest_audit_600dpi.png.json
-runs/phase5/fig3_dx0p25_publication_rendering/manifest.md
+66c59851e6eaf6bf5691c8026e0d528edbf304ae4bbcfc47a0290c14f87fdb55  runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz
+0b20d62be1fe39b48ce90ca2a8d0f7798fff489a777f18b2bf2d7c268376fdf3  runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz.json
+fb138038b783d2a511df94f6552a5d77a06ae7f1a32dc4c80ea54ee7f3c5e632  runs/phase5/fig5_fig6_kirchhoff_baseline/manifest.md
 ```
 
-Output hashes:
+## Tests And Verification
 
-```text
-95d26e0301cf0391724fbf3e87b2a3704e9ecfdfed983e378536fdb78e8bd6e7  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bicubic.pdf
-79362716e047a9bb580e428a37765e25afd45d57f9ed76ba8ec31a7cfdc2cd76  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bicubic.pdf.json
-5bf6eade3928db09b5d9e37bc62c44bb054869aedb5a4efaf5e48062948c4b39  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bicubic_600dpi.png
-85d43b18d8d9d8a854b067f1e95868350eaa1ccc2695e8bb823c1cab7271dc7d  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bicubic_600dpi.png.json
-2321450e3b97d4f94f16cd9670b3fa684e140f3a3ff75f295829fe7817fac8bf  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bilinear.pdf
-1069193168707eda3542fd647e8b4aa8b3e6d1b71406c4734ef17753c2f13973  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bilinear.pdf.json
-baa91c8253ab31782f23624cf5b5b22d8542a596b76d41822f86a3b3a8f271df  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bilinear_600dpi.png
-40896e1dbf5c3923dd4c8bb6477b16c8935ae48af2d7a70df3ab8b852e4c1e45  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_bilinear_600dpi.png.json
-482b241443f7376d3c68e390b1c9613784bbd0e44dc487218971d2a8ad51fa1f  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_nearest_audit_600dpi.png
-3fc81632528dd2a8dddf8aa7866a9199d99f03ce1b97578647b54af518848384  runs/phase5/fig3_dx0p25_publication_rendering/fig3_dx0p25_publication_nearest_audit_600dpi.png.json
-577eb73ab2fffba00ad4d57e06b229039d49c9e3d8f94535f3350e63854d48be  runs/phase5/fig3_dx0p25_publication_rendering/manifest.md
-```
-
-## Rendering Policy
-
-- Nearest audit PNG:
-  - `numerical_evidence_plot=true`
-  - `display_only_smoothing=false`
-- Bilinear PNG/PDF:
-  - `numerical_evidence_plot=false`
-  - `display_only_smoothing=true`
-- Bicubic PNG/PDF:
-  - `numerical_evidence_plot=false`
-  - `display_only_smoothing=true`
-
-The bilinear and bicubic outputs are display-only publication candidates.
-They must not be used as additional numerical evidence.
-
-## Image And Sidecar Summary
-
-- PNG dimensions: `4260 x 2190`.
-- PNG DPI: about `600`.
-- PDF MediaBox: `7.1 x 3.65 in`.
-- All PNGs were opened with PIL and were nonblank.
-- Bilinear and bicubic PNGs were visually inspected.
-- Every output has a JSON sidecar.
-- Sidecars record source NPZ paths/SHA/sizes, source case IDs,
-  `kM_values=[0.5,1.0,1.5,2.0]`, `components=h_plus/h_cross`,
-  `quantity=real`, interpolation policy, display/audit policy,
-  final adjacent-pair status, Q018 same-domain summary, requested DPI/output
-  format, and non-claim flags.
-
-Non-claim flags present in every sidecar:
-
-- `not_final_journal_grade=true`
-- `not_pixel_level_reproduction=true`
-- `not_dx02_production=true`
-- `not_kM4_production=true`
-- `not_R60_production=true`
-- `not_fig2_strict_psi4_artifact=true`
-
-## Code Scope
-
-Allowed source/test changes were used only for read-only rendering:
-
-- Added `--style publication` to `plot-fig3-multifrequency-panel`.
-- Added a publication render style for the existing Fig.3 multifrequency
-  plotting helper.
-- Added a focused CLI regression test for the publication style.
-
-Not changed:
-
-- `src/schwgw/scattering/`
-- `src/schwgw/numerics/`
-- `src/schwgw/perturbations/`
-- `src/schwgw/backgrounds/`
-- physics conventions
-- thresholds
-- `lmax`
-- Q018/boundary/normalization policy
-- accepted production NPZs or production manifest
-
-## Verification Commands Run
-
-```bash
-find runs/phase5/fig3_dx0p25_publication_rendering -maxdepth 1 -type f -print | sort
-shasum -a 256 runs/phase5/fig3_dx0p25_publication_rendering/*
-rg -n "schwgw\\.(scattering|perturbations|angular|numerics|backgrounds)|compute_polarization|run_solver_grid|solve_radial" src/schwgw/viz src/schwgw/cli.py || true
-PYTHONPATH=src /opt/homebrew/bin/python3 -m pytest -q tests/regression/test_plot_cli.py tests/unit/test_viz_results.py
-```
-
-Additional independent inspection:
-
-- opened all new PNGs with PIL;
-- checked PNG dimensions/DPI/nonblank statistics;
-- inspected PDF MediaBox dimensions;
-- loaded every sidecar;
-- checked source NPZ hashes and file sizes;
-- checked interpolation/display policies;
-- checked non-claim flags;
-- checked no output path is inside the accepted source archive;
-- checked manifest contents.
-
-Results:
-
-- Focused pytest: `59 passed in 5.84s`.
-- Independent inspection: `PASS`.
-- Static search had no matches in `src/schwgw/viz`.
-- Static search matches in `src/schwgw/cli.py` are pre-existing non-rendering
-  solver branches/import hooks; the new plot command path uses only
-  `schwgw.viz`.
-- `git status --short` was attempted, but this mounted path is not a Git
-  repository (`fatal: not a git repository`).
+- Required TDD RED: old schema assertion failed; implementation then passed.
+- Focused pytest: `9 passed in 0.36s`.
+- Ruff: `All checks passed!`.
+- Numerical identity: `T8AL_NUMERICAL_ARRAY_IDENTITY=PASS` for all 16
+  non-metadata arrays, including exact equality and frozen `.npy` SHA256.
+- Metadata surfaces: `T8AL_METADATA_SURFACES=PASS`.
+- Full pytest: `558 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests
+  passed in 311.85s`.
+- Forbidden production-source diff and forbidden downstream-output searches
+  were empty; baseline directory contains exactly three files.
+- Existing warnings are the prior Weyl/Wigner/radial numerical warnings; no
+  Kirchhoff warning or non-finite value was introduced.
 
 ## Incomplete Work
 
-- No T7 image review has yet reviewed the new publication-rendering package.
-- No final journal-grade or paper-level claim is made.
-- No `dx=0.2M` evidence was generated.
-- No `kM=4`, R60/R60_K4, Fig.2 strict `Psi4`, fixtures, dense Fig.5/Fig.6,
-  Kirchhoff, Appendix D/E, or convention/threshold/`lmax`/boundary work was
-  authorized or performed.
+- T7bt must independently review this metadata-only correction.
+- T0 must close the gate after T7bt reports its exact decision.
+- No plotting, dense production, fixture, or paper-style stage is authorized.
 
-## Blocking Issues
+## Blocking Issues And Non-Blocking Warnings
 
-No T8ai execution blocker remains.
+- No T8al blocker remains.
+- The shared working tree contains accumulated coordination-document changes;
+  they were preserved and excluded from the scoped code commit.
+- T7bt independent acceptance is still required before T0 milestone handling.
 
-Remaining gate:
+## Files The Next Thread Must Read
 
-- T0 must decide whether to schedule one batch T7 image review for the
-  package under `runs/phase5/fig3_dx0p25_publication_rendering/`.
+1. `status.md`
+2. `docs/prompts/phase5_t7bt_fig5_fig6_kirchhoff_metadata_contract_review.md`
+3. `docs/superpowers/plans/2026-07-14-t8al-kirchhoff-metadata-contract.md`
+4. `docs/handoffs/T7_current.md`
+5. `docs/handoffs/T8_current.md`
+6. `src/schwgw/io/kirchhoff.py`
+7. `tests/unit/test_kirchhoff_artifact.py`
+8. `runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz`
+9. `runs/phase5/fig5_fig6_kirchhoff_baseline/tablei_kirchhoff_baseline_values.npz.json`
+10. `runs/phase5/fig5_fig6_kirchhoff_baseline/manifest.md`
+11. `/tmp/schwo_t8al_pre_metadata_contract/`
 
-## Must-Read Files For A Future T7 Image Review
+## Frozen Decisions
 
-1. `project.md`
-2. `status.md`
-3. `docs/handoffs/T7_current.md`
-4. `docs/handoffs/T8_current.md`
-5. `docs/handoffs/T10_current.md`
-6. `docs/phase5_fig3_four_frequency_dx0p25_production_closeout.md`
-7. `references/notes/t10i_fig3_dx0p25_figure_quality_literature_review.md`
-8. `runs/phase5/fig3_four_frequency_dx0p25_production/manifest.md`
-9. `runs/phase5/fig3_dx0p25_publication_rendering/manifest.md`
-10. Every JSON sidecar under
-    `runs/phase5/fig3_dx0p25_publication_rendering/`
+- Eq. (47), its branches, positive-frequency no-conjugation policy,
+  coordinate-derived eta, backend `mpmath 1.4.1`, and `dps=60` are unchanged.
+- All non-metadata arrays and their frozen fingerprints are immutable.
+- Kirchhoff remains scalar, polarization-independent, and comparison-only.
+- It must not enter solver, denominator, masks, normalization, calibration,
+  Q018, boundary policy, or polarization channels.
+
+## Forbidden Actions
+
+- Do not modify or regenerate T8al implementation/artifacts during T7bt.
+- Do not create plots, 40-frequency/dense production, fixtures, interpolation,
+  smoothing, Appendix D/E, or paper-style candidates.
+- Do not modify formula, precision, source grid, solver, configs, or regression
+  fixtures, and do not push GitHub from T7/T8.
+- Scientific/test failures must not be bypassed by changing model.
+
+## Superseded Prompts
+
+- T8ak and T8al implementation prompts are complete and must not be reused by
+  T7bt to repair source or artifacts.
+- T12/T12b and all later-stage plotting/production prompts remain superseded.
 
 ## Exact Next Task
 
-Return to T0. T0 should decide whether to schedule a batch T7 image review for
-the T8ai publication-rendering package, or pause Fig.3 and choose another
-gated workstream.
+T7bt is now running in existing T7 task
+`019f5ed1-b421-7ec2-9bac-8d134855a1ed` with `gpt-5.6-sol`, thinking `high`.
+It must independently execute
+`docs/prompts/phase5_t7bt_fig5_fig6_kirchhoff_metadata_contract_review.md`
+and send its exact decision to T0 task
+`019f5ec5-84ba-79e2-8c77-1160b150a636`.
+
+## Allowed Files, Verification Commands, And Definition Of Done
+
+- T7bt may modify only `status.md`, `docs/handoffs/T7_current.md`, and its
+  required archive. It is review-only.
+- T7bt must independently verify all nine checks in its frozen prompt,
+  including every per-array fingerprint, all metadata surfaces, focused pytest,
+  Ruff, full pytest, source hashes, directory cardinality, and forbidden scope.
+- T8al exact GREEN requires all recorded checks, fresh status/T8 handoff
+  verification, successful T7bt dispatch, and T0 notification.

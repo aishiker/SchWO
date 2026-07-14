@@ -1,159 +1,171 @@
 # T0 Current Handoff
 
-Date: 2026-07-09
+Date: 2026-07-14
 
 Thread: T0, project coordination and gate scheduling.
 
 ## Current Status
 
-T7bq completed independent review of the T4y Fig.5/Fig.6 review-grid radial
-gate:
+The bounded T8al/T7bt Kirchhoff units/dtype metadata-contract gate is closed.
+
+T7bt exact decision:
 
 ```text
-ACCEPT GREEN / FIG5-FIG6 REVIEW-GRID RADIAL GATE PASSED
+ACCEPT GREEN / FIG5-FIG6 KIRCHHOFF METADATA CONTRACT ACCEPTED
 ```
 
-Meaning:
-
-- T4y reproduced and resolved the T12b `kM=2.5`, `ell=160` radial blocker.
-- T4y classified the high-frequency review-grid radial coverage:
-  `6156` default-covered, `1582` structured-uncovered, `36` structured
-  solver-failed, and `0` default other errors over `7774` records.
-- The measured transition set has `1618` records and is exactly covered by the
-  new opt-in adapter `q018_tablei_review_grid_transition`.
-- T7bq fresh tests passed: focused radial/Q018/unit suite
-  `317 passed, 108 warnings, 16 subtests passed`; full suite
-  `549 passed, 117 skipped, 1 xfailed, 108 warnings, 79 subtests passed`.
-- T0 may now schedule T8 to resume the conservative eight-point review-grid
-  data artifact only.
-
-## Current Scheduling Decision
-
-The user plans to replace all threads with new threads.  T0 created:
+T0 exact decision:
 
 ```text
-docs/prompts/phase5_t8aj_fig5_fig6_review_grid_resume.md
-docs/prompts/phase5_t7br_fig5_fig6_review_grid_data_review.md
-docs/prompts/phase5_new_thread_startup_T0_T10.md
+ACCEPT GREEN / FIG5-FIG6 KIRCHHOFF METADATA GATE CLOSED
 ```
 
-The next implementation slice is T8aj.  It may generate only the conservative
-review-grid data artifact.  It must not generate Kirchhoff baselines, plots,
-40-frequency production scans, fixtures, or paper-style candidates.  T7br then
-reviews that data artifact before T0 opens the Kirchhoff/plot stage.
+All nine frozen checks pass. The accepted correction is metadata-only: every
+one of the 16 non-metadata arrays has canonical NumPy `.npy` bytes identical
+to the frozen, hash-verified T8ak backup and matches its frozen fingerprint.
+Embedded NPZ metadata, JSON sidecar, manifest, and actual dtypes agree on the
+exact units/dtype contract.
 
-## Exact Next Task
+No scientific or production stage follows this gate. The user requested a
+Codex-update maintenance pause after the current T8/T7/T0 round.
 
-Send T8:
+## T0 Fresh Verification
+
+- Commit `7966be1 fix: record Kirchhoff units and dtypes` contains exactly:
+  - `src/schwgw/io/kirchhoff.py`
+  - `tests/unit/test_kirchhoff_artifact.py`
+- Direct backup/current audit, without calling the serializer or compute API:
 
 ```text
-你现在是 T8aj：Fig.5/Fig.6 conservative review-grid data resume 线程。请读取并严格执行 docs/prompts/phase5_t8aj_fig5_fig6_review_grid_resume.md。
+T0_T7BT_NINE_GATE_CORE_AUDIT=PASS arrays=16
 ```
 
-After T8aj finishes, send T7:
+- All 16 canonical `np.save(..., allow_pickle=False)` byte streams are
+  old-vs-new identical and match the frozen SHA256 mapping.
+- Schema is exactly
+  `phase5_t8al_kirchhoff_review_grid_v2_units_dtype`.
+- Embedded and sidecar `units`/`dtype` mappings cover all and only the 16
+  non-metadata arrays; manifest lines and actual array dtypes agree.
+- The baseline directory contains exactly the NPZ, JSON sidecar, and manifest.
+- Focused pytest: `9 passed in 0.39s`.
+- Ruff: `All checks passed!`.
+- T0 full pytest:
+  `558 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests passed in
+  317.86s (0:05:17)`.
+- Forbidden production diff and downstream-output checks are empty.
+- Existing warnings remain the known Weyl/Wigner/radial numerical warnings.
+
+## Accepted Hashes
+
+Pre-hardening T8ak backup:
 
 ```text
-你现在是 T7br：Fig.5/Fig.6 conservative review-grid data independent review 线程。请读取并严格执行 docs/prompts/phase5_t7br_fig5_fig6_review_grid_data_review.md。
+a91f0a5f5eb672ac897ea776f7577d4f33b89c72154dc1b665c8ced06cbec53c  tablei_kirchhoff_baseline_values.npz
+86670c426ada2284d334a017b6abdfc36443d0fb7ea82606f3d544de17788a19  tablei_kirchhoff_baseline_values.npz.json
+53d852b25bd73bb25cecb37518e72a010c5b3882cf5e86799e4b695178586d49  manifest.md
 ```
 
-If replacing all threads, use:
+Accepted T8aj inputs:
 
 ```text
-docs/prompts/phase5_new_thread_startup_T0_T10.md
+a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb  tablei_dense_review_values.npz
+2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537  tablei_dense_review_values.npz.json
+86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf  manifest.md
 ```
 
-## Prompt Files
+Accepted T8al outputs:
 
-- `docs/prompts/phase5_t8aj_fig5_fig6_review_grid_resume.md`
-- `docs/prompts/phase5_t7br_fig5_fig6_review_grid_data_review.md`
-- `docs/prompts/phase5_new_thread_startup_T0_T10.md`
-
-Completed historical prompts that are not current next actions:
-
-- `docs/prompts/phase5_t4y_fig5_fig6_review_grid_radial_gate.md`
-- `docs/prompts/phase5_t7bq_fig5_fig6_review_grid_radial_gate_review.md`
-- `docs/prompts/phase5_t12b_fig5_fig6_after_adapter_goal.md`
-- `docs/prompts/phase5_autonomous_fig5_fig6_pipeline_goal.md`
-- `docs/prompts/phase5_t4x_km4_tablei_transition_error_structuring_adapter.md`
-- `docs/prompts/phase5_t7bp_km4_tablei_transition_adapter_review.md`
-- `docs/prompts/phase5_t1j_kirchhoff_eq47_convention_freeze.md`
-- `docs/prompts/phase5_t4v_km4_tablei_radial_q018_preflight.md`
-- `docs/prompts/phase5_t7bn_kirchhoff_km4_preflight_batch_review.md`
-- `docs/prompts/phase5_t4w_km4_tablei_transition_oracle_probe.md`
-- `docs/prompts/phase5_t7bo_km4_transition_oracle_probe_review.md`
-
-## Must-Read Files For Next T0
-
-1. `status.md`
-2. `docs/handoffs/T0_current.md`
-3. `docs/prompts/phase5_t8aj_fig5_fig6_review_grid_resume.md`
-4. `docs/prompts/phase5_t7br_fig5_fig6_review_grid_data_review.md`
-5. `docs/prompts/phase5_new_thread_startup_T0_T10.md`
-6. `docs/handoffs/T4_current.md`
-7. `docs/handoffs/T7_current.md`
-8. `docs/handoffs/T8_current.md`
-9. `docs/handoffs/T12b_current.md`
-10. `docs/phase5_fig5_fig6_review_grid_radial_gate.md`
-11. `runs/phase5/fig5_fig6_radial_gate/t4y_review_grid_radial_classification.json`
-12. `runs/phase5/fig5_fig6_radial_gate/t4y_review_grid_oracle_validation.json`
-13. `runs/phase5/fig5_fig6_radial_gate/t4y_resume_preflight.json`
-14. `references/notes/t10g_fig5_fig6_dense_kirchhoff_readiness_plan.md`
-
-## Frozen Decisions
-
-- Fourier convention remains `exp(-i k t)`.
-- Route B packaged polarization remains production path for physical
-  `h_plus/h_cross`.
-- Strict NP scalars and packaged polarization scalars remain separated.
-- Fig.3 `dx=0.25M` bilinear PNG/PDF is accepted as current paper-draft
-  rendering candidate only.
-- Kirchhoff Eq. (47) is scalar comparison baseline only, never the production
-  denominator.
-- Q018 `required_eval_radius` remains fail-closed.
-- Existing Wronskian/flux/lmax/near-axis thresholds remain unchanged.
-
-## Forbidden Actions
-
-Without a new T0/T7 gate, do not run or authorize:
-
-- T8 conservative review-grid scan until T4y finishes and T7bq accepts the
-  review-grid radial gate; this gate has passed, but T8 remains limited to the
-  T8aj conservative review-grid data prompt;
-- unrestricted T8 dense Fig.5/Fig.6 production;
-- 40-frequency production-like dense scan;
-- broadening the `kM=4` production adapter beyond its T7bp-reviewed envelope;
-- field maps, plots, fixtures, or NPZ/HDF5 production outputs;
-- Kirchhoff implementation or plotting;
-- Appendix D/E curves;
-- R60_K4;
-- Fig.2 strict `Psi4`;
-- `dx=0.2M`;
-- source/test/convention/threshold/`lmax`/boundary changes outside the
-  autonomous pipeline's explicit stage scopes.
-
-## Current Open Issues
-
-- T8aj conservative review-grid data has not run.
-- T7br review has not run.
-- Final journal-grade acceptance still requires independent review.
-- Existing `docs/handoffs/T10_current.md` remains stale relative to T10g/T7be,
-  but `status.md` and local notes contain the authoritative decision trail.
-
-## Verification Commands For Current T0 Slice
-
-```bash
-test -f docs/prompts/phase5_t8aj_fig5_fig6_review_grid_resume.md
-test -f docs/prompts/phase5_t7br_fig5_fig6_review_grid_data_review.md
-test -f docs/prompts/phase5_new_thread_startup_T0_T10.md
-rg -n "T8aj|T7br|T0-T10|FIG5-FIG6 REVIEW-GRID RADIAL GATE PASSED|q018_tablei_review_grid_transition|conservative review-grid" status.md docs/handoffs/T0_current.md docs/prompts/phase5_t8aj_fig5_fig6_review_grid_resume.md docs/prompts/phase5_t7br_fig5_fig6_review_grid_data_review.md docs/prompts/phase5_new_thread_startup_T0_T10.md
-find runs/phase5/fig5_fig6_kirchhoff_baseline runs/phase5/fig5_fig6_review_grid_plots runs/phase5/fig5_fig6_dense_scan_production runs/phase5/fig5_fig6_paper_style_candidates -maxdepth 2 -type f -print 2>/dev/null | sort
-find src tests configs runs/phase5 -type f -newer docs/prompts/phase5_t8aj_fig5_fig6_review_grid_resume.md -print | sort
+```text
+66c59851e6eaf6bf5691c8026e0d528edbf304ae4bbcfc47a0290c14f87fdb55  tablei_kirchhoff_baseline_values.npz
+0b20d62be1fe39b48ce90ca2a8d0f7798fff489a777f18b2bf2d7c268376fdf3  tablei_kirchhoff_baseline_values.npz.json
+fb138038b783d2a511df94f6552a5d77a06ae7f1a32dc4c80ea54ee7f3c5e632  manifest.md
 ```
 
-## Definition Of Done For This Gate
+## Frozen Scientific Boundary
 
-- T8aj/T7br prompts exist.
-- T0-T10 new-thread startup prompt exists.
-- `status.md` and T0 handoff point to T8aj first, then T7br.
-- Kirchhoff, plotting, 40-frequency production, fixtures, and paper-style
-  candidates remain gated.
+- Eq. (47), principal branches, positive-frequency no-conjugation policy,
+  coordinate-derived eta, backend `mpmath 1.4.1`, and `dps=60` are unchanged.
+- The accepted 18-frequency by eight-Table-I-point grid and every numerical
+  array, mask, phase, and non-claim are unchanged.
+- Kirchhoff remains a scalar, polarization-independent comparison baseline.
+- It must not enter the solver, denominator, masks, normalization,
+  calibration, Q018/boundary policy, or polarization channels.
+- No plot, dense/40-frequency production, fixture, interpolation, smoothing,
+  Appendix D/E, or paper-style candidate is authorized.
+
+## GitHub Milestone Synchronization
+
+This independent GREEN is a high-risk-gate major node under `project.md`.
+
+Authorized synchronization scope:
+
+- six existing T8ak/T8al implementation/design/plan commits from `d6519e4`
+  through `7966be1`;
+- `project.md` with the user-approved Codex auto-dispatch and GitHub milestone
+  rules;
+- `status.md`;
+- current T0/T7/T8 handoffs;
+- T0/T7/T8 archives belonging to the T8aj→T7br→T8ak→T7bs→T8al→T7bt chain.
+
+Explicitly excluded:
+
+- independent T1/T2/T3/T5/T6 handoff changes;
+- ignored `runs/` artifacts and `/tmp` backups;
+- raw/private data, secrets/credentials, unexpected large files, and any
+  unrelated or unreviewed path.
+
+Remote preflight:
+
+- configured repository is private;
+- default/current authorized branch is `main`;
+- `origin/main...HEAD` was `0 6` after fresh fetch;
+- GitHub authentication is available;
+- outgoing committed secret scan is clean;
+- force push, history rewrite, branch deletion, PR creation, and repository
+  visibility changes are not authorized.
+
+Pre-push status:
+
+```text
+GitHub sync authorized; completion verification pending
+```
+
+## Runtime Task And Monitor State
+
+- T0 task: `019f5ec5-84ba-79e2-8c77-1160b150a636`
+- T8 task: `019f5ece-f578-7b91-8f61-df882c656591`
+- T7 task: `019f5ed1-b421-7ec2-9bac-8d134855a1ed`
+
+T8al and T7bt are complete. Neither task starts any later work. The heartbeat
+automation `monitor-t8ak-t7bs-gate` must be deleted after the GitHub sync and
+final T0 verification.
+
+## Maintenance Pause And Exact Next Action
+
+No next-task prompt is provided. This is intentional and required because the
+user asked to update Codex after the current round.
+
+After the scope-explicit non-force push is verified:
+
+```text
+PAUSED / USER CODEX UPDATE
+```
+
+During the pause:
+
+- do not design, schedule, dispatch, or start another task;
+- do not reuse T8ak/T8al/T7bs/T7bt prompts;
+- do not create a new monitor or thread;
+- wait for an explicit user instruction to resume.
+
+## Definition Of Done
+
+- T7bt exact GREEN independently accepted by T0.
+- T0 fresh artifact, fingerprint, schema, scope, focused, Ruff, and full-suite
+  checks pass.
+- Closeout status and T0 handoff are committed in the explicit milestone
+  scope.
+- Current `main` is pushed non-force and `origin/main == HEAD` is verified.
+- GitHub completion is recorded durably.
+- The gate monitor is deleted.
+- T0 enters maintenance pause without a next-stage prompt or dispatch.
