@@ -118,8 +118,9 @@ def _atomic_npz(path: Path, arrays: Mapping[str, np.ndarray]) -> None:
 
 
 def _covers(solution: Any, required_radius: float) -> bool:
+    lower = float(solution.r_grid[0])
     upper = solution.r_grid[-1] if solution.valid_until_r is None else solution.valid_until_r
-    return float(required_radius) <= float(upper)
+    return lower <= float(required_radius) <= float(upper)
 
 
 def _background_signature(background: Any) -> tuple[str, float]:
@@ -152,7 +153,7 @@ def _radial_cache_key(
 class _FrequencyRadialCache:
     def __init__(self, solver: Callable[..., Any]) -> None:
         self._solver = solver
-        self._entries: dict[tuple[Any, ...], Any] = {}
+        self._entries: dict[tuple[Any, ...], list[Any]] = {}
         self.solve_count = 0
         self.reuse_count = 0
         self.solutions: list[Any] = []
@@ -170,10 +171,11 @@ class _FrequencyRadialCache:
         if required is None:
             raise PilotContractError("risk-pilot radial cache requires an exact radius")
         key = _radial_cache_key(sector, ell, k, background, config)
-        existing = self._entries.get(key)
-        if existing is not None and _covers(existing, float(required)):
-            self.reuse_count += 1
-            return existing
+        entries = self._entries.setdefault(key, [])
+        for existing in entries:
+            if _covers(existing, float(required)):
+                self.reuse_count += 1
+                return existing
         solution = self._solver(
             sector=sector,
             ell=ell,
@@ -183,8 +185,13 @@ class _FrequencyRadialCache:
         )
         self.solve_count += 1
         self.solutions.append(solution)
-        if existing is None or _certified_upper(solution) >= _certified_upper(existing):
-            self._entries[key] = solution
+        if not _covers(solution, float(required)):
+            raise PilotContractError(
+                "radial solver returned a solution outside its certified interval: "
+                f"required={float(required)}, lower={float(solution.r_grid[0])}, "
+                f"upper={_certified_upper(solution)}"
+            )
+        entries.append(solution)
         return solution
 
 

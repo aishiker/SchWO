@@ -159,6 +159,46 @@ def test_radial_cache_reuses_only_certified_domain() -> None:
     assert calls[-2:] == [30.0, 40.0]
 
 
+def test_radial_cache_keeps_disjoint_point_local_solutions() -> None:
+    calls: list[float] = []
+
+    def solve(**kwargs: object) -> SimpleNamespace:
+        required = float(kwargs["boundary_config"].required_eval_radius)
+        calls.append(required)
+        return SimpleNamespace(
+            r_grid=np.asarray([required, required + 1.0e-6]),
+            valid_until_r=required,
+        )
+
+    cache = pilot._FrequencyRadialCache(solve)
+    base = pilot.BoundaryConfig(
+        r_out=300.0,
+        r_in_eps=1.0e-6,
+        rtol=1.0e-10,
+        atol=1.0e-12,
+        required_eval_radius=40.0,
+        experimental_required_radius_oracle=pilot.ADAPTER_NAME,
+    )
+    common = {
+        "sector": "odd",
+        "ell": 164,
+        "k": 2.8,
+        "background": SimpleNamespace(M=1.0),
+    }
+    far = cache(**common, boundary_config=base)
+    near_config = pilot.BoundaryConfig(
+        **{**base.__dict__, "required_eval_radius": 36.0}
+    )
+    near = cache(**common, boundary_config=near_config)
+    far_again = cache(**common, boundary_config=base)
+
+    assert far is not near
+    assert far_again is far
+    assert calls == [40.0, 36.0]
+    assert cache.solve_count == 2
+    assert cache.reuse_count == 1
+
+
 def test_cache_key_changes_with_adapter_and_tolerances() -> None:
     base = pilot.BoundaryConfig(
         r_out=300.0,
