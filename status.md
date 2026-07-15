@@ -4,7 +4,7 @@
 
 状态文件版本：v0.1-template
 
-当前日期：2026-07-14
+当前日期：2026-07-15
 
 > 规则：任何线程开始或完成任务，都必须更新本文件。状态记录优先于聊天记录；Codex 恢复上下文时先读本文件。
 
@@ -12,12 +12,56 @@
 
 | 项 | 状态 |
 |---|---|
-| 当前阶段 | Phase 5：用户已审阅并批准 bounded `Delta(kM)=0.1` nine-frequency risk-pilot 设计；T0 已冻结 T4z→T7bv→T8an→T7bw 双门禁实施包。当前授权仅为先启动 T4z exact radial/Q018 gate。 |
-| 当前目标 | T4z 对九个风险定向频率做完整 default-path classification、direct-oracle validation、atomic checkpoints，并仅在证据通过时增加 exact fail-closed adapter；exact GREEN 后才派发 T7bv。不得提前启动 T8an、40/79-frequency production、`0.05` scan、fixtures、plots 或 paper-style stage。 |
+| 当前阶段 | Phase 5：T7bw RED 已由 T0 关闭；用户已审阅 T8ao/T7bx metadata-only repair design，T0 正在冻结 plan/prompts 并准备向现有 T8 task 派发。 |
+| 当前目标 | T8ao 只补齐 units/ordering/provenance metadata 并证明全部非 metadata arrays 精确不变；仅 exact GREEN 可进入 T7bx 独立复核。 |
 | 代码状态 | T2 Schwarzschild background、RW/Zerilli potentials、Sector enum、T3 angular public API、T4 radial ODE/matching/diagnostics plus Q018 `evanescent_tail_suppressed` policy and Route A `required_eval_radius` fail-closed guard plus T4o experimental Q018 oracle prerequisite boundary, T4p experimental Riccati/log-derivative oracle prototype, T4q opt-in broader oracle validation tests, T4r production-integration design/contract tests, T4s reviewed explicit opt-in production adapter/tests, T7an independent review acceptance, T4u continuous `ell=153..180` run-level opt-in oracle dispatch/tests, T4v metadata-only `kM=4` Table-I radial/Q018 preflight report, T7bn independent batch gate review without source/test/config/run mutation, T4w metadata-only direct experimental `kM=4` transition-oracle probe report, T7bo independent acceptance for T4x adapter design without source/test/config/run mutation, T12 Stage 1 YELLOW closeout/metadata without source/test/config mutation, T4x structured radial error handling plus opt-in `q018_tablei_km4_transition` adapter/tests/metadata, T7bp independent adapter-gate acceptance without source/test/config/run mutation, T12b Stage 0 smoke plus Stage 1 YELLOW blocker metadata without source/test/config mutation, T4y review-grid radial classification plus opt-in `q018_tablei_review_grid_transition` adapter/tests/metadata, T7bq independent radial-gate acceptance, T8aj conservative 18×8 review-grid artifact generation, and T7br independent data acceptance without source/test/config/artifact mutation 已完成；T5 waves incident API、T6b RW-gauge metric reconstruction、T6c Weyl/tetrad transform、T6d polarization/partial-wave assembly、T6m pointwise amplification pure API、T8a IO/CLI、T8b plotting-from-results、T8c saved convergence history、T8e run-scoped radial cache saved benchmark runner、T8f x-z plane saved-result schema/smoke plotting、T8g R60_K1 Li Fig.3-lite x-z saved benchmark config/artifacts、T8h read-only Fig.3-lite plus/cross panel、T8i high-sampling single-frequency x-z saved result and plot metadata、T8j read-only multi-frequency plotting interface/configs、T8l four-frequency Fig.3-lite saved artifacts、T8n range-based x-z config and Fig.3 DPI/final-pair sidecar hardening、T8o full M4-production first-pass configs/artifacts、T8p M5 amplification saved-output schema/CLI smoke、T8q M5 saved amplification read-only plotting smoke 已实现；T8r generated first archived M5 amplification artifact under `runs/phase5/m5_first_amplification_artifact/`；T8s generated four-frequency M5 archived amplification artifacts under `runs/phase5/m5_four_frequency_amplification_artifacts/` with source-SHA metadata hardening；T8t added optional Q018 boundary schema/metadata/cache-key support and bounded smoke config；T8u generated the bounded selected-probe NPZ artifact with final-pair convergence passing；T8v created bounded angular-pilot config and NPZ artifact with final-pair convergence passing；T8w added angular/convergence `theta_range/phi_range` parsing and metadata preservation, created bounded range-schema smoke artifact and non-run production draft；T8x generated the single R60_K2 angular production NPZ without source/code changes; T7as independently accepted that NPZ; T8y added read-only Fig.4 exact angular plotting helper/CLI and generated the fixed-`phi=0` PNG/sidecar; T8z added lower-frequency Fig.4 draft/smoke configs and generated three selected-probe readiness NPZs; T8aa generated three lower-frequency full angular production NPZs; T8ab added all-frequency read-only Fig.4 exact angular plotting helper/CLI/tests and generated the fixed-`phi=0` PNG/sidecar; T8ae generated the single-frequency Fig.3 `kM=2.0`, `dx=0.25M` high-resolution pilot artifacts without source/test code changes; T8af hardened the two Fig.3 pilot PNG sidecars without source/test/config/NPZ/PNG changes; T8ag created four-frequency `dx=0.25M` production plan and not-run draft configs without source/test/runs changes; T7bi independently accepted the planning package without running production; T8ah generated four-frequency `dx=0.25M` production artifacts/plots/manifest without source/test/config changes; T7bj independently accepted that production archive without source/test/artifact mutation; T7bk documented closeout without source/test/config/artifact mutation; T7bl accepted figure-quality gate for read-only publication rendering without source/test/config/artifact mutation; T8ai added read-only Fig.3 multifrequency publication render style/CLI/test and generated nearest/bilinear/bicubic publication-rendering artifacts from accepted NPZs; T7bm independently accepted that rendering package without source/test/config/artifact mutation; generic incident direction 未实现 |
 | 物理 convention | T1 已冻结 `docs/physics_spec.md` v0.1-frozen；T1j 已冻结 Kirchhoff Eq. (47) scalar comparison baseline convention；后续实现不得无记录改变 Fourier/harmonic/tetrad/master-variable/Kirchhoff branch convention |
 | CI 状态 | 未建立 |
 | 最新可运行命令 | `PYTHONPATH=src /opt/homebrew/bin/python3 -m pytest -q` |
+
+### 2026-07-15 T0 T8ao/T7bx Units Metadata Repair Authorization
+
+- User decision:
+  - reviewed the written repair design;
+  - instructed T0 to continue execution.
+- Frozen design:
+  - `docs/superpowers/specs/2026-07-15-t8ao-t7bx-delta0p1-units-metadata-repair-design.md`;
+  - commit `529ee60 docs: design delta0p1 units metadata repair`.
+- Implementation and review package:
+  - plan:
+    `docs/superpowers/plans/2026-07-15-t8ao-delta0p1-units-metadata-repair.md`;
+  - T8ao prompt:
+    `docs/prompts/phase5_t8ao_delta0p1_units_metadata_repair.md`;
+  - T7bx prompt:
+    `docs/prompts/phase5_t7bx_delta0p1_units_metadata_repair_review.md`.
+- Repair boundary:
+  - retain immutable generation contract
+    `92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9`;
+  - add exact metadata schema
+    `phase5_t8ao_delta0p1_risk_pilot_v2_units_ordering`;
+  - preserve all 23 active files in an in-project source backup;
+  - prove every non-`metadata_json` array unchanged by key, shape, dtype,
+    `np.array_equal`, and canonical `.npy` SHA-256;
+  - no scientific runner, polarization, radial solver/cache, or metric
+    recomputation is authorized.
+- Gated chain:
+  - T8ao target is existing T8 task
+    `019f5ece-f578-7b91-8f61-df882c656591` with `gpt-5.6-sol/high`;
+  - only exact
+    `GREEN / DELTA0P1 RISK-PILOT UNITS METADATA HARDENED` may dispatch the
+    frozen T7bx prompt to existing T7 task
+    `019f5ed1-b421-7ec2-9bac-8d134855a1ed`;
+  - T7bx returns only to T0 and starts no scientific stage.
+- Scientific state remains separate:
+  - artifact repair cannot erase the 38 magnitude-dominance failures or 51
+    interior extrema;
+  - even an artifact-contract GREEN retains
+    `YELLOW / TARGETED ADAPTIVE FREQUENCY REFINEMENT REQUIRED`;
+  - `0.05`, `0.025`, full-grid, plots, fixtures, Kirchhoff, and paper-style
+    work remain unauthorized.
+- Dispatch state:
+  - plan/prompts are undergoing final T0 document-scope verification;
+  - no target task is claimed active until Codex task messaging succeeds.
 
 ### 2026-07-14 T0 Delta(kM)=0.1 Risk-Pilot Design And Execution Authorization
 
@@ -14819,3 +14863,257 @@ Next action:
 - Downstream:
   - T7bu has been dispatched to the existing T7 task for the frozen,
     independent read-only review. It must not start production.
+
+### 2026-07-15 T4z Delta(kM)=0.1 Risk-Pilot Radial/Q018 Gate
+
+- Exact decision:
+  - **GREEN / DELTA0P1 RISK-PILOT RADIAL GATE READY**.
+  - This permits only the frozen T7bv independent review; it does not permit
+    T8an, full-grid work, a `0.05` scan, amplification/observable/Kirchhoff
+    artifacts, plots, fixtures, paper-style work, or a GitHub push.
+- Frozen radial evidence:
+  - The exact nine-frequency matrix contains 28,272 default-path records at
+    both sectors and the eight exact Table-I radii: 27,204 covered, 1,058
+    structured uncovered, 10 structured solver-failed, and zero
+    default-other/unstructured errors.
+  - All 1,068 transitions passed direct Q018-oracle validation. Maximum
+    effective residual is `6.117210310854941e-16`; maximum relative
+    sensitivity is `1.737627487569545e-7` (below frozen `5e-6`).
+  - All nine atomic checkpoints are `complete=true`, `decision=PASS`; their
+    full hash list is in the T4z run manifest.
+- Artifact and adapter integrity:
+  - Classification SHA-256:
+    `ee051831e1da7ebb250cab37d7da3a64d8a57298b445577f238d9cefae319d54`.
+  - Oracle-validation SHA-256:
+    `8f6d23da0894d0abfb42867bf911b9da95090ad5293bc76289daf4522e4067f9`.
+  - The new literal fail-closed adapter is only
+    `q018_tablei_delta0p1_risk_pilot_transition`; it accepts exact measured
+    `(kM,ell,point_id)` membership and frozen boundary values only.
+  - Fresh adapter resume preflight rechecked 1,068/1,068 transitions with
+    zero failures; SHA-256:
+    `59e99ade6993eab6d570f8a2ad18f0778595f7309fbb87fbf1edf32903b80968`.
+- Implementation and verification:
+  - Frozen five-path implementation commit:
+    `ee88351 feat: add delta0p1 risk-pilot radial gate`.
+  - Focused pytest: `345 passed, 65 warnings, 18 subtests passed in 302.50s`.
+  - Ruff passed on all five frozen paths.
+  - Full pytest: `604 passed, 117 skipped, 1 xfailed, 101 warnings, 81
+    subtests passed in 309.37s`.
+  - The warnings are known fail-closed SciPy or existing Weyl/Wigner warnings;
+    no test, artifact, scope, provenance, residual, or sensitivity failure
+    occurred.
+- Coordination records:
+  - scientific note: `docs/phase5_delta0p1_risk_pilot_radial_gate.md`;
+  - run manifest:
+    `runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/manifest.md`;
+  - current T4 handoff: `docs/handoffs/T4_current.md`;
+  - pre-T4z archive:
+    `docs/handoffs/archive/T4_2026-07-14_pre_t4z_delta0p1_risk_pilot.md`.
+
+### 2026-07-15 T7bv Delta(kM)=0.1 Risk-Pilot Radial/Q018 Independent Review
+
+- Exact decision:
+  - **ACCEPT GREEN / DELTA0P1 RISK-PILOT RADIAL GATE ACCEPTED**.
+  - This permits only T0 to dispatch the separately frozen T8an nine-frequency
+    point-only pilot. T7bv did not start T8an or authorize full-grid, `0.05`,
+    plotting, fixture, Kirchhoff, or paper-style work.
+- Independent contract/classification audit:
+  - derived and recovered exactly 28,272 unique records across all nine
+    frequencies, both sectors, every frozen integer ell, and all eight exact
+    points, with no duplicates or omissions;
+  - independently confirmed 27,204 default-covered, 1,058 structured
+    uncovered, 10 structured solver-failed, and zero default-other records;
+  - a fresh 26-record default-classification sample covered every frequency,
+    both sectors, all radii, and both structured failure classes with exact
+    agreement.
+- Oracle/compression/adapter audit:
+  - all 1,068 transition keys equal the oracle and preflight sets;
+  - independently expanded saved and generated-module segments reproduce the
+    raw transition set exactly, with no frequency/radius/ell interpolation;
+  - fresh 12-anchor direct-oracle matrix at requested `precision_dps=100`
+    matched saved complex fields exactly; fresh maximum effective residual was
+    `5.237e-16`;
+  - fresh adapter tests passed on eight transition anchors, all-nine-frequency
+    default non-invocation, seven global fail-closed axes, and three literal
+    point/ell membership failures.
+- Checkpoint/provenance:
+  - all nine exact atomic filenames are present, schema/contract/source hashes
+    match, every checkpoint is complete/PASS, and aggregate unions are exact;
+  - no temporary or quarantine file remains;
+  - accepted hashes remain classification
+    `ee051831e1da7ebb250cab37d7da3a64d8a57298b445577f238d9cefae319d54`,
+    oracle
+    `8f6d23da0894d0abfb42867bf911b9da95090ad5293bc76289daf4522e4067f9`,
+    and preflight
+    `59e99ade6993eab6d570f8a2ad18f0778595f7309fbb87fbf1edf32903b80968`.
+- Fresh verification:
+  - focused pytest: `345 passed, 65 warnings, 18 subtests passed in 309.88s`;
+  - Ruff: `All checks passed!`;
+  - full pytest: `604 passed, 117 skipped, 1 xfailed, 101 warnings, 81
+    subtests passed in 316.09s`;
+  - required forbidden-output command is empty and implementation commit
+    `ee88351` remains exactly the five frozen paths.
+- Qualification:
+  - requested 80/100-dps oracle runs transparently report the current SciPy
+    backend's actual 53-bit precision; loose/tight tolerance perturbations
+    supply the nonzero sensitivity evidence. This does not change the frozen
+    residual/sensitivity thresholds or broaden the adapter.
+- Review records:
+  - current handoff: `docs/handoffs/T7_current.md`;
+  - pre-T7bv archive:
+    `docs/handoffs/archive/T7_2026-07-14_pre_t7bv_delta0p1_radial_review.md`.
+
+### 2026-07-15 T8an Delta(kM)=0.1 Nine-Frequency Point-Only Risk Pilot
+
+- Exact decision:
+  - **GREEN / DELTA0P1 NINE-FREQUENCY RISK PILOT GENERATED**.
+  - This is a bounded nine-frequency/eight-point risk pilot, not a 40/79-point
+    production grid or authorization for a `0.05` scan.
+- Implementation and recovery:
+  - `c068868 feat: add delta0p1 nine-frequency risk pilot` implements the
+    frozen five code/test paths.
+  - A real 2.8 transaction identified a runner cache-domain defect: a
+    point-local Q018 solution was incorrectly reused below its certified lower
+    radius. Commit `47c3d63 fix: respect point-local radial cache domains`
+    adds a regression test and requires full-interval coverage while retaining
+    disjoint local solutions. No solver, adapter, physics, threshold, lmax, or
+    boundary policy changed.
+  - Because the selected-code hash changed, the five old-contract transactions
+    and ledger were preserved under the output `quarantine/` provenance tree;
+    all nine active transactions were generated under the final contract.
+  - The two commits together still touch exactly the frozen five paths.
+- Output and numerical result:
+  - All nine increasing-frequency transactions completed atomically under
+    `runs/phase5/fig5_fig6_delta0p1_risk_pilot/`; the exact 9x8 aggregate,
+    diagnostic-only sampling audit, checkpoint ledger, and manifest were
+    generated.
+  - Contract SHA256:
+    `92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9`.
+  - Root artifact SHA256 values are ledger
+    `79d4c0f596650dcfb4d63c7e40758ea4afa82d2fe0e0cd3de5aa088bbbfd5ccd`,
+    aggregate NPZ
+    `2e0a9fee1b6729466affd4c5f7f6e86c96e696e20882c9f4ad52ae3792d82957`,
+    aggregate JSON
+    `2a9aa472e64747047cb28de90912eecf138b28884d87e8b8219e78d99482772f`,
+    sampling audit
+    `461d040a180dfa8e5a743967285e67f8b682f8f67607f1c0c7a5c8ab2399d7bd`,
+    and manifest
+    `120ccd8f11e681bc6d2b3054bd7522ef331a282421f7661dd7888c993b052212`.
+  - Total recorded runtime was `4421.1983585819835` seconds. Adapter-use total
+    was exactly 1068, occurring only on the accepted Q018 route.
+  - Global maximum final-pair deltas were
+    `6.136118112992297e-11` (plus) and
+    `5.492389935680416e-10` (cross), both below frozen `1e-4`; all masks are
+    true and all saved numerical arrays are finite.
+- Fresh verification:
+  - direct artifact/ledger/aggregate/sampling/manifest audit:
+    `T8AN_NINE_FREQUENCY_ARTIFACT_AUDIT=PASS`;
+  - focused pytest: `11 passed in 0.66s`;
+  - Ruff: `All checks passed!`;
+  - full pytest: `615 passed, 117 skipped, 1 xfailed, 101 warnings, 81
+    subtests passed in 310.43s`;
+  - all six accepted T8aj/T7bv source hashes, commit scope, active output
+    cardinality, and forbidden-output checks passed.
+  - No full-grid, `0.05`, plot/PDF/PNG, fixture, Kirchhoff, paper-style, or
+    GitHub artifact was created.
+- Coordination:
+  - current T8 handoff: `docs/handoffs/T8_current.md`;
+  - archived predecessor:
+    `docs/handoffs/archive/T8_2026-07-14_pre_t8an_delta0p1_risk_pilot.md`;
+  - exact next task is frozen T7bw independent review; T8an itself emits no
+    production sampling acceptance decision.
+
+### 2026-07-15 T7bw Delta(kM)=0.1 Nine-Frequency Risk-Pilot Independent Review
+
+- Exact decision:
+  - **REJECT RED / DELTA0P1 RISK PILOT INVALID**.
+  - Numerical arrays are converged, finite, and provenance-consistent, but no
+    active sidecar, ledger, audit, or manifest records units. Frozen design
+    Section 8.3 requires exact ordering and units as minimum metadata, and the
+    T7bw prompt explicitly requires units. This invalid artifact contract
+    determines RED. T7bw does not repair it.
+- Independent artifact/provenance result:
+  - Direct loading of all nine per-frequency NPZ/JSON transactions verifies
+    exact ordering, shapes, actual dtypes, masks, finiteness, `lmax` windows,
+    final pairs/deltas, warnings, and adapter counts. All masks are true;
+    maximum final-pair deltas are `6.136118112992297e-11` plus and
+    `5.492389935680416e-10` cross, both below `1e-4`.
+  - The independently reconstructed contract hash is
+    `92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9`.
+    Exactly nine ledger entries, 18 active per-frequency files, and 22 active
+    manifest records are present; old-contract quarantine products are not
+    treated as complete and no `.tmp` exists.
+  - Independently stacked per-frequency arrays are exactly identical to the
+    aggregate; aggregate unwrapped phases equal fresh `np.unwrap`.
+  - Artifact-contract failure: active sidecars and other active provenance
+    documents contain no units record. Frozen conventions make intended units
+    inferable, but inference is not the required explicit metadata.
+- Five-sequence scientific result:
+  - The exact reconstructed sequences are `[0.3,0.4,0.5]`,
+    `[0.75,0.8,0.9,1.0]`, `[1.5,1.6,1.7,1.75]`,
+    `[2.75,2.8,2.9,3.0]`, and `[3.75,3.8,3.9,4.0]`.
+  - All 224 adjacent unwrapped phase steps are finite, have spacing `<=0.1`,
+    and are `<pi/2`; the global maximum is `1.4363184904108022 rad` at
+    `far_axis_x25_z30`, plus, `[0.3,0.4]`.
+  - Exact magnitude-dominance failure membership, per-sequence/component
+    total variation and largest-step attribution, and all 51 strict interior
+    extrema are recorded in `docs/handoffs/T7_current.md`.
+  - Conditional scientific evidence, usable only after separately authorized
+    artifact repair and independent re-review, identifies missing half-steps
+    `[0.35,0.45,0.85,0.95,1.55,1.65,2.85,2.95,3.85,3.95]`. Existing
+    failures already occur on the `0.05` edges `[1.7,1.75]`, `[2.75,2.8]`,
+    and `[3.75,3.8]`; a future T0 design must explicitly define how these and
+    any new midpoint evidence will be interpreted.
+- Fresh verification and scope:
+  - direct transaction/provenance/aggregate audit:
+    `T7BW_DIRECT_TRANSACTION_PROVENANCE_AGGREGATE_AUDIT=PASS`;
+  - independent five-sequence reconstruction:
+    `T7BW_FIVE_SEQUENCE_RECONSTRUCTION=PASS`;
+  - focused pytest: `11 passed in 0.77s`; Ruff: `All checks passed!`;
+  - full pytest: `615 passed, 117 skipped, 1 xfailed, 101 warnings, 81
+    subtests passed in 319.20s`;
+  - required forbidden-output query is empty. T7bw modified no implementation,
+    tests, scripts, configs, T4/T8 handoffs, or artifacts; it did not repair
+    T8an or start full production, `0.05` computation, plots, fixtures, or
+    paper work.
+- Review records:
+  - current handoff: `docs/handoffs/T7_current.md`;
+  - archived predecessor:
+    `docs/handoffs/archive/T7_2026-07-14_pre_t7bw_delta0p1_pilot_review.md`.
+  - exact RED successfully sent to T0 task
+    `019f5ec5-84ba-79e2-8c77-1160b150a636` after fresh document/scope checks.
+
+### 2026-07-15 T0 Delta(kM)=0.1 Risk-Pilot RED Closeout
+
+- T0 exact closeout:
+  - **CLOSE RED / DELTA0P1 RISK-PILOT GATE CLOSED**.
+  - The T4z -> T7bv -> T8an -> T7bw chain is complete. No downstream task is
+    authorized or running.
+- T0 independent artifact-contract verification:
+  - all five active root artifact hashes match the T8an/T7bw records;
+  - all nine per-frequency JSON sidecars, aggregate JSON, checkpoint ledger,
+    sampling audit, and manifest lack an explicit `units` record;
+  - direct NPZ inspection also confirms `units` is absent from the aggregate
+    and representative per-frequency embedded metadata;
+  - frozen design Section 8.3 and T7bw check 3 require explicit units, so the
+    exact T7bw RED is upheld rather than reinterpreted as YELLOW.
+- T0 independent numerical/scope interpretation:
+  - commits `c068868^..47c3d63` touch exactly the frozen five T8an
+    implementation/test paths;
+  - all 224 observed adjacent phase steps are finite and below `pi/2`, with
+    maximum `1.4363184904108022 rad`;
+  - the magnitude-dominance gate fails for 38 exact records; full membership,
+    sequence summaries, and 51 strict interior extrema remain recorded in
+    `docs/handoffs/T7_current.md`;
+  - the conditional midpoint list is evidence only and is not authorized for
+    execution.
+- Next-state boundary:
+  - no full grid, `0.05` scan, metadata repair, artifact regeneration,
+    re-review, plot, fixture, Kirchhoff, paper-style, or GitHub action was
+    started;
+  - the next permissible action is a separately bounded metadata-contract
+    repair and independent re-review proposal for user approval;
+  - current T0 handoff:
+    `docs/handoffs/T0_current.md`;
+  - predecessor archived at
+    `docs/handoffs/archive/T0_2026-07-15_pre_delta0p1_risk_pilot_closeout.md`.
