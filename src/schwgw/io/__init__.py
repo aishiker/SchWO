@@ -35,6 +35,12 @@ from schwgw.io.tablei_risk_pilot import (
     PilotContractError,
     run_delta0p1_risk_pilot,
 )
+from schwgw.io.tablei_adaptive_refinement import (
+    ADAPTIVE_FREQUENCIES,
+    ADAPTIVE_LMAX_VALUES,
+    AdaptiveRefinementContractError,
+    run_targeted_adaptive_refinement,
+)
 
 __all__ = [
     "BackgroundConfig",
@@ -43,6 +49,9 @@ __all__ = [
     "ConfigError",
     "GridResult",
     "AmplificationGridResult",
+    "ADAPTIVE_FREQUENCIES",
+    "ADAPTIVE_LMAX_VALUES",
+    "AdaptiveRefinementContractError",
     "NumericsConfig",
     "ObserverConfig",
     "PILOT_FREQUENCIES",
@@ -64,4 +73,5 @@ __all__ = [
     "save_amplification_results",
     "save_results",
     "run_delta0p1_risk_pilot",
+    "run_targeted_adaptive_refinement",
 ]
