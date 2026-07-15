@@ -70,6 +70,108 @@ Q018_DELTA0P1_RISK_TRANSITION_ANCHORS = (
     (Sector.EVEN, 3.9, 176, "near_axis_x0_z30"),
 )
 
+Q018_TARGETED_ADAPTIVE_FREQUENCIES = (
+    0.35,
+    0.45,
+    0.85,
+    0.95,
+    1.55,
+    1.65,
+    1.725,
+    2.775,
+    2.85,
+    2.95,
+    3.775,
+    3.85,
+    3.95,
+)
+Q018_TARGETED_ADAPTIVE_TOKENS = (
+    "0p35",
+    "0p45",
+    "0p85",
+    "0p95",
+    "1p55",
+    "1p65",
+    "1p725",
+    "2p775",
+    "2p85",
+    "2p95",
+    "3p775",
+    "3p85",
+    "3p95",
+)
+Q018_TARGETED_ADAPTIVE_LMAX = {
+    0.35: (24, 36, 60, 84),
+    0.45: (24, 36, 60, 84),
+    0.85: (24, 36, 60, 84),
+    0.95: (24, 48, 72, 96),
+    1.55: (72, 96, 120, 144),
+    1.65: (84, 108, 132, 156),
+    1.725: (84, 108, 132, 156),
+    2.775: (180, 204, 228, 252),
+    2.85: (192, 216, 240, 264),
+    2.95: (204, 228, 252, 276),
+    3.775: (276, 300, 324, 348),
+    3.85: (276, 300, 324, 348),
+    3.95: (288, 312, 336, 360),
+}
+Q018_TARGETED_ADAPTIVE_ORACLE = "q018_tablei_targeted_adaptive_transition"
+Q018_TARGETED_ADAPTIVE_BOUNDARY = {
+    "M": 1.0,
+    "r_out": 300.0,
+    "r_in_eps": 1e-6,
+    "rtol": 1e-10,
+    "atol": 1e-12,
+}
+Q018_TARGETED_ADAPTIVE_EXPECTED_ROWS = 42_224
+
+
+def test_targeted_adaptive_frozen_classification_contract() -> None:
+    assert len(Q018_TARGETED_ADAPTIVE_FREQUENCIES) == 13
+    assert len(set(Q018_TARGETED_ADAPTIVE_FREQUENCIES)) == 13
+    assert Q018_TARGETED_ADAPTIVE_TOKENS == tuple(
+        {
+            0.35: "0p35",
+            0.45: "0p45",
+            0.85: "0p85",
+            0.95: "0p95",
+            1.55: "1p55",
+            1.65: "1p65",
+            1.725: "1p725",
+            2.775: "2p775",
+            2.85: "2p85",
+            2.95: "2p95",
+            3.775: "3p775",
+            3.85: "3p85",
+            3.95: "3p95",
+        }[frequency]
+        for frequency in Q018_TARGETED_ADAPTIVE_FREQUENCIES
+    )
+    assert tuple(Q018_TARGETED_ADAPTIVE_LMAX) == Q018_TARGETED_ADAPTIVE_FREQUENCIES
+    assert Q018_TARGETED_ADAPTIVE_BOUNDARY == {
+        "M": 1.0,
+        "r_out": 300.0,
+        "r_in_eps": 1e-6,
+        "rtol": 1e-10,
+        "atol": 1e-12,
+    }
+    assert sum(
+        (max(Q018_TARGETED_ADAPTIVE_LMAX[frequency]) - 1) * 2 * 8
+        for frequency in Q018_TARGETED_ADAPTIVE_FREQUENCIES
+    ) == Q018_TARGETED_ADAPTIVE_EXPECTED_ROWS
+
+
+def test_targeted_adaptive_adapter_name_is_supported() -> None:
+    background = SchwarzschildBackground(M=1.0)
+    config = _tablei_review_grid_boundary_config(
+        30.0,
+        experimental_required_radius_oracle=Q018_TARGETED_ADAPTIVE_ORACLE,
+    )
+
+    solution = solve_radial_mode(Sector.ODD, 2, 0.35, background, config)
+
+    assert isinstance(solution, RadialSolution)
+
 
 def _r60_boundary_config(**overrides) -> BoundaryConfig:
     values = {

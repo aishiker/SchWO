@@ -376,6 +376,25 @@ class RadialSolverPhysicsTests(unittest.TestCase):
                     "q018_tablei_delta0p1_risk_pilot_transition_oracle_used",
                 )
 
+    def test_targeted_adaptive_adapter_rejects_wrong_frequency_fail_closed(self) -> None:
+        bg = SchwarzschildBackground(M=1.0)
+        config = BoundaryConfig(
+            r_in_eps=1e-6,
+            r_out=300.0,
+            rtol=1e-10,
+            atol=1e-12,
+            required_eval_radius=30.0,
+            experimental_required_radius_oracle=(
+                "q018_tablei_targeted_adaptive_transition"
+            ),
+        )
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "q018_experimental_oracle_out_of_envelope",
+        ):
+            solve_radial_mode(Sector.ODD, 2, 0.36, bg, config)
+
 
 def _mode_diagnostic(sector: Sector, ell: int, k: float, r_out: float) -> ModeDiagnostic:
     bg = SchwarzschildBackground(M=1.0)
