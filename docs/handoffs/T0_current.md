@@ -6,138 +6,148 @@ Thread: T0, project coordination and gate scheduling.
 
 ## Current Status
 
-The bounded metadata-only repair chain is closed:
-
-```text
-T8ao GREEN -> T7bx ACCEPT GREEN -> T0 ACCEPT GREEN
-```
-
-T0 exact artifact-contract decision:
-
-```text
-ACCEPT GREEN / DELTA0P1 RISK-PILOT METADATA REPAIR GATE CLOSED
-```
-
-The independent scientific state remains deliberately separate:
+The accepted metadata repair remains closed GREEN while its scientific state
+remains the independently established:
 
 ```text
 YELLOW / TARGETED ADAPTIVE FREQUENCY REFINEMENT REQUIRED
 ```
 
-This closeout accepts the repaired artifact contract only. It does not
-authorize a new frequency, `0.05`/`0.025` scan, full grid, plot, fixture,
-Kirchhoff, interpolation, smoothing, fill, or paper-style stage.
-
-## Accepted Implementation And Contracts
-
-- T8ao implementation commit:
-  `689c0759e790ccdc614f4b5a4ddbd48585d914fa`.
-- Its path set is exactly:
+The user approved the bounded thirteen-frequency repair direction and
+authorized execution. The project-required independent T0 package review is:
 
 ```text
-scripts/phase5_repair_delta0p1_risk_pilot_metadata.py
-src/schwgw/io/tablei_risk_pilot.py
-tests/regression/test_delta0p1_risk_pilot_metadata_repair.py
-tests/unit/test_tablei_risk_pilot.py
+REVIEW GREEN / T0 REPAIR PACKAGE APPROVED
 ```
 
-- Generation contract remains:
-  `92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9`.
-- Metadata contract is:
-  `1bd32a3e2988ef786c3777859f76f8d38a276cdacd12cdadba7f79e843ca0161`.
-- Accepted schema is:
-  `phase5_t8ao_delta0p1_risk_pilot_v2_units_ordering`.
-- Repair ledger SHA-256 is:
-  `ec4c6784a26e53b583c032fe360f51b940f5dfe6d58e705b2c3412fbeb9c717c`.
+Current chain state:
 
-## Independent Acceptance Evidence
+```text
+T4aa DISPATCHED / ACTIVE
+T7by frozen / not started
+T8ap frozen / not started
+T7bz frozen / not started
+```
 
-- T7bx exact decision:
-  `ACCEPT GREEN / DELTA0P1 RISK-PILOT ARTIFACT CONTRACT REPAIRED`.
-- T7bx did not import/call the T8ao migration or fingerprint helpers.
-- Ten source-backup/active NPZ pairs and all 219 non-metadata arrays match by
-  key order/set, shape, dtype, `np.array_equal`, and canonical
-  `np.save(..., allow_pickle=False)` SHA-256. Candidate fingerprints match too.
-- Source, candidate, and active packages each contain 23 files. Each manifest
-  contains 22 non-self records. The complete journal contains 23 copied-source
-  and 23 replaced paths; no active `.tmp` or third state exists.
-- Units cover all and only the 22 per-frequency and 21 aggregate arrays.
-  Actual frequency, point, lmax, history/final/aggregate axes, coordinates,
-  phases, complex amplitudes, and Boolean masks match the frozen ordering and
-  units registries.
-- Legacy metadata outside the mutation allowlist and all scientific values are
-  unchanged. The historical runner-cache quarantine remains excluded.
+The frozen T4aa message was sent successfully to the existing T4 task with
+`5.6 Sol High`. No later stage is authorized until its immediately preceding
+exact GREEN and T0-owned gate.
 
-## T0 Fresh Verification
+## Reviewed Immutable Package
 
-- Direct no-helper NPZ audit:
-  `T0_DIRECT_NPZ_IDENTITY=PASS pairs=10 arrays=219 fingerprints=219`.
-- Cardinality/journal audit:
-  `T0_CARDINALITY_AND_LEDGER=PASS source=23 candidate=23 active=23 manifest=22 copied=23 replaced=23`.
-- Schema/hash surfaces, commit scope, forbidden commit diff, and forbidden
-  downstream-output checks: PASS.
-- Focused pytest: `18 passed in 2.23s`.
-- Ruff: `All checks passed!`.
-- Full pytest: `624 passed, 117 skipped, 1 xfailed, 101 warnings, 81 subtests
-  passed in 333.70s`.
-- The first T0 read-only ledger audit used a nonexistent `copied_paths` key;
-  inspection confirmed the frozen key is `copied_source_paths`. The corrected
-  audit passed. No artifact, implementation, or migration state changed.
+The exact approved candidate is commit:
 
-## Scientific State Retained
+```text
+ff953ccc4ad9699e06e6a26dc3f8256f9ee8960e
+```
 
-- All masks remain true.
-- Final-pair maxima remain `6.136118112992297e-11` plus and
-  `5.492389935680416e-10` cross.
-- All 224 adjacent phase steps remain finite with maximum
-  `1.4363184904108022 < pi/2`.
-- Exactly 38 magnitude-dominance failures and 51 strict interior extrema
-  remain. These are scientific evidence for a later, separately designed
-  adaptive-frequency stage, not defects that metadata repair can remove.
+The independent reviewer verified these exact blobs and file SHA-256 values:
 
-## Coordination And Archive
+```text
+90d4638f03d47ae89be088e7fef78ba2bea44dac  4227f655093b0a91ef7a1a770ed6471cced94302bdfac635cd9538da3773a71a  docs/superpowers/specs/2026-07-15-t4aa-t8ap-targeted-adaptive-refinement-design.md
+1baf450461eeb137c370962fbcd625782009d0fb  0f2fa49bba95c2775f4383c225d09e2acd48f74eb6e72bfc77be3a80b5a30f56  docs/superpowers/plans/2026-07-15-t4aa-targeted-adaptive-radial-gate.md
+1801cd66c09d53b39c053ea37a61d9cf8b06ef39  8fbc4b16aa1c04cd9ad84b25c7a66849af8b4de1c3b74ec294ec0e4c290a1f34  docs/superpowers/plans/2026-07-15-t8ap-targeted-adaptive-refinement.md
+4b73ada7e8e74975236333372ce6bc6d01100fc0  93fbf16b0e5c913bb025c7fdb8535aea35b4efe421237bfef61b8d43a8cc4957  docs/prompts/phase5_t4aa_targeted_adaptive_radial_gate.md
+ef170c44ce7548f73e44a040d4f266f6e69e809d  d2191354e6c1e8fbfb2a31ad4a009035fdad24047ca578168e6ff01a9bc445e3  docs/prompts/phase5_t7by_targeted_adaptive_radial_review.md
+48268096d7216b830cde66b1aaf45ffc697e724e  6d4e2a33f93899d58d9dc1a5681d50737a05637a00df3076108ea4ae4368991f  docs/prompts/phase5_t8ap_targeted_adaptive_refinement.md
+f947a7462333fd09dc12c80675026a99c064688a  75b91045ac7532050b6ba5e9aa6b49ac5a191eb00a3343bb2312446085c818f3  docs/prompts/phase5_t7bz_targeted_adaptive_refinement_review.md
+```
 
-- T7 current review: `docs/handoffs/T7_current.md`.
-- T8 current implementation record: `docs/handoffs/T8_current.md`.
-- Pre-closeout T0 handoff:
-  `docs/handoffs/archive/T0_2026-07-15_pre_t8ao_t7bx_metadata_repair_closeout.md`.
-- The obsolete heartbeat
-  `monitor-t8ao-t7bx-units-metadata-repair` has been deleted after the first
-  push and remote-equality verification.
+Any substantive change to those seven files invalidates the reviewer GREEN and
+requires a new immutable identity and re-review.
 
-## GitHub Major-Node Handling
+## Frozen Scientific Scope
 
-This independently accepted high-risk artifact-contract repair is a major
-node under `project.md`. The scope-explicit closeout commit is
-`c81a69f2febe54347f4efc0691bda9d616b69731`. It and the preceding eleven
-frozen risk-pilot/repair commits were pushed non-force to private
-`origin/main`. A fresh fetch reported divergence `0 0` and exact
-`origin/main == HEAD` at `c81a69f`.
+Exact new frequencies:
 
-The sync includes only this chain's committed implementation, frozen
-design/plan/prompts, T4 radial-gate note/handoff, and reviewed T0/T7/T8/status
-coordination records. Unrelated T1/T2/T3/T5/T6 working-tree changes and
-ignored `runs/` products remain excluded. This documentation-only sync record
-is the final local change to be pushed; no scientific content is added.
+```text
+[0.35,0.45,0.85,0.95,1.55,1.65,1.725,
+ 2.775,2.85,2.95,3.775,3.85,3.95]
+```
 
-## Exact Next Task
+They are exactly ten midpoints of failed `0.1` parents plus three midpoints of
+already-failing `0.05` parents. The literal parent/child mapping is frozen in
+design Section 6 and may not be inferred from floating-point adjacency.
 
-After the documentation-only sync record is pushed and remote equality is
-freshly confirmed, pause and await explicit user authorization for a separately
-designed adaptive-frequency stage. Do not dispatch a later scientific task.
+Independently verified cardinalities:
 
-No next-stage prompt is provided because adaptive-frequency refinement has not
-yet been designed, reviewed, frozen, or authorized. The release condition is a
-new T0 design that preserves the accepted v2 artifact contract and explicitly
-defines frequencies, radial/Q018 support, checkpoints, scientific stop rules,
-scope, and an independent T7 review.
+```text
+T4aa default classification records = 42224
+T8ap/T7bz phase records             = 432
+T8ap/T7bz child/parent records      = 416
+T8ap active/manifest cardinality    = 31/30
+```
 
-## Definition Of Done
+No lmax extension is authorized. An initial T8ap final-pair failure is YELLOW.
+No full grid, uniform `0.025`, recursive midpoint, interpolation, plot, fixture,
+Kirchhoff, paper-style output, or production claim is part of this slice.
 
-- `status.md` and this handoff record the exact artifact GREEN and retained
-  scientific YELLOW.
-- Scope-explicit closeout and sync-record commits are pushed non-force to
-  private `origin/main`, with remote equality freshly verified.
-- The obsolete monitor is deleted (complete).
-- No adaptive, production, plotting, fixture, Kirchhoff, or paper task starts
-  automatically.
+## Frozen Provenance And Safety Decisions
+
+- T4aa transition identity is exact
+  `(kM, sector, ell, point_id)`; its literal envelope is sector-aware.
+- T4aa keeps a pre-adapter classification snapshot separate from a final
+  adapter snapshot. Checkpoint resume compares only the former; preflight and
+  manifest bind both through an explicit hash bridge.
+- Producer precision anchors use the frozen first/last per nonempty
+  `(kM,sector)` plus point-coverage rule. Zero-transition groups remain empty.
+  T7by uses a complementary median/last selection for fresh evidence.
+- T8ap must finish fake-compute tests and create one exact five-path
+  implementation commit before the first real frequency. Every transaction
+  binds that commit; no transaction crosses an implementation identity.
+- T8ap uses frequency-local certified-domain radial cache reuse and explicit
+  generation/metadata contracts with units, dtype and ordering on all surfaces.
+- Accepted source artifacts are immutable and hash/path-bound. Current T0
+  fresh hashes match all T8aj, T8ao and T4z/T7bv anchors in the frozen prompt.
+
+## Existing Task Chain
+
+```text
+T4 = 019f5fa6-1288-7c01-8a87-4c4370cf5517
+T7 = 019f5ed1-b421-7ec2-9bac-8d134855a1ed
+T8 = 019f5ece-f578-7b91-8f61-df882c656591
+```
+
+Use `5.6 Sol High` for normal dispatch:
+
+```text
+T4aa exact GREEN -> T4 sends frozen T7by to existing T7
+T7by exact GREEN -> returns only to T0
+T0 fresh-verifies T7by -> T0 sends frozen T8ap to existing T8
+T8ap exact GREEN -> T8 sends frozen T7bz to existing T7
+T7bz -> returns only to T0 and starts nothing
+```
+
+YELLOW, RED, incomplete, hash mismatch, nonfinite value, test/scope failure or
+ambiguous state stops downstream dispatch. A capacity/system interruption may
+resume in the same task with `5.6 Terra High` only after T0 proves process,
+checkpoint, artifact, contract and scope safety; never use model switching to
+bypass a scientific failure.
+
+## Exact Active Task
+
+The following exact message has been sent to the existing T4 task with
+`5.6 Sol High`:
+
+```text
+你现在是 T4aa：targeted adaptive radial/Q018 gate 执行线程。请读取并严格执行 docs/prompts/phase5_t4aa_targeted_adaptive_radial_gate.md。该 bounded repair package 已由 T0 独立 reviewer 以 exact `REVIEW GREEN / T0 REPAIR PACKAGE APPROVED` 接受，绑定 commit `ff953ccc4ad9699e06e6a26dc3f8256f9ee8960e`。请只执行十三频率 radial classification/direct-oracle/literal sector-aware envelope/fail-closed adapter gate；严格区分 classification snapshot 与 final-adapter snapshot，禁止 lmax extension、T8ap、observable、plot、fixture、Kirchhoff、paper 或 GitHub。只有 exact GREEN 才向现有 T7 派发冻结 T7by；YELLOW/RED 停止并报告 T0。
+```
+
+## Allowed And Forbidden T0 Actions
+
+T0 may update `status.md`, this handoff/archive, create the chain monitor, make
+scope-explicit coordination commits, inspect tasks/artifacts/tests, and perform
+the exact gated messages above. T0 must not edit the seven reviewed files after
+GREEN, create replacement tasks, run scientific solvers, relax thresholds, or
+start any downstream stage early.
+
+## Definition Of Done For Current Dispatch Slice
+
+- independent package GREEN and immutable identity are recorded;
+- T4aa prompt is sent to the existing T4 task using `5.6 Sol High`;
+- a monitor watches T4aa -> T7by -> T8ap -> T7bz without restarting healthy
+  processes or bypassing exact decisions;
+- active monitor ID is
+  `monitor-t4aa-t7by-t8ap-t7bz-targeted-refinement` at 20-minute intervals;
+- unrelated T1/T2/T3/T5/T6 worktree changes remain untouched;
+- no GitHub push occurs at this non-major dispatch boundary.

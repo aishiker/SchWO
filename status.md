@@ -15299,3 +15299,62 @@ Next action:
     first push and remote-equality check;
   - this final documentation-only sync record adds no scientific work and will
     be pushed non-force before T0 pauses.
+
+### 2026-07-15 T0 Targeted Adaptive Repair Package Independent Approval
+
+- Retained upstream science:
+  - **YELLOW / TARGETED ADAPTIVE FREQUENCY REFINEMENT REQUIRED**;
+  - the accepted T8ao/T7bx artifact repair remains GREEN and immutable.
+- User authorization and package review:
+  - the user approved execution of the bounded 13-frequency mixed-resolution
+    repair direction;
+  - first candidate commit `e056301d248fe8df58bd767aff733ba10a5f3137`
+    received
+    `REVIEW YELLOW / T0 REPAIR PACKAGE CHANGES REQUIRED`;
+  - T0 removed the unjustified lmax-extension branch, split T4aa
+    classification/final-adapter provenance, froze pre-run T8ap implementation
+    commit ordering, exact path+hash inputs, sector-aware transition identity,
+    deterministic producer/reviewer anchors, and the literal 13-row parent map;
+  - final candidate commit
+    `ff953ccc4ad9699e06e6a26dc3f8256f9ee8960e` received exact
+    **REVIEW GREEN / T0 REPAIR PACKAGE APPROVED** from the same read-only
+    independent reviewer.
+- Approved immutable seven-file package SHA-256:
+  - design:
+    `4227f655093b0a91ef7a1a770ed6471cced94302bdfac635cd9538da3773a71a`;
+  - T4aa plan:
+    `0f2fa49bba95c2775f4383c225d09e2acd48f74eb6e72bfc77be3a80b5a30f56`;
+  - T8ap plan:
+    `8fbc4b16aa1c04cd9ad84b25c7a66849af8b4de1c3b74ec294ec0e4c290a1f34`;
+  - T4aa prompt:
+    `93fbf16b0e5c913bb025c7fdb8535aea35b4efe421237bfef61b8d43a8cc4957`;
+  - T7by prompt:
+    `d2191354e6c1e8fbfb2a31ad4a009035fdad24047ca578168e6ff01a9bc445e3`;
+  - T8ap prompt:
+    `6d4e2a33f93899d58d9dc1a5681d50737a05637a00df3076108ea4ae4368991f`;
+  - T7bz prompt:
+    `75b91045ac7532050b6ba5e9aa6b49ac5a191eb00a3343bb2312446085c818f3`.
+- Frozen execution scope:
+  - exact new frequencies are `0.35,0.45,0.85,0.95,1.55,1.65,1.725,
+    2.775,2.85,2.95,3.775,3.85,3.95`;
+  - independent cardinalities are T4aa classification `42,224`, phase `432`,
+    hierarchical magnitude `416`, and T8ap active/manifest `31/30`;
+  - no lmax extension is authorized; initial final-pair failure is YELLOW;
+  - chain is `T4aa -> T7by -> T0 -> T8ap -> T7bz` using only the existing
+    T4/T7/T8 tasks and default `5.6 Sol High`.
+- T0 fresh pre-dispatch checks:
+  - all T8aj triplet, five T8ao active-root and three T4z/T7bv gate hashes
+    match their frozen exact paths;
+  - both targeted-adaptive output directories are absent;
+  - `git diff --check` on the candidate passes and unrelated T1/T2/T3/T5/T6
+    working-tree changes remain excluded.
+- Coordination:
+  - previous T0 handoff archived at
+    `docs/handoffs/archive/T0_2026-07-15_pre_t4aa_targeted_adaptive_dispatch.md`;
+  - current handoff is `docs/handoffs/T0_current.md`;
+  - the frozen T4aa message was successfully sent to existing T4 task
+    `019f5fa6-1288-7c01-8a87-4c4370cf5517` with `5.6 Sol High`;
+  - heartbeat `monitor-t4aa-t7by-t8ap-t7bz-targeted-refinement` is ACTIVE at
+    20-minute intervals and enforces the exact gated recovery/dispatch chain;
+  - no solver, T8ap, plot, fixture, Kirchhoff, paper work or GitHub action was
+    started by T0 while forming/reviewing the package.
