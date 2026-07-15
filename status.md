@@ -12,8 +12,8 @@
 
 | 项 | 状态 |
 |---|---|
-| 当前阶段 | Phase 5：T8ao/T7bx metadata-only repair package 已冻结；T8ao 已派发到现有 T8 task 并确认 active，T7bx 尚未启动。 |
-| 当前目标 | T8ao 只补齐 units/ordering/provenance metadata 并证明全部非 metadata arrays 精确不变；仅 exact GREEN 可进入 T7bx 独立复核。 |
+| 当前阶段 | Phase 5：T8ao/T7bx metadata-only repair gate 已由 T0 关闭；artifact contract exact GREEN，scientific sampling state 仍为 YELLOW。 |
+| 当前目标 | 完成该重大节点的 scope-explicit GitHub 同步后暂停；targeted refinement 尚未设计或授权，full-grid、plots、fixtures 与 paper-style 工作仍禁止。 |
 | 代码状态 | T2 Schwarzschild background、RW/Zerilli potentials、Sector enum、T3 angular public API、T4 radial ODE/matching/diagnostics plus Q018 `evanescent_tail_suppressed` policy and Route A `required_eval_radius` fail-closed guard plus T4o experimental Q018 oracle prerequisite boundary, T4p experimental Riccati/log-derivative oracle prototype, T4q opt-in broader oracle validation tests, T4r production-integration design/contract tests, T4s reviewed explicit opt-in production adapter/tests, T7an independent review acceptance, T4u continuous `ell=153..180` run-level opt-in oracle dispatch/tests, T4v metadata-only `kM=4` Table-I radial/Q018 preflight report, T7bn independent batch gate review without source/test/config/run mutation, T4w metadata-only direct experimental `kM=4` transition-oracle probe report, T7bo independent acceptance for T4x adapter design without source/test/config/run mutation, T12 Stage 1 YELLOW closeout/metadata without source/test/config mutation, T4x structured radial error handling plus opt-in `q018_tablei_km4_transition` adapter/tests/metadata, T7bp independent adapter-gate acceptance without source/test/config/run mutation, T12b Stage 0 smoke plus Stage 1 YELLOW blocker metadata without source/test/config mutation, T4y review-grid radial classification plus opt-in `q018_tablei_review_grid_transition` adapter/tests/metadata, T7bq independent radial-gate acceptance, T8aj conservative 18×8 review-grid artifact generation, and T7br independent data acceptance without source/test/config/artifact mutation 已完成；T5 waves incident API、T6b RW-gauge metric reconstruction、T6c Weyl/tetrad transform、T6d polarization/partial-wave assembly、T6m pointwise amplification pure API、T8a IO/CLI、T8b plotting-from-results、T8c saved convergence history、T8e run-scoped radial cache saved benchmark runner、T8f x-z plane saved-result schema/smoke plotting、T8g R60_K1 Li Fig.3-lite x-z saved benchmark config/artifacts、T8h read-only Fig.3-lite plus/cross panel、T8i high-sampling single-frequency x-z saved result and plot metadata、T8j read-only multi-frequency plotting interface/configs、T8l four-frequency Fig.3-lite saved artifacts、T8n range-based x-z config and Fig.3 DPI/final-pair sidecar hardening、T8o full M4-production first-pass configs/artifacts、T8p M5 amplification saved-output schema/CLI smoke、T8q M5 saved amplification read-only plotting smoke 已实现；T8r generated first archived M5 amplification artifact under `runs/phase5/m5_first_amplification_artifact/`；T8s generated four-frequency M5 archived amplification artifacts under `runs/phase5/m5_four_frequency_amplification_artifacts/` with source-SHA metadata hardening；T8t added optional Q018 boundary schema/metadata/cache-key support and bounded smoke config；T8u generated the bounded selected-probe NPZ artifact with final-pair convergence passing；T8v created bounded angular-pilot config and NPZ artifact with final-pair convergence passing；T8w added angular/convergence `theta_range/phi_range` parsing and metadata preservation, created bounded range-schema smoke artifact and non-run production draft；T8x generated the single R60_K2 angular production NPZ without source/code changes; T7as independently accepted that NPZ; T8y added read-only Fig.4 exact angular plotting helper/CLI and generated the fixed-`phi=0` PNG/sidecar; T8z added lower-frequency Fig.4 draft/smoke configs and generated three selected-probe readiness NPZs; T8aa generated three lower-frequency full angular production NPZs; T8ab added all-frequency read-only Fig.4 exact angular plotting helper/CLI/tests and generated the fixed-`phi=0` PNG/sidecar; T8ae generated the single-frequency Fig.3 `kM=2.0`, `dx=0.25M` high-resolution pilot artifacts without source/test code changes; T8af hardened the two Fig.3 pilot PNG sidecars without source/test/config/NPZ/PNG changes; T8ag created four-frequency `dx=0.25M` production plan and not-run draft configs without source/test/runs changes; T7bi independently accepted the planning package without running production; T8ah generated four-frequency `dx=0.25M` production artifacts/plots/manifest without source/test/config changes; T7bj independently accepted that production archive without source/test/artifact mutation; T7bk documented closeout without source/test/config/artifact mutation; T7bl accepted figure-quality gate for read-only publication rendering without source/test/config/artifact mutation; T8ai added read-only Fig.3 multifrequency publication render style/CLI/test and generated nearest/bilinear/bicubic publication-rendering artifacts from accepted NPZs; T7bm independently accepted that rendering package without source/test/config/artifact mutation; generic incident direction 未实现 |
 | 物理 convention | T1 已冻结 `docs/physics_spec.md` v0.1-frozen；T1j 已冻结 Kirchhoff Eq. (47) scalar comparison baseline convention；后续实现不得无记录改变 Fourier/harmonic/tetrad/master-variable/Kirchhoff branch convention |
 | CI 状态 | 未建立 |
@@ -15125,3 +15125,167 @@ Next action:
     `docs/handoffs/T0_current.md`;
   - predecessor archived at
     `docs/handoffs/archive/T0_2026-07-15_pre_delta0p1_risk_pilot_closeout.md`.
+
+### 2026-07-15 T8ao Delta(kM)=0.1 Units/Ordering Metadata Repair
+
+- Exact decision:
+  - **GREEN / DELTA0P1 RISK-PILOT UNITS METADATA HARDENED**.
+- Frozen implementation and migration:
+  - commit `689c075` changes exactly
+    `src/schwgw/io/tablei_risk_pilot.py`,
+    `scripts/phase5_repair_delta0p1_risk_pilot_metadata.py`,
+    `tests/unit/test_tablei_risk_pilot.py`, and
+    `tests/regression/test_delta0p1_risk_pilot_metadata_repair.py`;
+  - the v1 generation-contract SHA256 remains
+    `92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9`;
+  - the independently reconstructed v2 metadata-contract SHA256 is
+    `1bd32a3e2988ef786c3777859f76f8d38a276cdacd12cdadba7f79e843ca0161`;
+  - the original 23-file package, complete candidate, and resumable ledger are
+    preserved under
+    `runs/phase5/fig5_fig6_delta0p1_risk_pilot/quarantine/t8ao_pre_units_metadata/`;
+    the ledger SHA256 is
+    `ec4c6784a26e53b583c032fe360f51b940f5dfe6d58e705b2c3412fbeb9c717c`.
+- Independent artifact proof:
+  - `T8AO_NUMERICAL_ARRAY_IDENTITY=PASS`: all 10 NPZ pairs and 219 arrays have
+    identical key order/set, shape, dtype, `np.array_equal`, and canonical
+    `.npy` SHA256 between durable source backup and active package;
+  - `T8AO_METADATA_SURFACES_AND_PROVENANCE=PASS`: exact units/ordering,
+    metadata hash, 23 active files, 22 manifest records, legacy provenance,
+    source/candidate/active hashes, and unchanged sampling sequences pass;
+  - new active root hashes are
+    `8729ad80043a1837793264b101a776a08e92191c7856cf792ed34683b743859e`
+    (ledger),
+    `69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7`
+    (aggregate NPZ),
+    `b812a4325b9afca91ee360b68dc3e959115f2d992fba21b60cf70a7ad3ce3566`
+    (aggregate JSON),
+    `7e1e8646bfa51b09cd96ee301e8847fdc830128d7eca7ac770031bc7b13ce42b`
+    (sampling audit), and
+    `27301b9f300563a5feb654b48d9ef11ca8eb1e10f9c065c805534adfb27bfd78`
+    (manifest). All 23 active hashes are recorded in `docs/handoffs/T8_current.md`.
+- Fresh verification and scope:
+  - focused pytest: `18 passed in 1.84s` (final closeout rerun); Ruff:
+    `All checks passed!`;
+  - full pytest: `624 passed, 117 skipped, 1 xfailed, 101 warnings, 81
+    subtests passed in 311.91s`;
+  - `T8AO_SCIENTIFIC_RUNNER_GUARD=PASS`; six accepted source/gate hashes match;
+  - no T8an scientific runner, solver, polarization, radial/cache, or sampling
+    metric computation ran; forbidden production/refinement/plot/fixture/
+    Kirchhoff/paper-style output checks are empty, and no GitHub push occurred.
+- Scientific boundary and next task:
+  - saved science is unchanged: 224 finite phase steps with maximum
+    `1.4363184904108022`, 38 magnitude-dominance failures, and 51 strict
+    interior extrema. This metadata repair does not accept the scientific gate;
+  - T7bx must independently review the repaired artifact contract from the
+    durable backup and active package. No 0.05/0.025/full-grid work is
+    authorized by this GREEN.
+
+### 2026-07-15 T7bx Delta(kM)=0.1 Units/Ordering Metadata Repair Independent Review
+
+- Exact artifact-contract decision:
+  - **ACCEPT GREEN / DELTA0P1 RISK-PILOT ARTIFACT CONTRACT REPAIRED**.
+- Independently retained scientific decision:
+  - **YELLOW / TARGETED ADAPTIVE FREQUENCY REFINEMENT REQUIRED**.
+  - This review authorizes no new frequency, `0.05`, `0.025`, full-grid,
+    plot, fixture, Kirchhoff, or paper-style calculation.
+- Implementation and frozen-source scope:
+  - commit `689c075` changes exactly the frozen four implementation/test
+    paths and has an empty forbidden solver/scattering/viz/config/fixture
+    diff;
+  - the durable source tree contains exactly the original 23 files; all five
+    frozen root hashes, all 22 old manifest records, generation contract
+    `92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9`,
+    and all six T8aj/T4z anchors match.
+- Direct independent array/metadata reconstruction:
+  - without importing or calling a T8ao migration/fingerprint helper, all ten
+    source-backup/active NPZ pairs were loaded directly;
+  - all 219 non-metadata arrays match in key order/set, shape, dtype,
+    `np.array_equal`, and canonical `.npy` SHA-256; candidate fingerprints
+    are identical;
+  - exact v2 units registry, ordering registry, and 219-entry fingerprint map
+    independently reconstruct metadata-contract hash
+    `1bd32a3e2988ef786c3777859f76f8d38a276cdacd12cdadba7f79e843ca0161`;
+  - all embedded/sidecar/ledger/audit/manifest surfaces have the exact schema,
+    units, ordering, generation/metadata split, repair identity, anchors, and
+    pre-repair provenance. Units keys cover all and only the 22 per-frequency
+    and 21 aggregate arrays and match actual axes/values.
+- Journal/cardinality and preservation:
+  - source, candidate, and active trees each have 23 package files; manifests
+    have exactly 22 non-self entries; repair ledger is complete with 23 copied
+    and 23 replaced paths, and no `.tmp` or third state exists;
+  - repair-ledger SHA-256 is
+    `ec4c6784a26e53b583c032fe360f51b940f5dfe6d58e705b2c3412fbeb9c717c`;
+  - all legacy values outside the mutation allowlist are unchanged, and the
+    historical 11-file runner-cache quarantine remains excluded.
+- Scientific preservation:
+  - all masks remain true; final-pair maxima remain
+    `6.136118112992297e-11` plus and `5.492389935680416e-10` cross;
+  - fresh reconstruction gives 224 finite phase steps, maximum
+    `1.4363184904108022 < pi/2`, exactly 38 magnitude-dominance failures, and
+    51 strict interior extrema; saved audit sequences/metrics match directly.
+- Fresh verification:
+  - focused pytest: `18 passed in 2.11s`;
+  - Ruff: `All checks passed!`;
+  - full pytest: `624 passed, 117 skipped, 1 xfailed, 101 warnings, 81
+    subtests passed in 326.73s`;
+  - forbidden implementation/config/fixture diff, forbidden downstream-output
+    search, and active `.tmp` search are empty.
+- Review boundary and records:
+  - T7bx modified only `status.md`, `docs/handoffs/T7_current.md`, and
+    `docs/handoffs/archive/T7_2026-07-15_pre_t7bx_units_metadata_repair.md`;
+  - it did not invoke the migration helper or modify implementation/artifacts;
+  - current handoff: `docs/handoffs/T7_current.md`.
+  - exact artifact GREEN and retained scientific YELLOW were successfully sent
+    to T0 task `019f5ec5-84ba-79e2-8c77-1160b150a636`.
+
+### 2026-07-15 T0 Delta(kM)=0.1 Metadata Repair Gate Closeout
+
+- T0 exact decision:
+  - **ACCEPT GREEN / DELTA0P1 RISK-PILOT METADATA REPAIR GATE CLOSED**.
+- Independent scientific state retained exactly:
+  - **YELLOW / TARGETED ADAPTIVE FREQUENCY REFINEMENT REQUIRED**.
+  - Artifact-contract acceptance does not authorize new frequencies,
+    `0.05`/`0.025`, full-grid, plots, fixtures, Kirchhoff, interpolation,
+    smoothing, fill, or paper-style work.
+- Accepted implementation and contracts:
+  - implementation commit `689c0759e790ccdc614f4b5a4ddbd48585d914fa`
+    changes exactly the four frozen implementation/test paths;
+  - generation contract remains
+    `92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9`;
+  - metadata contract is
+    `1bd32a3e2988ef786c3777859f76f8d38a276cdacd12cdadba7f79e843ca0161`;
+  - schema is exactly
+    `phase5_t8ao_delta0p1_risk_pilot_v2_units_ordering`;
+  - repair-ledger SHA-256 is
+    `ec4c6784a26e53b583c032fe360f51b940f5dfe6d58e705b2c3412fbeb9c717c`.
+- T0 fresh independent verification:
+  - `T0_DIRECT_NPZ_IDENTITY=PASS pairs=10 arrays=219 fingerprints=219`;
+  - `T0_CARDINALITY_AND_LEDGER=PASS source=23 candidate=23 active=23 manifest=22 copied=23 replaced=23`;
+  - schema/hash surfaces, four-path commit scope, forbidden implementation
+    diff, active-temp search, and forbidden downstream-output checks pass;
+  - focused pytest: `18 passed in 2.23s`;
+  - Ruff: `All checks passed!`;
+  - full pytest: `624 passed, 117 skipped, 1 xfailed, 101 warnings, 81
+    subtests passed in 333.70s`.
+- Review-tool qualification:
+  - T0's first read-only ledger audit looked for `copied_paths`; the frozen
+    ledger uses `copied_source_paths`. Inspection of the ledger, implementation,
+    and regression test identified the assumption error; the corrected audit
+    passed without modifying code, artifacts, or migration state.
+- Scientific preservation:
+  - all masks are true; final-pair maxima remain
+    `6.136118112992297e-11` plus and `5.492389935680416e-10` cross;
+  - 224 phase steps remain finite with maximum
+    `1.4363184904108022 < pi/2`;
+  - exactly 38 magnitude-dominance failures and 51 strict interior extrema
+    remain the evidence for a later separately designed adaptive stage.
+- Coordination and next boundary:
+  - T0 handoff: `docs/handoffs/T0_current.md`;
+  - predecessor archived at
+    `docs/handoffs/archive/T0_2026-07-15_pre_t8ao_t7bx_metadata_repair_closeout.md`;
+  - no next-stage prompt is provided because targeted adaptive refinement has
+    not been designed, reviewed, frozen, or authorized;
+  - GitHub sync is pending a scope-explicit closeout commit and non-force push;
+    the T4 radial-gate note/handoff and T7/T8 chain archives are in scope,
+    while unrelated T1/T2/T3/T5/T6 working-tree changes and ignored `runs/`
+    products are excluded.

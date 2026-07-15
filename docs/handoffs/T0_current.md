@@ -6,130 +6,133 @@ Thread: T0, project coordination and gate scheduling.
 
 ## Current Status
 
-The previous bounded risk-pilot chain closed at:
+The bounded metadata-only repair chain is closed:
 
 ```text
-T4z GREEN -> T7bv ACCEPT GREEN -> T8an GREEN -> T7bw REJECT RED
+T8ao GREEN -> T7bx ACCEPT GREEN -> T0 ACCEPT GREEN
 ```
 
-The user has reviewed and approved a separately bounded repair design. T0 is
-freezing and dispatching:
+T0 exact artifact-contract decision:
 
 ```text
-T8ao metadata-only repair -> exact GREEN only -> T7bx independent review
+ACCEPT GREEN / DELTA0P1 RISK-PILOT METADATA REPAIR GATE CLOSED
 ```
 
-No new scientific frequency, full-grid production, plot, fixture, Kirchhoff,
-or paper-style work is authorized.
-
-## Approved Design And Frozen Documents
-
-- Design:
-  `docs/superpowers/specs/2026-07-15-t8ao-t7bx-delta0p1-units-metadata-repair-design.md`
-  at commit `529ee60`.
-- Implementation plan:
-  `docs/superpowers/plans/2026-07-15-t8ao-delta0p1-units-metadata-repair.md`.
-- T8ao prompt:
-  `docs/prompts/phase5_t8ao_delta0p1_units_metadata_repair.md`.
-- T7bx prompt:
-  `docs/prompts/phase5_t7bx_delta0p1_units_metadata_repair_review.md`.
-
-The plan/prompts coordination commit is:
+The independent scientific state remains deliberately separate:
 
 ```text
-138b6fe docs: plan delta0p1 units metadata repair
+YELLOW / TARGETED ADAPTIVE FREQUENCY REFINEMENT REQUIRED
 ```
 
-The predecessor handoff is archived at:
+This closeout accepts the repaired artifact contract only. It does not
+authorize a new frequency, `0.05`/`0.025` scan, full grid, plot, fixture,
+Kirchhoff, interpolation, smoothing, fill, or paper-style stage.
+
+## Accepted Implementation And Contracts
+
+- T8ao implementation commit:
+  `689c0759e790ccdc614f4b5a4ddbd48585d914fa`.
+- Its path set is exactly:
 
 ```text
-docs/handoffs/archive/T0_2026-07-15_pre_t8ao_units_metadata_repair_dispatch.md
-```
-
-## Exact Repair Scope
-
-T8ao implementation commit may contain exactly:
-
-```text
-src/schwgw/io/tablei_risk_pilot.py
 scripts/phase5_repair_delta0p1_risk_pilot_metadata.py
-tests/unit/test_tablei_risk_pilot.py
+src/schwgw/io/tablei_risk_pilot.py
 tests/regression/test_delta0p1_risk_pilot_metadata_repair.py
+tests/unit/test_tablei_risk_pilot.py
 ```
 
-Additional T8ao writes are restricted to the existing risk-pilot run tree,
-`status.md`, T8 current handoff, and the exact T8 archive named in the prompt.
-
-## Frozen Identity
-
-- Generation contract:
+- Generation contract remains:
   `92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9`.
-- Pre-repair root hashes:
-  - ledger `79d4c0f596650dcfb4d63c7e40758ea4afa82d2fe0e0cd3de5aa088bbbfd5ccd`;
-  - aggregate NPZ `2e0a9fee1b6729466affd4c5f7f6e86c96e696e20882c9f4ad52ae3792d82957`;
-  - aggregate JSON `2a9aa472e64747047cb28de90912eecf138b28884d87e8b8219e78d99482772f`;
-  - audit `461d040a180dfa8e5a743967285e67f8b682f8f67607f1c0c7a5c8ab2399d7bd`;
-  - manifest `120ccd8f11e681bc6d2b3054bd7522ef331a282421f7661dd7888c993b052212`.
-- Active cardinality is exactly 23 physical files; the manifest has exactly
-  22 non-self records.
-- Repaired schema is exactly
+- Metadata contract is:
+  `1bd32a3e2988ef786c3777859f76f8d38a276cdacd12cdadba7f79e843ca0161`.
+- Accepted schema is:
   `phase5_t8ao_delta0p1_risk_pilot_v2_units_ordering`.
+- Repair ledger SHA-256 is:
+  `ec4c6784a26e53b583c032fe360f51b940f5dfe6d58e705b2c3412fbeb9c717c`.
 
-## Scientific Interpretation That Must Not Change
+## Independent Acceptance Evidence
 
-- The T7bw RED is an artifact-contract failure caused by absent explicit
-  units, not a numerical-convergence failure.
-- Every non-`metadata_json` NPZ array must remain identical by key, shape,
-  dtype, `np.array_equal`, and canonical `.npy` SHA-256.
-- All 224 adjacent phase steps remain finite and below `pi/2`; frozen maximum
-  is `1.4363184904108022 rad`.
-- The 38 magnitude-dominance failures and 51 strict interior extrema remain
-  scientific evidence requiring a later, separately designed adaptive stage.
-- T8ao must not recompute scientific values. T7bx independently reconstructs
-  the preservation evidence after an exact T8ao GREEN.
+- T7bx exact decision:
+  `ACCEPT GREEN / DELTA0P1 RISK-PILOT ARTIFACT CONTRACT REPAIRED`.
+- T7bx did not import/call the T8ao migration or fingerprint helpers.
+- Ten source-backup/active NPZ pairs and all 219 non-metadata arrays match by
+  key order/set, shape, dtype, `np.array_equal`, and canonical
+  `np.save(..., allow_pickle=False)` SHA-256. Candidate fingerprints match too.
+- Source, candidate, and active packages each contain 23 files. Each manifest
+  contains 22 non-self records. The complete journal contains 23 copied-source
+  and 23 replaced paths; no active `.tmp` or third state exists.
+- Units cover all and only the 22 per-frequency and 21 aggregate arrays.
+  Actual frequency, point, lmax, history/final/aggregate axes, coordinates,
+  phases, complex amplitudes, and Boolean masks match the frozen ordering and
+  units registries.
+- Legacy metadata outside the mutation allowlist and all scientific values are
+  unchanged. The historical runner-cache quarantine remains excluded.
 
-## Automatic Chain
+## T0 Fresh Verification
 
-- Target T8 task: `019f5ece-f578-7b91-8f61-df882c656591`.
-- Target T7 task: `019f5ed1-b421-7ec2-9bac-8d134855a1ed`.
-- T8ao uses `gpt-5.6-sol`, reasoning `high`.
-- T8ao dispatch succeeded and a fresh task read confirms status `active`.
-- Heartbeat monitor: `monitor-t8ao-t7bx-units-metadata-repair`, 20-minute
-  interval.
-- Only exact
-  `GREEN / DELTA0P1 RISK-PILOT UNITS METADATA HARDENED` may dispatch T7bx.
-- T7bx is read-only except its own status/handoff/archive records and returns
-  only to T0.
-- YELLOW, RED, incomplete, missing artifact, failed test, scope drift, or
-  ambiguous state stops the chain.
-- A clear capacity/system interruption may resume the same task with
-  `gpt-5.6-terra/high` only after ledger/source/candidate/active hashes and
-  process state prove it is not a scientific, test, scope, or provenance
-  failure.
+- Direct no-helper NPZ audit:
+  `T0_DIRECT_NPZ_IDENTITY=PASS pairs=10 arrays=219 fingerprints=219`.
+- Cardinality/journal audit:
+  `T0_CARDINALITY_AND_LEDGER=PASS source=23 candidate=23 active=23 manifest=22 copied=23 replaced=23`.
+- Schema/hash surfaces, commit scope, forbidden commit diff, and forbidden
+  downstream-output checks: PASS.
+- Focused pytest: `18 passed in 2.23s`.
+- Ruff: `All checks passed!`.
+- Full pytest: `624 passed, 117 skipped, 1 xfailed, 101 warnings, 81 subtests
+  passed in 333.70s`.
+- The first T0 read-only ledger audit used a nonexistent `copied_paths` key;
+  inspection confirmed the frozen key is `copied_source_paths`. The corrected
+  audit passed. No artifact, implementation, or migration state changed.
 
-## Forbidden Actions
+## Scientific State Retained
 
-- Do not run the T8an scientific runner or any solver/polarization/radial path.
-- Do not change numerical arrays, frequencies, points, lmax, masks, branches,
-  tolerances, warnings, cache counts, adapter counts, or selected generation
-  provenance.
-- Do not start `0.05`, `0.025`, full-grid, plotting, fixture, Kirchhoff,
-  interpolation, smoothing, fill, or paper-style work.
-- Do not create a new T7/T8 task if the existing target is unavailable.
-- T8ao/T7bx must not push GitHub.
+- All masks remain true.
+- Final-pair maxima remain `6.136118112992297e-11` plus and
+  `5.492389935680416e-10` cross.
+- All 224 adjacent phase steps remain finite with maximum
+  `1.4363184904108022 < pi/2`.
+- Exactly 38 magnitude-dominance failures and 51 strict interior extrema
+  remain. These are scientific evidence for a later, separately designed
+  adaptive-frequency stage, not defects that metadata repair can remove.
+
+## Coordination And Archive
+
+- T7 current review: `docs/handoffs/T7_current.md`.
+- T8 current implementation record: `docs/handoffs/T8_current.md`.
+- Pre-closeout T0 handoff:
+  `docs/handoffs/archive/T0_2026-07-15_pre_t8ao_t7bx_metadata_repair_closeout.md`.
+- The obsolete heartbeat
+  `monitor-t8ao-t7bx-units-metadata-repair` must be deleted after the GitHub
+  synchronization record is complete.
+
+## GitHub Major-Node Handling
+
+This independently accepted high-risk artifact-contract repair is a major
+node under `project.md`. GitHub synchronization is pending the scope-explicit
+closeout commit and non-force push. Only this chain's committed implementation,
+frozen design/plan/prompts, the T4 radial-gate note/handoff, and reviewed
+T0/T7/T8/status coordination records may be included. Unrelated
+T1/T2/T3/T5/T6 working-tree changes and ignored `runs/` products remain
+excluded.
 
 ## Exact Next Task
 
-Monitor the active T8ao task without interfering with healthy work. Only exact
-GREEN may start T7bx. No user action is required unless dispatch, identity,
-metadata, provenance, tests, scope, or recovery verification fails.
+Complete the scope-explicit non-force GitHub synchronization and record its
+remote verification, then stop the heartbeat monitor. Do not dispatch a later
+scientific task.
+
+No next-stage prompt is provided because adaptive-frequency refinement has not
+yet been designed, reviewed, frozen, or authorized. The release condition is a
+new T0 design that preserves the accepted v2 artifact contract and explicitly
+defines frequencies, radial/Q018 support, checkpoints, scientific stop rules,
+scope, and an independent T7 review.
 
 ## Definition Of Done
 
-- T8ao produces one exact decision after array-identity, metadata, provenance,
-  focused/Ruff/full tests, scope, and forbidden-output checks.
-- Exact T8ao GREEN is independently reviewed by T7bx.
-- T0 verifies the final exact decision, updates this handoff and `status.md`,
-  applies the project major-node GitHub rule only for an independently
-  accepted GREEN, and stops the monitor.
-- No later scientific stage is started automatically.
+- `status.md` and this handoff record the exact artifact GREEN and retained
+  scientific YELLOW.
+- Scope-explicit closeout commits are pushed non-force to private `origin/main`
+  and remote equality is freshly verified.
+- The obsolete monitor is deleted.
+- No adaptive, production, plotting, fixture, Kirchhoff, or paper task starts
+  automatically.

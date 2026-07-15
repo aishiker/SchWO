@@ -1,194 +1,182 @@
 # T7 Current Handoff
 
-Last updated: 2026-07-14
+Last updated: 2026-07-15
 
-Thread: T7bu, Fig.5/Fig.6 review-grid diagnostics and production-spacing
+Thread: T7bx, `Delta(kM)=0.1` risk-pilot units/ordering metadata-repair
 independent review.
 
-## Thread Role And Current Status
-
-T7bu completed an independent read-only review of T8am's diagnostics generated
-from the accepted T8aj exact spin-2 review grid and T8al scalar Kirchhoff
-baseline.
-
-Exact decision:
+## Exact Decision
 
 ```text
-ACCEPT GREEN / FIG5-FIG6 REVIEW GRID SUPPORTS DELTA KM 0.1 PRODUCTION PILOT
+ACCEPT GREEN / DELTA0P1 RISK-PILOT ARTIFACT CONTRACT REPAIRED
 ```
 
-All nine frozen checks pass. This GREEN means only that the current evidence
-supports T0 designing a separate bounded `Delta(kM)=0.1` production pilot. It
-does not authorize that pilot, approve production data, prove band limitation,
-or permit T7 to dispatch another task.
-
-The pre-T7bu T7bt handoff is archived at:
+The repaired package passes all nine frozen review checks. This GREEN accepts
+only the v2 artifact contract and preserves the independent scientific state:
 
 ```text
-docs/handoffs/archive/T7_2026-07-14_pre_t7bu_review_grid_diagnostics.md
+YELLOW / TARGETED ADAPTIVE FREQUENCY REFINEMENT REQUIRED
 ```
 
-## Nine Required Checks
+No new frequency, refinement, production, plot, fixture, Kirchhoff, or paper
+work is authorized. T7bx did not call the T8ao migration helper and did not
+modify any implementation or artifact.
 
-1. **PASS — commit and scope.** `f6d32b1` plus layout-only `1542f5e` change
-   exactly the five frozen implementation/test paths. No solver, scattering,
-   numerics, IO, config, fixture, source-artifact, or unrelated-handoff path is
-   in the combined commit range.
-2. **PASS — no recomputation.** The plotting module imports only stdlib and
-   NumPy at module load, plus Matplotlib inside rendering. It contains no
-   solver/scattering/radial/Q018/compute/solve import or call. The CLI branch
-   passes only the two accepted NPZ paths, output directory, DPI, and CLI flag
-   to the plotting API.
-3. **PASS — paired source contract.** Both schemas, embedded/sidecar metadata,
-   frozen flags, exact ordered 18-frequency/eight-point arrays, `(18,8)`
-   shapes, Boolean masks, valid-value finiteness, exact polarization meaning,
-   and scalar comparison-only Kirchhoff contract pass. Kirchhoff units/dtypes
-   cover every non-metadata array and match actual dtypes. All three masks are
-   `144/144` true.
-4. **PASS — independent sampling metrics.** T7bu loaded the two NPZ files
-   directly and did not call T8am's loader or metric API. Every one of the 272
-   saved adjacent records was independently recomputed and matched within an
-   absolute serialization tolerance of `2e-15`; maxima, point/interval
-   attribution, `0.1` projection, factor `1.5`, and `< pi/2` flags all agree.
-   The recommendation is exactly `DELTA_0P1_PROVISIONAL_REVIEW`, explicitly
-   diagnostic and not a theorem or production authorization.
-5. **PASS — eight-file contract.** The directory contains exactly the eight
-   frozen names. PNG/PDF/JSON headers and readability, all current output
-   hashes, manifest entries, two source triplets, source sizes/hashes, and all
-   frozen no-recompute/no-interpolation/no-smoothing/no-fill/non-production
-   flags pass.
-6. **PASS — visual review.** Both native 2100x1620 PNGs and independently
-   rendered one-page PDFs contain four readable nonblank panels, correct
-   near/far points, four color/marker encodings, exact markers with thin saved-
-   sample guides, dashed `Kirchhoff scalar comparison` lines, correct magnitude
-   and phase units, legible labels/legends, and the exact diagnostic-only
-   subtitle. No clipping or paper-style claim was found. Both PDF text bounding
-   boxes are inside the 504x388.8-point page box.
-7. **PASS — focused tests.** Fresh focused pytest is `10 passed in 1.76s`.
-8. **PASS — static quality/full regression.** Ruff is clean. Fresh full pytest
-   is `568 passed, 117 skipped, 1 xfailed, 85 warnings, 79 subtests passed in
-   282.63s (0:04:42)`. Warnings remain the known Weyl/Wigner/radial warnings;
-   no T8am diagnostics warning or non-finite failure occurred.
-9. **PASS — isolation/non-claims.** Forbidden production diff and downstream-
-   output commands are empty. No source mutation, solver rerun, physics
-   recomputation, interpolation, smoothing, fill, altered mask, 40/79-point
-   production, fixture, paper-style candidate, or automatic later dispatch
-   occurred.
-
-## Accepted Source SHA256
+The pre-T7bx T7bw handoff is archived at:
 
 ```text
-a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb  exact NPZ
-2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537  exact JSON
-86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf  exact manifest
-66c59851e6eaf6bf5691c8026e0d528edbf304ae4bbcfc47a0290c14f87fdb55  Kirchhoff NPZ
-0b20d62be1fe39b48ce90ca2a8d0f7798fff489a777f18b2bf2d7c268376fdf3  Kirchhoff JSON
-fb138038b783d2a511df94f6552a5d77a06ae7f1a32dc4c80ea54ee7f3c5e632  Kirchhoff manifest
+docs/handoffs/archive/T7_2026-07-15_pre_t7bx_units_metadata_repair.md
 ```
 
-## Eight Output SHA256
+## Independent Nine-Check Result
+
+1. **PASS — implementation scope.** Commit `689c075` changes exactly the four
+   frozen paths: the risk-pilot module, thin metadata-repair CLI, unit test,
+   and metadata-repair regression test. No solver, adapter, scientific runner,
+   IO export, config, fixture, visualization, or unrelated path is included.
+2. **PASS — frozen sources.** The durable source backup contains exactly the
+   original 23 active files. Its five frozen root hashes and all 22 old
+   manifest entries match; the generation contract remains
+   `92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9`.
+   All six accepted T8aj/T4z anchors match freshly hashed files and every
+   declared source surface.
+3. **PASS — direct numerical identity.** A standalone audit that imports no
+   T8ao helper directly loaded all ten source-backup/active NPZ pairs. All 219
+   non-`metadata_json` arrays have identical key order/set, shape, dtype,
+   `np.array_equal` values, and SHA-256 of
+   `np.save(BytesIO(), array, allow_pickle=False)` bytes. The candidate tree
+   has the same 219 fingerprints.
+4. **PASS — metadata contract reconstruction.** T7bx independently rebuilt
+   the exact three-part units registry, ordering registry, complete sorted
+   219-entry fingerprint map, and canonical compact-JSON payload. The result
+   is exactly
+   `1bd32a3e2988ef786c3777859f76f8d38a276cdacd12cdadba7f79e843ca0161`
+   on every declared surface.
+5. **PASS — required surfaces.** All nine per-frequency embedded objects,
+   nine sidecars, aggregate embedded/sidecar, checkpoint ledger, sampling
+   audit, and manifest carry the exact v2 schema, generation/metadata hash
+   split, repair identity, source anchors, pre-repair provenance, units, and
+   ordering. Aggregate nested frequency metadata exactly equals the repaired
+   sidecars, including their active NPZ hashes.
+6. **PASS — coverage and actual arrays.** Units keys cover all and only the 22
+   per-frequency and 21 aggregate non-metadata arrays. Actual frequency,
+   point, frequency-local `lmax`, history/final/aggregate axes, coordinate
+   geometry, and ordering match the frozen registries. Coordinates/radii are
+   expressed in `M`, angles/phases in radians, complex amplification and
+   deltas are dimensionless, and masks are Boolean.
+7. **PASS — journal/cardinality/provenance.** Source, candidate, and active
+   trees each contain exactly 23 package files; each manifest has 22 non-self
+   records. The repair ledger is `state=complete`, has exact source/candidate
+   hash maps, 23 copied and 23 replaced paths, 219 fingerprints, and no
+   ambiguous or third-state file. No `.tmp` exists. The 11-file historical
+   runner-cache quarantine remains excluded from active data and provenance.
+8. **PASS — legacy/scientific preservation.** Every legacy metadata value is
+   unchanged outside the frozen mutation allowlist. Source and repaired
+   sampling sequences are JSON-semantically identical. Fresh reconstruction
+   confirms all masks true, final-pair maxima
+   `6.136118112992297e-11` plus and `5.492389935680416e-10` cross, 224 finite
+   phase steps with maximum `1.4363184904108022 < pi/2`, exactly 38 frozen
+   magnitude-dominance failures, and exactly 51 strict interior extrema.
+9. **PASS — tests and isolation.** Focused pytest, Ruff, full pytest, source-
+   hash, commit-scope, forbidden implementation/config/fixture diff, active
+   temporary-file check, and forbidden downstream-output check all pass.
+
+## Independently Reconstructed Contracts
 
 ```text
-f8ffcee55ce2a4d07e9a2ff91320baa0122bd37f43701cfde8d5eab5e963c386  fig5_near_axis_review_grid.png
-e19c28ca4a6532adc079f99137853115b9f90e0764bed84957d133d3b9167c11  fig5_near_axis_review_grid.pdf
-627903f91de69edf3d4e527419511a6a898979e8ae8c6dd57e6cee70ee93cb98  fig5_near_axis_review_grid.json
-e949bd7436617bf8cadb59515a3861e8bc8503e17337347a81be7598ef061855  fig6_far_axis_review_grid.png
-02b05bbe092f0c5934bcc389ca16d305208202637182c88038eeb5ff511a77ec  fig6_far_axis_review_grid.pdf
-06142d333dabba5dd17f76642a4a792dfa6603beee6a73ce8cc712c07073f534  fig6_far_axis_review_grid.json
-cb40d6cae967699b86f0ef3d863e8cbe9ce2555f56dcd3427f8f5d64d44190a4  sampling_diagnostics.json
-f09c24abb30c1ec64abcd3cd9dd2679061dfa23d746c2c96c49ffdd4e04c327b  manifest.md
+generation_contract_hash = 92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9
+metadata_contract_hash   = 1bd32a3e2988ef786c3777859f76f8d38a276cdacd12cdadba7f79e843ca0161
+schema_version           = phase5_t8ao_delta0p1_risk_pilot_v2_units_ordering
+metadata_repair_id       = T8ao/T7bx-units-ordering
+array_pairs              = 10
+non_metadata_arrays      = 219
+canonical_fingerprints   = 219
 ```
 
-## Independent Metric Evidence
+Frozen ordering verified against actual arrays:
 
 ```text
-T7BU_SOURCE_AND_PAIRED_CONTRACT=PASS
-T7BU_ALL_ADJACENT_METRICS=PASS records=272
-T7BU_EIGHT_FILE_HASH_PROVENANCE=PASS
+frequency_order = [0.4,0.8,0.9,1.6,1.7,2.8,2.9,3.8,3.9]
+point_order = [
+  near_axis_x0_z30, near_axis_x1_z30,
+  near_axis_x2_z30, near_axis_x3_z30,
+  far_axis_x10_z30, far_axis_x15_z30,
+  far_axis_x20_z30, far_axis_x25_z30
+]
+per_frequency_history_axes = [lmax, point]
+per_frequency_final_axes = [point]
+aggregate_field_axes = [frequency, point]
 ```
 
-Maximum phase slopes and factor-1.5 safety projections at candidate spacing
-`0.1`:
+## Durable Pre-Repair Identity
 
-- near `F_plus`: slope `2.796164802757737` at `near_axis_x1_z30`,
-  `[3.75,4.0]`; safety projection `0.4194247204136605` rad.
-- near `F_cross`: slope `3.625714958231235` at `near_axis_x2_z30`,
-  `[2.75,3.0]`; safety projection `0.5438572437346854` rad.
-- far `F_plus`: slope `8.763007426859136` at `far_axis_x20_z30`,
-  `[0.3,0.5]`; safety projection `1.3144511140288706` rad.
-- far `F_cross`: slope `7.5544095996424385` at `far_axis_x10_z30`,
-  `[1.5,1.75]`; safety projection `1.1331614399463659` rad.
+```text
+79d4c0f596650dcfb4d63c7e40758ea4afa82d2fe0e0cd3de5aa088bbbfd5ccd  checkpoint_ledger.json
+2e0a9fee1b6729466affd4c5f7f6e86c96e696e20882c9f4ad52ae3792d82957  risk_pilot_values.npz
+2a9aa472e64747047cb28de90912eecf138b28884d87e8b8219e78d99482772f  risk_pilot_values.npz.json
+461d040a180dfa8e5a743967285e67f8b682f8f67607f1c0c7a5c8ab2399d7bd  risk_pilot_sampling_audit.json
+120ccd8f11e681bc6d2b3054bd7522ef331a282421f7661dd7888c993b052212  manifest.md
+```
 
-All four are below `pi/2`. The most rapid magnitude evidence remains visible
-and is not hidden by an invented threshold: far `F_cross` has maximum absolute
-step `1.7643213800514306` and maximum relative step `0.8039700767407513` at
-`far_axis_x15_z30`, `[0.75,1.0]`. This is a limitation of sparse-grid evidence,
-but it does not contradict the frozen meaning of GREEN: support for a bounded
-finer-spacing pilot rather than acceptance of its eventual production output.
+## Active Artifact SHA-256
 
-## Visual Review Notes
+The independently verified active package has exactly these 23 files; the
+manifest contains the corresponding 22 non-self records:
 
-- Native PNGs are opaque white-background RGBA images with nonzero color
-  variance and dimensions `2100x1620`.
-- Both PDFs are valid unencrypted one-page PDF 1.4 files with page size
-  `504x388.8 pt`; they were rendered independently at 180 DPI and inspected.
-- A first simultaneous two-image viewer call displayed the far-axis margins
-  incorrectly. Direct alpha/RGB inspection showed fully opaque white pixels,
-  and separate PNG loading plus an independent PDF-to-JPEG render displayed
-  the complete figure. This was a reviewer-tool display anomaly, not an
-  artifact defect.
-- The accepted masks are all true, so the real figures contain no invalid gap.
-  Source inspection plus `test_invalid_pair_is_not_connected_or_filled`
-  confirms invalid samples split guides rather than being filled or connected.
+```text
+8729ad80043a1837793264b101a776a08e92191c7856cf792ed34683b743859e  checkpoint_ledger.json
+92720f77a8a365f7555d78f6d8e5522f430714945e1878502055a6485f323be0  frequencies/kM_0p4.npz
+eecf83f4239056c2b551879d0fc2e38f7e3aa6169968ea0b5225e3fa1801401e  frequencies/kM_0p4.npz.json
+5fa3ff156f46978ca608ded88b564497b516d7ec0a01bd5997606fbe6d80ac2a  frequencies/kM_0p8.npz
+3a69774878744935831385e23b3309ed3b3feb6f70a8a13b884ac36eaf88853a  frequencies/kM_0p8.npz.json
+9b86413b41a3bbe23a8ceb4541dba10e19d512a7cb8bd9d53ab3794c187cd432  frequencies/kM_0p9.npz
+e2ebb9c66fcd8dc9737a2d4056dad92ed5ad73f2a2519307453c8f99fea1fade  frequencies/kM_0p9.npz.json
+1d08bbdf9d3ff80eeb5e0b8df6eae440dddee7f8babe16c85eb27ad6290dba0e  frequencies/kM_1p6.npz
+05cbddcd46c3c1a5161eeab58e72ee8144ac695f8857ce3914e208704d8f0584  frequencies/kM_1p6.npz.json
+09e4266161f4b92efd59000ba3757f8f4b2737a81aace2ac69c1a01529d7cd3d  frequencies/kM_1p7.npz
+71ba72c7511dcb1b089049ea417821b317910ac487fe3106f0018ae7f7d4449e  frequencies/kM_1p7.npz.json
+47a10fc3dec2861c740ee772e509039b97c9a510bd7591ef9315b17583125283  frequencies/kM_2p8.npz
+8f82b2c2ce08f50d21ff8a043b1ff2b10dcc842fecf164db039267dc50dc9c24  frequencies/kM_2p8.npz.json
+97d4d774280b590d75dea913963cd7246c376ec1cc491dced9c746db4d9c56fa  frequencies/kM_2p9.npz
+8ba2f48c8c3ec0291b336e12e9baf38f5109eaa578f60f32b52f4a7bd900c839  frequencies/kM_2p9.npz.json
+60bf10b67772c2d8197f7db5f372252cf3bdf90a8837e02567fd7c7a5a6ca081  frequencies/kM_3p8.npz
+9c108ccf5fe0eb77cf8cce989b48e44c87c78f16c226caa61fc504f86bf23a3a  frequencies/kM_3p8.npz.json
+ed7fe65781baedc5f75885d56bd41fed321ac0d3581ea50f46a7f68f260ae44e  frequencies/kM_3p9.npz
+373fbada222620d2f1917a5309d23702af3b83541c04e18dc740ea5c505dda98  frequencies/kM_3p9.npz.json
+27301b9f300563a5feb654b48d9ef11ca8eb1e10f9c065c805534adfb27bfd78  manifest.md
+7e1e8646bfa51b09cd96ee301e8847fdc830128d7eca7ac770031bc7b13ce42b  risk_pilot_sampling_audit.json
+69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7  risk_pilot_values.npz
+b812a4325b9afca91ee360b68dc3e959115f2d992fba21b60cf70a7ad3ce3566  risk_pilot_values.npz.json
+```
 
-## Review-Only Changed Paths
+Repair-ledger SHA-256:
+
+```text
+ec4c6784a26e53b583c032fe360f51b940f5dfe6d58e705b2c3412fbeb9c717c
+```
+
+## Fresh Verification
+
+- Focused pytest: `18 passed in 2.11s`.
+- Ruff: `All checks passed!`.
+- Full pytest: `624 passed, 117 skipped, 1 xfailed, 101 warnings, 81 subtests
+  passed in 326.73s`.
+- Full-suite warnings are the existing Weyl/Wigner and deliberately exercised
+  SciPy fail-closed warnings; no T8ao metadata path failed.
+- Forbidden implementation/config/fixture diff: empty.
+- Forbidden downstream-output command: empty.
+- Active `.tmp` search: empty.
+
+## Review-Only Changed Paths And Boundary
 
 - `status.md`
 - `docs/handoffs/T7_current.md`
-- `docs/handoffs/archive/T7_2026-07-14_pre_t7bu_review_grid_diagnostics.md`
+- `docs/handoffs/archive/T7_2026-07-15_pre_t7bx_units_metadata_repair.md`
 
-T7bu modified no implementation, test, config, source, artifact, plot,
-fixture, or unrelated handoff.
-
-## Limitations And Next Owner
-
-- The phase proxy with factor `1.5` is a conservative diagnostic, not a
-  band-limit theorem and not proof that no unobserved extrema exist.
-- Magnitude evidence has no frozen automatic threshold. The far-axis curves
-  require evaluation in the future bounded pilot rather than being treated as
-  already converged production evidence.
-- T0 alone may interpret this GREEN and design a separate bounded
-  `Delta(kM)=0.1` pilot. T7bu starts and authorizes nothing downstream.
-
-## Frozen Decisions And Forbidden Actions
-
-- Exact spin-2 plus/cross and scalar polarization-independent Kirchhoff remain
-  distinct quantities; Kirchhoff never enters masks, normalization, solver,
-  Q018, or polarization channels.
-- Do not modify or regenerate accepted sources, diagnostics, implementation,
-  tests, or artifacts from T7.
-- Do not start 40/79-frequency production, midpoint probes,
-  `Delta(kM)=0.05`, fixtures, interpolation/smoothing, or paper-style work.
-- Do not push GitHub or dispatch a later task from T7.
-
-## Files The Next Thread Must Read
-
-1. `status.md`
-2. `docs/handoffs/T7_current.md`
-3. `docs/handoffs/T0_current.md`
-4. `docs/handoffs/T8_current.md`
-5. `docs/superpowers/specs/2026-07-14-t8am-t7bu-review-grid-diagnostics-design.md`
-6. `docs/superpowers/plans/2026-07-14-t8am-review-grid-diagnostics.md`
-7. `docs/prompts/phase5_t7bu_fig5_fig6_review_grid_diagnostics_review.md`
-8. the five T8am implementation/test paths
-9. both accepted source triplets and all eight diagnostics outputs
-
-## Exact Next Task And Definition Of Done
-
-Send the exact GREEN, six source hashes, eight output hashes, metric maxima,
-visual evidence, focused/Ruff/full-test results, scope results, review-only
-changed files, and limitations to T0 task
-`019f5ec5-84ba-79e2-8c77-1160b150a636`.
-
-T7bu is complete only after fresh document/hash/scope verification and a
-successful T0 message. No later task is dispatched by T7.
+T7bx changed no implementation, test, script, config, artifact, accepted
+input, or T0/T4/T8 handoff. It did not run the migration helper, scientific
+runner, `0.05`, `0.025`, full grid, plot, fixture, Kirchhoff, or paper-style
+work. Only T0 may close the gate, apply the project major-node GitHub rule, or
+design a later adaptive-frequency stage. The exact GREEN and retained
+scientific YELLOW were successfully sent to T0 task
+`019f5ec5-84ba-79e2-8c77-1160b150a636` after fresh verification.
