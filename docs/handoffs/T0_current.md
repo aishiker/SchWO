@@ -34,8 +34,13 @@ or paper-style work is authorized.
 - T7bx prompt:
   `docs/prompts/phase5_t7bx_delta0p1_units_metadata_repair_review.md`.
 
-The plan/prompts are frozen only after their T0 coordination commit is
-recorded in `status.md`. The predecessor handoff is archived at:
+The plan/prompts coordination commit is:
+
+```text
+138b6fe docs: plan delta0p1 units metadata repair
+```
+
+The predecessor handoff is archived at:
 
 ```text
 docs/handoffs/archive/T0_2026-07-15_pre_t8ao_units_metadata_repair_dispatch.md
@@ -88,6 +93,9 @@ Additional T8ao writes are restricted to the existing risk-pilot run tree,
 - Target T8 task: `019f5ece-f578-7b91-8f61-df882c656591`.
 - Target T7 task: `019f5ed1-b421-7ec2-9bac-8d134855a1ed`.
 - T8ao uses `gpt-5.6-sol`, reasoning `high`.
+- T8ao dispatch succeeded and a fresh task read confirms status `active`.
+- Heartbeat monitor: `monitor-t8ao-t7bx-units-metadata-repair`, 20-minute
+  interval.
 - Only exact
   `GREEN / DELTA0P1 RISK-PILOT UNITS METADATA HARDENED` may dispatch T7bx.
 - T7bx is read-only except its own status/handoff/archive records and returns
@@ -112,9 +120,9 @@ Additional T8ao writes are restricted to the existing risk-pilot run tree,
 
 ## Exact Next Task
 
-After the coordination commit is frozen, send the T8ao prompt to the existing
-T8 task and create a monitor for exact-GREEN-only T7bx dispatch and T0
-closeout. No user action is required unless dispatch or verification fails.
+Monitor the active T8ao task without interfering with healthy work. Only exact
+GREEN may start T7bx. No user action is required unless dispatch, identity,
+metadata, provenance, tests, scope, or recovery verification fails.
 
 ## Definition Of Done
 
