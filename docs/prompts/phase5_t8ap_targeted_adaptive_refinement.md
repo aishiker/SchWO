@@ -63,6 +63,34 @@ schema `phase5_t8ao_delta0p1_risk_pilot_v2_units_ordering`, and the exact
 future T4aa/T7by gate hashes reported by T0. Any mismatch stops; never repair
 or regenerate an input.
 
+The exact immutable path set bound to those source/history hashes is:
+
+```text
+runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz
+runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz.json
+runs/phase5/fig5_fig6_dense_review_grid/manifest.md
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/checkpoint_ledger.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_sampling_audit.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/manifest.md
+runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/classification_manifest.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/oracle_validation.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/resume_preflight.json
+```
+
+T0 supplies the future accepted T4aa/T7by gate hashes with the start message at
+exactly these paths:
+
+```text
+runs/phase5/fig5_fig6_targeted_adaptive_radial_gate/classification_manifest.json
+runs/phase5/fig5_fig6_targeted_adaptive_radial_gate/oracle_validation.json
+runs/phase5/fig5_fig6_targeted_adaptive_radial_gate/resume_preflight.json
+runs/phase5/fig5_fig6_targeted_adaptive_radial_gate/manifest.md
+```
+
+Bind path and hash; no basename search or substitute is allowed.
+
 ## Frozen Contract
 
 ```text
@@ -116,16 +144,23 @@ fixtures, Kirchhoff, T0/T4/T7 handoffs, or unrelated files.
   contracts with explicit units, dtype, ordering and source/gate provenance;
 - implement atomic frequency pairs/ledger, exact resume validation and
   quarantine; never reuse a filename without all hashes/contracts matching;
+- complete fake-compute tests and Ruff, then commit exactly the five frozen
+  implementation/test paths before the first real frequency; bind that commit
+  and its blobs into the generation contract;
 - use only frequency-local, certified-domain-aware radial reuse, processing
   points in decreasing radius and preserving disjoint local solutions;
 - compute exactly thirteen frequencies at exactly eight points with frozen
   Route-B plus/cross ratios, masks, histories and final-pair test;
-- allow one `+24`/`+48` extension only wholly inside T7by's accepted envelope;
+- forbid all lmax extension; an initial final-pair failure is YELLOW;
 - after every frequency, reload and validate its NPZ/JSON/ledger before the
   next transaction; resume must not recompute a valid complete transaction;
 - produce exactly 31 active files and 30 manifest records, a `(13,8)`
   aggregate, and an audit containing exactly 432 phase and 416 hierarchical
-  child/parent magnitude records without emitting scientific acceptance;
+  child/parent magnitude records using the literal design-Section-6 mapping,
+  without float-inferred parents or scientific acceptance;
+- if implementation changes after real execution begins, freeze a new scoped
+  commit/contract and quarantine every old-contract transaction; never reuse a
+  transaction across implementation identities;
 - run standalone no-helper artifact reconstruction, focused tests, Ruff,
   fresh full pytest, scope/provenance/cardinality/source/forbidden-output checks;
 - commit exactly the five implementation/test paths and update the permitted

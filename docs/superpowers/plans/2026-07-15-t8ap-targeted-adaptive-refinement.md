@@ -32,13 +32,42 @@ convergence_tolerance = 1e-4
 adapter = q018_tablei_targeted_adaptive_transition
 ```
 
-Use the exact per-frequency lmax windows in the frozen design. An extension by
-`+24` or `+48` is allowed only when every added mode is already inside the
-T7by-accepted envelope; otherwise stop YELLOW without aggregation.
+Use the exact per-frequency lmax windows in the frozen design. No lmax
+extension is authorized because T4aa measures only those initial windows. If
+an initial final pair fails, stop YELLOW without aggregation.
 
 Immutable input anchors include the accepted T8aj triplet, all five accepted
 T8ao root files and their v1/v2 contracts, and the future exact T4aa/T7by gate
 hashes. Never repair or rewrite an accepted source.
+
+Exact immutable source/history paths are:
+
+```text
+runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz
+runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz.json
+runs/phase5/fig5_fig6_dense_review_grid/manifest.md
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/checkpoint_ledger.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_sampling_audit.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/manifest.md
+runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/classification_manifest.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/oracle_validation.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/resume_preflight.json
+```
+
+The future T4aa classification/oracle/preflight/manifest paths and hashes are
+supplied by T0 only after T7by exact GREEN at exactly:
+
+```text
+runs/phase5/fig5_fig6_targeted_adaptive_radial_gate/classification_manifest.json
+runs/phase5/fig5_fig6_targeted_adaptive_radial_gate/oracle_validation.json
+runs/phase5/fig5_fig6_targeted_adaptive_radial_gate/resume_preflight.json
+runs/phase5/fig5_fig6_targeted_adaptive_radial_gate/manifest.md
+```
+
+The generation contract binds exact paths and hashes; same-named substitutes
+are invalid.
 
 ## Frozen File Map
 
@@ -95,8 +124,10 @@ docs/handoffs/archive/T8_2026-07-15_pre_t8ap_targeted_adaptive_refinement.md
       hashes, adapter, lmax, source/gate identity, and ledger entry all agree.
 - [ ] Quarantine partial/mismatched pairs. Never count quarantine as active.
 
-## Task 3 — Safe Frequency-Local Radial Cache And One Transaction
+## Task 3 — Implement Cache And Transaction With Fake Compute Only
 
+- [ ] Do not invoke the real solver or write a real-frequency transaction in
+      this task. Exercise all behavior through injected fake compute functions.
 - [ ] Use a frequency-local cache keyed by sector, ell, k, background,
       boundary/tolerances and adapter. Retain the exact certified radius domain
       of each solution.
@@ -109,19 +140,29 @@ docs/handoffs/archive/T8_2026-07-15_pre_t8ap_targeted_adaptive_refinement.md
       values, true plus/cross masks, and the final adjacent complex pair to pass
       `abs(a-b)/max(1,abs(a),abs(b)) <= 1e-4` for every point/component.
 - [ ] Record runtime, solve/reuse/adapter counts, warnings, convergence deltas,
-      lmax extension evidence, code/source/gate hashes, and exact non-claims.
-- [ ] Write one atomic NPZ/JSON pair and one hash-only ledger entry only after
-      the complete frequency validates.
+      the explicit no-extension decision, code/source/gate hashes, and exact
+      non-claims.
+- [ ] Implement writing one atomic NPZ/JSON pair and one hash-only ledger entry
+      only after the complete fake frequency validates.
+- [ ] Complete all five implementation/test paths and fake-compute tests, run
+      focused tests and Ruff, and create one scoped implementation commit
+      containing exactly the frozen five paths **before** the first real
+      frequency. Freeze the generation contract from that commit and its five
+      blobs. No real transaction may predate this identity.
 
 ## Task 4 — Resume And Thirteen-Frequency Execution
 
 - [ ] Test exact resume reuse, source/gate/code/contract mismatch quarantine,
       `.tmp` rejection, unexpected active file rejection, domain-aware cache,
-      final-pair failure, missing T7by GREEN, and forbidden extension.
+      final-pair failure, missing T7by GREEN, and attempted extension rejection.
 - [ ] Run frequencies in the frozen order. After every frequency, independently
       reload and validate its pair and ledger record before proceeding.
 - [ ] On resume, reuse only complete, hash-matching transactions; do not rerun
       a valid completed frequency.
+- [ ] If any of the five implementation files changes after real execution
+      starts, stop, commit the new five-path implementation identity, quarantine
+      every old-contract transaction/ledger, and restart contract validation.
+      No transaction crosses an implementation-commit boundary.
 - [ ] A healthy long-running solver is not stopped for elapsed time. Capacity
       or system interruption may resume only after process/checkpoint/artifact
       inspection proves there is no scientific/test/scope failure.
@@ -145,6 +186,8 @@ docs/handoffs/archive/T8_2026-07-15_pre_t8ap_targeted_adaptive_refinement.md
 [3.75,3.775,3.8,3.85,3.9,3.95,4.0]
 ```
 
+- [ ] Use the exact thirteen-row midpoint/parent/children/parent-width mapping
+      in design Section 6. Do not infer parents by float adjacency.
 - [ ] Record exactly 432 adjacent phase records and 416 child/parent magnitude
       records, parent identity, child spacing, total variation, largest-step
       attribution, cancellation structure, and strict interior extrema.
@@ -188,8 +231,9 @@ PYTHONPATH=src .venv/bin/python -m pytest -q \
 - [ ] Require the implementation commit diff to contain exactly the frozen
       five paths and no radial solver/adapter, source artifact, config,
       visualization, fixture, Kirchhoff, or unrelated handoff change.
-- [ ] Commit exactly the five implementation/test paths. Update/archive the T8
-      handoff and `status.md` separately, preserving unrelated worktree files.
+- [ ] Confirm the pre-run scoped implementation commit and its blobs still
+      equal the generation contract. Update/archive the T8 handoff and
+      `status.md` separately, preserving unrelated worktree files.
 
 ## Decision, Dispatch And Stop Rules
 

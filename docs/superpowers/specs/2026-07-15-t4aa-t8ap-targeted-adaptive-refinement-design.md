@@ -70,6 +70,16 @@ b812a4325b9afca91ee360b68dc3e959115f2d992fba21b60cf70a7ad3ce3566  risk_pilot_val
 27301b9f300563a5feb654b48d9ef11ca8eb1e10f9c065c805534adfb27bfd78  manifest.md
 ```
 
+Their exact active paths are:
+
+```text
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/checkpoint_ledger.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_sampling_audit.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/manifest.md
+```
+
 The active package, its 23-file cardinality, 22-record manifest, explicit
 units/ordering, and all 219 non-metadata arrays are immutable inputs. The new
 stage reads them by hash and never appends to, rewrites, migrates, or repairs
@@ -80,17 +90,17 @@ them.
 The accepted T8aj review-grid triplet remains immutable:
 
 ```text
-a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb  NPZ
-2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537  JSON
-86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf  manifest
+a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb  runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz
+2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537  runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz.json
+86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf  runs/phase5/fig5_fig6_dense_review_grid/manifest.md
 ```
 
 The accepted T4z/T7bv radial-gate hashes remain provenance anchors:
 
 ```text
-ee051831e1da7ebb250cab37d7da3a64d8a57298b445577f238d9cefae319d54  classification
-8f6d23da0894d0abfb42867bf911b9da95090ad5293bc76289daf4522e4067f9  oracle
-59e99ade6993eab6d570f8a2ad18f0778595f7309fbb87fbf1edf32903b80968  preflight
+ee051831e1da7ebb250cab37d7da3a64d8a57298b445577f238d9cefae319d54  runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/classification_manifest.json
+8f6d23da0894d0abfb42867bf911b9da95090ad5293bc76289daf4522e4067f9  runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/oracle_validation.json
+59e99ade6993eab6d570f8a2ad18f0778595f7309fbb87fbf1edf32903b80968  runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/resume_preflight.json
 ```
 
 These anchors establish history only. The T4z adapter is exact-frequency and
@@ -208,9 +218,10 @@ The exact initial windows are:
 | 3.85 | `3p85` | `[276,300,324,348]` | `[324,348]` |
 | 3.95 | `3p95` | `[288,312,336,360]` | `[336,360]` |
 
-One convergence extension by `+24` or `+48` is permitted only when every new
-mode is already inside the T7by-accepted exact radial envelope. Otherwise T8ap
-stops YELLOW and returns to T0/T4; it does not broaden the adapter at runtime.
+No convergence extension is authorized in this slice. T4aa measures only the
+initial windows above, so an added `+24` or `+48` mode would not have a frozen
+T7by-accepted radial envelope. If the initial final pair fails `1e-4`, T8ap
+stops YELLOW and returns to T0 without aggregation or adapter broadening.
 
 ## 6. Exact Reconstructed Sequences And Parent Mapping
 
@@ -244,6 +255,25 @@ Each `0.05` child is compared only with its exact accepted `0.1` parent. Each
 already-passing unrefined interval `[0.75,0.8]` remains phase/sequence context
 but is not counted as a new child-dominance record.
 
+The parent mapping is frozen explicitly; no task infers it from floating-point
+neighbours:
+
+| midpoint | exact parent | child 1 | child 2 | parent width |
+|---:|---|---|---|---:|
+| `0.35` | `[0.3,0.4]` | `[0.3,0.35]` | `[0.35,0.4]` | `0.1` |
+| `0.45` | `[0.4,0.5]` | `[0.4,0.45]` | `[0.45,0.5]` | `0.1` |
+| `0.85` | `[0.8,0.9]` | `[0.8,0.85]` | `[0.85,0.9]` | `0.1` |
+| `0.95` | `[0.9,1.0]` | `[0.9,0.95]` | `[0.95,1.0]` | `0.1` |
+| `1.55` | `[1.5,1.6]` | `[1.5,1.55]` | `[1.55,1.6]` | `0.1` |
+| `1.65` | `[1.6,1.7]` | `[1.6,1.65]` | `[1.65,1.7]` | `0.1` |
+| `1.725` | `[1.7,1.75]` | `[1.7,1.725]` | `[1.725,1.75]` | `0.05` |
+| `2.775` | `[2.75,2.8]` | `[2.75,2.775]` | `[2.775,2.8]` | `0.05` |
+| `2.85` | `[2.8,2.9]` | `[2.8,2.85]` | `[2.85,2.9]` | `0.1` |
+| `2.95` | `[2.9,3.0]` | `[2.9,2.95]` | `[2.95,3.0]` | `0.1` |
+| `3.775` | `[3.75,3.8]` | `[3.75,3.775]` | `[3.775,3.8]` | `0.05` |
+| `3.85` | `[3.8,3.9]` | `[3.8,3.85]` | `[3.85,3.9]` | `0.1` |
+| `3.95` | `[3.9,4.0]` | `[3.9,3.95]` | `[3.95,4.0]` | `0.1` |
+
 ## 7. Stage 1 — T4aa Radial/Q018 Gate
 
 ### 7.1 Objective
@@ -256,11 +286,20 @@ Table-I radii, and frozen lmax windows. Records distinguish:
 - structured solver failure eligible for the experimental oracle;
 - unstructured, nonfinite, or out-of-contract failure.
 
-Every recoverable transition record is independently validated with the
+Every recoverable transition key `(kM, sector, ell, point_id)` is independently validated with the
 existing direct Riccati/log-amplitude oracle. Required evidence includes
 residuals, normalization, boundary consistency, conditioning, and tolerance
 sensitivity. Requested precision and actual backend precision are recorded
 separately.
+
+The precision/tolerance anchor set is deterministic. For every nonempty
+`(kM, sector)` transition group, select the lexicographically first and last
+`(ell, point_id)` keys, then add the lexicographically first transition for
+each of the eight point IDs not already represented. Run the deduplicated
+union at requested `70/80/100` dps and the frozen loose/tight tolerance
+perturbations. A frequency or sector with no transition records must explicitly
+record `transition_count=0` and an empty anchor list; no oracle anchor is
+invented and no odd/even symmetry is assumed.
 
 ### 7.2 Exact adapter
 
@@ -275,13 +314,17 @@ The adapter permits only:
 - Schwarzschild `M=1`;
 - the 13 exact frequencies and eight exact point radii;
 - odd/even sectors;
-- literal measured `(kM, ell, point_id)` transition membership;
+- literal measured `(kM, sector, ell, point_id)` transition membership;
 - the frozen boundary values and tolerances in Section 4.
 
 Default-covered modes remain on the ordinary solver path. Any wrong frequency,
 point, radius, ell, sector, `M`, `r_out`, `r_in_eps`, `rtol`, or `atol` fails
 closed with structured metadata. There is no interpolation in frequency,
 radius, ell, or transition segments.
+
+The literal envelope is sector-aware. Its transition map is keyed by exact
+`(kM, sector)` and stores only consecutive ell segments with exact point-ID
+sets; a sector may not reuse another sector's membership.
 
 ### 7.3 Artifacts and checkpoints
 
@@ -304,6 +347,22 @@ manifest.md
 Each checkpoint is written to a temporary sibling and atomically renamed. A
 resume skips work only when the complete input contract, selected code hashes,
 checkpoint decision, and output hash agree. Mismatched state is quarantined.
+
+T4aa has two distinct provenance layers:
+
+1. The **classification snapshot** binds the final gate script, the exact
+   pre-adapter `radial_solver.py` blob used for default classification, the
+   direct-oracle blob, Table-I source blob, design/plan/prompt blobs, and input
+   contract. The thirteen checkpoints and raw classification/oracle artifacts
+   bind only this snapshot and remain resumable after adapter integration.
+2. The **final adapter snapshot** binds the generated literal envelope, final
+   `radial_solver.py`, the complete five-path implementation commit, and all
+   implementation/test blobs. `resume_preflight.json` and `manifest.md` bind
+   both snapshots and the exact classification/oracle hashes.
+
+A final-adapter blob must never be substituted for a classification-snapshot
+blob when deciding checkpoint reuse. T7by independently verifies both
+identities and their hash-bound bridge.
 
 ### 7.4 Implementation boundary and decisions
 
@@ -384,7 +443,7 @@ Each frequency is an independent transaction:
 
 1. validate all accepted source, gate, code, configuration, units, dtype, and
    ordering hashes;
-2. compute all frozen lmax partial sums;
+2. compute all frozen lmax partial sums with no extension;
 3. require finite plus/cross values and true masks at all eight points;
 4. require the complex final adjacent pair to pass `1e-4`;
 5. atomically write one NPZ and one JSON sidecar;
@@ -436,6 +495,13 @@ The generation contract binds:
 - accepted T4aa/T7by gate hashes and adapter identity;
 - selected scientific code hashes and Git state;
 - convergence and fail-closed policies.
+
+Before the first real frequency, T8ap must finish the five implementation/test
+paths, pass fake-compute focused tests and Ruff, and create one scoped
+implementation commit containing exactly those paths. The generation contract
+binds that commit and its five blobs. If any implementation file changes after
+real computation starts, the contract is invalid: all transactions from the
+old contract are quarantined and none may be reused under the new commit.
 
 The separate metadata contract binds:
 

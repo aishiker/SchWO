@@ -51,6 +51,25 @@ The independently derived default-classification cardinality is exactly
 `ell=2..max(lmax_values)`, and all eight exact points. Transition cardinality
 is measured, not assumed.
 
+Exact immutable history inputs are:
+
+```text
+runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz
+runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz.json
+runs/phase5/fig5_fig6_dense_review_grid/manifest.md
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/checkpoint_ledger.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_sampling_audit.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot/manifest.md
+runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/classification_manifest.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/oracle_validation.json
+runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/resume_preflight.json
+```
+
+Their exact SHA-256 values are frozen in the design and T4aa prompt. Treat
+paths and hashes as one identity; never search for a same-named substitute.
+
 ## Frozen File Map
 
 The implementation commit may contain exactly:
@@ -108,8 +127,16 @@ default_error_other
       hiding nonfinite or unexpected failures.
 - [ ] Write exactly thirteen atomic files
       `checkpoint/kM_<token>.json`. A checkpoint is reusable only if schema,
-      complete input contract, selected source hashes, output hash,
+      complete input contract, classification-snapshot hashes, output hash,
       `complete=true`, and `decision=PASS` all match. Quarantine any mismatch.
+- [ ] Freeze a **classification snapshot** before the first classification
+      call. It binds the final gate script, the pre-adapter `radial_solver.py`
+      blob, direct-oracle blob, Table-I source blob, design/plan/prompt blobs,
+      and input contract. Every checkpoint and the raw classification/oracle
+      artifacts carry this exact snapshot hash.
+- [ ] Do not compare a checkpoint's pre-adapter radial blob with the later
+      final-adapter radial blob. Adapter integration must not make a valid
+      classification checkpoint appear stale.
 - [ ] On resume, independently validate a matching checkpoint before skipping
       its frequency. Never trust filename presence alone.
 - [ ] Require a complete `42,224`-record union with no duplicate or omitted
@@ -117,28 +144,34 @@ default_error_other
 
 ## Task 3 — Direct Oracle Evidence And Literal Envelope
 
-- [ ] Validate every structured recoverable transition with the existing
-      direct Riccati/log-amplitude oracle using the frozen boundary values.
+- [ ] Validate every structured recoverable transition key
+      `(kM, sector, ell, point_id)` with the existing direct
+      Riccati/log-amplitude oracle using the frozen boundary values. Do not
+      infer odd/even symmetry.
 - [ ] Record requested precision and actual backend precision separately.
 - [ ] Require finite `psi`, `dpsi_dr`, `A_in`, `A_out`, normalization and
       boundary consistency, effective residual `<1e-7`, normalization/boundary
       residuals `<1e-8`, and maximum tolerance sensitivity `<5e-6`.
-- [ ] Repeat a deterministic cross-frequency/cross-sector/cross-radius anchor
-      matrix at requested 70/80/100 dps and with frozen tolerance perturbations.
+- [ ] Build the precision/tolerance anchor matrix deterministically: for every
+      nonempty `(kM, sector)` group select its lexicographically first and last
+      `(ell, point_id)` keys, then add the lexicographically first transition
+      for each exact point ID not yet covered. Run the deduplicated union at
+      requested 70/80/100 dps and frozen tolerance perturbations. Explicitly
+      record zero-transition frequency/sector groups with an empty anchor set.
 - [ ] Compress only consecutive integer ells that have identical exact point
       sets at the same frequency and sector. Expand the generated segments and
       require exact set equality with all raw transition keys.
 - [ ] Generate a literal, import-time IO-free module
       `q018_targeted_adaptive_envelope.py` carrying frequency tokens, exact
-      points, transition segments, source hashes, classification hash, and
-      oracle-validation hash.
+      points, sector-aware `(kM, sector)` transition segments, source hashes,
+      classification hash, and oracle-validation hash.
 
 ## Task 4 — Exact Fail-Closed Adapter
 
 - [ ] Add only the adapter name
       `q018_tablei_targeted_adaptive_transition` to `radial_solver.py`.
 - [ ] Validate exact Schwarzschild background, `M`, sector, binary64 frequency,
-      point radius/ID, literal `(ell, point_id)` membership, `r_out`,
+      point radius/ID, literal `(sector, ell, point_id)` membership, `r_out`,
       `r_in_eps`, `rtol`, and `atol` with the existing strict comparison
       convention (`rtol=0`, `atol=1e-15` where applicable).
 - [ ] Keep default-covered records on the ordinary solver path with zero
@@ -150,13 +183,23 @@ default_error_other
       transition point groups; add negative tests for every wrong contract
       field, unmeasured ell/point pairs, and near-but-not-exact frequencies.
 - [ ] Compare adapter results directly with the saved oracle records.
+- [ ] Run the focused tests and Ruff, then commit exactly the five frozen
+      implementation/test paths before running adapter resume preflight. Do not
+      include run products or coordination files.
+- [ ] Freeze a **final adapter snapshot** containing the generated envelope
+      blob, final `radial_solver.py`, exact five-path implementation commit and
+      all five blobs. This snapshot is separate from, and hash-linked to, the
+      classification snapshot. A later final-adapter change requires a new
+      scoped commit/snapshot and a fresh preflight; it does not rewrite the
+      earlier classification snapshot.
 
 ## Task 5 — Resume Preflight, Evidence And Verification
 
 - [ ] Re-run every transition through the integrated adapter without calling
       the classification compressor and write `resume_preflight.json`
       atomically. Require exact key equality, finite fields, frozen residual
-      bounds, adapter identity, warning identity, and zero failures.
+      bounds, adapter identity, warning identity, both provenance snapshots,
+      their hash bridge, and zero failures.
 - [ ] Write only:
 
 ```text
@@ -180,12 +223,10 @@ PYTHONPATH=src .venv/bin/python -m pytest -q \
 
 - [ ] Run Ruff on the exact five implementation paths and then fresh full
       pytest with `PYTHONPATH=src .venv/bin/python -m pytest -q`.
-- [ ] Require the implementation diff path set to equal the frozen five paths,
+- [ ] Require the implementation commit path set to equal the frozen five paths,
       `git diff --check` to pass, exactly thirteen complete checkpoints, no
       active `.tmp`, no ambiguous quarantine state, and no T8ap/full-grid/
       `0.025`-scan/plot/fixture/Kirchhoff/paper output.
-- [ ] Commit exactly the five implementation/test paths. Do not include run
-      products or unrelated handoffs.
 - [ ] Archive the predecessor T4 handoff, update T4 current and `status.md`, and
       record exactly one decision:
 

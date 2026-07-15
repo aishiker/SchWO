@@ -18,9 +18,9 @@ Read completely before modifying anything:
 7. `docs/superpowers/plans/2026-07-15-t4aa-targeted-adaptive-radial-gate.md`
 8. this prompt
 9. `docs/prompts/phase5_t7by_targeted_adaptive_radial_review.md`
-10. the accepted T4z gate note, manifest, thirteen relevant source/contract
-    anchors, current radial solver, direct oracle, Table-I points, existing
-    Q018 envelopes, and the two authorized test modules
+10. the accepted T4z gate note/manifest, the eleven exact artifact paths below,
+    current radial solver, direct oracle, Table-I points, existing Q018
+    envelopes, and the two authorized test modules
 
 Follow the frozen plan task by task. Use TDD for behavior changes, diagnose any
 unexpected failure before modifying code, and verify all claims fresh. Project
@@ -35,28 +35,24 @@ review:
 REVIEW GREEN / T0 REPAIR PACKAGE APPROVED
 ```
 
-Freshly verify these accepted hashes before classification:
+Freshly verify this exact hash-to-path mapping before classification:
 
 ```text
-# T8aj
-a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb
-2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537
-86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf
-
-# accepted T8ao package roots
-8729ad80043a1837793264b101a776a08e92191c7856cf792ed34683b743859e
-69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7
-b812a4325b9afca91ee360b68dc3e959115f2d992fba21b60cf70a7ad3ce3566
-7e1e8646bfa51b09cd96ee301e8847fdc830128d7eca7ac770031bc7b13ce42b
-27301b9f300563a5feb654b48d9ef11ca8eb1e10f9c065c805534adfb27bfd78
-
-# T4z/T7bv anchors
-ee051831e1da7ebb250cab37d7da3a64d8a57298b445577f238d9cefae319d54
-8f6d23da0894d0abfb42867bf911b9da95090ad5293bc76289daf4522e4067f9
-59e99ade6993eab6d570f8a2ad18f0778595f7309fbb87fbf1edf32903b80968
+a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb  runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz
+2145686bc0e72363870eb28bd29d6e2e558102a9c0d61e7e057b9d63b4beb537  runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz.json
+86d77a92a54fcaba31934bc0a57d0b491aed44e2d5becb3e7dcc704bd4ede3bf  runs/phase5/fig5_fig6_dense_review_grid/manifest.md
+8729ad80043a1837793264b101a776a08e92191c7856cf792ed34683b743859e  runs/phase5/fig5_fig6_delta0p1_risk_pilot/checkpoint_ledger.json
+69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7  runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz
+b812a4325b9afca91ee360b68dc3e959115f2d992fba21b60cf70a7ad3ce3566  runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz.json
+7e1e8646bfa51b09cd96ee301e8847fdc830128d7eca7ac770031bc7b13ce42b  runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_sampling_audit.json
+27301b9f300563a5feb654b48d9ef11ca8eb1e10f9c065c805534adfb27bfd78  runs/phase5/fig5_fig6_delta0p1_risk_pilot/manifest.md
+ee051831e1da7ebb250cab37d7da3a64d8a57298b445577f238d9cefae319d54  runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/classification_manifest.json
+8f6d23da0894d0abfb42867bf911b9da95090ad5293bc76289daf4522e4067f9  runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/oracle_validation.json
+59e99ade6993eab6d570f8a2ad18f0778595f7309fbb87fbf1edf32903b80968  runs/phase5/fig5_fig6_delta0p1_risk_pilot_radial_gate/resume_preflight.json
 ```
 
-Any mismatch stops the task. Do not regenerate or repair an anchor.
+Any mismatch stops the task. Bind both path and hash; do not discover,
+regenerate, repair, or substitute a different file by basename.
 
 ## Frozen Contract
 
@@ -109,12 +105,21 @@ fixtures, T0/T7/T8 handoffs, or any later-stage output.
 - prove the frozen adapter-support TDD RED;
 - classify all `42,224` default records with zero unstructured/default-other
   errors and exactly thirteen atomic hash-bound checkpoints;
-- direct-oracle validate every structured transition and record requested vs
-  actual backend precision, residuals, normalization and sensitivity;
+- freeze the pre-adapter classification snapshot separately from the final
+  adapter snapshot; checkpoint reuse compares only the former, while preflight
+  and manifest bind the hash bridge between both identities;
+- direct-oracle validate every exact `(kM, sector, ell, point_id)` transition
+  and record requested vs actual backend precision, residuals, normalization
+  and sensitivity without assuming odd/even symmetry;
+- select producer precision anchors by the frozen first/last-per-nonempty-
+  `(kM,sector)` plus first-per-uncovered-point rule; explicitly record empty
+  anchor sets for zero-transition groups;
 - generate a literal envelope whose expansion exactly equals the raw
   transition set without frequency/radius/ell interpolation;
 - add only the new strict adapter, keep default-covered modes at zero adapter
   calls, and reject every wrong contract field fail-closed;
+- after focused tests and Ruff, commit exactly the five paths and freeze the
+  final-adapter snapshot before adapter resume preflight;
 - run complete adapter preflight, focused tests, Ruff, fresh full pytest,
   source/scope/provenance/cardinality/checkpoint/forbidden-output checks;
 - commit exactly the five implementation/test paths and update the permitted

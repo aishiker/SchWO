@@ -51,13 +51,15 @@ sources, T0/T4/T8 handoffs, or unrelated handoffs.
 
 1. **Commit/scope:** the T8ap implementation commit contains exactly the five
    frozen paths and no radial solver/envelope, source, config, viz, fixture,
-   Kirchhoff or unrelated diff.
+   Kirchhoff or unrelated diff. It must predate the first real transaction;
+   the generation contract and all transactions bind that exact commit/blobs.
 2. **Immutable sources and gate:** independently verify all T8aj, T8ao/T7bx,
    T4aa/T7by hashes/contracts/schema, adapter identity and source provenance.
 3. **Transactions and cardinality:** direct-load thirteen NPZ/JSON pairs;
    require exact tokens/order, points, arrays, shapes, actual dtypes, units,
    lmax windows, histories/final pairs, masks, finiteness, warnings and counts.
-   Require exactly 31 active files and 30 manifest records with no active temp.
+   Require exactly the frozen initial lmax windows with no extension, exactly
+   31 active files and 30 manifest records with no active temp.
 4. **Contracts/provenance:** independently reconstruct generation and metadata
    hashes, units/dtype/ordering registries and canonical array fingerprints;
    verify ledger, atomic completion, resume, quarantine exclusion, Git/code/
@@ -84,7 +86,9 @@ sources, T0/T4/T8 handoffs, or unrelated handoffs.
    parent; a `0.025` child uses only its exact `0.05` parent. Report complete
    failure membership, parent/child values, total variation, cancellation,
    largest-step attribution, all strict extrema, and next midpoint only for a
-   scientific YELLOW. Never invent another threshold.
+   scientific YELLOW. Reconstruct the literal thirteen-row mapping in design
+   Section 6 and reject float-inferred parent adjacency. Never invent another
+   threshold.
 9. **Tests/isolation:** run focused tests, Ruff on the exact five paths, fresh
    full pytest, source/scope checks and forbidden-output searches. Classify
    known warnings and reject any new failure or downstream product.

@@ -55,18 +55,28 @@ handoffs, accepted sources, or unrelated handoffs. Preserve unrelated changes.
 3. **Fresh default classification:** recompute a deterministic sample spanning
    every frequency, both sectors, all points and every structured class;
    require zero unstructured/default-other records and no omission.
-4. **Direct oracle:** require transition-key equality across raw records,
-   oracle validation and resume preflight; recompute all maxima and a fresh
-   cross-frequency/sector/radius precision/tolerance anchor matrix.
+4. **Direct oracle:** require exact `(kM, sector, ell, point_id)` key equality
+   across raw records, oracle validation and resume preflight without assuming
+   odd/even symmetry. Recompute producer maxima and its frozen first/last plus
+   point-coverage anchor rule. For a fresh complementary matrix, independently
+   select the lexicographic median key in every nonempty `(kM,sector)` group,
+   then add the lexicographically last transition for each exact point ID not
+   already represented. Run the deduplicated union at fresh precision and
+   tolerance settings. Verify explicit zero-transition groups and never invent
+   an oracle anchor for them.
 5. **Envelope identity:** expand the literal module independently and require
    exact equality with all raw transitions; reject interpolation, inferred
    membership, import-time run-file loading, or an unstated frequency.
 6. **Adapter behavior:** direct-match anchors equal oracle evidence;
    default-covered modes make zero adapter calls; wrong M/k/token/radius/point/
    ell/sector/boundary/tolerance fails closed with exact reasons.
-7. **Checkpoint and provenance:** verify contract/source/code hashes, atomic
-   filenames, output hashes, quarantine exclusion, backend requested/actual
-   precision, manifest, and resume behavior.
+7. **Checkpoint and provenance:** independently reconstruct the classification
+   snapshot (final gate script, pre-adapter radial blob, oracle, Table-I and
+   frozen docs) and separately the final-adapter snapshot (literal envelope,
+   final radial blob, exact five-path commit/blobs). Verify their hash bridge,
+   atomic filenames, output hashes, quarantine exclusion, backend requested/
+   actual precision, manifest and resume. A checkpoint must compare against
+   the classification snapshot, not the later radial blob.
 8. **Tests and quality:** run focused tests, Ruff on the five paths, and fresh
    full pytest. Known warnings must be classified; no new failure is allowed.
 9. **Isolation:** require no T8ap artifact, full/uniform scan, plot, fixture,
