@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import hashlib
+from io import BytesIO
 import json
 import os
+import re
+import shutil
 import subprocess
 import time
 from datetime import datetime, timezone
@@ -35,6 +38,20 @@ PILOT_LMAX_VALUES: dict[float, tuple[int, ...]] = {
 ADAPTER_NAME = "q018_tablei_delta0p1_risk_pilot_transition"
 CONVERGENCE_TOLERANCE = 1.0e-4
 SCHEMA_VERSION = "phase5_t8an_delta0p1_risk_pilot_v1"
+GENERATION_CONTRACT_HASH = (
+    "92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9"
+)
+METADATA_SCHEMA_VERSION = (
+    "phase5_t8ao_delta0p1_risk_pilot_v2_units_ordering"
+)
+METADATA_REPAIR_ID = "T8ao/T7bx-units-ordering"
+_PRE_REPAIR_ROOT_HASHES = {
+    "checkpoint_ledger.json": "79d4c0f596650dcfb4d63c7e40758ea4afa82d2fe0e0cd3de5aa088bbbfd5ccd",
+    "risk_pilot_values.npz": "2e0a9fee1b6729466affd4c5f7f6e86c96e696e20882c9f4ad52ae3792d82957",
+    "risk_pilot_values.npz.json": "2a9aa472e64747047cb28de90912eecf138b28884d87e8b8219e78d99482772f",
+    "risk_pilot_sampling_audit.json": "461d040a180dfa8e5a743967285e67f8b682f8f67607f1c0c7a5c8ab2399d7bd",
+    "manifest.md": "120ccd8f11e681bc6d2b3054bd7522ef331a282421f7661dd7888c993b052212",
+}
 _T7BV_GREEN = "ACCEPT GREEN / DELTA0P1 RISK-PILOT RADIAL GATE ACCEPTED"
 _T7BV_RECORD_PATH = Path("docs/handoffs/T7_current.md")
 _DEFAULT_OUTPUT_DIR = Path("runs/phase5/fig5_fig6_delta0p1_risk_pilot")
@@ -61,6 +78,113 @@ _ROOT_FILES = {
     "risk_pilot_sampling_audit.json",
     "manifest.md",
 }
+
+_PER_FREQUENCY_ARRAY_UNITS = {
+    "kM": "dimensionless (M k)",
+    "point_ids": "identifier",
+    "point_group": "category label",
+    "point_x": "M",
+    "point_y": "M",
+    "point_z": "M",
+    "point_r": "M",
+    "point_theta": "radian",
+    "point_phi": "radian",
+    "lmax_values": "dimensionless integer",
+    "F_plus_history": "dimensionless complex amplification",
+    "F_cross_history": "dimensionless complex amplification",
+    "F_plus_complex": "dimensionless complex amplification",
+    "F_cross_complex": "dimensionless complex amplification",
+    "abs_F_plus": "dimensionless",
+    "abs_F_cross": "dimensionless",
+    "arg_F_plus_principal": "radian",
+    "arg_F_cross_principal": "radian",
+    "valid_ratio_plus_mask": "boolean",
+    "valid_ratio_cross_mask": "boolean",
+    "final_pair_delta_plus": "dimensionless",
+    "final_pair_delta_cross": "dimensionless",
+}
+
+_AGGREGATE_ARRAY_UNITS = {
+    "kM_values": "dimensionless (M k)",
+    "point_ids": "identifier",
+    "point_group": "category label",
+    "point_x": "M",
+    "point_y": "M",
+    "point_z": "M",
+    "point_r": "M",
+    "point_theta": "radian",
+    "point_phi": "radian",
+    "F_plus_complex": "dimensionless complex amplification",
+    "F_cross_complex": "dimensionless complex amplification",
+    "abs_F_plus": "dimensionless",
+    "abs_F_cross": "dimensionless",
+    "arg_F_plus_principal": "radian",
+    "arg_F_cross_principal": "radian",
+    "valid_ratio_plus_mask": "boolean",
+    "valid_ratio_cross_mask": "boolean",
+    "final_pair_delta_plus": "dimensionless",
+    "final_pair_delta_cross": "dimensionless",
+    "arg_F_plus_unwrapped": "radian",
+    "arg_F_cross_unwrapped": "radian",
+}
+
+_NUMERIC_METADATA_UNITS = {
+    "kM": "dimensionless (M k)",
+    "frequencies": "dimensionless (M k)",
+    "lmax_values": "dimensionless integer",
+    "final_lmax_pair": "dimensionless integer",
+    "runtime_seconds": "second",
+    "radial_solve_count": "count",
+    "radial_reuse_count": "count",
+    "radial_warning_count": "count",
+    "adapter_use_count": "count",
+    "max_final_pair_delta_plus": "dimensionless",
+    "max_final_pair_delta_cross": "dimensionless",
+    "shape": "count",
+    "sequence": "dimensionless (M k)",
+    "complex_values": "dimensionless complex amplification",
+    "magnitude": "dimensionless",
+    "relative_magnitude_steps": "dimensionless",
+    "magnitude_total_variation": "dimensionless",
+    "max_relative_magnitude_step": "dimensionless",
+    "unwrapped_phase": "radian",
+    "absolute_phase_steps": "radian",
+    "phase_total_variation": "radian",
+    "max_absolute_phase_step": "radian",
+    "interior_extrema.sequence_index": "count",
+    "interior_extrema.point_index": "count",
+}
+
+UNITS_CONTRACT = {
+    "per_frequency_arrays": _PER_FREQUENCY_ARRAY_UNITS,
+    "aggregate_arrays": _AGGREGATE_ARRAY_UNITS,
+    "numeric_metadata": _NUMERIC_METADATA_UNITS,
+}
+
+ORDERING_CONTRACT = {
+    "frequency_order": list(PILOT_FREQUENCIES),
+    "point_order": [
+        "near_axis_x0_z30",
+        "near_axis_x1_z30",
+        "near_axis_x2_z30",
+        "near_axis_x3_z30",
+        "far_axis_x10_z30",
+        "far_axis_x15_z30",
+        "far_axis_x20_z30",
+        "far_axis_x25_z30",
+    ],
+    "per_frequency_history_axes": ["lmax", "point"],
+    "per_frequency_final_axes": ["point"],
+    "aggregate_field_axes": ["frequency", "point"],
+    "lmax_values": {
+        str(kM): list(PILOT_LMAX_VALUES[kM]) for kM in PILOT_FREQUENCIES
+    },
+}
+
+_REPAIR_RELATIVE_ROOT = Path("quarantine/t8ao_pre_units_metadata")
+_MANIFEST_RECORD = re.compile(
+    r"^- `([^`]+)` — ([0-9]+) bytes — SHA256 `([0-9a-f]{64})`$"
+)
 
 
 class PilotContractError(ValueError):
@@ -718,6 +842,649 @@ def _manifest(output_dir: Path) -> None:
     os.replace(temporary, output_dir / "manifest.md")
 
 
+def _canonical_array_fingerprint(value: np.ndarray) -> str:
+    buffer = BytesIO()
+    np.save(buffer, np.asarray(value), allow_pickle=False)
+    return hashlib.sha256(buffer.getvalue()).hexdigest()
+
+
+def _active_npz_paths(root: Path) -> tuple[Path, ...]:
+    return tuple(sorted((root / "frequencies").glob("*.npz"))) + (
+        root / "risk_pilot_values.npz",
+    )
+
+
+def _canonical_array_fingerprints(root: Path) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for path in _active_npz_paths(root):
+        with np.load(path, allow_pickle=False) as data:
+            for name in data.files:
+                if name != "metadata_json":
+                    key = f"{path.relative_to(root)}::{name}"
+                    result[key] = _canonical_array_fingerprint(data[name])
+    return dict(sorted(result.items()))
+
+
+def _expected_active_relatives() -> tuple[Path, ...]:
+    frequency_paths = []
+    for kM in PILOT_FREQUENCIES:
+        npz = Path("frequencies") / f"kM_{_token(kM)}.npz"
+        frequency_paths.extend((npz, npz.with_suffix(".npz.json")))
+    root_paths = [Path(name) for name in sorted(_ROOT_FILES)]
+    return tuple(sorted((*frequency_paths, *root_paths), key=str))
+
+
+def _active_relative_files(root: Path) -> tuple[Path, ...]:
+    return tuple(
+        sorted(
+            (
+                path.relative_to(root)
+                for path in root.rglob("*")
+                if path.is_file() and "quarantine" not in path.relative_to(root).parts
+            ),
+            key=str,
+        )
+    )
+
+
+def _parse_manifest(path: Path) -> dict[str, dict[str, Any]]:
+    records: dict[str, dict[str, Any]] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        match = _MANIFEST_RECORD.fullmatch(line)
+        if match is None:
+            continue
+        raw, size, digest = match.groups()
+        relative = Path(raw)
+        if relative.is_absolute() or ".." in relative.parts or raw in records:
+            raise PilotContractError("manifest contains an unsafe or duplicate path")
+        if relative == Path("manifest.md"):
+            raise PilotContractError("manifest must not contain a self-entry")
+        records[raw] = {"size": int(size), "sha256": digest}
+    return records
+
+
+def _tree_hashes(root: Path) -> dict[str, str]:
+    return {
+        str(relative): _sha256(root / relative)
+        for relative in _expected_active_relatives()
+    }
+
+
+def _validate_manifest_tree(
+    root: Path,
+    *,
+    expected_manifest_sha256: str | None = None,
+) -> dict[str, str]:
+    actual_relatives = _active_relative_files(root)
+    expected_relatives = _expected_active_relatives()
+    if actual_relatives != expected_relatives:
+        raise PilotContractError(
+            "active artifact cardinality/path mismatch: "
+            f"expected=23, actual={len(actual_relatives)}"
+        )
+    manifest = root / "manifest.md"
+    if expected_manifest_sha256 is not None and _sha256(manifest) != expected_manifest_sha256:
+        raise PilotContractError("pre-repair manifest hash mismatch")
+    records = _parse_manifest(manifest)
+    expected_records = {str(path) for path in expected_relatives if path.name != "manifest.md"}
+    if set(records) != expected_records or len(records) != 22:
+        raise PilotContractError("manifest record cardinality/path mismatch")
+    for raw, record in records.items():
+        artifact = root / raw
+        if artifact.stat().st_size != record["size"]:
+            raise PilotContractError(f"manifest size mismatch: {raw}")
+        if _sha256(artifact) != record["sha256"]:
+            raise PilotContractError(f"manifest hash mismatch: {raw}")
+    return _tree_hashes(root)
+
+
+def _validate_pre_repair_active_tree(root: Path) -> dict[str, str]:
+    hashes = _validate_manifest_tree(
+        root,
+        expected_manifest_sha256=_PRE_REPAIR_ROOT_HASHES["manifest.md"],
+    )
+    for name, expected in _PRE_REPAIR_ROOT_HASHES.items():
+        if hashes.get(name) != expected:
+            raise PilotContractError(f"pre-repair root hash mismatch: {name}")
+    return hashes
+
+
+def _metadata_contract_hash(fingerprints: Mapping[str, str]) -> str:
+    payload = {
+        "schema_version": METADATA_SCHEMA_VERSION,
+        "units": UNITS_CONTRACT,
+        "ordering": ORDERING_CONTRACT,
+        "generation_contract_hash": GENERATION_CONTRACT_HASH,
+        "pre_repair_manifest_sha256": _PRE_REPAIR_ROOT_HASHES["manifest.md"],
+        "canonical_array_fingerprints": dict(sorted(fingerprints.items())),
+    }
+    return hashlib.sha256(_canonical_json(payload).encode()).hexdigest()
+
+
+def _read_json(path: Path) -> dict[str, Any]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise PilotContractError(f"invalid JSON artifact {path}: {exc}") from exc
+    if not isinstance(value, dict):
+        raise PilotContractError(f"JSON artifact is not an object: {path}")
+    return value
+
+
+def _read_embedded_metadata(path: Path) -> dict[str, Any]:
+    try:
+        with np.load(path, allow_pickle=False) as data:
+            return json.loads(str(data["metadata_json"].item()))
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+        raise PilotContractError(f"invalid embedded metadata in {path}: {exc}") from exc
+
+
+def _nonmetadata_arrays(path: Path) -> dict[str, np.ndarray]:
+    with np.load(path, allow_pickle=False) as data:
+        return {
+            name: np.asarray(data[name])
+            for name in data.files
+            if name != "metadata_json"
+        }
+
+
+def _write_metadata_npz(source: Path, destination: Path, metadata: Mapping[str, Any]) -> None:
+    arrays = _nonmetadata_arrays(source)
+    arrays["metadata_json"] = np.asarray(json.dumps(_json_safe(metadata), sort_keys=True))
+    _atomic_npz(destination, arrays)
+
+
+def _repair_common(
+    source_hashes: Mapping[str, str],
+    metadata_hash: str,
+) -> dict[str, Any]:
+    return {
+        "schema_version": METADATA_SCHEMA_VERSION,
+        "generation_contract_hash": GENERATION_CONTRACT_HASH,
+        "contract_hash": GENERATION_CONTRACT_HASH,
+        "metadata_contract_hash": metadata_hash,
+        "metadata_only_repair": True,
+        "metadata_repair_id": METADATA_REPAIR_ID,
+        "units": UNITS_CONTRACT,
+        "ordering": ORDERING_CONTRACT,
+        "source_hashes": dict(source_hashes),
+        "pre_repair_provenance": {
+            "manifest_sha256": _PRE_REPAIR_ROOT_HASHES["manifest.md"],
+            "root_sha256": _PRE_REPAIR_ROOT_HASHES,
+        },
+    }
+
+
+def _validate_source_anchors(source: Path, expected: Mapping[str, str]) -> None:
+    ledger = _read_json(source / "checkpoint_ledger.json")
+    aggregate = _read_json(source / "risk_pilot_values.npz.json")
+    if ledger.get("contract_hash") != GENERATION_CONTRACT_HASH:
+        raise PilotContractError("source generation contract hash mismatch")
+    if ledger.get("source_hashes") != dict(expected):
+        raise PilotContractError("source scientific anchor hash mismatch")
+    if aggregate.get("source_hashes") != dict(expected):
+        raise PilotContractError("aggregate scientific anchor hash mismatch")
+    for sidecar in sorted((source / "frequencies").glob("*.npz.json")):
+        value = _read_json(sidecar)
+        if value.get("source_hashes") != dict(expected):
+            raise PilotContractError(f"frequency scientific anchor mismatch: {sidecar}")
+
+
+def _validate_source_backup(
+    source: Path,
+    source_hashes: Mapping[str, str],
+) -> None:
+    if _active_relative_files(source) != _expected_active_relatives():
+        raise PilotContractError("backup source cardinality/path mismatch")
+    for raw, expected in source_hashes.items():
+        path = source / raw
+        if not path.is_file() or _sha256(path) != expected:
+            raise PilotContractError(f"backup source hash mismatch: {raw}")
+    _validate_manifest_tree(
+        source,
+        expected_manifest_sha256=_PRE_REPAIR_ROOT_HASHES["manifest.md"],
+    )
+
+
+def _copy_source_backup(
+    root: Path,
+    source: Path,
+    ledger_path: Path,
+    ledger: dict[str, Any],
+) -> None:
+    source.mkdir(parents=True, exist_ok=True)
+    copied = set(ledger.get("copied_source_paths", []))
+    for relative in _expected_active_relatives():
+        raw = str(relative)
+        destination = source / relative
+        expected = ledger["source_file_hashes"][raw]
+        if destination.exists():
+            if not destination.is_file() or _sha256(destination) != expected:
+                raise PilotContractError(f"backup source hash mismatch: {raw}")
+        else:
+            active = root / relative
+            if not active.is_file() or _sha256(active) != expected:
+                raise PilotContractError(f"active source hash mismatch during backup: {raw}")
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(active, destination)
+            if _sha256(destination) != expected:
+                raise PilotContractError(f"backup copy hash mismatch: {raw}")
+        copied.add(raw)
+        ledger["copied_source_paths"] = sorted(copied)
+        ledger["state"] = "source_backup"
+        _atomic_json(ledger_path, ledger)
+    _validate_source_backup(source, ledger["source_file_hashes"])
+
+
+def _strip_repair_fields(value: Mapping[str, Any], *, npz_hash: bool = False) -> dict[str, Any]:
+    result = dict(value)
+    for key in (
+        "generation_contract_hash",
+        "metadata_contract_hash",
+        "metadata_only_repair",
+        "metadata_repair_id",
+        "units",
+        "ordering",
+        "pre_repair_provenance",
+        "canonical_array_fingerprints",
+    ):
+        result.pop(key, None)
+    if result.get("schema_version") == METADATA_SCHEMA_VERSION:
+        result["schema_version"] = SCHEMA_VERSION
+    if npz_hash:
+        result.pop("npz_sha256", None)
+    return result
+
+
+def _assert_npz_identity(source: Path, candidate: Path) -> None:
+    old = _nonmetadata_arrays(source)
+    new = _nonmetadata_arrays(candidate)
+    if old.keys() != new.keys():
+        raise PilotContractError(f"array-key identity failure: {candidate}")
+    for name in old:
+        if old[name].shape != new[name].shape:
+            raise PilotContractError(f"array-shape identity failure: {candidate}::{name}")
+        if old[name].dtype != new[name].dtype:
+            raise PilotContractError(f"array-dtype identity failure: {candidate}::{name}")
+        if not np.array_equal(old[name], new[name]):
+            raise PilotContractError(f"array-value identity failure: {candidate}::{name}")
+        if _canonical_array_fingerprint(old[name]) != _canonical_array_fingerprint(new[name]):
+            raise PilotContractError(f"array-fingerprint identity failure: {candidate}::{name}")
+
+
+def _stage_candidate(
+    source: Path,
+    candidate: Path,
+    common: Mapping[str, Any],
+    fingerprints: Mapping[str, str],
+) -> None:
+    candidate.mkdir(parents=True, exist_ok=True)
+    frequency_sidecars: list[dict[str, Any]] = []
+    frequency_hashes: dict[str, tuple[str, str]] = {}
+    for kM in PILOT_FREQUENCIES:
+        relative_npz = Path("frequencies") / f"kM_{_token(kM)}.npz"
+        relative_json = relative_npz.with_suffix(".npz.json")
+        source_npz = source / relative_npz
+        source_json = source / relative_json
+        target_npz = candidate / relative_npz
+        target_json = candidate / relative_json
+        target_npz.parent.mkdir(parents=True, exist_ok=True)
+        embedded = _read_embedded_metadata(source_npz)
+        embedded.update(common)
+        _write_metadata_npz(source_npz, target_npz, embedded)
+        sidecar = _read_json(source_json)
+        sidecar.update(common)
+        sidecar["npz_sha256"] = _sha256(target_npz)
+        _atomic_json(target_json, sidecar)
+        frequency_sidecars.append(sidecar)
+        frequency_hashes[_token(kM)] = (_sha256(target_npz), _sha256(target_json))
+
+    source_aggregate = source / "risk_pilot_values.npz"
+    target_aggregate = candidate / "risk_pilot_values.npz"
+    aggregate_embedded = _read_embedded_metadata(source_aggregate)
+    aggregate_embedded.update(common)
+    aggregate_embedded["frequency_metadata"] = frequency_sidecars
+    _write_metadata_npz(source_aggregate, target_aggregate, aggregate_embedded)
+    aggregate_sidecar = _read_json(source / "risk_pilot_values.npz.json")
+    aggregate_sidecar.update(common)
+    aggregate_sidecar["frequency_metadata"] = frequency_sidecars
+    aggregate_sidecar["npz_sha256"] = _sha256(target_aggregate)
+    _atomic_json(candidate / "risk_pilot_values.npz.json", aggregate_sidecar)
+
+    audit = _read_json(source / "risk_pilot_sampling_audit.json")
+    audit.update(common)
+    _atomic_json(candidate / "risk_pilot_sampling_audit.json", audit)
+
+    checkpoint = _read_json(source / "checkpoint_ledger.json")
+    checkpoint.update(common)
+    checkpoint["canonical_array_fingerprints"] = dict(fingerprints)
+    for kM in PILOT_FREQUENCIES:
+        token = _token(kM)
+        npz_hash, json_hash = frequency_hashes[token]
+        checkpoint["completed"][token]["npz_sha256"] = npz_hash
+        checkpoint["completed"][token]["json_sha256"] = json_hash
+    _atomic_json(candidate / "checkpoint_ledger.json", checkpoint)
+
+    files = [
+        candidate / relative
+        for relative in _expected_active_relatives()
+        if relative.name != "manifest.md"
+    ]
+    lines = [
+        "# Delta(kM)=0.1 Nine-Frequency Point-Only Risk Pilot",
+        "",
+        "This is not 40-frequency production. No interpolation, smoothing, fill,",
+        "Kirchhoff, fixture, plot, or paper-style artifact is included.",
+        "",
+        f"generation_contract_hash: `{GENERATION_CONTRACT_HASH}`",
+        f"metadata_contract_hash: `{common['metadata_contract_hash']}`",
+        "",
+        "## Files",
+        "",
+    ]
+    for path in sorted(files):
+        lines.append(
+            f"- `{path.relative_to(candidate)}` — {path.stat().st_size} bytes — "
+            f"SHA256 `{_sha256(path)}`"
+        )
+    lines.extend(("", "## Units", ""))
+    for group, mapping in UNITS_CONTRACT.items():
+        lines.append(f"### {group}")
+        lines.append("")
+        for name, unit in mapping.items():
+            lines.append(f"- `{name}`: `{unit}`")
+        lines.append("")
+    lines.extend((
+        "## Ordering",
+        "",
+        f"- frequency_order: `{json.dumps(ORDERING_CONTRACT['frequency_order'])}`",
+        f"- point_order: `{json.dumps(ORDERING_CONTRACT['point_order'])}`",
+        "- per_frequency_history_axes: `[\"lmax\", \"point\"]`",
+        "- per_frequency_final_axes: `[\"point\"]`",
+        "- aggregate_field_axes: `[\"frequency\", \"point\"]`",
+        "",
+    ))
+    manifest = candidate / "manifest.md"
+    temporary = manifest.with_name(manifest.name + ".tmp")
+    temporary.write_text("\n".join(lines), encoding="utf-8")
+    os.replace(temporary, manifest)
+
+
+def _validate_common_surface(
+    value: Mapping[str, Any],
+    *,
+    metadata_hash: str,
+    source_hashes: Mapping[str, str],
+) -> None:
+    required = {
+        "schema_version": METADATA_SCHEMA_VERSION,
+        "generation_contract_hash": GENERATION_CONTRACT_HASH,
+        "contract_hash": GENERATION_CONTRACT_HASH,
+        "metadata_contract_hash": metadata_hash,
+        "metadata_only_repair": True,
+        "metadata_repair_id": METADATA_REPAIR_ID,
+        "units": UNITS_CONTRACT,
+        "ordering": ORDERING_CONTRACT,
+        "source_hashes": dict(source_hashes),
+    }
+    for key, expected in required.items():
+        if value.get(key) != expected:
+            raise PilotContractError(f"candidate metadata mismatch: {key}")
+    provenance = value.get("pre_repair_provenance")
+    if not isinstance(provenance, dict) or provenance.get("manifest_sha256") != _PRE_REPAIR_ROOT_HASHES["manifest.md"]:
+        raise PilotContractError("candidate pre-repair provenance mismatch")
+    if provenance.get("root_sha256") != _PRE_REPAIR_ROOT_HASHES:
+        raise PilotContractError("candidate pre-repair root provenance mismatch")
+
+
+def _validate_candidate(
+    source: Path,
+    candidate: Path,
+    *,
+    metadata_hash: str,
+    source_hashes: Mapping[str, str],
+    fingerprints: Mapping[str, str],
+) -> dict[str, str]:
+    hashes = _validate_manifest_tree(candidate)
+    if _canonical_array_fingerprints(candidate) != dict(fingerprints):
+        raise PilotContractError("candidate canonical array fingerprint mismatch")
+    for source_npz, candidate_npz in zip(
+        _active_npz_paths(source), _active_npz_paths(candidate), strict=True
+    ):
+        _assert_npz_identity(source_npz, candidate_npz)
+    per_units = set(UNITS_CONTRACT["per_frequency_arrays"])
+    sidecars = []
+    for kM in PILOT_FREQUENCIES:
+        npz, sidecar = _transaction_paths(candidate, kM)
+        embedded = _read_embedded_metadata(npz)
+        value = _read_json(sidecar)
+        _validate_common_surface(embedded, metadata_hash=metadata_hash, source_hashes=source_hashes)
+        _validate_common_surface(value, metadata_hash=metadata_hash, source_hashes=source_hashes)
+        if set(_nonmetadata_arrays(npz)) != per_units:
+            raise PilotContractError("candidate per-frequency units-key coverage mismatch")
+        old_embedded = _read_embedded_metadata(source / npz.relative_to(candidate))
+        old_sidecar = _read_json(source / sidecar.relative_to(candidate))
+        if _strip_repair_fields(embedded) != _strip_repair_fields(old_embedded):
+            raise PilotContractError("candidate embedded legacy metadata drift")
+        if _strip_repair_fields(value, npz_hash=True) != _strip_repair_fields(old_sidecar, npz_hash=True):
+            raise PilotContractError("candidate sidecar legacy metadata drift")
+        if value.get("npz_sha256") != _sha256(npz):
+            raise PilotContractError("candidate frequency NPZ hash mismatch")
+        sidecars.append(value)
+
+    aggregate = candidate / "risk_pilot_values.npz"
+    aggregate_embedded = _read_embedded_metadata(aggregate)
+    aggregate_sidecar = _read_json(candidate / "risk_pilot_values.npz.json")
+    _validate_common_surface(aggregate_embedded, metadata_hash=metadata_hash, source_hashes=source_hashes)
+    _validate_common_surface(aggregate_sidecar, metadata_hash=metadata_hash, source_hashes=source_hashes)
+    if set(_nonmetadata_arrays(aggregate)) != set(UNITS_CONTRACT["aggregate_arrays"]):
+        raise PilotContractError("candidate aggregate units-key coverage mismatch")
+    if aggregate_embedded.get("frequency_metadata") != sidecars or aggregate_sidecar.get("frequency_metadata") != sidecars:
+        raise PilotContractError("candidate aggregate frequency metadata mismatch")
+    if aggregate_sidecar.get("npz_sha256") != _sha256(aggregate):
+        raise PilotContractError("candidate aggregate NPZ hash mismatch")
+
+    audit = _read_json(candidate / "risk_pilot_sampling_audit.json")
+    checkpoint = _read_json(candidate / "checkpoint_ledger.json")
+    _validate_common_surface(audit, metadata_hash=metadata_hash, source_hashes=source_hashes)
+    _validate_common_surface(checkpoint, metadata_hash=metadata_hash, source_hashes=source_hashes)
+    if audit.get("sequences") != _read_json(source / "risk_pilot_sampling_audit.json").get("sequences"):
+        raise PilotContractError("candidate sampling records changed")
+    if checkpoint.get("canonical_array_fingerprints") != dict(fingerprints):
+        raise PilotContractError("candidate checkpoint fingerprint map mismatch")
+    for kM in PILOT_FREQUENCIES:
+        token = _token(kM)
+        npz, sidecar = _transaction_paths(candidate, kM)
+        entry = checkpoint.get("completed", {}).get(token, {})
+        if entry.get("npz_sha256") != _sha256(npz) or entry.get("json_sha256") != _sha256(sidecar):
+            raise PilotContractError("candidate checkpoint transaction hash mismatch")
+    manifest = (candidate / "manifest.md").read_text(encoding="utf-8")
+    for marker in ("## Units", "## Ordering", GENERATION_CONTRACT_HASH, metadata_hash):
+        if marker not in manifest:
+            raise PilotContractError("candidate manifest metadata coverage mismatch")
+    return hashes
+
+
+def _validate_repair_ledger(
+    ledger: Mapping[str, Any],
+    source_hashes: Mapping[str, str],
+) -> None:
+    if ledger.get("schema_version") != METADATA_SCHEMA_VERSION:
+        raise PilotContractError("repair ledger schema mismatch")
+    if ledger.get("generation_contract_hash") != GENERATION_CONTRACT_HASH:
+        raise PilotContractError("repair ledger generation contract mismatch")
+    if ledger.get("source_file_hashes") != dict(source_hashes):
+        raise PilotContractError("repair ledger source hash mismatch")
+
+
+def _validate_mixed_active_tree(root: Path, ledger: Mapping[str, Any]) -> None:
+    source_hashes = ledger["source_file_hashes"]
+    candidate_hashes = ledger["candidate_file_hashes"]
+    replaced = set(ledger.get("replaced_paths", []))
+    expected = set(source_hashes)
+    if not replaced <= expected:
+        raise PilotContractError("repair ledger replaced-path mismatch")
+    active = set()
+    install_temporaries = []
+    for path in root.rglob("*"):
+        if not path.is_file() or "quarantine" in path.relative_to(root).parts:
+            continue
+        relative = path.relative_to(root)
+        if path.name.endswith(".t8ao-install.tmp"):
+            install_temporaries.append(path)
+        else:
+            active.add(str(relative))
+    if active != expected or len(install_temporaries) > 1:
+        raise PilotContractError("mixed active tree cardinality mismatch")
+    for raw in sorted(expected):
+        expected_hash = candidate_hashes[raw] if raw in replaced else source_hashes[raw]
+        if _sha256(root / raw) != expected_hash:
+            raise PilotContractError(f"mixed active third-state hash mismatch: {raw}")
+    if install_temporaries:
+        temporary = install_temporaries[0]
+        active_name = temporary.name.removesuffix(".t8ao-install.tmp")
+        destination = temporary.with_name(active_name)
+        raw = str(destination.relative_to(root))
+        if raw in replaced or raw not in candidate_hashes:
+            raise PilotContractError("mixed active temporary is not journal-associated")
+        if _sha256(temporary) != candidate_hashes[raw]:
+            raise PilotContractError("mixed active temporary hash mismatch")
+
+
+def _install_candidate(
+    root: Path,
+    candidate: Path,
+    ledger_path: Path,
+    ledger: dict[str, Any],
+) -> None:
+    ledger["state"] = "installing"
+    _atomic_json(ledger_path, ledger)
+    _validate_mixed_active_tree(root, ledger)
+    replaced = set(ledger.get("replaced_paths", []))
+    for relative in _expected_active_relatives():
+        raw = str(relative)
+        if raw in replaced:
+            continue
+        active = root / relative
+        staged = candidate / relative
+        temporary = active.with_name(active.name + ".t8ao-install.tmp")
+        if temporary.exists():
+            if not temporary.is_file() or _sha256(temporary) != ledger["candidate_file_hashes"][raw]:
+                raise PilotContractError(f"install temporary hash mismatch: {raw}")
+        else:
+            shutil.copy2(staged, temporary)
+            if _sha256(temporary) != ledger["candidate_file_hashes"][raw]:
+                raise PilotContractError(f"install temporary copy mismatch: {raw}")
+        os.replace(temporary, active)
+        if _sha256(active) != ledger["candidate_file_hashes"][raw]:
+            raise PilotContractError(f"installed candidate hash mismatch: {raw}")
+        replaced.add(raw)
+        ledger["replaced_paths"] = sorted(replaced)
+        _atomic_json(ledger_path, ledger)
+    if any(path.name.endswith(".t8ao-install.tmp") for path in root.rglob("*")):
+        raise PilotContractError("install temporary remains after repair")
+
+
+def repair_delta0p1_risk_pilot_metadata(
+    *,
+    output_dir: str | Path = _DEFAULT_OUTPUT_DIR,
+) -> Path:
+    """Harden only T8an metadata; never recompute scientific values."""
+
+    root = Path(output_dir)
+    repair_root = root / _REPAIR_RELATIVE_ROOT
+    source = repair_root / "source"
+    candidate = repair_root / "candidate"
+    ledger_path = repair_root / "repair_ledger.json"
+    _, scientific_source_hashes = _input_records(_DEFAULT_REVIEW_NPZ, _DEFAULT_GATE_DIR)
+
+    if ledger_path.exists():
+        ledger = _read_json(ledger_path)
+        source_file_hashes = ledger.get("source_file_hashes")
+        if not isinstance(source_file_hashes, dict):
+            raise PilotContractError("repair ledger source hashes are absent")
+        _validate_repair_ledger(ledger, source_file_hashes)
+        if ledger.get("scientific_source_hashes") != scientific_source_hashes:
+            raise PilotContractError("repair ledger scientific source hash mismatch")
+    else:
+        source_file_hashes = _validate_pre_repair_active_tree(root)
+        _validate_source_anchors(root, scientific_source_hashes)
+        repair_root.mkdir(parents=True, exist_ok=True)
+        ledger = {
+            "schema_version": METADATA_SCHEMA_VERSION,
+            "generation_contract_hash": GENERATION_CONTRACT_HASH,
+            "metadata_repair_id": METADATA_REPAIR_ID,
+            "metadata_only_repair": True,
+            "state": "initialized",
+            "source_file_hashes": source_file_hashes,
+            "source_file_sizes": {
+                raw: (root / raw).stat().st_size for raw in source_file_hashes
+            },
+            "scientific_source_hashes": scientific_source_hashes,
+            "copied_source_paths": [],
+            "candidate_file_hashes": {},
+            "replaced_paths": [],
+            "started_at": datetime.now(timezone.utc).isoformat(),
+        }
+        _atomic_json(ledger_path, ledger)
+
+    _copy_source_backup(root, source, ledger_path, ledger)
+    _validate_source_anchors(source, scientific_source_hashes)
+    fingerprints = _canonical_array_fingerprints(source)
+    metadata_hash = _metadata_contract_hash(fingerprints)
+    if ledger.get("canonical_array_fingerprints", fingerprints) != fingerprints:
+        raise PilotContractError("repair ledger source fingerprint mismatch")
+    if ledger.get("metadata_contract_hash", metadata_hash) != metadata_hash:
+        raise PilotContractError("repair ledger metadata contract mismatch")
+    ledger["canonical_array_fingerprints"] = fingerprints
+    ledger["metadata_contract_hash"] = metadata_hash
+
+    candidate_hashes = ledger.get("candidate_file_hashes", {})
+    if candidate_hashes:
+        if set(candidate_hashes) != {str(path) for path in _expected_active_relatives()}:
+            raise PilotContractError("candidate hash ledger cardinality mismatch")
+        for raw, expected in candidate_hashes.items():
+            path = candidate / raw
+            if not path.is_file() or _sha256(path) != expected:
+                raise PilotContractError(f"candidate hash mismatch: {raw}")
+    else:
+        common = _repair_common(scientific_source_hashes, metadata_hash)
+        _stage_candidate(source, candidate, common, fingerprints)
+        candidate_hashes = _tree_hashes(candidate)
+        ledger["candidate_file_hashes"] = candidate_hashes
+        ledger["state"] = "candidate_ready"
+        _atomic_json(ledger_path, ledger)
+
+    validated_hashes = _validate_candidate(
+        source,
+        candidate,
+        metadata_hash=metadata_hash,
+        source_hashes=scientific_source_hashes,
+        fingerprints=fingerprints,
+    )
+    if validated_hashes != candidate_hashes:
+        raise PilotContractError("candidate validated hash map mismatch")
+
+    _install_candidate(root, candidate, ledger_path, ledger)
+    if _tree_hashes(root) != candidate_hashes:
+        raise PilotContractError("active repaired tree hash mismatch")
+    if _canonical_array_fingerprints(root) != fingerprints:
+        raise PilotContractError("active repaired array fingerprint mismatch")
+    _validate_candidate(
+        source,
+        root,
+        metadata_hash=metadata_hash,
+        source_hashes=scientific_source_hashes,
+        fingerprints=fingerprints,
+    )
+    ledger["state"] = "complete"
+    ledger["completed_at"] = ledger.get(
+        "completed_at", datetime.now(timezone.utc).isoformat()
+    )
+    _atomic_json(ledger_path, ledger)
+    return root / "risk_pilot_values.npz"
+
+
 def run_delta0p1_risk_pilot(
     *,
     output_dir: str | Path = _DEFAULT_OUTPUT_DIR,
@@ -730,6 +1497,10 @@ def run_delta0p1_risk_pilot(
 ) -> Path:
     """Run or safely resume the frozen nine-frequency point-only risk pilot."""
 
+    if (Path(output_dir) / _REPAIR_RELATIVE_ROOT / "repair_ledger.json").exists():
+        raise PilotContractError(
+            "metadata-repaired package is immutable; scientific runner forbidden"
+        )
     _validate_start_gate()
     output = Path(output_dir)
     review = Path(accepted_review_npz)
@@ -784,8 +1555,14 @@ def run_delta0p1_risk_pilot(
 __all__ = [
     "ADAPTER_NAME",
     "CONVERGENCE_TOLERANCE",
+    "GENERATION_CONTRACT_HASH",
+    "METADATA_REPAIR_ID",
+    "METADATA_SCHEMA_VERSION",
+    "ORDERING_CONTRACT",
     "PILOT_FREQUENCIES",
     "PILOT_LMAX_VALUES",
     "PilotContractError",
+    "UNITS_CONTRACT",
+    "repair_delta0p1_risk_pilot_metadata",
     "run_delta0p1_risk_pilot",
 ]

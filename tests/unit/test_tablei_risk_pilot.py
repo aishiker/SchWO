@@ -10,9 +10,15 @@ import pytest
 
 import schwgw.io.tablei_risk_pilot as pilot
 from schwgw.io.tablei_risk_pilot import (
+    GENERATION_CONTRACT_HASH,
+    METADATA_REPAIR_ID,
+    METADATA_SCHEMA_VERSION,
+    ORDERING_CONTRACT,
     PILOT_FREQUENCIES,
     PILOT_LMAX_VALUES,
     PilotContractError,
+    UNITS_CONTRACT,
+    repair_delta0p1_risk_pilot_metadata,
     run_delta0p1_risk_pilot,
 )
 
@@ -119,6 +125,26 @@ def _fake_flat(**kwargs: object) -> SimpleNamespace:
 def test_frozen_pilot_contract() -> None:
     assert PILOT_FREQUENCIES == (0.4, 0.8, 0.9, 1.6, 1.7, 2.8, 2.9, 3.8, 3.9)
     assert PILOT_LMAX_VALUES[3.9] == (288, 312, 336, 360)
+
+
+def test_t8ao_metadata_contract_constants() -> None:
+    assert GENERATION_CONTRACT_HASH == (
+        "92d650a89431d64d204125b9ff17929099e016ea774fc0914c4db1ad130b07d9"
+    )
+    assert METADATA_SCHEMA_VERSION == (
+        "phase5_t8ao_delta0p1_risk_pilot_v2_units_ordering"
+    )
+    assert METADATA_REPAIR_ID == "T8ao/T7bx-units-ordering"
+    assert ORDERING_CONTRACT["frequency_order"] == list(PILOT_FREQUENCIES)
+    assert ORDERING_CONTRACT["point_order"] == [
+        point.point_id for point in pilot.TABLEI_POINTS
+    ]
+    assert set(UNITS_CONTRACT) == {
+        "per_frequency_arrays",
+        "aggregate_arrays",
+        "numeric_metadata",
+    }
+    assert callable(repair_delta0p1_risk_pilot_metadata)
 
 
 def test_radial_cache_reuses_only_certified_domain() -> None:
