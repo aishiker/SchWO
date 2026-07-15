@@ -102,24 +102,29 @@ tests/unit/test_tablei_risk_pilot.py
 - Pre-closeout T0 handoff:
   `docs/handoffs/archive/T0_2026-07-15_pre_t8ao_t7bx_metadata_repair_closeout.md`.
 - The obsolete heartbeat
-  `monitor-t8ao-t7bx-units-metadata-repair` must be deleted after the GitHub
-  synchronization record is complete.
+  `monitor-t8ao-t7bx-units-metadata-repair` has been deleted after the first
+  push and remote-equality verification.
 
 ## GitHub Major-Node Handling
 
 This independently accepted high-risk artifact-contract repair is a major
-node under `project.md`. GitHub synchronization is pending the scope-explicit
-closeout commit and non-force push. Only this chain's committed implementation,
-frozen design/plan/prompts, the T4 radial-gate note/handoff, and reviewed
-T0/T7/T8/status coordination records may be included. Unrelated
-T1/T2/T3/T5/T6 working-tree changes and ignored `runs/` products remain
-excluded.
+node under `project.md`. The scope-explicit closeout commit is
+`c81a69f2febe54347f4efc0691bda9d616b69731`. It and the preceding eleven
+frozen risk-pilot/repair commits were pushed non-force to private
+`origin/main`. A fresh fetch reported divergence `0 0` and exact
+`origin/main == HEAD` at `c81a69f`.
+
+The sync includes only this chain's committed implementation, frozen
+design/plan/prompts, T4 radial-gate note/handoff, and reviewed T0/T7/T8/status
+coordination records. Unrelated T1/T2/T3/T5/T6 working-tree changes and
+ignored `runs/` products remain excluded. This documentation-only sync record
+is the final local change to be pushed; no scientific content is added.
 
 ## Exact Next Task
 
-Complete the scope-explicit non-force GitHub synchronization and record its
-remote verification, then stop the heartbeat monitor. Do not dispatch a later
-scientific task.
+After the documentation-only sync record is pushed and remote equality is
+freshly confirmed, pause and await explicit user authorization for a separately
+designed adaptive-frequency stage. Do not dispatch a later scientific task.
 
 No next-stage prompt is provided because adaptive-frequency refinement has not
 yet been designed, reviewed, frozen, or authorized. The release condition is a
@@ -131,8 +136,8 @@ scope, and an independent T7 review.
 
 - `status.md` and this handoff record the exact artifact GREEN and retained
   scientific YELLOW.
-- Scope-explicit closeout commits are pushed non-force to private `origin/main`
-  and remote equality is freshly verified.
-- The obsolete monitor is deleted.
+- Scope-explicit closeout and sync-record commits are pushed non-force to
+  private `origin/main`, with remote equality freshly verified.
+- The obsolete monitor is deleted (complete).
 - No adaptive, production, plotting, fixture, Kirchhoff, or paper task starts
   automatically.
