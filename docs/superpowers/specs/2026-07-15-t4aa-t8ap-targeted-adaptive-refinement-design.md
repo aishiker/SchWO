@@ -2,9 +2,9 @@
 
 Date: 2026-07-15
 
-Status: the user approved the 13-frequency mixed-resolution direction. This
-written design remains subject to user review before an implementation plan,
-prompts, dispatch, solver run, or artifact generation is authorized.
+Status: the user approved this written 13-frequency mixed-resolution design
+and authorized execution. The bounded repair package must still obtain the
+independent T0 subagent review required by `project.md` before dispatch.
 
 ## 1. Decision And Objective
 
