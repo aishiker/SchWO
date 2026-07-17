@@ -125,6 +125,65 @@ Q018_TARGETED_ADAPTIVE_BOUNDARY = {
 }
 Q018_TARGETED_ADAPTIVE_EXPECTED_ROWS = 42_224
 
+Q018_FURTHER_LOCAL_FREQUENCIES = (
+    0.325, 0.375, 0.825, 0.875, 0.925, 0.975,
+    1.525, 1.575, 1.625, 1.675, 1.7125, 1.7375,
+    2.7625, 2.7875, 2.825, 2.875, 2.925, 2.975,
+    3.7625, 3.7875, 3.825, 3.875, 3.925, 3.975,
+)
+Q018_FURTHER_LOCAL_TOKENS = (
+    "0p325", "0p375", "0p825", "0p875", "0p925", "0p975",
+    "1p525", "1p575", "1p625", "1p675", "1p7125", "1p7375",
+    "2p7625", "2p7875", "2p825", "2p875", "2p925", "2p975",
+    "3p7625", "3p7875", "3p825", "3p875", "3p925", "3p975",
+)
+Q018_FURTHER_LOCAL_LMAX = {
+    0.325: (24, 36, 60, 84), 0.375: (24, 36, 60, 84),
+    0.825: (24, 36, 60, 84), 0.875: (24, 36, 60, 84),
+    0.925: (24, 36, 60, 84), 0.975: (24, 48, 72, 96),
+    1.525: (72, 96, 120, 144), 1.575: (72, 96, 120, 144),
+    1.625: (84, 108, 132, 156), 1.675: (84, 108, 132, 156),
+    1.7125: (84, 108, 132, 156), 1.7375: (96, 120, 144, 168),
+    2.7625: (180, 204, 228, 252), 2.7875: (180, 204, 228, 252),
+    2.825: (192, 216, 240, 264), 2.875: (192, 216, 240, 264),
+    2.925: (192, 216, 240, 264), 2.975: (204, 228, 252, 276),
+    3.7625: (276, 300, 324, 348), 3.7875: (276, 300, 324, 348),
+    3.825: (276, 300, 324, 348), 3.875: (288, 312, 336, 360),
+    3.925: (288, 312, 336, 360), 3.975: (288, 312, 336, 360),
+}
+Q018_FURTHER_LOCAL_ORACLE = "q018_tablei_further_local_transition"
+Q018_FURTHER_LOCAL_EXPECTED_ROWS = 81_792
+
+
+def test_further_local_frozen_classification_contract() -> None:
+    assert len(Q018_FURTHER_LOCAL_FREQUENCIES) == 24
+    assert len(set(Q018_FURTHER_LOCAL_FREQUENCIES)) == 24
+    assert tuple(Q018_FURTHER_LOCAL_LMAX) == Q018_FURTHER_LOCAL_FREQUENCIES
+    assert Q018_FURTHER_LOCAL_TOKENS == tuple(
+        str(value).replace(".", "p") for value in Q018_FURTHER_LOCAL_FREQUENCIES
+    )
+    assert sum(
+        (max(Q018_FURTHER_LOCAL_LMAX[frequency]) - 1) * 2 * 8
+        for frequency in Q018_FURTHER_LOCAL_FREQUENCIES
+    ) == Q018_FURTHER_LOCAL_EXPECTED_ROWS
+
+
+def test_further_local_adapter_name_is_supported() -> None:
+    background = SchwarzschildBackground(M=1.0)
+    config = _tablei_review_grid_boundary_config(
+        30.0,
+        experimental_required_radius_oracle=Q018_FURTHER_LOCAL_ORACLE,
+    )
+    solution = solve_radial_mode(Sector.ODD, 2, 0.325, background, config)
+    assert isinstance(solution, RadialSolution)
+    assert solution.diagnostics.solver != (
+        "q018_tablei_further_local_transition_oracle"
+    )
+    assert not any(
+        warning.code == "q018_tablei_further_local_transition_oracle_used"
+        for warning in solution.diagnostics.warnings
+    )
+
 
 def test_targeted_adaptive_frozen_classification_contract() -> None:
     assert len(Q018_TARGETED_ADAPTIVE_FREQUENCIES) == 13

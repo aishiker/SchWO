@@ -6,6 +6,7 @@ import numpy as np
 import pytest
 
 from schwgw.backgrounds.schwarzschild import SchwarzschildBackground
+from schwgw.numerics import radial_solver
 from schwgw.numerics import BoundaryConfig, solve_radial_mode
 from schwgw.perturbations import Sector, V_RW
 
@@ -394,6 +395,85 @@ class RadialSolverPhysicsTests(unittest.TestCase):
             "q018_experimental_oracle_out_of_envelope",
         ):
             solve_radial_mode(Sector.ODD, 2, 0.36, bg, config)
+
+    def test_further_local_adapter_recovers_only_inside_literal_envelope(self) -> None:
+        bg = SchwarzschildBackground(M=1.0)
+        required_radius = 30.0
+        config = BoundaryConfig(
+            r_in_eps=1e-6,
+            r_out=300.0,
+            rtol=1e-10,
+            atol=1e-12,
+            required_eval_radius=required_radius,
+            experimental_required_radius_oracle=(
+                "q018_tablei_further_local_transition"
+            ),
+        )
+
+        for sector in (Sector.ODD, Sector.EVEN):
+            with self.subTest(sector=sector.value):
+                solution = solve_radial_mode(sector, 163, 2.7625, bg, config)
+                self.assertEqual(
+                    solution.diagnostics.solver,
+                    "q018_tablei_further_local_transition_oracle",
+                )
+                self.assertEqual(solution.valid_until_r, required_radius)
+                self.assertEqual(
+                    solution.diagnostics.warnings[0].code,
+                    "q018_tablei_further_local_transition_oracle_used",
+                )
+
+    def test_further_local_adapter_rejects_every_wrong_contract_field(self) -> None:
+        oracle = "q018_tablei_further_local_transition"
+        base = {
+            "r_in_eps": 1e-6,
+            "r_out": 300.0,
+            "rtol": 1e-10,
+            "atol": 1e-12,
+            "required_eval_radius": 30.0,
+            "experimental_required_radius_oracle": oracle,
+        }
+        cases = (
+            (SchwarzschildBackground(M=1.1), 163, 2.7625, base),
+            (SchwarzschildBackground(M=1.0), 163, 2.7626, base),
+            (
+                SchwarzschildBackground(M=1.0),
+                163,
+                2.7625,
+                {**base, "required_eval_radius": 30.000000000000004},
+            ),
+            (SchwarzschildBackground(M=1.0), 163, 2.7625, {**base, "r_out": 301.0}),
+            (SchwarzschildBackground(M=1.0), 163, 2.7625, {**base, "r_in_eps": 1e-5}),
+            (SchwarzschildBackground(M=1.0), 163, 2.7625, {**base, "rtol": 1e-9}),
+            (SchwarzschildBackground(M=1.0), 163, 2.7625, {**base, "atol": 1e-11}),
+        )
+        for background, ell, k, values in cases:
+            with self.subTest(ell=ell, k=k, values=values):
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "q018_experimental_oracle_out_of_envelope",
+                ):
+                    solve_radial_mode(
+                        Sector.ODD,
+                        ell,
+                        k,
+                        background,
+                        BoundaryConfig(**values),
+                    )
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "q018_experimental_oracle_out_of_envelope",
+        ):
+            radial_solver._validate_q018_further_local_oracle_envelope(
+                sector=Sector.ODD,
+                ell=182,
+                k=2.7625,
+                background=SchwarzschildBackground(M=1.0),
+                config=BoundaryConfig(**base),
+                r_out=300.0,
+                barrier_action=0.0,
+            )
 
 
 def _mode_diagnostic(sector: Sector, ell: int, k: float, r_out: float) -> ModeDiagnostic:
