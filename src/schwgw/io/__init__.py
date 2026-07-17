@@ -41,6 +41,12 @@ from schwgw.io.tablei_adaptive_refinement import (
     AdaptiveRefinementContractError,
     run_targeted_adaptive_refinement,
 )
+from schwgw.io.tablei_further_local_refinement import (
+    FURTHER_LOCAL_FREQUENCIES,
+    FURTHER_LOCAL_LMAX_VALUES,
+    FurtherLocalRefinementContractError,
+    run_further_local_refinement,
+)
 
 __all__ = [
     "BackgroundConfig",
@@ -52,6 +58,9 @@ __all__ = [
     "ADAPTIVE_FREQUENCIES",
     "ADAPTIVE_LMAX_VALUES",
     "AdaptiveRefinementContractError",
+    "FURTHER_LOCAL_FREQUENCIES",
+    "FURTHER_LOCAL_LMAX_VALUES",
+    "FurtherLocalRefinementContractError",
     "NumericsConfig",
     "ObserverConfig",
     "PILOT_FREQUENCIES",
@@ -74,4 +83,5 @@ __all__ = [
     "save_results",
     "run_delta0p1_risk_pilot",
     "run_targeted_adaptive_refinement",
+    "run_further_local_refinement",
 ]
