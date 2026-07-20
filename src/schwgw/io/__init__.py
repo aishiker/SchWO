@@ -47,6 +47,12 @@ from schwgw.io.tablei_further_local_refinement import (
     FurtherLocalRefinementContractError,
     run_further_local_refinement,
 )
+from schwgw.io.tablei_literal_failed_child_refinement import (
+    LITERAL_FAILED_CHILD_FREQUENCIES,
+    LITERAL_FAILED_CHILD_LMAX_VALUES,
+    LiteralFailedChildRefinementContractError,
+    run_literal_failed_child_refinement,
+)
 
 __all__ = [
     "BackgroundConfig",
@@ -61,6 +67,9 @@ __all__ = [
     "FURTHER_LOCAL_FREQUENCIES",
     "FURTHER_LOCAL_LMAX_VALUES",
     "FurtherLocalRefinementContractError",
+    "LITERAL_FAILED_CHILD_FREQUENCIES",
+    "LITERAL_FAILED_CHILD_LMAX_VALUES",
+    "LiteralFailedChildRefinementContractError",
     "NumericsConfig",
     "ObserverConfig",
     "PILOT_FREQUENCIES",
@@ -84,4 +93,5 @@ __all__ = [
     "run_delta0p1_risk_pilot",
     "run_targeted_adaptive_refinement",
     "run_further_local_refinement",
+    "run_literal_failed_child_refinement",
 ]
