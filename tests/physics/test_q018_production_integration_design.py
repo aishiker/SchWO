@@ -154,6 +154,114 @@ Q018_FURTHER_LOCAL_LMAX = {
 Q018_FURTHER_LOCAL_ORACLE = "q018_tablei_further_local_transition"
 Q018_FURTHER_LOCAL_EXPECTED_ROWS = 81_792
 
+Q018_LITERAL_FAILED_CHILD_FREQUENCIES = (
+    0.3125, 0.3375, 0.3625, 0.3875,
+    0.8625, 0.9125, 0.9375, 0.9625, 0.9875,
+    1.5125, 1.5375, 1.5625, 1.5875, 1.6125, 1.6375, 1.6625,
+    1.6875, 1.70625, 1.71875,
+    2.78125, 2.79375, 2.8125, 2.8375, 2.8625, 2.8875, 2.9125,
+    2.9375, 2.9625, 2.9875,
+    3.75625, 3.76875, 3.78125, 3.79375, 3.8125, 3.8375, 3.8625,
+    3.8875, 3.9125, 3.9375, 3.9625, 3.9875,
+)
+Q018_LITERAL_FAILED_CHILD_TOKENS = tuple(
+    str(value).replace(".", "p")
+    for value in Q018_LITERAL_FAILED_CHILD_FREQUENCIES
+)
+Q018_LITERAL_FAILED_CHILD_LMAX = {
+    0.3125: (24, 36, 60, 84), 0.3375: (24, 36, 60, 84),
+    0.3625: (24, 36, 60, 84), 0.3875: (24, 36, 60, 84),
+    0.8625: (24, 36, 60, 84), 0.9125: (24, 36, 60, 84),
+    0.9375: (24, 48, 72, 96), 0.9625: (24, 48, 72, 96),
+    0.9875: (24, 48, 72, 96),
+    1.5125: (72, 96, 120, 144), 1.5375: (72, 96, 120, 144),
+    1.5625: (72, 96, 120, 144), 1.5875: (72, 96, 120, 144),
+    1.6125: (84, 108, 132, 156), 1.6375: (84, 108, 132, 156),
+    1.6625: (84, 108, 132, 156), 1.6875: (84, 108, 132, 156),
+    1.70625: (84, 108, 132, 156), 1.71875: (84, 108, 132, 156),
+    2.78125: (180, 204, 228, 252), 2.79375: (180, 204, 228, 252),
+    2.8125: (192, 216, 240, 264), 2.8375: (192, 216, 240, 264),
+    2.8625: (192, 216, 240, 264), 2.8875: (192, 216, 240, 264),
+    2.9125: (192, 216, 240, 264), 2.9375: (204, 228, 252, 276),
+    2.9625: (204, 228, 252, 276), 2.9875: (204, 228, 252, 276),
+    3.75625: (276, 300, 324, 348), 3.76875: (276, 300, 324, 348),
+    3.78125: (276, 300, 324, 348), 3.79375: (276, 300, 324, 348),
+    3.8125: (276, 300, 324, 348), 3.8375: (276, 300, 324, 348),
+    3.8625: (276, 300, 324, 348), 3.8875: (288, 312, 336, 360),
+    3.9125: (288, 312, 336, 360), 3.9375: (288, 312, 336, 360),
+    3.9625: (288, 312, 336, 360), 3.9875: (288, 312, 336, 360),
+}
+Q018_LITERAL_FAILED_CHILD_ORACLE = (
+    "q018_tablei_literal_failed_child_transition"
+)
+Q018_LITERAL_FAILED_CHILD_EXPECTED_ROWS = 146_416
+
+
+def test_literal_failed_child_frozen_classification_contract() -> None:
+    assert len(Q018_LITERAL_FAILED_CHILD_FREQUENCIES) == 41
+    assert len(set(Q018_LITERAL_FAILED_CHILD_FREQUENCIES)) == 41
+    assert tuple(Q018_LITERAL_FAILED_CHILD_LMAX) == (
+        Q018_LITERAL_FAILED_CHILD_FREQUENCIES
+    )
+    assert Q018_LITERAL_FAILED_CHILD_TOKENS == tuple(
+        str(value).replace(".", "p")
+        for value in Q018_LITERAL_FAILED_CHILD_FREQUENCIES
+    )
+    assert max(map(max, Q018_LITERAL_FAILED_CHILD_LMAX.values())) == 360
+    assert sum(
+        (max(Q018_LITERAL_FAILED_CHILD_LMAX[frequency]) - 1) * 2 * 8
+        for frequency in Q018_LITERAL_FAILED_CHILD_FREQUENCIES
+    ) == Q018_LITERAL_FAILED_CHILD_EXPECTED_ROWS
+
+
+def test_literal_failed_child_default_covered_mode_makes_zero_oracle_calls(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls = 0
+
+    def forbidden_oracle(*args: object, **kwargs: object) -> object:
+        nonlocal calls
+        calls += 1
+        raise AssertionError("default-covered mode must not call the oracle")
+
+    monkeypatch.setattr(
+        q018_oracle_module,
+        "solve_q018_rescaled_oracle",
+        forbidden_oracle,
+    )
+    solution = solve_radial_mode(
+        Sector.ODD,
+        2,
+        0.3125,
+        SchwarzschildBackground(M=1.0),
+        _tablei_review_grid_boundary_config(
+            30.0,
+            experimental_required_radius_oracle=(
+                Q018_LITERAL_FAILED_CHILD_ORACLE
+            ),
+        ),
+    )
+    assert isinstance(solution, RadialSolution)
+    assert calls == 0
+    assert solution.diagnostics.solver != (
+        "q018_tablei_literal_failed_child_transition_oracle"
+    )
+
+
+def test_literal_failed_child_snapshot_provenance_is_complete() -> None:
+    from schwgw.numerics.q018_tablei_literal_failed_child_envelope import (
+        CLASSIFICATION_SHA256,
+        CLASSIFICATION_SNAPSHOT_SHA256,
+        ORACLE_VALIDATION_SHA256,
+        SOURCE_HASHES,
+    )
+
+    assert len(CLASSIFICATION_SNAPSHOT_SHA256) == 64
+    assert len(CLASSIFICATION_SHA256) == 64
+    assert len(ORACLE_VALIDATION_SHA256) == 64
+    assert "src/schwgw/numerics/radial_solver.py" in SOURCE_HASHES
+    assert "scripts/phase5_literal_failed_child_radial_gate.py" in SOURCE_HASHES
+
 
 def test_further_local_frozen_classification_contract() -> None:
     assert len(Q018_FURTHER_LOCAL_FREQUENCIES) == 24

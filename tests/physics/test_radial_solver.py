@@ -475,6 +475,100 @@ class RadialSolverPhysicsTests(unittest.TestCase):
                 barrier_action=0.0,
             )
 
+    def test_literal_failed_child_adapter_is_literal_and_fail_closed(self) -> None:
+        from schwgw.numerics.q018_tablei_literal_failed_child_envelope import (
+            TRANSITION_SEGMENTS,
+        )
+
+        selected = next(
+            (k, sector, ell_min, point_ids[0])
+            for (k, sector), segments in TRANSITION_SEGMENTS.items()
+            for ell_min, _ell_max, point_ids in segments
+            if point_ids
+        )
+        k, sector_name, ell, point_id = selected
+        point_radius = dict(radial_solver._Q018_LITERAL_FAILED_CHILD_POINTS)[point_id]
+        sector = Sector(sector_name)
+        base = {
+            "r_in_eps": 1e-6,
+            "r_out": 300.0,
+            "rtol": 1e-10,
+            "atol": 1e-12,
+            "required_eval_radius": point_radius,
+            "experimental_required_radius_oracle": (
+                "q018_tablei_literal_failed_child_transition"
+            ),
+        }
+        solution = solve_radial_mode(
+            sector,
+            ell,
+            k,
+            SchwarzschildBackground(M=1.0),
+            BoundaryConfig(**base),
+        )
+        self.assertEqual(
+            solution.diagnostics.solver,
+            "q018_tablei_literal_failed_child_transition_oracle",
+        )
+        self.assertEqual(
+            solution.diagnostics.warnings[0].code,
+            "q018_tablei_literal_failed_child_transition_oracle_used",
+        )
+
+        wrong_cases = (
+            (SchwarzschildBackground(M=1.1), ell, k, base),
+            (SchwarzschildBackground(M=1.0), ell, k + 1e-12, base),
+            (
+                SchwarzschildBackground(M=1.0),
+                ell,
+                k,
+                {**base, "required_eval_radius": point_radius + 1e-12},
+            ),
+            (SchwarzschildBackground(M=1.0), ell, k, {**base, "r_out": 301.0}),
+            (
+                SchwarzschildBackground(M=1.0),
+                ell,
+                k,
+                {**base, "r_in_eps": 1e-5},
+            ),
+            (SchwarzschildBackground(M=1.0), ell, k, {**base, "rtol": 1e-9}),
+            (SchwarzschildBackground(M=1.0), ell, k, {**base, "atol": 1e-11}),
+        )
+        for background, wrong_ell, wrong_k, values in wrong_cases:
+            with self.subTest(
+                background=background,
+                ell=wrong_ell,
+                k=wrong_k,
+                values=values,
+            ):
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "q018_experimental_oracle_out_of_envelope",
+                ):
+                    solve_radial_mode(
+                        sector,
+                        wrong_ell,
+                        wrong_k,
+                        background,
+                        BoundaryConfig(**values),
+                    )
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "q018_experimental_oracle_out_of_envelope",
+        ):
+            radial_solver._validate_q018_literal_failed_child_oracle_envelope(
+                sector=sector,
+                ell=max(maximum for _minimum, maximum, _points in (
+                    TRANSITION_SEGMENTS[(k, sector.value)]
+                )) + 1,
+                k=k,
+                background=SchwarzschildBackground(M=1.0),
+                config=BoundaryConfig(**base),
+                r_out=300.0,
+                barrier_action=0.0,
+            )
+
 
 def _mode_diagnostic(sector: Sector, ell: int, k: float, r_out: float) -> ModeDiagnostic:
     bg = SchwarzschildBackground(M=1.0)
