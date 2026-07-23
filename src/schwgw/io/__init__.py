@@ -53,6 +53,12 @@ from schwgw.io.tablei_literal_failed_child_refinement import (
     LiteralFailedChildRefinementContractError,
     run_literal_failed_child_refinement,
 )
+from schwgw.io.tablei_another_bounded_local_refinement import (
+    ANOTHER_BOUNDED_LOCAL_FREQUENCIES,
+    ANOTHER_BOUNDED_LOCAL_LMAX_VALUES,
+    AnotherBoundedLocalRefinementContractError,
+    run_another_bounded_local_refinement,
+)
 
 __all__ = [
     "BackgroundConfig",
@@ -70,6 +76,9 @@ __all__ = [
     "LITERAL_FAILED_CHILD_FREQUENCIES",
     "LITERAL_FAILED_CHILD_LMAX_VALUES",
     "LiteralFailedChildRefinementContractError",
+    "ANOTHER_BOUNDED_LOCAL_FREQUENCIES",
+    "ANOTHER_BOUNDED_LOCAL_LMAX_VALUES",
+    "AnotherBoundedLocalRefinementContractError",
     "NumericsConfig",
     "ObserverConfig",
     "PILOT_FREQUENCIES",
@@ -94,4 +103,5 @@ __all__ = [
     "run_targeted_adaptive_refinement",
     "run_further_local_refinement",
     "run_literal_failed_child_refinement",
+    "run_another_bounded_local_refinement",
 ]
