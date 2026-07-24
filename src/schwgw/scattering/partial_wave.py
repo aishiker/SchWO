@@ -12,6 +12,17 @@ from scipy.special import spherical_jn
 from schwgw.backgrounds.base import StaticSphericalBackground
 from schwgw.numerics import BoundaryConfig, solve_radial_mode
 from schwgw.perturbations import Sector, reconstruct_metric_mode
+from schwgw.scattering.contracts import (
+    ChannelSpec,
+    IncidentSourceProtocol,
+    ModeKey,
+)
+from schwgw.scattering.legacy_adapter import (
+    LEGACY_EVEN_CHANNEL,
+    LEGACY_ODD_CHANNEL,
+    LegacyIncidentSourceAdapter,
+    LegacyScalarRWZAdapter,
+)
 from schwgw.scattering.observables import (
     PolarizationResult,
     polarization_acceleration_from_packaged_scalars,
@@ -26,7 +37,6 @@ from schwgw.scattering.weyl import (
     assemble_weyl_scalars,
     compute_packaged_polarization_scalars,
     transform_strict_np_weyl_to_incident_tetrad,
-    transform_weyl_to_incident_tetrad,
     weyl_mode_components,
 )
 from schwgw.waves.incident import IncidentPlaneGW
@@ -84,6 +94,7 @@ def compute_polarization(
     lmax: int,
     boundary_config: BoundaryConfig | None = None,
     radial_solver: RadialSolver = solve_radial_mode,
+    mode_source: IncidentSourceProtocol | None = None,
 ) -> PolarizationResult:
     """Assemble finite-radius polarization from RW/Zerilli partial waves."""
 
@@ -98,18 +109,83 @@ def compute_polarization(
     if radius <= background.horizon_radius:
         raise ValueError("Partial-wave polarization extraction requires r > 2M.")
 
-    incident_wave = IncidentPlaneGW(k_value, A_plus, A_cross)
-    if incident_wave.A_plus == 0.0 and incident_wave.A_cross == 0.0:
+    if mode_source is None:
+        return LegacyScalarRWZAdapter().compute_polarization(
+            implementation=_compute_polarization_from_source,
+            background=background,
+            k=k_value,
+            r=radius,
+            theta=theta,
+            phi=phi,
+            A_plus=A_plus,
+            A_cross=A_cross,
+            lmax=lmax,
+            boundary_config=boundary_config,
+            radial_solver=radial_solver,
+        )
+    return _compute_polarization_from_source(
+        background=background,
+        k=k_value,
+        r=radius,
+        theta=theta,
+        phi=phi,
+        lmax=lmax,
+        boundary_config=boundary_config,
+        radial_solver=radial_solver,
+        mode_source=mode_source,
+    )
+
+
+def _compute_polarization_from_source(
+    *,
+    background: StaticSphericalBackground,
+    k: float,
+    r: float,
+    theta: float,
+    phi: float,
+    lmax: int,
+    boundary_config: BoundaryConfig | None,
+    radial_solver: RadialSolver,
+    mode_source: IncidentSourceProtocol,
+) -> PolarizationResult:
+    """Execute the frozen path for one already-typed incident source."""
+
+    k_value = k
+    radius = r
+    source = mode_source
+    if not isinstance(source, IncidentSourceProtocol):
+        raise TypeError("mode_source must satisfy IncidentSourceProtocol.")
+    if (
+        type(source) is LegacyIncidentSourceAdapter
+        and source.wave.A_plus == 0.0
+        and source.wave.A_cross == 0.0
+    ):
         return _zero_result(lmax)
 
     radial_cache: dict[tuple[Sector, int], object] = {}
+    radial_state_cache: dict[
+        tuple[Sector, int, float],
+        tuple[complex, complex, complex],
+    ] = {}
     weyl_modes = []
     nonzero_coefficients = 0
 
     for ell in range(2, lmax + 1):
-        for m in range(-ell, ell + 1):
-            odd_coefficient = incident_wave.c_lm_odd(ell, m)
-            even_coefficient = incident_wave.c_lm_even(ell, m)
+        for m in _ordered_source_m_values(source, ell):
+            odd_coefficient = _source_coefficient(
+                source,
+                sector=Sector.ODD,
+                ell=ell,
+                m=m,
+                k=k_value,
+            )
+            even_coefficient = _source_coefficient(
+                source,
+                sector=Sector.EVEN,
+                ell=ell,
+                m=m,
+                k=k_value,
+            )
             if odd_coefficient != 0.0:
                 nonzero_coefficients += 1
                 weyl_modes.append(
@@ -119,6 +195,7 @@ def compute_polarization(
                         m=m,
                         coefficient=odd_coefficient,
                         radial_cache=radial_cache,
+                        radial_state_cache=radial_state_cache,
                         radial_solver=radial_solver,
                         boundary_config=boundary_config,
                         background=background,
@@ -137,6 +214,7 @@ def compute_polarization(
                         m=m,
                         coefficient=even_coefficient,
                         radial_cache=radial_cache,
+                        radial_state_cache=radial_state_cache,
                         radial_solver=radial_solver,
                         boundary_config=boundary_config,
                         background=background,
@@ -708,6 +786,73 @@ def direct_cartesian_tt_polarization(
     )
 
 
+def _ordered_source_m_values(
+    source: IncidentSourceProtocol,
+    ell: int,
+) -> tuple[int, ...] | range:
+    declared = source.supported_m_values(ell)
+    if declared is None:
+        return range(-ell, ell + 1)
+    if not isinstance(declared, tuple):
+        raise TypeError("supported_m_values must return a tuple or None.")
+
+    seen: set[int] = set()
+    for m in declared:
+        if isinstance(m, bool) or not isinstance(m, int):
+            raise TypeError("supported m values must be integers.")
+        if abs(m) > ell:
+            raise ValueError("supported m values must satisfy abs(m) <= ell.")
+        if m in seen:
+            raise ValueError("supported m values must be unique.")
+        seen.add(m)
+    return declared
+
+
+def _source_coefficient(
+    source: IncidentSourceProtocol,
+    *,
+    sector: Sector,
+    ell: int,
+    m: int,
+    k: float,
+) -> complex:
+    if type(source) is LegacyIncidentSourceAdapter:
+        if source.wave.k != k:
+            raise ValueError(
+                "legacy source frequency does not match the polarization request."
+            )
+        return source.coefficient(sector, ell, m)
+
+    channel = LEGACY_ODD_CHANNEL if sector is Sector.ODD else LEGACY_EVEN_CHANNEL
+    mode = ModeKey(
+        frequency=k,
+        ell=ell,
+        m=m,
+        channel=channel.name,
+    )
+    return _scalar_source_amplitude(source, mode=mode, channel=channel)
+
+
+def _scalar_source_amplitude(
+    source: IncidentSourceProtocol,
+    *,
+    mode: ModeKey,
+    channel: ChannelSpec,
+) -> complex:
+    raw = source.amplitude(mode, channel)
+    values = np.asarray(raw)
+    if values.shape != (1,):
+        raise ValueError(
+            "scalar legacy channels require source amplitude shape (1,)."
+        )
+    if not np.iscomplexobj(values):
+        raise TypeError("source amplitude must be complex.")
+    value = complex(values.reshape(-1)[0])
+    if not np.isfinite(value.real) or not np.isfinite(value.imag):
+        raise RuntimeError("source amplitude must be finite.")
+    return value
+
+
 def _scaled_weyl_mode(
     *,
     sector: Sector,
@@ -715,6 +860,10 @@ def _scaled_weyl_mode(
     m: int,
     coefficient: complex,
     radial_cache: dict[tuple[Sector, int], object],
+    radial_state_cache: dict[
+        tuple[Sector, int, float],
+        tuple[complex, complex, complex],
+    ],
     radial_solver: RadialSolver,
     boundary_config: BoundaryConfig | None,
     background: StaticSphericalBackground,
@@ -723,26 +872,62 @@ def _scaled_weyl_mode(
     theta: float,
     phi: float,
 ):
-    solution = _radial_solution(
+    A_in, psi_at_radius, dpsi_dr_at_radius = _radial_state_at_point(
         sector=sector,
         ell=ell,
         radial_cache=radial_cache,
+        radial_state_cache=radial_state_cache,
         radial_solver=radial_solver,
         boundary_config=boundary_config,
         background=background,
         k=k,
+        r=r,
     )
-    A_in = complex(getattr(solution, "A_in"))
-    if abs(A_in) <= np.finfo(float).eps:
-        raise RuntimeError(
-            f"Radial solution has near-zero A_in for sector={sector.value}, ell={ell}."
-        )
-
     scale = coefficient / A_in
-    psi = scale * complex(solution.psi_at(r))
-    dpsi_dr = scale * complex(solution.dpsi_dr_at(r))
+    psi = scale * psi_at_radius
+    dpsi_dr = scale * dpsi_dr_at_radius
     metric_mode = reconstruct_metric_mode(sector, ell, k, r, psi, dpsi_dr, background)
     return weyl_mode_components(sector, ell, m, k, r, theta, phi, metric_mode, background)
+
+
+def _radial_state_at_point(
+    *,
+    sector: Sector,
+    ell: int,
+    radial_cache: dict[tuple[Sector, int], object],
+    radial_state_cache: dict[
+        tuple[Sector, int, float],
+        tuple[complex, complex, complex],
+    ],
+    radial_solver: RadialSolver,
+    boundary_config: BoundaryConfig | None,
+    background: StaticSphericalBackground,
+    k: float,
+    r: float,
+) -> tuple[complex, complex, complex]:
+    key = (sector, ell, float(r))
+    if key not in radial_state_cache:
+        solution = _radial_solution(
+            sector=sector,
+            ell=ell,
+            radial_cache=radial_cache,
+            radial_solver=radial_solver,
+            boundary_config=boundary_config,
+            background=background,
+            k=k,
+        )
+        A_in = complex(getattr(solution, "A_in"))
+        if abs(A_in) <= np.finfo(float).eps:
+            raise RuntimeError(
+                "Radial solution has near-zero A_in for "
+                f"sector={sector.value}, ell={ell}."
+            )
+        radial_state_cache[key] = (
+            A_in,
+            complex(solution.psi_at(r)),
+            complex(solution.dpsi_dr_at(r)),
+        )
+    return radial_state_cache[key]
 
 
 def _radial_solution(

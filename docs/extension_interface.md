@@ -183,3 +183,87 @@ Purpose: test that radial solver and partial-wave assembly can call a non-Schwar
 - [ ] Observable map documented.
 - [ ] At least one analytic or published benchmark.
 - [ ] No Schwarzschild-specific formula imported by generic modules.
+
+## 7. T4ae generic typed extension boundary
+
+T4ae 在上述 v0.1 sketches 之外增加一个 methods-only typed boundary。它不把
+“可被 Protocol 调用”解释为“新背景或新 spin-2 theory 已接入”。Extension
+必须分别提供并验证：
+
+1. `BackgroundGeometryProtocol`；
+2. `PotentialProviderProtocol`；
+3. `RadialSystemProtocol`；
+4. `BoundaryAsymptoticsProtocol`；
+5. `IncidentSourceProtocol`；
+6. `AngularModeCouplingProtocol`；
+7. `DomainDriverProtocol`；
+8. `SolverBackendProtocol`；
+9. `ObservableProjectorProtocol`；
+10. `ArtifactWriterProtocol`。
+
+这些 boundary 不假设 Schwarzschild separability、单 component state 或
+uncoupled channels。Potential 可以是 matrix，radial values/derivatives 的
+shape 是 `(n_point,n_component)`，inner boundary 也不在 generic 名称中预设
+为 event horizon。Scalar extension 使用一个 component；coupled extension
+至少使用两个有序且唯一的 component names。
+
+### 7.1 Sparse angular support
+
+`IncidentSourceProtocol` 和 `AngularModeCouplingProtocol` 都暴露：
+
+```python
+def supported_m_values(ell: int) -> tuple[int, ...] | None:
+    ...
+```
+
+返回 tuple 表示 extension 自己认证的 ordered sparse support；返回 `None`
+表示调用者必须使用 generic full fallback `-ell..+ell`。空缺不能被猜测成
+legacy `+z` support，tuple 也不能转换成 set 后重排。Legacy
+`m=(-2,+2)` 仅属于 `LegacyIncidentSourceAdapter` 的现有 `+z` model，不是
+extension contract。
+
+### 7.2 Provenance and conventions
+
+任何可缓存或可写出的 extension 结果都必须绑定完整
+`ConventionMetadata`，以及恰好六段的 `ProvenanceIdentity`：
+
+```text
+implementation, physics, solver, config, source, gate
+```
+
+每一段都是 exact lowercase 64-hex SHA-256。Cache/checkpoint/oracle 不得仅凭
+background name、class name 或部分 config 判断兼容。Units、metric
+signature、Fourier sign、tortoise definition、ingoing/outgoing phases、
+normalization 与 phase convention 必须逐项显式记录；不同 convention 的
+结果不可复用。
+
+### 7.3 Non-claim onboarding rule
+
+用于验证 structural separation 的十个 boundary toy（包括 source、
+angular coupling、boundary/asymptotics、solver backend、projector 和 writer）
+都必须显式设置 `physical_claim=false`。这样的 mock 可以验证：
+
+- runtime Protocol matching；
+- scalar/coupled shape 和 component order；
+- generic coordinate chart；
+- ordered sparse support 与 `None` full fallback；
+- deterministic orchestration 与 writer boundary。
+
+它不能验证新 perturbation equation、boundary asymptotics、incident
+normalization、observable map 或 spin-2 physics。要把 extension 提升为物理
+backend，仍需完成本文件第 2 节的全部理论输入、独立 benchmark、convention
+审查和 `docs/validation_plan.md` 中相应的 physics gates。
+
+现有 `compute_polarization(..., mode_source=None)` 先进入
+`LegacyScalarRWZAdapter.compute_polarization(...)` full-path facade；该
+facade 只构造 exact legacy source，并把 background、solver、reconstruction
+与 observable packaging 原样委托给 private frozen implementation。它是
+accepted Schwarzschild scalar-master path 的兼容桥，不是第十一个 Protocol，
+也不声称新的 backend。其 private scalar coefficient fast path 不是
+extension 接口；新 source 必须实现 public typed
+`amplitude(mode, channel)`，并返回 exact shape `(1,)` 的 scalar component
+array。
+
+本节不实现或验证新的 spin-2/Teukolsky/coupled-channel theory，不改变现有
+physics/tolerances/modes/points，也不授权 87 个 diagnostic midpoints、
+T7ch、T8、new frequency 或 production。

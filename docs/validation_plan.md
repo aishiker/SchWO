@@ -510,3 +510,176 @@ Before claiming physics correctness:
 - [ ] optical-axis value finite and stable.
 - [ ] plot generated from saved data, not ad hoc arrays.
 - [ ] status updated with command, config, commit, diagnostics.
+
+## 8. T4ae methods-only equivalence gate
+
+本节冻结 implementation-comparison 的 validation matrix。它是 pre-result
+contract，不表示 legacy baseline、optimized benchmark 或最终 T4ae decision
+已经产生。
+
+### 8.1 Exact existing benchmark matrix
+
+Cold legacy baseline 必须在任何 code edit 之前从 exact legacy implementation
+生成。Optimized run 必须使用同一 machine、interpreter、NumPy/SciPy、
+BLAS-thread environment、physical inputs、ordering 和 output contract。
+
+五个 frequency cases 都是既有 T8as evidence，不是新 frequency：
+
+| `kM` | exact `lmax` window | role | immutable legacy NPZ SHA-256 |
+|---:|---|---|---|
+| `0.86875` | `[24,36,60,84]` | low-frequency / max-lmax 84 | `58768a1c4be7b351dd5c44351b98ecd61b80b96f74ebebd5f4f3d156d2ad42c5` |
+| `1.58125` | `[72,96,120,144]` | transition / max-lmax 144 | `4edbfcd8d6024876f6efdebd29e47736d36f1385ed29a8ad3ff6adf0e6704b9e` |
+| `2.91875` | `[192,216,240,264]` | mid-high / max-lmax 264 | `d6b81923284142dfe5faf13e8932b4e5c12aed1cd253c459ab10641ab0949b8b` |
+| `3.759375` | `[276,300,324,348]` | phase-failure neighborhood / max-lmax 348 | `22a82e643a9b348b82999f2f065f25e9e47b017582da964d1b33d2ec3473b386` |
+| `3.89375` | `[288,312,336,360]` | high-frequency / max-lmax 360 | `770340a9dcfbd17abb5de160f6289de473c184c1de75297fb45a8e23626b35d3` |
+
+每个 frequency 使用 exact 四个 lmax rows 和 exact 八个 ordered points：
+
+```text
+near_axis_x0_z30, near_axis_x1_z30,
+near_axis_x2_z30, near_axis_x3_z30,
+far_axis_x10_z30, far_axis_x15_z30,
+far_axis_x20_z30, far_axis_x25_z30
+```
+
+共同 boundary contract 是 `M=1`、`r_in_eps=1e-6`、`r_out=300`、
+`rtol=1e-10`、`atol=1e-12`。
+
+Downstream full-image regression 是 read-only golden：
+
+```text
+runs/phase5/fig3_four_frequency_dx0p25_production/
+  t8ah_li_fig3_xz_k1p0_dx0p25.npz
+SHA-256 0de560ce7a2696074e708506240c69e43eb4d40520447ec378208b37f64c0132
+shape 241x241
+valid/masked 57884/197
+convergence probes 48
+```
+
+Methods gate 可在 isolated benchmark directory 重现 exact config，但不得
+覆盖 golden、生成 publication plot 或提升为 production artifact。87 个
+diagnostic failed-child midpoints 明确不在上述 matrix 中。
+
+### 8.2 Exact and floating equivalence budgets
+
+以下内容必须 exact equal：
+
+- array names、shapes、dtypes、units、axes、masks；
+- frequency/point/lmax/history/final-row order；
+- finite/nonfinite pattern；
+- convention metadata；
+- mode/channel 和 serial/two-worker reduction order；
+- cache identity payload/rejection reason；
+- checkpoint membership 和 canonical manifest order。
+- 每 case 的 raw-warning `(category, source, line, message, count)` tuples、
+  structured warning codes/count 和 warning order；unknown warning count 必须为
+  zero。
+
+Legacy 与 optimized radial/observable complex arrays 同时满足：
+
+```text
+max absolute difference             <= 5e-12
+max normalized relative difference  <= 5e-10
+```
+
+当 legacy 与 optimized magnitudes 都大于 `1e-10` 时，按冻结 phase
+convention 的 principal phase difference 必须 `<=5e-9 rad`。Guard 以下仍
+必须比较 complex value，不能用 phase mask 隐藏 near-zero mismatch。
+Magnitude 的 absolute/relative budget 相同。
+
+Final-pair deltas 各自仍须 `<=1e-4`，legacy/new delta difference
+`<=1e-10`。Boundary、Wronskian 和 effective residual 必须继续通过既有 hard
+gates，且 optimized 不得恶化超过：
+
+```text
+max(legacy * 1.05, legacy + 5e-13)
+```
+
+Full-image 还必须满足：
+
+| quantity | gate |
+|---|---|
+| coordinates、`valid_mask` | exact |
+| complex `h_plus/h_cross` | abs `<=5e-12` 且 normalized rel `<=5e-10` |
+| real/imag/abs pixel NRMSE | `<=1e-11` |
+| normalized pixel L-infinity | `<=5e-10` |
+| guarded phase difference | `<=5e-9 rad` |
+
+不允许 resampling、smoothing、clipping、colormap trick、lower resolution
+或 image-only normalization。
+
+### 8.3 Performance and resource gates
+
+Legacy 与 optimized 的每个 case 及 aggregate record 必须保存 wall time、
+user CPU、system CPU、peak RSS、ODE/oracle solve counts、cache hit/miss/
+rejection counts、stage timings、Python/NumPy/SciPy/platform/CPU/BLAS 和
+controlled thread environment，以及 implementation/physics/solver/config/
+source/gate/environment/artifact hashes。
+Raw warnings 与 structured warnings 必须分别保存 exact tuples/codes/counts
+和 classification；不得只保存一个总 warning 数。
+
+Methods GREEN 除全部 equivalence gates 外还要求：
+
+```text
+total ODE/oracle solve count <= 0.70 * legacy
+aggregate wall time          <= 0.85 * legacy
+aggregate CPU time           <= 0.85 * legacy
+each case wall time          <= 1.05 * legacy
+peak RSS                     <= 1.25 * legacy
+```
+
+Timing noise 导致任一条件不满足时，结果是 YELLOW evidence incomplete；不得
+降低 scientific work、放宽 tolerance 或删除 check。
+
+### 8.4 Required layered and fault tests
+
+Focused/fresh validation 至少覆盖：
+
+- `ConventionMetadata`、six-component `ProvenanceIdentity`、scalar/coupled
+  `ChannelSpec`、deterministic `ModeKey`、generic `ObserverPoint`、
+  immutable complex `RadialStateBatch` 和十个 structural Protocol；
+- non-Schwarzschild coupled mock 与 future time-domain mock，全部
+  boundary/source/angular/backend/projector/writer components 均显式
+  `physical_claim=false`；
+- ordered sparse source/angular `m` tuple 和 `None -> -ell..+ell` fallback，
+  generic test 不写入 `+z`/`m=±2` 假设；
+- 默认 `compute_polarization` 恰好经过一次
+  `LegacyScalarRWZAdapter.compute_polarization` full-path facade，并对
+  accepted scalar RWZ path 做 golden/direct exact equivalence；private fast
+  path 与 public typed amplitude path 一致，generic scalar amplitude 必须是
+  exact shape `(1,)`；
+- ordinary dense reuse 只发生在 certified interval，`valid_until_r` 和
+  out-of-domain request fail closed；
+- exact oracle hit，以及逐一改变 implementation/physics/solver/config/
+  source/gate、artifact hash、schema、snapshot、origin、mode、point、radius、
+  tolerance，以及 record 内嵌 diagnostics tolerance 后的 rejection；
+- serial 与 two-worker results/order exact 一致，worker count `>2` 拒绝；
+- truncated、corrupt、interrupted、stale-schema、wrong-identity、wrong-key、
+  wrong-payload checkpoint quarantine；
+- complete matching checkpoint reuse 且 worker 不被调用；partial/mismatched
+  unit 不 reuse；
+- exact downstream schema/full image arrays、stage profile 和 performance
+  regression；matrix audit 必须是 exact five frozen frequencies 加 full
+  `241x241` image 的六 case、exact order、无重复/遗漏，并同时生成 per-case
+  与 aggregate resources。
+
+还必须运行 current focused Q018 tests、exact-scope Ruff、fresh full pytest、
+`git diff --check`、implementation/worktree/source identity checks 和
+forbidden-output searches。任何 warning、test、identity、scope 或 provenance
+mismatch 都不能用 benchmark performance 抵消。
+
+### 8.5 Decision and non-claims
+
+只有 code/tests、exact implementation identity、source/config identity、
+resume contract、五频和 full-image evidence 全部冻结并通过后，T4ae 才能返回
+`GREEN / EQUIVALENCE-PRESERVING METHODS GATE READY`。若仅 timing/performance
+未达 GREEN，或其余 validity checks 均通过但 runtime evidence genuinely
+missing，则返回 frozen YELLOW；若 identity/scope/source/config/artifact/
+test/provenance/equivalence 任一 mismatch 或 failure，则 fail closed 返回
+frozen RED。三种 decision 都必须保存当时可得的完整 evidence。本文档本身：
+
+- 不改变 physics、tolerances、modes、frequencies、points 或 thresholds；
+- 不实现或验证新的 spin-2/Teukolsky/coupled-channel theory；
+- 不把 87 个 diagnostic midpoints 变成 scientific inputs；
+- 不授权或启动 T7ch、T8、new frequency、production、plot、fixture、
+  Kirchhoff、paper-style output 或 GitHub action。

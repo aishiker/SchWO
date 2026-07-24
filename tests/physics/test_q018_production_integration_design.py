@@ -1,4 +1,7 @@
+import importlib.util
 import json
+from pathlib import Path
+import sys
 
 import numpy as np
 import pytest
@@ -1434,3 +1437,42 @@ def test_q018_production_oracle_unknown_opt_in_fails_closed() -> None:
 def test_q018_experimental_oracle_is_not_publicly_exported() -> None:
     assert not hasattr(public_numerics, "solve_q018_rescaled_oracle")
     assert "solve_q018_rescaled_oracle" not in public_numerics.__all__
+
+
+def test_t4ae_methods_gate_preserves_the_frozen_q018_matrix() -> None:
+    path = Path("scripts/phase5_equivalence_preserving_methods_gate.py")
+    spec = importlib.util.spec_from_file_location(
+        "phase5_t4ae_q018_contract",
+        path,
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+
+    expected_frequencies = (0.86875, 1.58125, 2.91875, 3.759375, 3.89375)
+    assert module.FROZEN_FREQUENCIES == expected_frequencies
+    assert all(
+        frequency in Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES
+        for frequency in module.FROZEN_FREQUENCIES
+    )
+    assert module.FROZEN_LMAX_VALUES == {
+        frequency: Q018_ANOTHER_BOUNDED_LOCAL_LMAX[frequency]
+        for frequency in expected_frequencies
+    }
+    assert module.BOUNDARY_CONTRACT == {
+        "M": 1.0,
+        "r_out": 300.0,
+        "r_in_eps": 1e-6,
+        "rtol": 1e-10,
+        "atol": 1e-12,
+    }
+    assert module.DIAGNOSTIC_FAILED_CHILD_MIDPOINT_COUNT == 87
+    assert not hasattr(module, "DIAGNOSTIC_FAILED_CHILD_MIDPOINTS")
+
+
+def test_t4ae_methods_gate_does_not_expand_q018_public_api() -> None:
+    assert not hasattr(public_numerics, "RadialCache")
+    assert "RadialCache" not in public_numerics.__all__
+    assert not hasattr(public_numerics, "OracleRadialArtifact")
+    assert "OracleRadialArtifact" not in public_numerics.__all__
