@@ -1,8 +1,18 @@
 # T12b Current Handoff
 
-Date: 2026-07-09
+Date: 2026-08-01
 
 Thread: T12b, Fig.5/Fig.6 pipeline continuation after accepted kM=4 adapter gate.
+
+## 2026-08-01 project sync
+
+T12b is superseded and inactive. The radial blocker described below was later
+resolved and a complete \(40\times8\) grid was generated, but the resulting
+Fig.5/6 curves are not accepted as a paper reproduction. This distinction is
+authoritative: radial completion does not close the polarization or
+Kirchhoff-observable conventions. Do not reuse the historical exact-next-task
+section below. Current next work is a single low-cost Table-I paper-facing
+probe defined in `status.md`.
 
 ## Current Status
 
@@ -136,4 +146,3 @@ frequencies through `kM=2.25`.
 Focused diagnostic command checked `k=2.5`, `ell=160`, x20/x25 Table-I radii,
 odd/even. Result: x20 BVP/fallback failure; x25 structured
 `evanescent_tail_required_radius_uncovered`.
-

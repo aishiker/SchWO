@@ -1,5 +1,22 @@
 """Input and output helpers."""
 
+from schwgw.io.apparent import (
+    ApparentGridResult,
+    load_apparent_results,
+    run_apparent_solver_grid,
+    save_apparent_results,
+)
+from schwgw.io.asymptotic import (
+    FIG8_KM_VALUES,
+    FIG8_REDUCTION_ORDERS,
+    Fig8AsymptoticDataset,
+    build_fig8_matched_dataset,
+    default_fig8_theta_grid,
+    load_fig8_asymptotic_dataset,
+    produce_fig8_asymptotic_dataset,
+    save_fig8_asymptotic_dataset,
+)
+
 from schwgw.io.config import (
     BackgroundConfig,
     BoundarySettings,
@@ -35,6 +52,15 @@ from schwgw.io.tablei_risk_pilot import (
     PilotContractError,
     run_delta0p1_risk_pilot,
 )
+from schwgw.io.tablei_uniform import (
+    MISSING_FREQUENCIES,
+    UNIFORM_FREQUENCIES,
+    UNIFORM_LMAX_VALUES,
+    UniformContractError,
+    merge_tablei_uniform,
+    preflight_tablei_uniform,
+    run_tablei_uniform_missing,
+)
 from schwgw.io.tablei_adaptive_refinement import (
     ADAPTIVE_FREQUENCIES,
     ADAPTIVE_LMAX_VALUES,
@@ -61,6 +87,11 @@ from schwgw.io.tablei_another_bounded_local_refinement import (
 )
 
 __all__ = [
+    "ApparentGridResult",
+    "FIG8_KM_VALUES",
+    "FIG8_REDUCTION_ORDERS",
+    "Fig8AsymptoticDataset",
+    "build_fig8_matched_dataset",
     "BackgroundConfig",
     "BoundarySettings",
     "ConvergenceConfig",
@@ -93,13 +124,27 @@ __all__ = [
     "extract_tablei_four_frequency_from_amplification_results",
     "generate_kirchhoff_review_grid_artifact",
     "load_config",
+    "load_fig8_asymptotic_dataset",
     "load_amplification_results",
+    "load_apparent_results",
     "load_results",
     "parse_config",
+    "default_fig8_theta_grid",
+    "produce_fig8_asymptotic_dataset",
     "run_solver_grid",
+    "run_apparent_solver_grid",
     "save_amplification_results",
+    "save_apparent_results",
+    "save_fig8_asymptotic_dataset",
     "save_results",
     "run_delta0p1_risk_pilot",
+    "MISSING_FREQUENCIES",
+    "UNIFORM_FREQUENCIES",
+    "UNIFORM_LMAX_VALUES",
+    "UniformContractError",
+    "merge_tablei_uniform",
+    "preflight_tablei_uniform",
+    "run_tablei_uniform_missing",
     "run_targeted_adaptive_refinement",
     "run_further_local_refinement",
     "run_literal_failed_child_refinement",

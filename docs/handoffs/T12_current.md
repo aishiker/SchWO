@@ -1,8 +1,18 @@
 # T12 Current Handoff
 
-Date: 2026-07-09
+Date: 2026-08-01
 
 Thread: T12, Fig.5/Fig.6 autonomous gated pipeline.
+
+## 2026-08-01 project sync
+
+This autonomous pipeline is superseded and inactive. A later direct pipeline
+did produce the complete \(40\times8\) Table-I grid and 600-dpi Fig.5/6
+renders, but paper equivalence failed: exact plus/cross values and Kirchhoff
+magnitudes differ materially from the published panels. Do not resume Stage
+1 or run another dense grid. The only valid next step is one paper-facing
+Table-I point with a frozen Kirchhoff normalization and observable. See
+`status.md` and `docs/reports/li_hou_zhao_figures_3_8_completion_20260801.md`.
 
 ## Current Status
 

@@ -17,6 +17,10 @@ from schwgw.scattering.contracts import (
     IncidentSourceProtocol,
     ModeKey,
 )
+from schwgw.scattering.apparent import (
+    ApparentPolarizationResult,
+    apparent_polarizations_from_strict_np,
+)
 from schwgw.scattering.legacy_adapter import (
     LEGACY_EVEN_CHANNEL,
     LEGACY_ODD_CHANNEL,
@@ -136,6 +140,65 @@ def compute_polarization(
     )
 
 
+def compute_apparent_polarizations(
+    *,
+    background: StaticSphericalBackground,
+    k: float,
+    r: float,
+    theta: float,
+    phi: float,
+    A_plus: complex,
+    A_cross: complex,
+    lmax: int,
+    boundary_config: BoundaryConfig | None = None,
+    radial_solver: RadialSolver = solve_radial_mode,
+    mode_source: IncidentSourceProtocol | None = None,
+) -> ApparentPolarizationResult:
+    """Assemble diagnostic Fig. 7 apparent modes from strict NP scalars.
+
+    This shares the exact radial/Weyl/tetrad assembly with
+    :func:`compute_polarization`, but it does not use packaged physical
+    polarization scalars and it always returns ``physical_claim=False``.
+    """
+
+    k_value = float(k)
+    if k_value <= 0.0:
+        raise ValueError("Wave number k must be positive.")
+    if not isinstance(lmax, int):
+        raise TypeError("lmax must be an integer.")
+    if lmax < 2:
+        raise ValueError("Partial-wave apparent-mode extraction requires ell >= 2.")
+    radius = float(r)
+    if radius <= background.horizon_radius:
+        raise ValueError("Partial-wave apparent-mode extraction requires r > 2M.")
+
+    if mode_source is None:
+        return LegacyScalarRWZAdapter().compute_polarization(
+            implementation=_compute_apparent_polarizations_from_source,
+            background=background,
+            k=k_value,
+            r=radius,
+            theta=theta,
+            phi=phi,
+            A_plus=A_plus,
+            A_cross=A_cross,
+            lmax=lmax,
+            boundary_config=boundary_config,
+            radial_solver=radial_solver,
+        )
+    return _compute_apparent_polarizations_from_source(
+        background=background,
+        k=k_value,
+        r=radius,
+        theta=theta,
+        phi=phi,
+        lmax=lmax,
+        boundary_config=boundary_config,
+        radial_solver=radial_solver,
+        mode_source=mode_source,
+    )
+
+
 def _compute_polarization_from_source(
     *,
     background: StaticSphericalBackground,
@@ -162,29 +225,117 @@ def _compute_polarization_from_source(
     ):
         return _zero_result(lmax)
 
+    strict_incident_np, diagnostics = _assemble_incident_strict_np_from_source(
+        background=background,
+        k=k_value,
+        r=radius,
+        theta=theta,
+        phi=phi,
+        lmax=lmax,
+        boundary_config=boundary_config,
+        radial_solver=radial_solver,
+        mode_source=source,
+    )
+    packaged_scalars = compute_packaged_polarization_scalars(strict_incident_np)
+    psi0_hat = packaged_scalars.psi0_pack
+    psi4_hat = packaged_scalars.psi4_pack
+    h_plus, h_cross = polarization_from_packaged_scalars(k_value, packaged_scalars)
+    hddot_plus, hddot_cross = polarization_acceleration_from_packaged_scalars(
+        packaged_scalars
+    )
+    return PolarizationResult(
+        h_plus=h_plus,
+        h_cross=h_cross,
+        psi0_hat=psi0_hat,
+        psi4_hat=psi4_hat,
+        hddot_plus=hddot_plus,
+        hddot_cross=hddot_cross,
+        lmax=lmax,
+        diagnostics=diagnostics,
+    )
+
+
+def _compute_apparent_polarizations_from_source(
+    *,
+    background: StaticSphericalBackground,
+    k: float,
+    r: float,
+    theta: float,
+    phi: float,
+    lmax: int,
+    boundary_config: BoundaryConfig | None,
+    radial_solver: RadialSolver,
+    mode_source: IncidentSourceProtocol,
+) -> ApparentPolarizationResult:
+    source = mode_source
+    if not isinstance(source, IncidentSourceProtocol):
+        raise TypeError("mode_source must satisfy IncidentSourceProtocol.")
+    if (
+        type(source) is LegacyIncidentSourceAdapter
+        and source.wave.A_plus == 0.0
+        and source.wave.A_cross == 0.0
+    ):
+        return apparent_polarizations_from_strict_np(
+            k,
+            StrictNPScalars(0.0j, 0.0j, 0.0j, 0.0j, 0.0j, frame="incident"),
+            diagnostics=_zero_diagnostics(lmax),
+        )
+
+    strict_incident_np, diagnostics = _assemble_incident_strict_np_from_source(
+        background=background,
+        k=k,
+        r=r,
+        theta=theta,
+        phi=phi,
+        lmax=lmax,
+        boundary_config=boundary_config,
+        radial_solver=radial_solver,
+        mode_source=source,
+    )
+    return apparent_polarizations_from_strict_np(
+        k,
+        strict_incident_np,
+        diagnostics=diagnostics,
+    )
+
+
+def _assemble_incident_strict_np_from_source(
+    *,
+    background: StaticSphericalBackground,
+    k: float,
+    r: float,
+    theta: float,
+    phi: float,
+    lmax: int,
+    boundary_config: BoundaryConfig | None,
+    radial_solver: RadialSolver,
+    mode_source: IncidentSourceProtocol,
+) -> tuple[StrictNPScalars, dict[str, float]]:
+    """Return the shared strict incident-frame NP assembly and diagnostics."""
+
     radial_cache: dict[tuple[Sector, int], object] = {}
     radial_state_cache: dict[
         tuple[Sector, int, float],
         tuple[complex, complex, complex],
     ] = {}
-    weyl_modes = []
+    weyl_modes: list[WeylModeComponents] = []
     nonzero_coefficients = 0
 
     for ell in range(2, lmax + 1):
-        for m in _ordered_source_m_values(source, ell):
+        for m in _ordered_source_m_values(mode_source, ell):
             odd_coefficient = _source_coefficient(
-                source,
+                mode_source,
                 sector=Sector.ODD,
                 ell=ell,
                 m=m,
-                k=k_value,
+                k=k,
             )
             even_coefficient = _source_coefficient(
-                source,
+                mode_source,
                 sector=Sector.EVEN,
                 ell=ell,
                 m=m,
-                k=k_value,
+                k=k,
             )
             if odd_coefficient != 0.0:
                 nonzero_coefficients += 1
@@ -199,8 +350,8 @@ def _compute_polarization_from_source(
                         radial_solver=radial_solver,
                         boundary_config=boundary_config,
                         background=background,
-                        k=k_value,
-                        r=radius,
+                        k=k,
+                        r=r,
                         theta=float(theta),
                         phi=float(phi),
                     )
@@ -218,8 +369,8 @@ def _compute_polarization_from_source(
                         radial_solver=radial_solver,
                         boundary_config=boundary_config,
                         background=background,
-                        k=k_value,
-                        r=radius,
+                        k=k,
+                        r=r,
                         theta=float(theta),
                         phi=float(phi),
                     )
@@ -235,30 +386,13 @@ def _compute_polarization_from_source(
         incident_tetrad_weyl,
         frame="incident",
     )
-    packaged_scalars = compute_packaged_polarization_scalars(strict_incident_np)
-    psi0_hat = packaged_scalars.psi0_pack
-    psi4_hat = packaged_scalars.psi4_pack
-    h_plus, h_cross = polarization_from_packaged_scalars(k_value, packaged_scalars)
-    hddot_plus, hddot_cross = polarization_acceleration_from_packaged_scalars(
-        packaged_scalars
-    )
     diagnostics = _diagnostics(
         radial_cache=radial_cache,
         lmax=lmax,
         mode_count=len(weyl_modes),
         nonzero_coefficients=nonzero_coefficients,
     )
-
-    return PolarizationResult(
-        h_plus=h_plus,
-        h_cross=h_cross,
-        psi0_hat=psi0_hat,
-        psi4_hat=psi4_hat,
-        hddot_plus=hddot_plus,
-        hddot_cross=hddot_cross,
-        lmax=lmax,
-        diagnostics=diagnostics,
-    )
+    return strict_incident_np, diagnostics
 
 
 def compute_flat_no_lens_polarization(
@@ -1110,16 +1244,20 @@ def _zero_result(lmax: int) -> PolarizationResult:
         hddot_plus=0.0j,
         hddot_cross=0.0j,
         lmax=lmax,
-        diagnostics={
-            "lmax": float(lmax),
-            "mode_count": 0.0,
-            "nonzero_coefficient_count": 0.0,
-            "radial_solve_count": 0.0,
-            "max_boundary_residual": 0.0,
-            "max_wronskian_residual": 0.0,
-            "max_match_condition_number": 0.0,
-        },
+        diagnostics=_zero_diagnostics(lmax),
     )
+
+
+def _zero_diagnostics(lmax: int) -> dict[str, float]:
+    return {
+        "lmax": float(lmax),
+        "mode_count": 0.0,
+        "nonzero_coefficient_count": 0.0,
+        "radial_solve_count": 0.0,
+        "max_boundary_residual": 0.0,
+        "max_wronskian_residual": 0.0,
+        "max_match_condition_number": 0.0,
+    }
 
 
 def _sigma_l(ell: int) -> int:
@@ -1133,6 +1271,7 @@ def _scalar_or_array(values: np.ndarray, original: ArrayLike) -> float | np.ndar
 
 
 __all__ = [
+    "compute_apparent_polarizations",
     "PolarizationResult",
     "compute_flat_no_lens_polarization",
     "compute_flat_no_lens_partial_wave_diagnostic",

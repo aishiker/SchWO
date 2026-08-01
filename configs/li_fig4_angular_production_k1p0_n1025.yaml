@@ -1,0 +1,22 @@
+case_id: LI_FIG4_ANGULAR_PRODUCTION_K1P0_N1025
+output: runs/phase5/fig4_angular_n1025_production/fig4_exact_kM_1_n1025.npz
+background: {M: 1.0}
+wave:
+  kM: 1.0
+  A_plus: {real: 0.9, imag: 1.1}
+  A_cross: {real: 0.4, imag: 0.6}
+observer:
+  kind: angular
+  r: 60.0
+  theta_range: {start: 0.0, stop: 3.141592653589793, step: 0.0030679615757712823, endpoint: true}
+  phi_values: [0.0]
+numerics:
+  lmax: 108
+  boundary: {r_in_eps: 1.0e-6, r_out: 300.0, rtol: 1.0e-10, atol: 1.0e-12, required_eval_radius: 60.0}
+convergence:
+  enabled: true
+  lmax_values: [48, 72, 96, 108]
+  theta_values: [0.0, 0.19634954084936207, 0.39269908169872414, 0.7853981633974483, 1.1780972450961724, 1.5707963267948966, 1.9634954084936207, 2.356194490192345, 2.748893571891069, 2.945243112740431, 3.141592653589793]
+  phi_values: [0.0]
+  selected_threshold: 1.0e-4
+  near_axis_threshold: 1.0e-3

@@ -1279,6 +1279,10 @@ def _render_fig3_multifrequency_panel(
         ("h_plus", h_plus_values),
         ("h_cross", h_cross_values),
     ]
+    component_labels = {
+        "h_plus": r"$\mathrm{Re}\,\widetilde{h}_{+}$",
+        "h_cross": r"$\mathrm{Re}\,\widetilde{h}_{\times}$",
+    }
     for row_index, (component, values_by_frequency) in enumerate(row_specs):
         color_vmin, color_vmax = row_color_scales[component]
         row_image = None
@@ -1315,12 +1319,12 @@ def _render_fig3_multifrequency_panel(
                 ax.set_title(f"kM={kM:g}", **title_kwargs)
             if column_index == 0:
                 ax.set_ylabel(
-                    f"real({component})\nz/M",
+                    component_labels[component] + "\n" + r"$z/M$",
                     **_fig3_text_kwargs(fontsize=style_params["label_fontsize"]),
                 )
             if row_index == 1:
                 ax.set_xlabel(
-                    "x/M",
+                    r"$x/M$",
                     **_fig3_text_kwargs(fontsize=style_params["label_fontsize"]),
                 )
             tick_kwargs = _fig3_text_kwargs(
@@ -1338,7 +1342,7 @@ def _render_fig3_multifrequency_panel(
             fig.colorbar(
                 image,
                 ax=axes[row_index, :].ravel().tolist(),
-                label=f"real({component})",
+                label=component_labels[component],
                 fraction=style_params["colorbar_fraction"],
                 pad=style_params["colorbar_pad"],
             )

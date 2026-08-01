@@ -4,7 +4,25 @@
 
 版本：v0.1-design
 
-更新时间：2026-07-05
+更新时间：2026-08-01
+
+## 2026-08-01 当前项目快照
+
+- 第一阶段 Schwarzschild finite-radius scattering、exact-six scientific
+  equivalence、performance 和 provenance gate 已闭合；最新独立方法学审核为
+  GREEN。该结论证明现有 optimized outputs 与冻结 legacy/golden 数据一致，
+  不等价于 Li–Hou–Zhao 全部 Figure 已按原文 convention 复刻。
+- Fig.2 当前冻结并暂缓。Fig.3–8 的高分辨率数值数据与 PDF/PNG 均已生成，
+  但 paper-facing 对照只支持：Fig.8 最接近；Fig.3–7 尚未通过严格论文等价性。
+- 已确认的非绘图差异包括：正频率 NP quantities 到 real-time
+  \(h_+,h_\times\) 的 observable bridge、exact total/scattered-field surface、
+  Fig.5/6 Kirchhoff normalization，以及 Fig.7 apparent-mode projection。
+- 后续不得继续以大网格重算替代物理闭合。优先顺序必须是单频率、单角度或
+  单观察点的低成本 paper-facing probe；只有数值基准与原文闭合后，才允许
+  扩展到完整 Figure。
+- 当前 Figure 产物、SHA-256、分辨率和适用边界见
+  `docs/reports/li_hou_zhao_figures_3_8_completion_20260801.md`。大体积
+  `runs/` 产物仍按 `.gitignore` 留在本地，不进入 GitHub。
 
 ## 1. 项目目标
 
@@ -476,6 +494,8 @@ lmax_rule: ceil(k * r_obs + margin)
   问题，必须停止并交回 T0，而不是继续排版。
 - T0 硬规则：每次 T0 提出下一步方案、阶段推进、go/no-go 判断、线程启动或线程重启建议时，必须同时提供可直接复制给对应线程的 prompt。若方案包含多个线程，必须逐线程给出 prompt、依赖关系、允许修改范围、停止条件和验证命令。若 prompt 需要长期复用，应写入 `docs/prompts/`，并在 `status.md` 记录文件路径；若当前不应启动任何线程，必须明确写出“不提供 prompt”的原因和解除条件。
 - T0 Codex 任务自动派发硬规则：当用户已经批准 T0 的下一步方案、对应 prompt 已冻结且目标 Codex 任务仍存在时，T0 必须在向用户报告最终方案的同一轮，通过 Codex task/thread messaging 工具把 prompt 直接发给目标任务；默认模型为 `5.6 Sol High`。多级链只允许上游任务在 exact GREEN、artifact/tests/status/handoff 全部完成并 fresh verify 后，向已冻结的下游复核任务派发；YELLOW、RED、incomplete、artifact 缺失、检查失败或状态不明确时不得启动下游，只能报告 T0。若出现明确的 model-capacity/system interruption，可由 T0 在同一任务使用 `5.6 Terra High` 恢复，且必须先检查进程、checkpoint 和 artifact 状态以避免重复计算；科学错误、测试失败、backend 不稳定或非有限结果不得通过换模型绕过。目标任务缺失、已归档或 messaging 不可用时，不得静默创建新任务，必须停止并报告用户。下游复核完成后只向 T0 回传 exact decision，不得自行开启下一科学阶段。该自动派发规则不授权任何非 T0 任务执行 GitHub push。
+- T4 代码推理强度硬规则：自 2026-07-26 用户要求后的下一次 T4 代码编写 turn 起，T4 默认使用 `gpt-5.6-sol/high`；只有代码结构、科学/安全边界或 provenance 交互确属复杂且 `high` 不足时，才可使用 `gpt-5.6-sol/max`。T4 代码编写禁止使用 `ultra`，不得因罕见配置分支、机械 manifest/inventory、格式修正、重复 hash/path 检查或普通测试维护升级到 `max`。T0 派发 T4 代码任务时必须显式选择 `high` 或有理由的 `max`；固定 launch/poll、只读核验和普通 control-plane 工作可使用不高于任务所需的强度。该规则不追溯修改历史 turn，也不得为切换强度中断当前唯一健康 runner 或正在闭合的原子阶段。
+- T4 control-plane 持续自修硬规则：在项目完成前、同一已审核科学 scope 内，纯 control-plane、zero-science 的缺陷不得仅以 HOLD 结束 T4 turn，只要仍存在安全且有意义的本地进展路径，T4 必须继续诊断、修正、验证并推进到真实 checkpoint。pre-execution 阶段可在原未冻结 roots 内修正 executable discovery、argv/quoting、cwd/env、static assertion、mutable helper/launcher、fixture、manifest/inventory、observer/process-filter 或同类机械问题；不设固定修正次数，但禁止在没有新诊断或代码变化时盲目重复同一命令。若 helper/root/branch 已 frozen 或 published，旧 evidence 必须 immutable，T4 可为已明确诊断的 zero-science control defect创建 fresh unique no-overwrite evidence roots和修正版 helper/launcher，继续 control-only audit/preflight；不得覆盖、补写、chmod、清理或复用旧 root。post-boundary 纯只读 observer 的 self/parent argv false-positive 不得推翻已独立可重算的 durable success branch：T4 应使用 PID ancestry 与 executable/argument token 语义重做只读观察，或把该 observer 明确降为 non-authoritative warning 后返回 checkpoint。所有修正必须保留 before/after path、SHA、原因、测试和 superseded-root binding。此持续权限不允许重新启动或重复任何 scientific producer、official scientific audit、solver、one-shot witness、matrix item 或 canonical computation，也不允许放宽 scientific threshold/validator semantics、改变 runner/runtime/input identity、修改 canonical/external/frozen scientific evidence、执行 destructive/global/network/GitHub 动作或扩大已审科学 scope；这些边界一旦出现必须 fail closed 回 root T0，由 T0 在同一 heartbeat 立即处理，但自动监控不得因此停止项目。此规则不授权新 task/subagent/proxy/descendant；T4 默认 `gpt-5.6-sol/high`，复杂到 `high` 明确不足时仅由 root T0 显式批准 `max`，始终禁止 `ultra`。
 - T0 YELLOW/RED 修订独立审核闭环硬规则：当既有 gate 返回 exact YELLOW 或 RED，T0 必须先依据失败证据形成一个可审计且已冻结的 bounded repair candidate package，至少包含 design/plan/prompt、允许修改范围、停止条件、验证要求，以及这些文件的路径和 commit/blob/hash 或等价 immutable identity；在向除本闭环独立 reviewer 之外的任何执行或下游复核任务派发该 package 前，必须启动一个与方案编写相分离的只读 subagent 作为独立 reviewer，并取得绑定同一 candidate identity 的 exact GREEN。当前 gate 采用 `T0 修改并冻结 candidate -> reviewer 独立审核 -> T0 针对性修改并冻结新 candidate -> 同一 reviewer 再审核` 的自循环；原则上由同一 reviewer 持续复核，以避免审核标准漂移。reviewer 必须读取适用的 `project.md`、`status.md`、T0/执行/复核线程 handoff、失败证据和 candidate package，并独立检查科学约定、单位与 ordering、scope、artifact/provenance、停止条件、测试和派发依赖。reviewer 只能返回以下 exact decision 之一，并同时列出所审核 package 的 immutable identity、逐项证据和必要的有界修改意见：`REVIEW GREEN / T0 REPAIR PACKAGE APPROVED`、`REVIEW YELLOW / T0 REPAIR PACKAGE CHANGES REQUIRED`、`REVIEW RED / T0 REPAIR PACKAGE INVALID`；不得编辑项目文件、修改 artifact、向其他任务派发消息、执行 GitHub 操作或放宽任何科学/数值/测试门槛。只有绑定同一 candidate identity 的 exact GREEN 才补足上一条自动派发规则中的“用户已经批准”条件，并在本闭环内等效于用户回复“设计已审阅，继续执行”；GREEN 后 T0 不得再对已审 design/plan/prompt、scope、停止条件或验证要求作实质修改，必须在同一轮按上一条规则把该 exact package 发送给对应的现有 Codex 任务，默认使用 `5.6 Sol High`。若 GREEN 后发生任何实质修改，原 GREEN 自动失效，必须冻结新的 identity 并交回同一 reviewer。若 reviewer 返回 YELLOW 或 RED，T0 只有在本轮形成了可验证的新修改时才可冻结新 candidate 并再次送审，不得派发未通过方案；自循环不设固定轮数，但若同一实质 blocker 重复出现、修改要求互相矛盾、无法在原 bounded scope 内修复、reviewer/subagent 不可用，或现有证据无法支持安全修改，T0 必须停止循环并向用户报告，不得绕过审核。该 GREEN 只授权同一个既有 YELLOW/RED gate 的 bounded repair package，不授权新科学阶段、显著 scope 扩张、新科学约定、GitHub push、破坏性或其他外部操作、目标任务创建，亦不得授权通过换模型绕过科学/数值/测试失败；这些情况仍须由用户明确决定。
 - T0 本地 skill 暂停规则：自本规则生效起，仅对 T0 且仅对本条所列 skills，本条构成本节“直接相关 skill 应按说明调用”通用规则的临时例外。T0 在后续方案设计、修订、审核编排和 prompt 编写中暂时不调用 `brainstorming` skill，也不调用 Superpowers 系列 skills（包括但不限于 `using-superpowers`、`writing-plans`、`executing-plans`、`subagent-driven-development` 等），而使用模型本身能力和本项目 frozen 文档完成工作；在平台能够选择或确认模型时使用 `5.6 Sol High`。只有用户明确重新启用时才恢复这些 skills。若平台无法选择或确认模型，T0 不得声称已使用 `5.6 Sol High`，必须如实报告实际可确认状态，且不得因此静默恢复已暂停的 skills；若平台更高优先级的 system/developer 指令在某一轮强制要求特定 skill，T0 必须遵守该上位指令，并向用户明确说明这一例外。不得把本条解释为关闭项目既有科学、测试、handoff、独立审核或 GitHub 安全门槛。
 - T0 GitHub 重大节点同步硬规则：当 T0 通过本地证据确认项目到达重大节点（包括 milestone/phase closeout、高风险 gate 的独立 GREEN 验收、production/benchmark artifact 的独立接受，或 frozen convention/public API 边界的正式冻结）时，必须先更新并核对 `status.md` 和 `docs/handoffs/T0_current.md`，完成对应 fresh verification，然后同步到项目已配置的私人 GitHub 仓库。同步前必须检查完整 diff 和待提交文件，排除 secrets/credentials、私人原始数据、非预期大文件以及无关或未经审查的工作区改动；使用范围明确的 commit，并以非 force push 推送当前授权分支。若工作区含无关未提交改动、远端或认证不可用、artifact 是否应入库不明确，或验证未通过，则不得盲目 stage/commit/push；必须在 `status.md` 与 T0 handoff 中记录 `GitHub sync pending`、准确阻塞原因和下一项安全操作。本规则不授权 force push、history rewrite、删除远端分支或扩大 GitHub 仓库的可见性。
