@@ -1,0 +1,138 @@
+{
+  "artifacts": [
+    {
+      "display_interpolation": "bilinear",
+      "display_interpolation_only": true,
+      "format": "pdf",
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/rendered_paper_v2_20260801/fig7_apparent_four_frequency.pdf",
+      "purpose": "journal_vector_pdf",
+      "sha256": "565a9d2df95e79f96adbf58d7f1a8e1d2bedc17e6858423064db7f983de7c3cc"
+    },
+    {
+      "display_interpolation": "bilinear",
+      "display_interpolation_only": true,
+      "format": "png",
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/rendered_paper_v2_20260801/fig7_apparent_four_frequency_display_bilinear_600dpi.png",
+      "purpose": "display",
+      "sha256": "fcd9b600cbd4cd09ec4070afca3bfce1aa5551bcae52c73272b91687bda221ea"
+    },
+    {
+      "display_interpolation": "nearest",
+      "display_interpolation_only": true,
+      "format": "png",
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/rendered_paper_v2_20260801/fig7_apparent_four_frequency_numerical_audit_nearest_600dpi.png",
+      "purpose": "numerical_audit",
+      "sha256": "e5abaad4ca66fefea6ac39acf341826ffdfc836d0c1f33de134112b236946448"
+    }
+  ],
+  "components": [
+    "h_x",
+    "h_y",
+    "h_b",
+    "h_longitudinal"
+  ],
+  "coordinates": {
+    "background_mass": 1.0,
+    "x": "x/M",
+    "z": "z/M"
+  },
+  "created_at": "2026-08-01T13:11:30.309054+00:00",
+  "created_by_cli": false,
+  "display_policy": {
+    "color_clipping_is_display_only": true,
+    "fixed_paper_color_limit": 0.9,
+    "interpolation_is_display_only": true,
+    "numerical_audit_interpolation": "nearest",
+    "physical_data_modified": false
+  },
+  "kM_values": [
+    0.5,
+    1.0,
+    1.5,
+    2.0
+  ],
+  "no_solver_rerun": true,
+  "overlays": {
+    "event_horizon": {
+      "radius_over_M": 2.0,
+      "style": "black filled"
+    },
+    "light_ring": {
+      "radius_over_M": 3.0,
+      "style": "gray filled disk"
+    }
+  },
+  "physical_claim": false,
+  "plot_type": "fig7_apparent_four_frequency",
+  "quantity": "real",
+  "row_color_scales": {
+    "h_b": {
+      "vmax": 0.9,
+      "vmin": -0.9
+    },
+    "h_longitudinal": {
+      "vmax": 0.9,
+      "vmin": -0.9
+    },
+    "h_x": {
+      "vmax": 0.9,
+      "vmin": -0.9
+    },
+    "h_y": {
+      "vmax": 0.9,
+      "vmin": -0.9
+    }
+  },
+  "schema_version": "li_hou_zhao_fig7_apparent_renderer_v1",
+  "sidecars": [
+    {
+      "artifact_path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/rendered_paper_v2_20260801/fig7_apparent_four_frequency.pdf",
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/rendered_paper_v2_20260801/fig7_apparent_four_frequency.pdf.json",
+      "sha256": "9d33ed2b78d67800722c97b9c8bbb5e48c7458ebe450d047b0b181869ad9a41a"
+    },
+    {
+      "artifact_path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/rendered_paper_v2_20260801/fig7_apparent_four_frequency_display_bilinear_600dpi.png",
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/rendered_paper_v2_20260801/fig7_apparent_four_frequency_display_bilinear_600dpi.png.json",
+      "sha256": "0946ddbfb04a1e3daa4731439b1f94c97f86445b43cb33dcd20f1e2d9911ba68"
+    },
+    {
+      "artifact_path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/rendered_paper_v2_20260801/fig7_apparent_four_frequency_numerical_audit_nearest_600dpi.png",
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/rendered_paper_v2_20260801/fig7_apparent_four_frequency_numerical_audit_nearest_600dpi.png.json",
+      "sha256": "50087c5d61efdec968ac494084d0bfd214bff06c2345d085ff2924d2d487d1d8"
+    }
+  ],
+  "source_inputs": [
+    {
+      "case_id": "LI_FIG7_APPARENT_XZ_K0P5_DX0P25_PRODUCTION",
+      "kM": 0.5,
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/fig7_apparent_kM_0p5_dx0p25.npz",
+      "physical_claim": false,
+      "sha256": "6282791889fbad37efc19a683c1c85419443e35236d02489f4ea294fbff505ba",
+      "size_bytes": 5197337
+    },
+    {
+      "case_id": "LI_FIG7_APPARENT_XZ_K1P0_DX0P25_PRODUCTION",
+      "kM": 1.0,
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/fig7_apparent_kM_1_dx0p25.npz",
+      "physical_claim": false,
+      "sha256": "1e8930d6138d80f35379b4d69310aece1e1be95bd5ce7bed11bf8417d3bbf339",
+      "size_bytes": 5196729
+    },
+    {
+      "case_id": "LI_FIG7_APPARENT_XZ_K1P5_DX0P25_PRODUCTION",
+      "kM": 1.5,
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/fig7_apparent_kM_1p5_dx0p25.npz",
+      "physical_claim": false,
+      "sha256": "335631b5070b20da407d79d1f4bcc7ea1b669f72efd20a0609f01dea4c1a66e1",
+      "size_bytes": 5196905
+    },
+    {
+      "case_id": "LI_FIG7_APPARENT_XZ_K2P0_DX0P25_PRODUCTION",
+      "kM": 2.0,
+      "path": "runs/phase5/fig7_apparent_four_frequency_dx0p25_production/fig7_apparent_kM_2_dx0p25.npz",
+      "physical_claim": false,
+      "sha256": "4c6de50707d6bd7941bdd62dd1f5edd38ea0f03027f1f570dfa1b446dfca02c5",
+      "size_bytes": 5354257
+    }
+  ]
+}

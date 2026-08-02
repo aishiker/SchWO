@@ -1,0 +1,161 @@
+{
+  "R60_production": false,
+  "case_id": "LI_FIG3_XZ_K1P0_DX0P25_PRODUCTION",
+  "command": "/usr/bin/time -p env PYTHONPATH=src /opt/homebrew/bin/python3 -m schwgw.cli run configs/li_fig3_xz_production_k1p0_dx0p25.yaml --out runs/phase5/fig3_four_frequency_dx0p25_production/t8ah_li_fig3_xz_k1p0_dx0p25.npz",
+  "config": {
+    "path": "configs/li_fig3_xz_production_k1p0_dx0p25.yaml",
+    "sha256": "4b714db46cc92488db95417d7211ec2f05d0ffc383867d680f5b403e13904971",
+    "size_bytes": 777
+  },
+  "convention": {
+    "fourier": "exp(-i k t)",
+    "gauge": "Regge-Wheeler",
+    "polarization_bridge": "incident-frame electric tidal packaged scalars",
+    "units": "G=c=M=1"
+  },
+  "convergence": {
+    "final_lmax_pair": [
+      156,
+      180
+    ],
+    "final_pair_passed": true,
+    "history": [
+      {
+        "current_lmax": 132,
+        "max_relative_change": 0.0,
+        "near_axis_max_relative_change": 0.0,
+        "near_axis_probe_count": 4,
+        "previous_lmax": 108,
+        "probe_count": 12,
+        "worst_probe": {
+          "component": "h_plus",
+          "phi": 0.0,
+          "theta": 0.0
+        }
+      },
+      {
+        "current_lmax": 156,
+        "max_relative_change": 0.0,
+        "near_axis_max_relative_change": 0.0,
+        "near_axis_probe_count": 4,
+        "previous_lmax": 132,
+        "probe_count": 12,
+        "worst_probe": {
+          "component": "h_plus",
+          "phi": 0.0,
+          "theta": 0.0
+        }
+      },
+      {
+        "current_lmax": 180,
+        "max_relative_change": 0.0,
+        "near_axis_max_relative_change": 0.0,
+        "near_axis_probe_count": 4,
+        "previous_lmax": 156,
+        "probe_count": 12,
+        "worst_probe": {
+          "component": "h_plus",
+          "phi": 0.0,
+          "theta": 0.0
+        }
+      }
+    ],
+    "lmax_values": [
+      108,
+      132,
+      156,
+      180
+    ],
+    "near_axis_threshold": 0.001,
+    "selected_threshold": 0.0001
+  },
+  "created_utc": "2026-07-08T13:37:57.215195+00:00",
+  "dx02_production": false,
+  "fig2_strict_psi4_artifact": false,
+  "four_frequency_dx025_production": true,
+  "grid": {
+    "finite_valid_h_cross": true,
+    "finite_valid_h_plus": true,
+    "horizon_mask": {
+      "consistent_with_r_gt_2_mask": true,
+      "invalid_r_gt_2_count": 0,
+      "r_le_2_count": 197,
+      "valid_r_le_2_count": 0
+    },
+    "invalid_count": 197,
+    "invalid_h_cross_complex_nan": true,
+    "invalid_h_plus_complex_nan": true,
+    "kind": "xz_plane",
+    "rmax": 42.42640687119285,
+    "shape": [
+      241,
+      241
+    ],
+    "valid_count": 57884,
+    "x_max": 30.0,
+    "x_min": -30.0,
+    "x_spacing": 0.25,
+    "z_max": 30.0,
+    "z_min": -30.0,
+    "z_spacing": 0.25
+  },
+  "kM4_production": false,
+  "not_final_journal_grade": true,
+  "not_paper_level_claim": true,
+  "output": {
+    "path": "runs/phase5/fig3_four_frequency_dx0p25_production/t8ah_li_fig3_xz_k1p0_dx0p25.npz",
+    "sha256": "0de560ce7a2696074e708506240c69e43eb4d40520447ec378208b37f64c0132",
+    "size_bytes": 57760985
+  },
+  "per_frequency_member_of_four_frequency_dx025_production": true,
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "q018_radial_warnings": {
+    "codes": [],
+    "coverage_margin_min_minus_rmax": null,
+    "covers_rmax": true,
+    "ell_max": null,
+    "ell_min": null,
+    "rmax": 42.42640687119285,
+    "sectors": [],
+    "suppression_bound_max": null,
+    "valid_until_r_max": null,
+    "valid_until_r_min": null,
+    "warning_count": 0
+  },
+  "radial_cache": {
+    "enabled": true,
+    "hit_count": 20735842,
+    "key_count": 358,
+    "unique_solution_count": 358
+  },
+  "run_id": "T8AH_FIG3_K1P0_DX0P25_FOUR_FREQUENCY_PRODUCTION",
+  "runtime_seconds": {
+    "real": 3903.89,
+    "sys": 8.5,
+    "user": 3891.06
+  },
+  "scope": "per-frequency member of Fig.3 four-frequency dx=0.25M production; fresh Option A run; not paper-level or final journal-grade",
+  "status": "completed",
+  "stop_gate_summary": {
+    "final_adjacent_pair_passed": true,
+    "invalid_fields_complex_nan": true,
+    "mask_equals_r_gt_2M": true,
+    "q018_valid_until_covers_rmax": true,
+    "shape_is_241x241": true,
+    "solver_exit_zero": true,
+    "solver_walltime_under_3h": true,
+    "valid_fields_finite": true
+  },
+  "wave": {
+    "A_cross": {
+      "imag": 0.6,
+      "real": 0.4
+    },
+    "A_plus": {
+      "imag": 1.1,
+      "real": 0.9
+    },
+    "kM": 1.0
+  }
+}

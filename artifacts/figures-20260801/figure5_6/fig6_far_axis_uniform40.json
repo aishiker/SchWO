@@ -1,0 +1,13 @@
+{
+  "created_by_cli": true,
+  "dpi": 600,
+  "figure": "fig6",
+  "group": "far_axis",
+  "kirchhoff": "compute_kirchhoff_eq47 evaluated at the identical 40 kM values",
+  "no_interpolation": true,
+  "no_smoothing": true,
+  "phase": "principal raw phase (np.angle); no display unwrap",
+  "schema_version": "phase5_tablei_uniform40_figures_v1",
+  "source_npz": "runs/phase5/fig5_fig6_uniform40_direct_production/tablei_uniform40_merged.npz",
+  "source_sha256": "76b0a3d3d3ffd44def8466e18ddcba4fe097d899e12980f988cc0e038cfef6a9"
+}

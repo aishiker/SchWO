@@ -1,0 +1,34 @@
+{
+  "display_clipping_only": true,
+  "display_ylim": [
+    0.0,
+    9.0
+  ],
+  "figure": 4,
+  "no_solver_rerun": true,
+  "reduction_order": 2,
+  "schema_version": "schwgw_fig4_exact_asymptotic_q2_v1",
+  "source_exact": [
+    {
+      "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase5/fig4_angular_n1025_production/fig4_exact_kM_0p5_n1025.npz",
+      "sha256": "35606b4455a116584c2d54597792003483b9793a2979f43ca9569acd3d7374a4"
+    },
+    {
+      "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase5/fig4_angular_n1025_production/fig4_exact_kM_1_n1025.npz",
+      "sha256": "e8d5942ea2d9c07140b86b9ec91346178f9afc2b26bd46d17bfb6a170de513b7"
+    },
+    {
+      "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase5/fig4_angular_n1025_production/fig4_exact_kM_1p5_n1025.npz",
+      "sha256": "902594f4f706f0a3ee3bea0bd0bb9590a5acff4996a9f335cbead66df42a477d"
+    },
+    {
+      "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase5/fig4_angular_n1025_production/fig4_exact_kM_2_n1025.npz",
+      "sha256": "53db438f5e222777aa46002d5d24f51baf9f43890ffd1ea510c05ad249001980"
+    }
+  ],
+  "source_phase_factors": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase5/fig8_matched_production_20260801/fig8_matched_l500_n1440.npz",
+    "sha256": "1a61bc7949a612dc126cfbd1cf28e6704501854c1138949be58806a20080e66f"
+  },
+  "theta_zero_policy": "asymptotic value is NaN; no extrapolation"
+}

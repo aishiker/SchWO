@@ -1,0 +1,298 @@
+{
+  "accepted_source_hashes": {
+    "pilot_npz": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+    "review_npz": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb"
+  },
+  "created_at": "2026-08-01T13:22:52.557683+00:00",
+  "no_interpolation": true,
+  "npz_sha256": "76b0a3d3d3ffd44def8466e18ddcba4fe097d899e12980f988cc0e038cfef6a9",
+  "principal_phase_stored": true,
+  "schema_version": "phase5_tablei_uniform40_v1",
+  "shape": [
+    40,
+    8
+  ],
+  "source_binding": [
+    {
+      "kM": 0.1,
+      "kind": "accepted",
+      "row": 0,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 0.2,
+      "kind": "accepted",
+      "row": 1,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 0.3,
+      "kind": "accepted",
+      "row": 2,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 0.4,
+      "kind": "accepted",
+      "row": 0,
+      "sha256": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+      "source": "runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz"
+    },
+    {
+      "kM": 0.5,
+      "kind": "accepted",
+      "row": 3,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 0.6,
+      "kind": "transaction",
+      "sha256": "4d7eff747687c9ca07c9e0c84a69c076530cf7cbf99e33564c31672780a87182",
+      "sidecar_sha256": "86fe4d1dd0143716288f9ea879ace360a7d80d1baca71b48d0a94d11e4409961",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_0p6.npz"
+    },
+    {
+      "kM": 0.7,
+      "kind": "transaction",
+      "sha256": "060d49328b090b0da25bd77a9ce7180b515a31634be3a3ea953e43fce3ba10a3",
+      "sidecar_sha256": "8d7f8a29f6ac915c724f65d8e2d0b62c5c03ccac1bb5d4ac0861b8c2167bb255",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_0p7.npz"
+    },
+    {
+      "kM": 0.8,
+      "kind": "accepted",
+      "row": 1,
+      "sha256": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+      "source": "runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz"
+    },
+    {
+      "kM": 0.9,
+      "kind": "accepted",
+      "row": 2,
+      "sha256": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+      "source": "runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz"
+    },
+    {
+      "kM": 1.0,
+      "kind": "accepted",
+      "row": 5,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 1.1,
+      "kind": "transaction",
+      "sha256": "278cbb864228465904f762e76f275e5f557cdfffd203a9d2d0d9f5d63cf8282f",
+      "sidecar_sha256": "26998828bf1d607b82634643a7fb9a8d5c3c09d2ed76650f4b5b05c3c0045b10",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_1p1.npz"
+    },
+    {
+      "kM": 1.2,
+      "kind": "transaction",
+      "sha256": "48ad5e5c7349352a247164e369a33ac3ebdb2d81fdf7614bdcb6d2aca0f52622",
+      "sidecar_sha256": "a49d176c9400d4ee4dd767ce539a23dcbe90153f3f0d7562a0fc57f4bd750e61",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_1p2.npz"
+    },
+    {
+      "kM": 1.3,
+      "kind": "transaction",
+      "sha256": "f1a120b9e27e29c84a070dd4795187790d6d78de1cda15d2d33176b9b76b21e1",
+      "sidecar_sha256": "5372f00c5b1f6ff8fe5fe0e00555976372a97590d96121da01e07eeed0a87890",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_1p3.npz"
+    },
+    {
+      "kM": 1.4,
+      "kind": "transaction",
+      "sha256": "dfa41b7d04e1aa770e1663f8db27f6561e821917495f72750649b26898b1f7e4",
+      "sidecar_sha256": "36e86ea25faad768ed4cecab1fd83327469023aaf1986a22d2203d99519a6898",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_1p4.npz"
+    },
+    {
+      "kM": 1.5,
+      "kind": "accepted",
+      "row": 7,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 1.6,
+      "kind": "accepted",
+      "row": 3,
+      "sha256": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+      "source": "runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz"
+    },
+    {
+      "kM": 1.7,
+      "kind": "accepted",
+      "row": 4,
+      "sha256": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+      "source": "runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz"
+    },
+    {
+      "kM": 1.8,
+      "kind": "transaction",
+      "sha256": "325ddea2f6c487dda42561210779b528b2be94e1ec1b603de8031fbc4b449c65",
+      "sidecar_sha256": "2025331ce6037996ed3697df070e89f6f3c2c39c805b6d37c49c4171954c2522",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_1p8.npz"
+    },
+    {
+      "kM": 1.9,
+      "kind": "transaction",
+      "sha256": "9af5566b41f84d7dd808a010ef719e2cb7a31cce66aa9fb66ae00fc4a3a93b5a",
+      "sidecar_sha256": "85f1fc0ef3fb2fc5de198809b74315fe4b18572125a891dbaab0f6e17880a168",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_1p9.npz"
+    },
+    {
+      "kM": 2.0,
+      "kind": "accepted",
+      "row": 9,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 2.1,
+      "kind": "transaction",
+      "sha256": "e347e9add35ffc49036490d3bc7f58e006b3a399f4f7cc39531bd79f8fec4682",
+      "sidecar_sha256": "91ce454dddb8f02f437b3cfc6f688da6a77c17c7a1708ee4094c2fb426b6935b",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_2p1.npz"
+    },
+    {
+      "kM": 2.2,
+      "kind": "transaction",
+      "sha256": "2e9f6ebb84cd1279e9202e2358a6ece9fd05c4833255edec58b0a8d4d627707b",
+      "sidecar_sha256": "6127396e0c3370874c0cabc6b436d72ce230a634a1d630a393d53892ba727c67",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_2p2.npz"
+    },
+    {
+      "kM": 2.3,
+      "kind": "transaction",
+      "sha256": "5fb8e560c71f83daa6b9ec4d27185006ecb3a91341dbea3df2e2965aaeaedbcb",
+      "sidecar_sha256": "b6ab69ab6a25f0246ebef66e0ca4dabc93438b90b67637463ae3180c1932edb0",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_2p3.npz"
+    },
+    {
+      "kM": 2.4,
+      "kind": "transaction",
+      "sha256": "4b3adf1f3e84f183506efe73e04e12e2ca727168c2fbbc8b3cce96f414577425",
+      "sidecar_sha256": "089a3ff03f7da1439d37fe1a8da61bb8b12aaa18247146dc706d4424980af088",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_2p4.npz"
+    },
+    {
+      "kM": 2.5,
+      "kind": "accepted",
+      "row": 11,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 2.6,
+      "kind": "transaction",
+      "sha256": "3d348334b33ccb567d3e7ce06361357e2fbdb6e657f07062a70cabcccb87af42",
+      "sidecar_sha256": "7cf5ec072d4bcfcb8280e1e213c17c2b91862b0f127315567e129f32503b9cf8",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_2p6.npz"
+    },
+    {
+      "kM": 2.7,
+      "kind": "transaction",
+      "sha256": "e370e6cfe37e8276d532efc13f058d918b65c1ffa6e0b166018d9ac42f523f13",
+      "sidecar_sha256": "ab0b17b9c7f5fcccda1c3554ace6f418f923ad154dc2e60df2d9e9a2757bf3c5",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_2p7.npz"
+    },
+    {
+      "kM": 2.8,
+      "kind": "accepted",
+      "row": 5,
+      "sha256": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+      "source": "runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz"
+    },
+    {
+      "kM": 2.9,
+      "kind": "accepted",
+      "row": 6,
+      "sha256": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+      "source": "runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz"
+    },
+    {
+      "kM": 3.0,
+      "kind": "accepted",
+      "row": 13,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 3.1,
+      "kind": "transaction",
+      "sha256": "bb8bcf343a8b3890350f8708269e4026d2d41a37635c1b5dc7dab6954e3ad6f7",
+      "sidecar_sha256": "07588b1af6b72e97beeae835638317570010ef239280856fab2cd669133a817e",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_3p1.npz"
+    },
+    {
+      "kM": 3.2,
+      "kind": "transaction",
+      "sha256": "9105af9ce5a62aaa753e9437183a0f8dec965a62e22ec3f3f3dd49917a8d74ba",
+      "sidecar_sha256": "1bd00da5793608bc747c26ab16d51b2fba9774c90501a8ae1d0169bb06fe6911",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_3p2.npz"
+    },
+    {
+      "kM": 3.3,
+      "kind": "transaction",
+      "sha256": "07f6a2c714b47fc13ae9a32367825e8f91a16f09916afb0db6cff58f75d4841d",
+      "sidecar_sha256": "f5010852a5fe0e032d0e1ed9cdb60ee1d8ddd2ca373028a40c2a7709b17c4063",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_3p3.npz"
+    },
+    {
+      "kM": 3.4,
+      "kind": "transaction",
+      "sha256": "4aeaed1a39ceddcfa165882c055b1e8aa6a2da17916ffd61a87e9f186392561a",
+      "sidecar_sha256": "7aae38e9ef9ee08bed70aa1033a88f39d01c108b65f103829ffbe5650b2e0f42",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_3p4.npz"
+    },
+    {
+      "kM": 3.5,
+      "kind": "accepted",
+      "row": 15,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    },
+    {
+      "kM": 3.6,
+      "kind": "transaction",
+      "sha256": "02b56df1d4fd5cdf2d12b124b6f19aa15d5569cb3b7471c7a09f19b20d4e3395",
+      "sidecar_sha256": "dd9debd9b6ca60c96f0ac3bcb792e4f94652540d3719a5c66e779810c7c35f01",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_3p6.npz"
+    },
+    {
+      "kM": 3.7,
+      "kind": "transaction",
+      "sha256": "fd311c6bf750c88acdfc08918bc4e85d7faeb4019fa1277c65cbbecf925ef3f3",
+      "sidecar_sha256": "d83f27fb0faef5cf5cbfada3b7d783ba2b4cf371023eafe6cc6af2310368e81f",
+      "source": "runs/phase5/fig5_fig6_uniform40_direct_production/frequencies/kM_3p7.npz"
+    },
+    {
+      "kM": 3.8,
+      "kind": "accepted",
+      "row": 7,
+      "sha256": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+      "source": "runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz"
+    },
+    {
+      "kM": 3.9,
+      "kind": "accepted",
+      "row": 8,
+      "sha256": "69cf9812ddd51d6486f854b77b76d202c281d719041cc07e8e87c1af9bd973f7",
+      "source": "runs/phase5/fig5_fig6_delta0p1_risk_pilot/risk_pilot_values.npz"
+    },
+    {
+      "kM": 4.0,
+      "kind": "accepted",
+      "row": 17,
+      "sha256": "a54f07a472316c03e55dc2b49d134f0419dd780cf99bd427e9e0ac337b91fccb",
+      "source": "runs/phase5/fig5_fig6_dense_review_grid/tablei_dense_review_values.npz"
+    }
+  ],
+  "unwrapped_phase_display_only": true
+}
