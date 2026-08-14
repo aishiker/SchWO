@@ -46,8 +46,22 @@ class SchwarzschildBackground:
 
     def r_from_r_star(self, r_star: ArrayLike) -> float | np.ndarray:
         tortoise = np.asarray(r_star, dtype=float)
-        argument = np.exp(tortoise / (2.0 * self.M) - 1.0)
-        radius = 2.0 * self.M * (1.0 + lambertw(argument, k=0).real)
+        logarithmic_argument = tortoise / (2.0 * self.M) - 1.0
+        scaled_radius = np.empty_like(logarithmic_argument)
+        direct = logarithmic_argument <= 700.0
+        scaled_radius[direct] = lambertw(
+            np.exp(logarithmic_argument[direct]), k=0
+        ).real
+        if np.any(~direct):
+            # For large positive y, evaluating W(exp(y)) directly overflows.
+            # Solve w + log(w) = y with Newton iterations instead.  The
+            # asymptotic seed is already close and the update is quadratic.
+            y = logarithmic_argument[~direct]
+            w = y - np.log(y)
+            for _ in range(5):
+                w -= (w + np.log(w) - y) / (1.0 + 1.0 / w)
+            scaled_radius[~direct] = w
+        radius = 2.0 * self.M * (1.0 + scaled_radius)
         return _return_scalar_if_scalar_input(radius, r_star)
 
     def drstar_dr(self, r: ArrayLike) -> float | np.ndarray:

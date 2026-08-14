@@ -8,7 +8,10 @@ from pathlib import Path
 import numpy as np
 
 from schwgw.io.tablei import TABLEI_POINTS
-from schwgw.scattering.kirchhoff import compute_kirchhoff_eq47
+from schwgw.scattering.kirchhoff import (
+    KirchhoffPrefactorConvention,
+    compute_kirchhoff,
+)
 
 
 EXPECTED_KM_VALUES = np.array(
@@ -100,8 +103,9 @@ def generate_kirchhoff_review_grid_artifact(
     *,
     dps: int = 60,
     enforce_accepted_source: bool = True,
+    prefactor_convention: KirchhoffPrefactorConvention = "standard_point_mass",
 ) -> tuple[Path, Path, Path]:
-    """Generate the bounded Eq. (47) comparison artifact from accepted T8aj data."""
+    """Generate a bounded Kirchhoff comparison from accepted T8aj data."""
 
     source = Path(source_npz)
     source_sidecar = Path(str(source) + ".json")
@@ -138,11 +142,12 @@ def generate_kirchhoff_review_grid_artifact(
             f"{max_eta_mismatch:.17g}, exceeding {_ETA_MISMATCH_LIMIT:.1e}"
         )
 
-    result = compute_kirchhoff_eq47(
+    result = compute_kirchhoff(
         kM_values=arrays["kM_values"],
         r_over_M=arrays["point_r"],
         theta=arrays["point_theta"],
         dps=dps,
+        prefactor_convention=prefactor_convention,
     )
     baseline_metadata = dict(result.metadata["baseline"])
     output_arrays = {
@@ -165,12 +170,13 @@ def generate_kirchhoff_review_grid_artifact(
             f"expected {_EXPECTED_ARRAY_DTYPES}, got {actual_dtypes}"
         )
     metadata = {
-        "case_id": "FIG5_FIG6_REVIEW_GRID_KIRCHHOFF_EQ47_BASELINE",
-        "schema_version": "phase5_t8al_kirchhoff_review_grid_v2_units_dtype",
+        "case_id": "FIG5_FIG6_REVIEW_GRID_KIRCHHOFF_BASELINE",
+        "schema_version": "phase5_kirchhoff_review_grid_v3_explicit_convention",
         "units": dict(_ARRAY_UNITS),
         "dtype": dict(actual_dtypes),
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "quantity_kind": "kirchhoff_eq47_scalar_comparison",
+        "quantity_kind": baseline_metadata["kind"],
+        "prefactor_convention": prefactor_convention,
         "source_npz_path": str(source),
         "source_npz_sha256": source_hashes["npz"],
         "source_json_path": str(source_sidecar),
@@ -227,6 +233,7 @@ def generate_kirchhoff_review_grid_artifact(
             sidecar_sha256=sidecar_sha256,
             dps=int(baseline_metadata["dps"]),
             backend_version=str(baseline_metadata["backend_version"]),
+            prefactor_convention=prefactor_convention,
             max_eta_mismatch=max_eta_mismatch,
         ),
         encoding="utf-8",
@@ -283,9 +290,15 @@ def _manifest_text(
     sidecar_sha256: str,
     dps: int,
     backend_version: str,
+    prefactor_convention: KirchhoffPrefactorConvention,
     max_eta_mismatch: float,
 ) -> str:
-    return f"""# Fig.5/Fig.6 Review-Grid Kirchhoff Eq. (47) Baseline
+    formula = (
+        "standard point-mass exp(-pi gamma/2)"
+        if prefactor_convention == "standard_point_mass"
+        else "literal Li-Hou-Zhao v1 Eq. (47) exp(+pi gamma/2)"
+    )
+    return f"""# Fig.5/Fig.6 Review-Grid Kirchhoff Baseline
 
 This archive is a scalar, polarization-independent comparison baseline only.
 It is not a solver output, production denominator, mask, normalization,
@@ -304,7 +317,8 @@ It is not a solver output, production denominator, mask, normalization,
 
 ## Numerical policy
 
-- Formula: Li-Hou-Zhao Eq. (47), no conjugation.
+- Formula: {formula}; no conjugation.
+- Explicit convention: `{prefactor_convention}`.
 - Backend: project-local mpmath {backend_version}, dps={dps}.
 - Grid: exact accepted 18 frequencies by eight Table-I points.
 - Maximum absolute coordinate-derived eta minus rounded paper xi/xi0:

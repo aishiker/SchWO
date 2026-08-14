@@ -138,8 +138,12 @@ def test_plot_fig3_panel_writes_png_and_sidecar_from_xz_result(tmp_path):
     assert metadata["overlays"] == {
         "drawn": True,
         "event_horizon_radius": 2.0,
-        "light_ring_radius": 3.0,
+        "light_ring_radius": pytest.approx(3.0 * math.sqrt(3.0)),
+        "light_ring_geometry": (
+            "image-plane critical impact parameter b_c=3*sqrt(3)*M"
+        ),
     }
+    assert metadata["colormap"] == "viridis"
     assert metadata["convention"] == {"fourier": "exp(-i k t)", "units": "G=c=M=1"}
 
 
@@ -222,6 +226,8 @@ def test_plot_fig3_multifrequency_panel_writes_png_and_sidecar(tmp_path):
     assert metadata["final_lmax_pairs"] == [[4, 8], [8, 12], [12, 16], [16, 20]]
     assert metadata["final_pair_passed"] == [True, True, True, True]
     assert set(metadata["row_color_scales"]) == {"h_plus", "h_cross"}
+    assert metadata["color_scale_source"] == "finite_valid_data_max"
+    assert metadata["display_clipping"] is False
     assert metadata["row_color_scales"]["h_plus"]["vmin"] == -metadata["row_color_scales"][
         "h_plus"
     ]["vmax"]
@@ -231,9 +237,33 @@ def test_plot_fig3_multifrequency_panel_writes_png_and_sidecar(tmp_path):
     assert metadata["overlays"] == {
         "drawn": True,
         "event_horizon_radius": 2.0,
-        "light_ring_radius": 3.0,
+        "light_ring_radius": pytest.approx(3.0 * math.sqrt(3.0)),
+        "light_ring_geometry": (
+            "image-plane critical impact parameter b_c=3*sqrt(3)*M"
+        ),
     }
+    assert metadata["colormap"] == "viridis"
     assert metadata["convention"] == {"fourier": "exp(-i k t)", "units": "G=c=M=1"}
+
+
+def test_plot_fig3_multifrequency_panel_records_explicit_display_window(tmp_path):
+    result_paths = _save_multifrequency_results(tmp_path)
+    output_path = tmp_path / "fig3_multifrequency_clipped.png"
+
+    sidecar = plot_fig3_multifrequency_panel_from_results(
+        result_paths,
+        quantity="real",
+        output_path=output_path,
+        row_color_vmax={"h_plus": 7.0, "h_cross": 6.5},
+    )
+
+    metadata = json.loads(sidecar.read_text(encoding="utf-8"))
+    assert metadata["color_scale_source"] == "explicit_display_window"
+    assert metadata["display_clipping"] is True
+    assert metadata["row_color_scales"] == {
+        "h_plus": {"vmin": -7.0, "vmax": 7.0},
+        "h_cross": {"vmin": -6.5, "vmax": 6.5},
+    }
 
 
 def test_plot_fig3_multifrequency_panel_accepts_publication_dpi(tmp_path):

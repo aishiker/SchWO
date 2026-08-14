@@ -131,9 +131,15 @@ Implements:
   - Source: `docs/physics_spec.md` Sec. 6; `docs/numerics.md` Sec. 3.
   - Tests: `tests/unit/test_radial_solver.py`.
 - Outer asymptotic matching:
-  - Project convention: `A_in exp(-i k r_star) + A_out exp(+i k r_star)`.
+  - Project convention: production uses
+    `A_in exp(-i k r_star) sum_n a_n^-/r^n + A_out exp(+i k r_star) sum_n a_n^+/r^n`,
+    with coefficients generated from the exact RW/Zerilli equation.  Bare
+    `exp(±i k r_star)` is diagnostic-only.
   - Source: `docs/physics_spec.md` Sec. 1.1 and Sec. 6; `docs/numerics.md` Sec. 4.
   - Tests: `tests/unit/test_radial_solver.py`.
+  - Paper-facing boundary audit: Fig.2/4/5/6 retain raw
+    `r_out=(300,600,1200)M`, a quadratic `1/r_out` extrapolation and its
+    independent fit-change uncertainty.
 - High-barrier BVP normalization:
   - Project convention: public `A_in` still denotes the outer `exp(-i k r_star)` coefficient; in the stabilized branch the internal normalization is unit incoming at infinity, so `A_in ~= 1`.
   - Source: `docs/numerics.md` Sec. 5.1.
@@ -154,6 +160,202 @@ Implements:
     - `RadialDiagnostics.warnings`
   - Tests: `tests/physics/test_radial_solver.py`.
   - Caveats: `PolarizationResult.diagnostics` remains numeric-only; benchmark/result metadata should serialize warning records separately from scalar maxima.
+
+## Phase 6 V2.0 asymptotic normalization boundary
+
+Status: convention-contract freeze only.  No V2 science has been executed by
+this section, and no radial backend change is authorized.  The machine-readable
+authority is
+`configs/phase6_v2_0_convention_contract_20260810.json`; the bounded source
+domain is `configs/phase6_v2_0_selected_domain_20260810.json`.
+
+### Li master variables to Martel--Poisson variables
+
+For vacuum Schwarzschild modes with `ell>=2`, Fourier convention
+`exp(-i omega t)`, identical unit-normalized Condon--Shortley scalar
+harmonics, and Li's odd vector harmonic equal to `-X_A^(MP)`, freeze
+
+```text
+Psi_ZM_lm  = psi_Li_even_lm,
+Psi_RW_lm  = psi_Li_odd_lm,
+Psi_RW_lm  = (1/2) partial_t Psi_CPM_lm,
+Psi_CPM_lm = (2 i / omega) psi_Li_odd_lm.
+```
+
+The last line follows from the preceding time-domain identity only after the
+Fourier sign has been fixed.  These linear conversions apply separately to
+incoming, total outgoing, free outgoing, scattered outgoing, and horizon
+coefficients.  They are a V2 validation boundary; they do not rename the Li
+variables inside the radial solver.  No fitted phase, sign, amplitude, or
+normalization is allowed.
+
+Sources: Martel--Poisson Eqs. (3.2), (4.23), (5.13), vacuum (5.18),
+(6.14)--(6.16), and (7.4)--(7.5); Li--Hou--Zhao master definitions in
+`docs/physics_spec.md` Sec. 4.  The explicit implementation precursor is
+`src/schwgw/validation/phase6_asymptotic.py`.
+
+### Incident phase and physical partial-wave normalization
+
+The incident wave propagates along `+z` from a black hole at the coordinate
+origin in a right-handed Cartesian/spherical basis: `theta` is measured from
+`+z` and `phi=0` is the `+x` half-plane.  Freeze
+
+```text
+h_in = (A_plus,A_cross) exp[-i omega(t-z)],
+h_xx=-h_yy=A_plus,                 h_xy=h_yx=A_cross.
+```
+
+Its absolute phase is zero at `t=z=0`.  The two frozen input columns are
+`(A_plus,A_cross)=(1,0)` and `(0,1)`.  With
+
+```text
+A_L=(A_plus+i A_cross)/sqrt(2),    A_R=(A_plus-i A_cross)/sqrt(2),
+A_lm^(plus/minus)=i^ell sqrt(2pi(2ell+1)/sigma_l)
+                  [A_L delta_(m,-2) plus/minus A_R delta_(m,2)],
+c_lm^(-)=-[i^(ell+1)/2] A_lm^(-),
+c_lm^(+)=[i^(ell+1)/omega] A_lm^(+),
+```
+
+only `m=-2,+2` are nonzero.  A raw radial solution is not yet a physical
+incident-plane-wave master mode.  For parity `p`, its unique physical scale is
+
+```text
+N_lm^p = c_lm^p/A_in_raw.
+```
+
+Every incoming, outgoing, scattered, horizon, and finite-radius master
+coefficient must be multiplied by this same scale before the Li-to-MP map is
+applied.  In particular, a unit-incoming numerical solution must not be
+mistaken for a unit physical GW mode.
+
+### Absolute phase and asymptotic mode split
+
+Freeze
+
+```text
+r_star = r + 2M log(r/(2M)-1),       C_r_star = 0,
+u = t-r_star,                         v = t+r_star,
+psi_raw = A_in_raw exp(-i omega r_star) P_minus
+        + A_out_raw exp(+i omega r_star) P_plus,
+S_l = -A_out_raw/[(-1)^ell A_in_raw].
+```
+
+`P_plus/minus=sum_n a_n^(plus/minus) r^(-n)` is the recorded finite-order
+Jost series, not an implicit bare exponential.  Its leading coefficients are
+fixed exactly as `a_0^+=a_0^-=1`; `P_horizon` likewise has leading
+coefficient one.  No subsequent complex rescaling is allowed.  The reference
+free mode has `S_l=1`, hence
+
+```text
+A_in_physical            = c_lm^p,
+A_out_total_physical     = c_lm^p A_out_raw/A_in_raw,
+A_out_free_physical      = -(-1)^ell c_lm^p,
+A_out_scattered_physical = c_lm^p[A_out_raw/A_in_raw+(-1)^ell]
+                         = (-1)^ell c_lm^p(1-S_l),
+T_horizon_physical       = c_lm^p T_horizon_raw/A_in_raw.
+```
+
+After restoring `exp(-i omega t)`, the scattered term is proportional to
+`exp(-i omega u)`.  The horizon mode is
+`T_horizon_physical exp(-i omega r_star) P_horizon`, hence
+`exp(-i omega v)`.
+Only the per-mode scattered-outgoing coefficient may enter a V2 waveform at
+future null infinity.  The incoming term and a total plane-wave sum must not
+be added there.  Finite-radius total fields remain outside V2.0.
+
+### Spin-weighted harmonics and polarizations
+
+With
+
+```text
+sigma_l = (l-1)l(l+1)(l+2),
+{}_sY_lm = (-1)^s sqrt((2l+1)/(4pi))
+           conjugate[D^l_{m,-s}(phi,theta,0)],
+A_lm-i B_lm = (1/2)sqrt(sigma_l)(-1)^m {}_-2Y_lm,
+A_lm+i B_lm = (1/2)sqrt(sigma_l)(-1)^m {}_+2Y_lm,
+```
+
+define the leading future-null-infinity radiative coefficients by
+
+```text
+H_plus  = lim_(r->infinity) r h_plus
+        = sum_lm(Psi_ZM_scattered A_lm-Psi_CPM_scattered B_lm),
+H_cross = lim_(r->infinity) r h_cross
+        = sum_lm(Psi_ZM_scattered B_lm+Psi_CPM_scattered A_lm),
+
+H_plus-i H_cross
+        = sum_lm [(1/2)sqrt(sigma_l)(-1)^m
+                  (Psi_ZM_scattered-i Psi_CPM_scattered) {}_-2Y_lm].
+```
+
+These are the coefficients `H_plus/H_cross=lim_(r->infinity) r h_plus/cross`.
+The existing `martel_poisson_strain(..., areal_scale=<finite>)` interface is
+an algebraic precursor; a finite `areal_scale` call must not be stored or
+described as the V2 infinity limit.
+
+The complex amplitudes multiply `exp(-i omega u)`; the physical real field is
+their real part after the negative-frequency partner is included.  At the
+future event horizon the odd contribution reverses sign:
+
+```text
+2M h_plus  = sum_lm(Psi_ZM_horizon A_lm+Psi_CPM_horizon B_lm),
+2M h_cross = sum_lm(Psi_ZM_horizon B_lm-Psi_CPM_horizon A_lm),
+```
+
+with time dependence `exp(-i omega v)`.  The asymptotic transverse
+`(e_theta,e_phi)` dyad defines plus/cross in the outward right-handed frame
+`e_r cross e_theta=e_phi`; its `phi=0` direction is tied to the incident
+`+x` half-plane.  A basis rotation `alpha` uses
+`R(alpha)=[[cos(2alpha),sin(2alpha)],[-sin(2alpha),cos(2alpha)]]`.
+The null tetrad has no remaining boost or spin freedom:
+
+```text
+l=(e_0+e_r)/sqrt(2),       n=(e_0-e_r)/sqrt(2),
+m=(e_theta+i e_phi)/sqrt(2),   mbar=conjugate(m),
+l dot n=-1,                m dot mbar=+1.
+```
+
+The Schwarzschild Kinnersley limit is boosted relative to this tetrad:
+`l_K=sqrt(2)l`, `n_K=n/sqrt(2)`, `m_K=m`, hence
+`Psi4_K=Psi4/2`.  A route-B Kinnersley scalar must be multiplied by exactly
+two, or the curvature must be contracted directly into the symmetric tetrad;
+the chosen route is recorded.
+
+With `Psi4=-C(n,mbar,n,mbar)`, metric signature `-+++`, and
+
+```text
+R^rho_(sigma mu nu)=partial_mu Gamma^rho_(nu sigma)
+                    -partial_nu Gamma^rho_(mu sigma)
+                    +Gamma^rho_(mu lambda) Gamma^lambda_(nu sigma)
+                    -Gamma^rho_(nu lambda) Gamma^lambda_(mu sigma),
+```
+
+`Psi4=-omega^2(h_plus-i h_cross)`.  This is an asymptotic dyad statement, not
+a finite-radius observer-frame prescription.
+
+For real-field peak amplitudes, time averaging contributes `1/2`:
+
+```text
+<dE/du> = omega^2/(128pi) sum_lm sigma_l
+          (|Psi_ZM_scattered|^2+|Psi_CPM_scattered|^2),
+<dE/dv> = omega^2/(128pi) sum_lm sigma_l
+          (|Psi_ZM_horizon|^2+|Psi_CPM_horizon|^2).
+```
+
+Raw radial Wronskian flux must be converted with the frozen master and
+incident-mode normalizations before it is compared with these GW energy
+fluxes.
+
+Published boundary identifiers are `future_null_infinity` and
+`future_event_horizon`.  The existing asymptotic precursor API spells the
+latter `event_horizon`; that string is an explicit API alias, not a third
+boundary.
+
+The selected V2.0 inventory contains 15 exact `(kM,ell)` odd/even pairs, two
+unit input columns, and 60 `(radial key,m)` channels per column (120
+route-mode-column records per future route).  Observation angles and a full
+partial-wave sum are deferred to V2.1.  This sparse kernel domain cannot be
+called a scientific angular waveform or a complete `2x2` transfer matrix.
 
 ## `src/schwgw/angular/*`
 
@@ -273,8 +475,11 @@ Implements:
 
 ## `src/schwgw/scattering/partial_wave.py`
 
-Status: implemented, unit/physics-tested, Q014 curved production bridge implemented
-in T6j for `compute_polarization(...)`.
+Status: radial/strict-NP assembly is implemented and tested.  The historical
+`compute_polarization(...)` retains the full-strict-NP pseudoinverse only as a
+reproducibility diagnostic.  A separate direct RW-metric/linearized-Riemann
+production bridge is implemented in `scattering.metric_curvature` and used by
+the repaired Fig. 3--7 production scripts.
 
 Implements:
 - Finite-radius partial-wave polarization assembly:
@@ -285,12 +490,22 @@ Implements:
     - Frozen curved production bridge: after metric reconstruction, compute incident-frame electric tidal components
       `E_xx=C(e0,ex,e0,ex)` and `E_xy=C(e0,ex,e0,ey)` from the linearized Weyl/Riemann tensor, package
       `Psi4_pack=-E_xx+iE_xy` and `Psi0_pack=-E_xx-iE_xy`, then call the typed `polarization_from_packaged_scalars(...)` API or the equivalent direct formulas `h_plus=2E_xx/k^2`, `h_cross=2E_xy/k^2`.
-    - T6k-hardened implementation routes `strict Kinnersley NP sum -> transform_strict_np_weyl_to_incident_tetrad(...) -> StrictNPScalars.from_mapping(...) -> compute_packaged_polarization_scalars(...) -> polarization_from_packaged_scalars(...)`, so production no longer passes strict-NP `Psi0/Psi4` directly to packaged extraction.
+    - The historical `compute_polarization(...)` implementation routes `strict Kinnersley NP sum -> transform_strict_np_weyl_to_incident_tetrad(...) -> StrictNPScalars.from_mapping(...) -> compute_packaged_polarization_scalars(...) -> polarization_from_packaged_scalars(...)`.  The named packaging function reconstructs a Weyl tensor through a pseudoinverse of the full one-sided strict-NP quintuple.  That step lacks the required `(+k,m)`/`(-k,-m)` reality bridge and is therefore diagnostic-only, with `observable_bridge_validated=0`.
+    - Repaired production uses `compute_metric_curvature_polarization(...)`: Appendix-A RW-gauge metric reconstruction, RW/Zerilli-equation evaluation of `psi''` and `psi'''` at the observer anchor, a Richardson stencil only for the smooth algebraic reconstruction coefficients, exact `exp(-ikt)` time derivatives, the first variation of the Riemann tensor on Schwarzschild, and direct incident-frame `E_xx/E_xy` contractions. It never finite-differences dense ODE interpolation. `compute_direct_metric_polarization(...)` exposes the transverse result and `compute_direct_metric_apparent_polarizations(...)` derives the Fig. 7 tetrad diagnostics from the same directly computed Riemann tensor.
+    - `observer_frame` is explicit:
+      `static_orthonormal` is the physical default and
+      `li_literal_cartesian` is the literal Li-coordinate diagnostic.  The
+      unqualified `physical_claim` remains false; gauge/frame-qualified
+      physical validity and `paper_equivalence="YELLOW"` are separate
+      metadata fields.
     - Direct two-scalar maps from strict `Psi0_NP/Psi4_NP` to packaged scalars are rejected for curved finite-radius production.
-    - Full tensor reconstruction from all five strict NP scalars is conditionally legal only as a tensor-consistency diagnostic or future alternative after the positive-frequency full-tensor bridge is frozen; v0.1 production should use direct metric/tidal projection.
+    - Full tensor reconstruction from all five strict NP scalars remains conditionally legal only as a tensor-consistency diagnostic or future alternative after the positive-frequency full-tensor bridge is frozen; it is not used by the direct metric/tidal production projection.
   - Source: `docs/physics_spec.md` Sec. 7 and Sec. 9; Li-Hou-Zhao Eq. (20)-(42); `references/notes/phase3_formula_audit.md`; `references/notes/q014_weyl_transform_bridge.md`; `references/notes/q014_curved_polarization_bridge.md`.
   - Frozen interface:
     - `compute_polarization(background, k, r, theta, phi, A_plus, A_cross, lmax, boundary_config=None)`
+    - `compute_metric_curvature_polarization(background=..., k=..., r=..., theta=..., phi=..., A_plus=..., A_cross=..., lmax=..., boundary_config=None)`
+    - `compute_direct_metric_polarization(...)`
+    - `compute_direct_metric_apparent_polarizations(...)`
     - `compute_flat_no_lens_polarization(k, r, theta, phi, A_plus, A_cross, lmax, q011_z_conjugation="linear")`
     - `compute_flat_no_lens_partial_wave_diagnostic(k, r, theta, phi, A_plus, A_cross, lmax, q011_z_conjugation="linear")`
     - `compute_flat_no_lens_partial_wave_strict_np_weyl(k, r, theta, phi, A_plus, A_cross, lmax, tetrad="incident")`
@@ -324,7 +539,7 @@ Implements:
     - Li-Hou-Zhao Eq. (35g)-(35h) star is not a same-positive-`k`, same-`m` conjugation rule in the project API; curved production must not depend on that literal interpretation.
   - Source: `docs/physics_spec.md` Sec. 7 and Sec. 9; Li-Hou-Zhao Eq. (24), Eq. (35), Eq. (41)-(42); `references/notes/phase3_formula_audit.md`; `references/notes/q014_weyl_transform_bridge.md`; `references/notes/q014_curved_polarization_bridge.md`.
   - Tests: `tests/physics/test_phase3_validation.py`.
-  - Current diagnostic: the direct Cartesian TT oracle recovers input `A_plus/A_cross` with relative error below `1e-10`, and the public `compute_flat_no_lens_polarization(...)` recovery test is active. After Q014 T6g, the diagnostic-only partial-wave flat path recovers the generic probe with relative error `9.551385933171753e-16` at `M=0,k=0.5,r=20,theta=0.4,phi=0,A_plus=0.9+0.2j,A_cross=0.1-0.3j,lmax=40`.
+  - Current diagnostic: the direct Cartesian TT oracle recovers input `A_plus/A_cross` with relative error below `1e-10`.  The historical partial-wave helper reaches machine precision only after `_complete_flat_type_n_kinnersley_weyl(...)` discards the raw lower-Weyl components and performs a least-squares type-N completion.  The new raw helper demonstrates relative full-quintuple errors `0.1186258665` at `theta=0.4` and `0.9623614894` at `theta=1.0` for the pure-plus audit probe; completion must not be cited as raw bridge validation.
 
 ## `src/schwgw/scattering/transmission.py`
 
@@ -444,9 +659,11 @@ Implements:
     This plotting path must not rerun solvers, recompute the flat/no-lens
     baseline, or recompute M5 ratios.
 
-## Future Kirchhoff Eq. (47) scalar comparison baseline
+## Kirchhoff point-mass scalar comparison baseline
 
-Status: planned, T1j convention-frozen; not implemented in source code.
+Status: implemented with explicit conventions.  The 2026-08-02 independent
+audit supersedes the earlier literal-sign default: `standard_point_mass` is
+the scientific default and `literal_paper_v1` is forensic-only.
 
 Implements:
 - Li-Hou-Zhao Kirchhoff comparison factor:
@@ -454,9 +671,12 @@ Implements:
     - Fourier compatibility uses `exp(-i k t)`. Li-Hou-Zhao Eq. (46)
       `exp(i k r cos(theta))` matches the project flat `+z`
       positive-frequency plane wave `exp(i k z)`.
-    - Frozen formula:
-      `F_K = exp(pi gamma/2) (-gamma)^(-i gamma) Gamma(1+i gamma)
+    - Standard formula:
+      `F_K = exp(-pi gamma/2) (-gamma)^(-i gamma) Gamma(1+i gamma)
       1F1(-i gamma,1;-i gamma (xi/xi0)^2)`.
+    - Literal Li--Hou--Zhao v1 Eq. (47) is separately available with
+      `exp(+pi gamma/2)`; it fails the independent on-axis identity and is not
+      the plotting default.
     - `gamma = -2 M k`.
     - `xi/xi0 = (1/2) sqrt(r/M) tan(theta)`.
     - `(-gamma)^(-i gamma)` uses the principal real log of
@@ -474,7 +694,10 @@ Implements:
     - It may be plotted as the same dashed comparison curve against
       `F_plus_complex` and `F_cross_complex`.
   - Tests:
-    - Future T8/T7 scope after T1j and T4v are jointly reviewed by T7bn.
+    - independent on-axis identity
+      `|F(0)|^2=4*pi*Mk/(1-exp(-4*pi*Mk))`;
+    - explicit standard/literal convention separation;
+    - complex phase equality and expected magnitude ratio between branches.
   - Caveats:
     - Do not use this as the denominator for project pointwise amplification.
     - Do not use it to mask, normalize, correct, or calibrate spin-2

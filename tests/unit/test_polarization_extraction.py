@@ -15,7 +15,10 @@ from schwgw.scattering.observables import (
     polarization_from_packaged_scalars,
     polarization_from_weyl,
 )
-from schwgw.scattering.partial_wave import compute_polarization
+from schwgw.scattering.partial_wave import (
+    compute_apparent_polarizations,
+    compute_polarization,
+)
 from schwgw.scattering.weyl import StrictNPScalars, compute_packaged_polarization_scalars
 
 
@@ -172,6 +175,42 @@ class PolarizationExtractionTests(unittest.TestCase):
         self.assertEqual(result.h_cross, 456.0 + 0.0j)
         np.testing.assert_allclose(result.psi0_hat, expected_packaged.psi0_pack)
         np.testing.assert_allclose(result.psi4_hat, expected_packaged.psi4_pack)
+
+    def test_compute_apparent_polarizations_reuses_strict_np_assembly(self) -> None:
+        calls: list[tuple[Sector, int]] = []
+        strict_np = {
+            "Psi0": 11.0 + 0.0j,
+            "Psi1": -2.0 + 3.0j,
+            "Psi2": 4.0 - 5.0j,
+            "Psi3": 6.0 + 7.0j,
+            "Psi4": 17.0 + 0.0j,
+        }
+
+        with patch.object(
+            partial_wave_module,
+            "transform_strict_np_weyl_to_incident_tetrad",
+            return_value=strict_np,
+        ):
+            result = compute_apparent_polarizations(
+                background=self.bg,
+                k=0.5,
+                r=20.0,
+                theta=0.4,
+                phi=0.3,
+                A_plus=0.7 - 0.1j,
+                A_cross=0.2 + 0.3j,
+                lmax=2,
+                radial_solver=recording_radial_solver(calls),
+            )
+
+        assert result.physical_claim is False
+        assert result.frame == "incident"
+        assert result.h_x == -(strict_np["Psi1"] + strict_np["Psi3"]) / (2.0 * 0.5**2)
+        assert result.h_y == 1.0j * (strict_np["Psi1"] - strict_np["Psi3"]) / (2.0 * 0.5**2)
+        assert result.h_b == -strict_np["Psi2"] / (2.0 * 0.5**2)
+        assert result.h_longitudinal == -strict_np["Psi2"] / 0.5**2
+        assert result.diagnostics["radial_solve_count"] == 2.0
+        assert calls == [(Sector.ODD, 2), (Sector.EVEN, 2)]
 
     def test_invalid_inputs_raise_clear_errors(self) -> None:
         with self.assertRaisesRegex(ValueError, "positive"):

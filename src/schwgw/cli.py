@@ -39,6 +39,8 @@ def main(argv: list[str] | None = None) -> int:
         return _plot_fig4_exact_angular(args)
     if args.command == "plot-fig4-all-frequency-exact-angular":
         return _plot_fig4_all_frequency_exact_angular(args)
+    if args.command == "plot-fig7-apparent-four-frequency":
+        return _plot_fig7_apparent_four_frequency(args)
     if args.command == "plot-amplification":
         return _plot_amplification(args)
     if args.command == "plot-tablei-four-frequency":
@@ -169,6 +171,22 @@ def _plot_fig4_all_frequency_exact_angular(args: argparse.Namespace) -> int:
             f"schwgw plot-fig4-all-frequency-exact-angular: {exc}",
             file=sys.stderr,
         )
+        return 2
+    return 0
+
+
+def _plot_fig7_apparent_four_frequency(args: argparse.Namespace) -> int:
+    try:
+        from schwgw.viz import render_fig7_apparent_four_frequency
+
+        render_fig7_apparent_four_frequency(
+            args.results,
+            output_dir=args.out_dir,
+            basename=args.basename,
+            created_by_cli=True,
+        )
+    except (RuntimeError, ValueError) as exc:
+        print(f"schwgw plot-fig7-apparent-four-frequency: {exc}", file=sys.stderr)
         return 2
     return 0
 
@@ -509,6 +527,28 @@ def _build_parser() -> argparse.ArgumentParser:
         type=_positive_int,
         default=300,
         help="figure DPI for raster output; default is 300",
+    )
+    fig7_apparent = subparsers.add_parser(
+        "plot-fig7-apparent-four-frequency",
+        help=(
+            "render saved diagnostic Fig. 7 apparent wavefields for "
+            "kM=0.5,1.0,1.5,2.0 without recomputing physics"
+        ),
+    )
+    fig7_apparent.add_argument(
+        "results",
+        nargs=4,
+        help="four saved Fig. 7 apparent NPZ files in increasing kM order",
+    )
+    fig7_apparent.add_argument(
+        "--out-dir",
+        required=True,
+        help="directory for PDF, display PNG, numerical-audit PNG, and manifest",
+    )
+    fig7_apparent.add_argument(
+        "--basename",
+        default="fig7_apparent_four_frequency",
+        help="output filename stem; default is fig7_apparent_four_frequency",
     )
     amplification_plot = subparsers.add_parser(
         "plot-amplification",

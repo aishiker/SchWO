@@ -1,0 +1,265 @@
+{
+  "schema": "schwgw_phase6_v2_0_convention_contract_v1",
+  "contract_id": "phase6_v2_0_asymptotic_conventions_20260810",
+  "contract_only": true,
+  "science_executed": false,
+  "global_green_permitted": false,
+  "li_figure_agreement_primary_gate": false,
+  "v1_transition_adjudication": {
+    "decision": "ACCEPT GREEN / V1 RADIAL REPAIR SUFFICIENT FOR BOUNDED V2 ENTRY",
+    "nonclaim": "full-domain V1 independent scientific certification remains PARTIAL",
+    "algorithmic_radial_domain": "PASS",
+    "production_radial_state_completeness": "PASS",
+    "selected_independent_numerical_validation": "PASS",
+    "full_domain_independent_scientific_certification": "PARTIAL"
+  },
+  "authoritative_v1_identities": {
+    "release_map": {
+      "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/configs/phase6_v1_repaired_release_map_20260810.json",
+      "sha256": "aef59e5fe9db485b8b5c2b2909befe3777cd9ce6e0e4ecc75200392b52e8fe30"
+    },
+    "preparation_submission": {
+      "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/v1_release_preparation_repaired_v2_20260810_py314/canonical_submission.json",
+      "sha256": "fc0c45db3cff9c7e68219cf26c298e45e162b6cc40d2598729e6266c4920b72f"
+    },
+    "release_ledger": {
+      "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/v1_release_repaired_v2_20260810_py314/release_ledger.json",
+      "sha256": "7ef62d6b3ff883570510854ff230821a7d3ca89c8596602df2c36d1cff66e0db"
+    },
+    "algorithmic_d_union": {
+      "root": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314",
+      "summary_sha256": "22afce89c31b6c606c3140ae31f2c9d6ef2f1b1c36e65d553be052afbcf332a3",
+      "report_sha256": "22883fdced4a1b8a93845dbe11179238220075de49548ee8149ba471df8c101d",
+      "manifest_sha256": "2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728",
+      "records_sha256": "03f56dd7f8c4e41a9983b6ab1d919a7880aaf80573ded65dcacf48e57a5e80a7",
+      "key_count": 17818,
+      "native_state": "PASS"
+    },
+    "production_radial_states": {
+      "root": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/radial_validation/v1_production_state_evidence_v2_20260810_py314",
+      "report_sha256": "34701bbf930817dd37ba183cea273d6130cc6fa907b8e8fecb8a43687438954f",
+      "manifest_sha256": "7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4",
+      "source_ledger_sha256": "3886f002774fd5db7b9af471b1f3a1a6e0ab39acc6a283b337da99f793c832e3",
+      "mode_count": 16048,
+      "states_per_mode": 8,
+      "completeness_state": "PASS"
+    },
+    "selected_external_direct": {
+      "root": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/radial_validation/v1_external_bhpt_direct_bounded_selected_v1_20260810_py314",
+      "manifest_sha256": "e12c49b00efecc9c65d42699f2a5052ecac1fe2c988312ed21c4da085fe5ee6d",
+      "summary_sha256": "50f448455ddf978591bf210ec103a1475ea0ccc0c3efd477dda77962081c644b",
+      "key_count": 30,
+      "native_state": "PASS"
+    },
+    "selected_external_comparison": {
+      "root": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314",
+      "report_sha256": "3dc46242f171eedd15fcd5f697a728637ce863a9e393994ec611896d275939a1",
+      "summary_sha256": "ae2480c9989e9a7eaf0056ae39aefb7594ddbb3ad840c0b0bdd70c4203900695",
+      "manifest_sha256": "aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c",
+      "key_count": 30,
+      "native_state": "PASS"
+    },
+    "selected_arbitrary_precision": {
+      "root": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/radial_validation/v1_ap_selected_evidence_v1_20260810_py314",
+      "report_sha256": "c3ee315bb96e139297e7663a7519f06df1259d374c2079bc577a4392351a7039",
+      "manifest_sha256": "c755b93c490ff836c60ec436e320ee45adc5118186a45294bfc9f608839349d9",
+      "source_ledger_sha256": "e1ffcc47f9b571aa17809467937149d7c1567493e78d7049a11d693cd5e03f3d",
+      "anchor_count": 24,
+      "native_state": "PASS"
+    }
+  },
+  "protected_radial_backend_identities": {
+    "policy": "T6 and T7 must rehash every file before and after V2.0 work; any mismatch is a RED start-gate violation, irrespective of a pre-existing dirty git worktree",
+    "authoritative_d_union_plan": {
+      "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/plan.json",
+      "sha256": "de266846ff6672dd04be255a43a1b5899af4753bea0757e00c5c2d60cf2067e3"
+    },
+    "files": [
+      {"path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/numerics/radial_solver.py", "sha256": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9"},
+      {"path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/numerics/conditioned_radial.py", "sha256": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2"},
+      {"path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/numerics/scaled_tortoise_radial.py", "sha256": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"},
+      {"path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/numerics/adaptive_jost_radial.py", "sha256": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896"},
+      {"path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/numerics/matching.py", "sha256": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340"},
+      {"path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/numerics/physical_boundary_radial.py", "sha256": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f"},
+      {"path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/numerics/boundary_conditions.py", "sha256": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22"}
+    ]
+  },
+  "selected_domain": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/configs/phase6_v2_0_selected_domain_20260810.json",
+    "sha256": "9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818",
+    "radial_key_count": 30,
+    "radial_odd_even_pair_count": 15,
+    "mode_channel_count_per_incident_column": 60,
+    "incident_column_count": 2,
+    "route_mode_column_record_count": 120,
+    "angular_observation_domain": "DEFERRED_TO_V2_1"
+  },
+  "incident_plane_wave_convention": {
+    "propagation_direction": "+z",
+    "positive_frequency_field": "h_in=(A_plus,A_cross) exp[-i omega(t-z)]",
+    "phase_zero_event": "t=z=0",
+    "cartesian_basis": "right-handed (e_x,e_y,e_z); h_xx=-h_yy=A_plus, h_xy=h_yx=A_cross; phi=0 is the +x half-plane",
+    "unit_linear_columns": [
+      {"column": "plus", "A_plus": [1.0, 0.0], "A_cross": [0.0, 0.0]},
+      {"column": "cross", "A_plus": [0.0, 0.0], "A_cross": [1.0, 0.0]}
+    ],
+    "helicity_conversion": {
+      "A_L": "(A_plus+i A_cross)/sqrt(2)",
+      "A_R": "(A_plus-i A_cross)/sqrt(2)",
+      "A_plus": "(A_L+A_R)/sqrt(2)",
+      "A_cross": "-i(A_L-A_R)/sqrt(2)"
+    },
+    "partial_wave_amplitudes": "A_lm^(plus/minus)=i^ell sqrt(2pi(2ell+1)/sigma_l)[A_L delta_(m,-2) plus/minus A_R delta_(m,2)]",
+    "li_master_incident_coefficients": {
+      "odd": "c_lm^(-)=-[i^(ell+1)/2] A_lm^(-)",
+      "even": "c_lm^(+)=[i^(ell+1)/omega] A_lm^(+)"
+    },
+    "selection_rule": "c_lm^(plus/minus)=0 for m not in {-2,+2}",
+    "normalization_policy": "for parity p, every raw radial coefficient and state is multiplied by N_lm^p=c_lm^p/A_in_raw before it is called a physical incident-plane-wave master amplitude"
+  },
+  "master_normalization": {
+    "scope": "vacuum Schwarzschild radiative modes ell>=2 with identical unit-normalized Condon-Shortley scalar harmonics",
+    "li_odd_vector_harmonic_relation": "Li odd vector harmonic = -X_A^(Martel-Poisson)",
+    "even": {
+      "li_variable": "psi_Li_even",
+      "martel_poisson_variable": "Psi_ZM",
+      "conversion": "Psi_ZM_lm = psi_Li_even_lm"
+    },
+    "odd": {
+      "li_variable": "psi_Li_odd",
+      "martel_poisson_rw_variable": "Psi_RW",
+      "martel_poisson_cpm_variable": "Psi_CPM",
+      "li_to_rw_conversion": "Psi_RW_lm = psi_Li_odd_lm",
+      "vacuum_time_domain_relation": "Psi_RW_lm = (1/2) partial_t Psi_CPM_lm",
+      "frequency_domain_conversion": "Psi_CPM_lm = (2 i / omega) psi_Li_odd_lm for exp(-i omega t)"
+    },
+    "linearity": "the same conversion applies separately to incoming, total outgoing, free outgoing, scattered outgoing, and horizon coefficients",
+    "fit_policy": "no fitted phase, sign, amplitude, or normalization factor is permitted"
+  },
+  "phase_conventions": {
+    "units": "G=c=M=1 for the selected evidence; formulas retain M explicitly",
+    "metric_signature": "-+++",
+    "riemann_tensor": "R^rho_(sigma mu nu)=partial_mu Gamma^rho_(nu sigma)-partial_nu Gamma^rho_(mu sigma)+Gamma^rho_(mu lambda) Gamma^lambda_(nu sigma)-Gamma^rho_(nu lambda) Gamma^lambda_(mu sigma)",
+    "fourier": "exp(-i omega t), omega>0",
+    "tortoise_coordinate": "r_star=r+2M log(r/(2M)-1)",
+    "tortoise_additive_constant": "C_r_star=0 in the displayed formula",
+    "retarded_time": "u=t-r_star",
+    "advanced_time": "v=t+r_star",
+    "outer_jost_basis": "psi=A_in exp(-i omega r_star) P_minus(r)+A_out exp(+i omega r_star) P_plus(r), with P_plus/minus=sum_n a_n^(plus/minus) r^(-n), a_0^(plus)=a_0^(minus)=1 exactly, and the finite order recorded per artifact",
+    "horizon_basis": "psi=T_horizon exp(-i omega r_star) P_horizon(r), with the leading coefficient of P_horizon exactly 1, hence exp(-i omega v) after restoring time dependence",
+    "jost_rescaling_policy": "no complex rescaling of P_plus, P_minus, or P_horizon is permitted after their leading coefficients are fixed to 1",
+    "absolute_phase_origin": "the +z incident field exp[-i omega(t-z)] has zero phase at t=z=0; no additional Coulomb subtraction beyond the logarithmic phase in the frozen r_star/Jost factors",
+    "scattering_matrix": "S_l=-A_out/[(-1)^ell A_in]"
+  },
+  "mode_definitions": {
+    "raw_total_radial_mode": "psi_raw=A_in_raw exp(-i omega r_star) P_minus+A_out_raw exp(+i omega r_star) P_plus",
+    "raw_scattering_matrix": "S_l=-A_out_raw/[(-1)^ell A_in_raw]",
+    "physical_normalization": "N_lm^p=c_lm^p/A_in_raw for parity p; psi_physical=N_lm^p psi_raw",
+    "physical_incoming_coefficient": "A_in_physical=c_lm^p",
+    "physical_total_outgoing_coefficient": "A_out_total_physical=c_lm^p A_out_raw/A_in_raw",
+    "physical_free_outgoing_coefficient": "A_out_free_physical=-(-1)^ell c_lm^p, equivalently S_l=1",
+    "physical_scattered_outgoing_coefficient": "A_out_scattered_physical=c_lm^p[A_out_raw/A_in_raw+(-1)^ell]=(-1)^ell c_lm^p(1-S_l)",
+    "scattered_outgoing_mode": "psi_scattered=A_out_scattered_physical exp(+i omega r_star) P_plus, giving exp(-i omega u) after restoring time dependence",
+    "physical_horizon_coefficient": "T_horizon_physical=c_lm^p T_horizon_raw/A_in_raw",
+    "horizon_transmitted_mode": "psi_horizon=T_horizon_physical exp(-i omega r_star) P_horizon, giving exp(-i omega v)",
+    "null_infinity_policy": "only scattered-outgoing per-mode coefficients enter the V2 null-infinity waveform; neither the incoming term nor a total plane-wave sum is added",
+    "finite_radius_policy": "finite-radius total fields and observer-qualified tidal responses are outside V2.0"
+  },
+  "angular_and_polarization_conventions": {
+    "scalar_harmonics": "unit-normalized Condon-Shortley Y_lm with Y_l,-m=(-1)^m conjugate(Y_lm)",
+    "spin_weighted_harmonics": "{}_sY_lm=(-1)^s sqrt((2l+1)/(4pi)) conjugate(D^l_{m,-s}(phi,theta,0)) in the frozen project Wigner-D convention",
+    "sigma_l": "sigma_l=(l-1)l(l+1)(l+2)",
+    "angular_operator_identities": [
+      "A_lm-i B_lm=(1/2)sqrt(sigma_l)(-1)^m {}_-2Y_lm",
+      "A_lm+i B_lm=(1/2)sqrt(sigma_l)(-1)^m {}_+2Y_lm"
+    ],
+    "future_null_infinity": {
+      "radiative_coefficients": "H_plus=lim_{r->infinity} r h_plus; H_cross=lim_{r->infinity} r h_cross",
+      "plus": "H_plus=sum_lm(Psi_ZM_scattered A_lm-Psi_CPM_scattered B_lm)",
+      "cross": "H_cross=sum_lm(Psi_ZM_scattered B_lm+Psi_CPM_scattered A_lm)",
+      "complex_minus": "H_plus-i H_cross=sum_lm[(1/2)sqrt(sigma_l)(-1)^m(Psi_ZM_scattered-i Psi_CPM_scattered) {}_-2Y_lm]",
+      "time_dependence": "h_plus/cross=(H_plus/cross/r) exp(-i omega u)+O(r^-2), interpreted as complex positive-frequency amplitudes; the real field is Re[...]",
+      "precursor_api_policy": "the existing martel_poisson_strain finite areal_scale argument is an algebraic precursor only; a V2 infinity record stores H_plus/H_cross as explicit r-to-infinity coefficients and must not use a finite areal_scale call as an infinity limit"
+    },
+    "future_event_horizon": {
+      "odd_sign": "the odd-parity contribution reverses sign relative to future null infinity as in Martel-Poisson Eq. (7.4)",
+      "plus": "2M h_plus=sum_lm(Psi_ZM_horizon A_lm+Psi_CPM_horizon B_lm)",
+      "cross": "2M h_cross=sum_lm(Psi_ZM_horizon B_lm-Psi_CPM_horizon A_lm)",
+      "time_dependence": "exp(-i omega v)"
+    },
+    "polarization_basis": "the outward right-handed asymptotic orthonormal frame satisfies e_r cross e_theta=e_phi; (e_theta,e_phi) defines plus/cross and phi=0 is tied to the +x half-plane; a basis rotation alpha uses R(alpha)=[[cos(2alpha),sin(2alpha)],[-sin(2alpha),cos(2alpha)]]",
+    "asymptotic_null_tetrad": "in the asymptotic orthonormal frame freeze l=(e_0+e_r)/sqrt(2), n=(e_0-e_r)/sqrt(2), m=(e_theta+i e_phi)/sqrt(2), mbar=conjugate(m), with l.n=-1 and m.mbar=+1; no residual boost or spin rotation is permitted",
+    "kinnersley_asymptotic_conversion": "the Schwarzschild Kinnersley limit has l_K=sqrt(2) l, n_K=n/sqrt(2), m_K=m, so Psi4_K=Psi4/2; route B must contract directly into the frozen symmetric tetrad or multiply a raw Kinnersley Psi4 by exactly 2, with the route recorded",
+    "asymptotic_psi4": "with Psi4=-C(n,mbar,n,mbar), the frozen -+++ Riemann convention and the frozen asymptotic null tetrad give Psi4=-omega^2(h_plus-i h_cross); no finite-radius observer tetrad is part of V2.0"
+  },
+  "flux_conventions": {
+    "amplitude_convention": "real_field_peak: physical fields are Re[complex amplitude exp(-i omega time)]",
+    "time_average_factor": "1/2",
+    "infinity_flux": "<dE/du>=omega^2/(128pi) sum_lm sigma_l(|Psi_ZM_scattered|^2+|Psi_CPM_scattered|^2)",
+    "horizon_flux": "<dE/dv>=omega^2/(128pi) sum_lm sigma_l(|Psi_ZM_horizon|^2+|Psi_CPM_horizon|^2)",
+    "radial_balance_policy": "compare physical fluxes only after the frozen Li-to-MP conversion and incident-mode normalization; do not equate raw odd/even scalar Wronskians to GW energy flux without those factors"
+  },
+  "route_independence": {
+    "routes": {
+      "A": "repaired SchWO Li masters mapped by the frozen Martel-Poisson bridge",
+      "B": "SchWO RW metric reconstruction followed by direct large-r curvature/Psi4 extraction; no legacy NP completion or pseudoinverse",
+      "C": "independent external odd RW/even Zerilli radial amplitudes mapped by the same frozen Martel-Poisson bridge"
+    },
+    "pairwise_provenance": {
+      "A_B": "not radial-algorithm independent: both consume the same SchWO radial/master solution and share project reconstruction inputs; B is an observable-route cross-check only",
+      "A_C": "radial-algorithm independent: SchWO versus external direct RW/Zerilli; both share the analytic Martel-Poisson, angular, Fourier, Jost-phase, incident-normalization, and flux conventions",
+      "B_C": "radial and curvature-extraction algorithms differ, but both share the frozen analytic Martel-Poisson/angular/Fourier/incident/NP comparison conventions; every additional shared source must be recorded"
+    },
+    "claim_policy": "no route pair is called fully independent without its exact shared-source ledger"
+  },
+  "uncertainty_budget_contract": {
+    "required_per_result": true,
+    "allowed_states": ["PASS", "PARTIAL", "FAIL", "NOT_ASSESSED"],
+    "numerical_components": [
+      "radial_source",
+      "arithmetic_precision",
+      "inner_boundary",
+      "outer_boundary_and_jost_order",
+      "asymptotic_extraction",
+      "angular_truncation",
+      "route_comparison",
+      "flux_balance"
+    ],
+    "convention_components": [
+      "master_normalization",
+      "fourier_and_tortoise_phase",
+      "incident_partial_wave_normalization",
+      "spin_harmonic_and_polarization_basis",
+      "null_tetrad_and_psi4",
+      "boundary_and_amplitude_average"
+    ],
+    "fail_closed_policy": "numerical and convention budgets are stored separately; missing or unassessed components remain NOT_ASSESSED/PARTIAL, never zero; no combined scalar may hide either budget",
+    "acceptance_policy": "any future PASS is per observable and exact parameter domain and requires every mandatory component to pass its frozen threshold; V2.0 itself emits no accepted scientific result"
+  },
+  "boundary_identifiers": {
+    "canonical": ["future_null_infinity", "future_event_horizon"],
+    "precursor_api_aliases": {
+      "future_null_infinity": "future_null_infinity",
+      "future_event_horizon": "event_horizon"
+    },
+    "policy": "published V2 records use canonical identifiers; a precursor API alias must be recorded explicitly and is not a third boundary"
+  },
+  "forbidden_as_current_inputs": [
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/radial_validation/v1_production_state_evidence_v1_20260810_py314",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/radial_validation/v1_final_radial_baseline_v1_20260810_py314",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/configs/phase6_v1_release_map_20260809.json",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/v1_release_preparation_v2_20260809_py314",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/v1_release_v1_20260809_py314",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/radial_validation/v1_external_bhpt_direct_selected_v3_20260808_py314",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/v1_v0_verification_v1_20260808_py314"
+  ],
+  "forbidden_actions": [
+    "modify any radial backend or radial evidence root",
+    "use a finite-radius observer frame in V2.0",
+    "sum a total plane wave at null infinity",
+    "rerun any Li paper figure",
+    "fit an amplitude, sign, phase, tortoise constant, or normalization",
+    "run V2 science before the T6/T7 prompts and frozen materials pass independent review",
+    "claim global GREEN or full-domain V1 independent certification"
+  ]
+}

@@ -8,6 +8,7 @@ from schwgw.numerics.boundary_conditions import (
     horizon_ingoing_initial_data,
     radial_domain,
 )
+from schwgw.numerics.matching import outer_asymptotic_basis
 from schwgw.perturbations import Sector
 
 
@@ -18,11 +19,14 @@ class BoundaryConfigTests(unittest.TestCase):
         self.assertGreater(config.r_in_eps, 0.0)
         self.assertIsNone(config.r_out)
         self.assertIsNone(config.required_eval_radius)
+        self.assertIsNone(config.conditioning_backend)
         self.assertGreater(config.rtol, 0.0)
         self.assertGreater(config.atol, 0.0)
         self.assertEqual(config.method, "DOP853")
         self.assertIsNone(config.max_step)
         self.assertTrue(config.dense_output)
+        self.assertEqual(config.outer_basis, "jost_1_over_r")
+        self.assertEqual(config.outer_series_order, 160)
 
     def test_radial_domain_uses_horizon_offset_and_background_outer_hint(self) -> None:
         bg = SchwarzschildBackground(M=1.5)
@@ -76,6 +80,31 @@ class BoundaryConfigTests(unittest.TestCase):
                 background=bg,
                 config=BoundaryConfig(r_out=80.0, required_eval_radius=np.inf),
             )
+        with self.assertRaises(ValueError):
+            radial_domain(
+                ell=2,
+                k=0.5,
+                background=bg,
+                config=BoundaryConfig(r_out=80.0, outer_basis="unknown"),
+            )
+        with self.assertRaises(ValueError):
+            radial_domain(
+                ell=2,
+                k=0.5,
+                background=bg,
+                config=BoundaryConfig(r_out=80.0, outer_series_order=1),
+            )
+        with self.assertRaises(ValueError):
+            radial_domain(
+                ell=2,
+                k=0.5,
+                background=bg,
+                config=BoundaryConfig(
+                    r_out=80.0,
+                    required_eval_radius=20.0,
+                    conditioning_backend="unknown",
+                ),
+            )
 
     def test_horizon_ingoing_initial_data_has_expected_derivative_ratio(self) -> None:
         bg = SchwarzschildBackground(M=1.0)
@@ -126,14 +155,32 @@ class RadialSolverTests(unittest.TestCase):
         )
 
         r_out = solution.r_grid[-1]
-        r_star = bg.r_star(r_out)
-        f = bg.f(r_out)
-        ingoing = np.exp(-1j * solution.k * r_star)
-        outgoing = np.exp(1j * solution.k * r_star)
-        reconstructed_psi = solution.A_in * ingoing + solution.A_out * outgoing
+        incoming = outer_asymptotic_basis(
+            sector=solution.sector,
+            ell=solution.ell,
+            r=r_out,
+            k=solution.k,
+            background=bg,
+            sign=-1,
+            basis=solution.diagnostics.outer_basis,
+            series_order=solution.diagnostics.outer_series_order,
+        )
+        outgoing = outer_asymptotic_basis(
+            sector=solution.sector,
+            ell=solution.ell,
+            r=r_out,
+            k=solution.k,
+            background=bg,
+            sign=1,
+            basis=solution.diagnostics.outer_basis,
+            series_order=solution.diagnostics.outer_series_order,
+        )
+        reconstructed_psi = (
+            solution.A_in * incoming.psi + solution.A_out * outgoing.psi
+        )
         reconstructed_derivative = (
-            (-1j * solution.k / f) * solution.A_in * ingoing
-            + (1j * solution.k / f) * solution.A_out * outgoing
+            solution.A_in * incoming.dpsi_dr
+            + solution.A_out * outgoing.dpsi_dr
         )
 
         np.testing.assert_allclose(reconstructed_psi, solution.psi[-1], rtol=1e-9, atol=1e-11)
@@ -149,6 +196,25 @@ class RadialSolverTests(unittest.TestCase):
             solution.phase_factor,
             -solution.A_out / ((-1) ** solution.ell * solution.A_in),
         )
+
+    def test_jost_outer_basis_has_small_local_ode_residual(self) -> None:
+        bg = SchwarzschildBackground(M=1.0)
+
+        for sector in (Sector.ODD, Sector.EVEN):
+            for sign in (-1, 1):
+                basis = outer_asymptotic_basis(
+                    sector=sector,
+                    ell=20,
+                    r=300.0,
+                    k=2.0,
+                    background=bg,
+                    sign=sign,
+                    series_order=160,
+                )
+                self.assertEqual(basis.basis, "jost_1_over_r")
+                self.assertLess(basis.series_residual, 1.0e-10)
+                self.assertTrue(np.isfinite(basis.psi))
+                self.assertTrue(np.isfinite(basis.dpsi_dr))
 
     def test_radial_solution_interpolates_values_and_derivatives_on_domain(self) -> None:
         bg = SchwarzschildBackground(M=1.0)

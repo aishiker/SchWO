@@ -1,0 +1,38 @@
+case_id: LI_FIG4_ANGULAR_AUDIT_K2P0_N2049_L240
+output: runs/phase5/fig4_angular_n2049_l240_audit/fig4_exact_kM_2_n2049_l240.npz
+background: {M: 1.0}
+wave:
+  kM: 2.0
+  A_plus: {real: 0.9, imag: 1.1}
+  A_cross: {real: 0.4, imag: 0.6}
+observer:
+  kind: angular
+  r: 60.0
+  theta_range:
+    start: 0.0
+    stop: 3.141592653589793
+    step: 0.0015339807878856412
+    endpoint: true
+  phi_values: [0.0]
+numerics:
+  lmax: 240
+  boundary:
+    r_in_eps: 1.0e-6
+    r_out: 300.0
+    rtol: 1.0e-10
+    atol: 1.0e-12
+    required_eval_radius: 60.0
+    experimental_required_radius_oracle: q018_riccati
+    outer_basis: jost_1_over_r
+    outer_series_order: 160
+convergence:
+  enabled: true
+  lmax_values: [120, 160, 200, 240]
+  theta_values:
+    - 0.7853981633974483
+    - 1.5707963267948966
+    - 2.356194490192345
+    - 2.9845130209103035
+  phi_values: [0.0]
+  selected_threshold: 1.0e-4
+  near_axis_threshold: 1.0e-3

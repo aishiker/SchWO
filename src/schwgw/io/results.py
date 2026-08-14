@@ -127,9 +127,12 @@ def run_solver_grid(
         rtol=config.numerics.boundary.rtol,
         atol=config.numerics.boundary.atol,
         required_eval_radius=config.numerics.boundary.required_eval_radius,
+        conditioning_backend=config.numerics.boundary.conditioning_backend,
         experimental_required_radius_oracle=(
             config.numerics.boundary.experimental_required_radius_oracle
         ),
+        outer_basis=config.numerics.boundary.outer_basis,
+        outer_series_order=config.numerics.boundary.outer_series_order,
     )
     k = config.wave.kM / config.background.M
     radial_cache = _RunRadialCache(solve_radial_mode)
@@ -182,6 +185,11 @@ def run_solver_grid(
         radial_cache.warning_metadata() if solver_accepts_radial_solver else []
     )
 
+    bridge_metadata = getattr(solver, "__schwgw_bridge_metadata__", None)
+    if bridge_metadata is None:
+        from schwgw.validation import unspecified_polarization_solver_metadata
+
+        bridge_metadata = unspecified_polarization_solver_metadata()
     metadata = {
         "case_id": config.case_id,
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -189,7 +197,11 @@ def run_solver_grid(
             "fourier": "exp(-i k t)",
             "units": "G=c=M=1",
             "gauge": "Regge-Wheeler",
-            "polarization_bridge": "incident-frame electric tidal packaged scalars",
+            "field_content": "total_incident_plus_reflected",
+            "field_content_basis": (
+                "radial modes normalized by A_in to incident partial-wave coefficients"
+            ),
+            **dict(bridge_metadata),
         },
         "config": config.to_dict(),
         "grid": grid["metadata"],

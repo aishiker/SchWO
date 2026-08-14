@@ -428,3 +428,92 @@ class RadialDiagnostics:
 - `tests`, `benchmarks`: T7
 - `viz`, `io`, `examples`: T8
 - interfaces and abstractions: T9
+
+## 11. T4ae methods-only typed boundary
+
+本节追加 T4ae 的 pre-result methods contract，不替换上面的历史 v0.1
+接口，也不改变任何物理公式、容差、mode/frequency/point、输出 schema 或
+acceptance threshold。它只把可复用计算的边界显式化，使 legacy path 与
+后续可能的 backend 能在同一组 fail-closed contract 下比较。
+
+### 11.1 Typed values and identity
+
+`src/schwgw/scattering/contracts.py` 定义以下 immutable values：
+
+| 类型 | 冻结语义 |
+|---|---|
+| `ProvenanceIdentity` | 恰好六个 lowercase 64-hex SHA-256：`implementation_sha256`、`physics_sha256`、`solver_sha256`、`config_sha256`、`source_sha256`、`gate_sha256`；缺失、大小写错误、长度错误或非 hex 都拒绝。`canonical_digest` 是上述六字段的 sorted compact JSON SHA-256。 |
+| `ConventionMetadata` | 必须显式给出 `units`、`metric_signature`、`fourier_sign`、`tortoise_definition`、`ingoing_phase`、`outgoing_phase`、`normalization`、`phase_convention` 和 typed `provenance`；任何一项都没有 silent default。 |
+| `ChannelSpec` | 显式记录 field spin、polarization、parity、`scalar`/`coupled` radial structure、ordered component names 和 `physical_claim`。Scalar 恰好一个 component；coupled 至少两个且名称唯一。 |
+| `ModeKey` | 以 `(frequency, ell, m, channel)` 构成 deterministic total order；非有限 frequency 被拒绝。 |
+| `ObserverPoint` | 保存 label、显式 coordinate-system 名称和任意有限维 coordinate tuple；不把 Schwarzschild `r,theta,phi` 写死为 generic API。 |
+| `RadialStateBatch` | 保存 shape `(n_point,n_component)` 的 complex values/derivatives、component names 和逐元素 finite pattern；输入数组被复制到 read-only immutable backing，scalar 与 coupled shape 使用同一 contract。 |
+
+核心 provenance identity 始终只有上述六个 scientific/implementation
+components。Benchmark runner 可在这一 identity 之外另行绑定
+`environment_sha256`，用于同机 timing/checkpoint family；这不是第七个
+`ProvenanceIdentity` 字段，也不得弱化六字段逐项匹配。
+
+### 11.2 Ten structural boundaries
+
+T4ae 使用十个 `runtime_checkable` structural Protocol。Protocol matching
+只说明调用形状兼容，不说明数学模型或物理结论正确。
+
+| Boundary | 责任 |
+|---|---|
+| `BackgroundGeometryProtocol` | coordinate domain、tortoise map 与 Jacobian；不要求 Schwarzschild `f(r)`。 |
+| `PotentialProviderProtocol` | 返回 scalar 的 `1x1` 或 coupled 的 matrix potential。 |
+| `RadialSystemProtocol` | 在任意 component count 上计算 first-order RHS。 |
+| `BoundaryAsymptoticsProtocol` | 提供 generic inner state 与 outer basis；generic 名称不假定 inner boundary 必为 horizon。 |
+| `IncidentSourceProtocol` | 提供 channel amplitude 和可选 ordered sparse `m` support。 |
+| `AngularModeCouplingProtocol` | angular evaluation、mode coupling 和可选 ordered sparse `m` support。 |
+| `DomainDriverProtocol` | 隔离 frequency-domain 与 future time-domain orchestration。 |
+| `SolverBackendProtocol` | 求解 scalar 或 coupled radial system 并返回 `RadialStateBatch`。 |
+| `ObservableProjectorProtocol` | 将 ordered radial states 投影到 observer-space artifact。 |
+| `ArtifactWriterProtocol` | 连同完整 `ConventionMetadata` 写出 artifact。 |
+
+十个 boundary 都显式暴露 `physical_claim: bool`。因此 solver backend 和
+artifact writer 也不能依靠类名或调用位置暗示物理认证；所有只用于 structural
+testing 的实现都必须显式为 `false`。
+
+`supported_m_values(ell)` 返回 tuple 时，该 tuple 是 source/basis 声明的
+scientific order，必须由调用者原样保持；返回 `None` 表示 generic full
+fallback `m=-ell,...,+ell`。Generic contract 不包含 `+z` 或 `m=±2`
+假设，也不允许以 unordered set 改变 reduction order。
+
+### 11.3 Legacy scalar RWZ bridge
+
+现有 Schwarzschild scalar-master RW/Zerilli 行为通过
+`LegacyScalarRWZAdapter`、`LegacyIncidentSourceAdapter` 和两个显式
+scalar `ChannelSpec` 保留。`compute_polarization(..., mode_source=None)`
+先进入 `LegacyScalarRWZAdapter.compute_polarization(...)` 的 full-path
+delegation facade；facade 构造 exact legacy source，再把完整调用委托给
+private frozen implementation。因此默认调用保持原来的 odd/even
+coefficients、normalization、radial solver、reconstruction 和 observable
+packaging；facade 本身不重写公式，也不成为新的 generic physics backend。
+
+Generic source 通过 `IncidentSourceProtocol.amplitude(mode, channel)` 返回
+exact shape `(1,)` 的 component array。只有 type 恰为
+`LegacyIncidentSourceAdapter` 的 source 可走 private `coefficient(...)`
+fast path，以避免在现有 scalar inner loop 中分配 one-element array；这一
+private branch 不是 extension API，不得被用来把 odd/even、Schwarzschild
+separability 或 one-component state 写入 generic Protocol。Subclass 和任何
+其他 structural source 都走 public typed amplitude path，也不能继承
+legacy-zero shortcut。
+
+### 11.4 Methods controls and non-claims
+
+Radial dense reuse、exact oracle admission、deterministic at-most-two-worker
+execution 和 atomic resume 的细节见 `docs/numerics.md`；exact equivalence、
+fault 和 performance gates 见 `docs/validation_plan.md`。
+
+本 architecture addition：
+
+- 不实现或验证任何新的 spin-2、Teukolsky 或 coupled-channel theory；
+- non-Schwarzschild/coupled mocks 必须记录 `physical_claim=false`，只能证明
+  interface separation；
+- 不改变 `G=c=M=1`、metric/Fourier/tortoise/ingoing/outgoing/normalization/
+  phase conventions、solver tolerances、modes、frequencies 或 observer points；
+- 不把 87 个 diagnostic failed-child midpoints 变成 run inputs；
+- 不授权 T7ch、T8、new frequency、production、plot、fixture、Kirchhoff、
+  paper-style output 或 GitHub action。

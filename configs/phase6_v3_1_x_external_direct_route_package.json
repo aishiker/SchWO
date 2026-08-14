@@ -1,0 +1,252 @@
+{
+  "artifact_policy": {
+    "failed_predecessor_reuse_permitted": false,
+    "global_green_permitted": false,
+    "official_root_namespace": "runs/phase6/classic_scattering/v3_1_x_external_direct_v1_<YYYYMMDDTHHMMSSZ>_py314",
+    "scientific_stage": "V3.1-X",
+    "sentinel_root_namespace": "runs/phase6/classic_scattering/v3_1_x_external_direct_sentinel_v1_<YYYYMMDDTHHMMSSZ>_py314",
+    "sentinel_science_reuse_permitted": false,
+    "timezone": "UTC",
+    "v3_2_authorized": false
+  },
+  "base_external_runtime": {
+    "bhpt_snapshot": {
+      "content_inventory_sha256": "d849db67cb8f411af234f81695624868c76378e52d360acd5f65cd4d0660e6e2",
+      "file_count": 25,
+      "metadata_path": "runs/phase6/external_sources/bhpt_reggewheeler_2e012092_v1_20260813.snapshot.json",
+      "metadata_sha256": "8d5498ab5f825e721c6cd3764f302831c8b7bcf138a1ee9600a0f5e6f6e4e488",
+      "numerical_integration_path": "runs/phase6/external_sources/bhpt_reggewheeler_2e012092_v1_20260813/source/Kernel/NumericalIntegration.m",
+      "numerical_integration_sha256": "6619df2ceaa83d373152ff20740a884c8a8bd401e50c0c91a20c1d21cc879ae0",
+      "restored_identity_inventory_sha256": "a1d2842d604dbd20226cc35ada71bfb49029f6b717bee33f0969f6d5bdda2f27",
+      "root": "runs/phase6/external_sources/bhpt_reggewheeler_2e012092_v1_20260813/source"
+    },
+    "wolfram_kernel": {
+      "path": "/Volumes/JohnnyTforGR/Applications/Wolfram.app/Contents/MacOS/WolframKernel",
+      "sha256": "70ad9d850224b4723a04c581e769579cc3df4b4392ae2ed1886780e6b9be046c",
+      "version": "14.3"
+    }
+  },
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "created_at_utc": "2026-08-13T00:00:00Z",
+  "dispatch_policy": {
+    "implementation_review_required_before_sentinel": true,
+    "official_dispatch_requires_sentinel_advance": true,
+    "official_dispatch_single_use": true,
+    "sentinel_and_official_dispatch_must_differ": true,
+    "sentinel_dispatch_single_use": true,
+    "sentinel_retry_permitted": false,
+    "t0_owns_dispatch_publication": true
+  },
+  "external_route": {
+    "boundary_conditions": [
+      "In",
+      "Up"
+    ],
+    "external_claim": "odd-only",
+    "method": "NumericalIntegration",
+    "mst_call_count": 0,
+    "node_order": [
+      "P0",
+      "P1",
+      "I0",
+      "I2",
+      "O2",
+      "O4",
+      "O8"
+    ],
+    "node_precision_schedule": {
+      "P0": {
+        "accuracy_goal": 45,
+        "precision_goal": 45,
+        "working_precision": 90
+      },
+      "P1_and_boundary_nodes": {
+        "accuracy_goal": 60,
+        "precision_goal": 60,
+        "working_precision": 120
+      },
+      "selected_node": "P1"
+    },
+    "official_boundary_solutions": 322,
+    "official_overlap_records": 483,
+    "official_public_api_calls": 161,
+    "overlay_claim": "BHPT NumericalIntegration plus reviewed odd-sector boundary-geometry overlay",
+    "potential": "ReggeWheeler",
+    "prior_mst_success_reuse_count": 0,
+    "selected_node": "P1",
+    "sentinel_boundary_solutions": 70,
+    "sentinel_overlap_records": 105,
+    "sentinel_public_api_calls": 35,
+    "spin": 2
+  },
+  "failed_evidence": [
+    {
+      "policy": "immutable diagnostic evidence only; no accepted value, cache, checkpoint, fit, initialization or method selection",
+      "root": "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314"
+    },
+    {
+      "policy": "immutable diagnostic evidence only; no accepted value, cache, checkpoint, fit, initialization or method selection",
+      "root": "runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_v1_20260811T143911Z_py314"
+    },
+    {
+      "policy": "immutable diagnostic evidence only; no accepted value, cache, checkpoint, fit, initialization or method selection",
+      "root": "runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_repair1_v1_20260812T064653Z_py314"
+    },
+    {
+      "failure_json_sha256": "c80327f57b56f762fde9df3b215cf94c895e98de8c0d1e48157a31b44a65dc23",
+      "failure_manifest_sha256": "e9ef19b336e1eb9faac34b2f080f2c4956fd2316eb050287e769cbdb401aead4",
+      "policy": "immutable diagnostic evidence only; 14 successful MST records are explicitly nonpromotable",
+      "root": "runs/phase6/classic_scattering/v3_1_u_route_c_sentinel_repair2_v1_20260812T221323Z_py314"
+    }
+  ],
+  "frozen_graph": {
+    "certificates": 5,
+    "route_a_modes": 496,
+    "route_a_nodes": 9920,
+    "route_b_keys": 102,
+    "route_b_nodes": 458,
+    "route_c_keys": 23,
+    "route_c_nodes": 161,
+    "route_c_overlap_records": 483,
+    "route_u_keys": 318,
+    "route_u_nodes": 954,
+    "thresholds": 16
+  },
+  "implementation_scope": {
+    "allowed_unique_paths": [
+      "scripts/phase6_v3_1_x_bhpt_direct.wls",
+      "src/schwgw/validation/phase6_v3_external_direct.py",
+      "src/schwgw/validation/phase6_v3_mode_greybody_external_direct_replacement.py",
+      "scripts/phase6_v3_1_x_external_direct.py",
+      "tests/unit/test_phase6_v3_external_direct.py",
+      "tests/regression/test_phase6_v3_external_direct_publication.py"
+    ],
+    "expected_changed_path_count": 6
+  },
+  "liveness": {
+    "distinct_from_v3_1_u": true,
+    "gate_id": "phase6_v3_1_x_external_direct_route_v1",
+    "initial_review_required": true,
+    "maximum_bounded_repairs": 2,
+    "v3_1_u_completed_bounded_repairs": 2,
+    "v3_1_u_repair_cycle3_permitted": false,
+    "v3_1_x_completed_bounded_repairs": 0
+  },
+  "members": [
+    {
+      "path": "docs/phase6_v3_1_x_external_route_redesign_analysis.md",
+      "role": "formal T4 zero-science feasibility and failure analysis",
+      "sha256": "b937011e9ee932cbe41aa58d2fbd3cb849e503c083d09570ce281c3f15331661"
+    },
+    {
+      "path": "docs/handoffs/archive/T4_2026-08-13_v3_1_x_external_route_redesign_analysis.md",
+      "role": "formal T4 design-analysis archive",
+      "sha256": "0cec21f4e279199f69cef7b8b5df68ec8347a2cf2f066543b7188c12f1d581e7"
+    },
+    {
+      "path": "docs/phase6_v3_1_x_external_direct_route_design.md",
+      "role": "frozen external direct-route design",
+      "sha256": "9a75c6f80cd8360438d395caf887a13b8c88e97faef94139c6ed4dfeba4fdb8d"
+    },
+    {
+      "path": "docs/prompts/phase6_t4_v3_1_x_external_direct_route.md",
+      "role": "future formal T4 zero-science implementation prompt",
+      "sha256": "3c65164bcad33e7f86e993c2ec9536643cc5f2ec5c179020c923902e8caf4c4f"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_x_external_direct_route_package_review.md",
+      "role": "formal T7 initial package-review prompt",
+      "sha256": "7faaab2183328b83dc5c85c82bfb5c6695ca5d028fdab7180538afa7c2c3ce5b"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_x_external_direct_route_science_review.md",
+      "role": "future formal T7 implementation, sentinel and official review prompt",
+      "sha256": "339d5d9609e37f263ca3b3c615e5048f4059c80accc03183e02a74df6ffebd7f"
+    }
+  ],
+  "nonclaims": [
+    "V3.1 and V3.1-U remain FAIL",
+    "V3.1-X science remains NOT_ASSESSED until fresh official review",
+    "package GREEN is readiness only",
+    "no independent even-sector external evidence",
+    "no pristine-upstream BHPT claim",
+    "no V3.2 before official V3.1-X ADVANCE",
+    "no Li-figure equivalence",
+    "no finite-radius observer claim",
+    "no full-domain V3 certification",
+    "no global GREEN"
+  ],
+  "overlay_variants": [
+    {
+      "name": "rin8_m1",
+      "sha256": "ec110e7612a14fce135be77a649324a98498da04b18785502e969ec437622380"
+    },
+    {
+      "name": "rin10_m1",
+      "sha256": "a8601cd1b377bf4741035a03bec98590ebffbec0004a63af498a260f1d05c5fc"
+    },
+    {
+      "name": "rin12_m1",
+      "sha256": "574f64024363e59b2fea678f33ed3b373e73374b33efb318fe781aa5b6607958"
+    },
+    {
+      "name": "rin10_m2",
+      "sha256": "42369d4584fc079224d5ae9bd6e7565aafeb0a52d0d2a0f06c1666d54dbee008"
+    },
+    {
+      "name": "rin10_m4",
+      "sha256": "b5c7b2e496daac3f7d1edf48843b41e7633800329d528065c0f87a94db641bbf"
+    },
+    {
+      "name": "rin10_m8",
+      "sha256": "8bdf36d3bba5dc2ffa6e4949dffcd15d42a90acba9c0f9cf431fa8c30e71ffd5"
+    }
+  ],
+  "protected_radial_identities": {
+    "src/schwgw/numerics/adaptive_jost_radial.py": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896",
+    "src/schwgw/numerics/boundary_conditions.py": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22",
+    "src/schwgw/numerics/conditioned_radial.py": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2",
+    "src/schwgw/numerics/matching.py": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340",
+    "src/schwgw/numerics/physical_boundary_radial.py": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f",
+    "src/schwgw/numerics/radial_solver.py": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9",
+    "src/schwgw/numerics/scaled_tortoise_radial.py": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+  },
+  "review_basis": {
+    "external_anchor_matrix": {
+      "path": "configs/phase6_v3_0_external_anchor_matrix.json",
+      "sha256": "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485"
+    },
+    "formula_map": {
+      "path": "docs/phase6_v3_0_formula_map.md",
+      "sha256": "e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac"
+    },
+    "phase_taxonomy": {
+      "path": "docs/phase6_v3_0_phase_taxonomy.md",
+      "sha256": "fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460"
+    },
+    "thresholds": {
+      "path": "configs/phase6_v3_0_thresholds.json",
+      "sha256": "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a"
+    },
+    "v3_domain": {
+      "path": "configs/phase6_v3_0_domain.json",
+      "sha256": "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b"
+    },
+    "validation_contract": {
+      "path": "docs/phase6_v3_0_validation_contract.md",
+      "sha256": "0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3"
+    }
+  },
+  "route_admission_criteria": {
+    "external_precision_log_gamma_absolute_change_max": 0.0001,
+    "external_precision_s_symmetric_relative_change_max": 5e-07,
+    "external_rin_log_gamma_absolute_change_max": 0.0002,
+    "external_rin_s_symmetric_relative_change_max": 1e-06,
+    "external_rout_log_gamma_absolute_change_max": 0.0003,
+    "external_rout_s_symmetric_relative_change_max": 2e-06,
+    "per_node_signed_current_balance_absolute_max": 1e-08,
+    "three_overlap_log_gamma_absolute_spread_max": 0.0002,
+    "three_overlap_s_symmetric_relative_spread_max": 2e-06
+  },
+  "schema": "schwo.phase6.v3_1_x.external_direct_route_package.v1"
+}

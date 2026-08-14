@@ -51,6 +51,7 @@ class ObserverConfig:
     x_values: tuple[float, ...] = ()
     z_values: tuple[float, ...] = ()
     invalid_radius_policy: str | None = None
+    observer_frame: str = "static_orthonormal"
 
 
 @dataclass(frozen=True)
@@ -60,7 +61,10 @@ class BoundarySettings:
     rtol: float
     atol: float
     required_eval_radius: float | None = None
+    conditioning_backend: str | None = None
     experimental_required_radius_oracle: str | None = None
+    outer_basis: str = "jost_1_over_r"
+    outer_series_order: int = 160
 
 
 @dataclass(frozen=True)
@@ -132,10 +136,14 @@ class SolverConfig:
         }
         if self.numerics.boundary.required_eval_radius is not None:
             boundary["required_eval_radius"] = self.numerics.boundary.required_eval_radius
+        if self.numerics.boundary.conditioning_backend is not None:
+            boundary["conditioning_backend"] = self.numerics.boundary.conditioning_backend
         if self.numerics.boundary.experimental_required_radius_oracle is not None:
             boundary["experimental_required_radius_oracle"] = (
                 self.numerics.boundary.experimental_required_radius_oracle
             )
+        boundary["outer_basis"] = self.numerics.boundary.outer_basis
+        boundary["outer_series_order"] = self.numerics.boundary.outer_series_order
         return boundary
 
     def _observer_to_dict(self) -> dict[str, Any]:
@@ -144,6 +152,7 @@ class SolverConfig:
                 "r": self.observer.r,
                 "theta_values": list(self.observer.theta_values),
                 "phi_values": list(self.observer.phi_values),
+                "observer_frame": self.observer.observer_frame,
             }
             if self.observer.theta_range is not None:
                 observer["theta_range"] = self.observer.theta_range.to_dict()
@@ -156,6 +165,7 @@ class SolverConfig:
                 "x_values": list(self.observer.x_values),
                 "z_values": list(self.observer.z_values),
                 "invalid_radius_policy": self.observer.invalid_radius_policy,
+                "observer_frame": self.observer.observer_frame,
             }
         raise ConfigError(f"Unsupported observer.kind in SolverConfig: {self.observer.kind}.")
 
@@ -204,16 +214,38 @@ def parse_config(raw: dict[str, Any]) -> SolverConfig:
             boundary_raw,
             "numerics.boundary.required_eval_radius",
         ),
+        conditioning_backend=_optional_string(
+            boundary_raw,
+            "numerics.boundary.conditioning_backend",
+        ),
         experimental_required_radius_oracle=_optional_string(
             boundary_raw,
             "numerics.boundary.experimental_required_radius_oracle",
         ),
+        outer_basis=boundary_raw.get("outer_basis", "jost_1_over_r"),
+        outer_series_order=boundary_raw.get("outer_series_order", 160),
     )
     if boundary.r_in_eps <= 0.0:
         raise ConfigError("numerics.boundary.r_in_eps must be positive.")
     _validate_boundary_covers_observer(boundary, observer, mass=mass)
     if boundary.rtol <= 0.0 or boundary.atol <= 0.0:
         raise ConfigError("numerics.boundary tolerances must be positive.")
+    if not isinstance(boundary.outer_basis, str) or boundary.outer_basis not in {
+        "jost_1_over_r",
+        "plane_wave",
+    }:
+        raise ConfigError(
+            "numerics.boundary.outer_basis must be one of "
+            "['jost_1_over_r', 'plane_wave']."
+        )
+    if (
+        not isinstance(boundary.outer_series_order, int)
+        or isinstance(boundary.outer_series_order, bool)
+        or not 2 <= boundary.outer_series_order <= 256
+    ):
+        raise ConfigError(
+            "numerics.boundary.outer_series_order must be an integer in [2, 256]."
+        )
     if boundary.required_eval_radius is not None:
         if not math.isfinite(boundary.required_eval_radius):
             raise ConfigError("numerics.boundary.required_eval_radius must be finite.")
@@ -221,6 +253,27 @@ def parse_config(raw: dict[str, Any]) -> SolverConfig:
             raise ConfigError("numerics.boundary.required_eval_radius must be greater than 2M.")
         if boundary.required_eval_radius > boundary.r_out:
             raise ConfigError("numerics.boundary.required_eval_radius must not exceed r_out.")
+    if boundary.conditioning_backend not in {
+        None,
+        "scaled_log_riccati_auto",
+        "scaled_log_riccati_forced",
+    }:
+        raise ConfigError(
+            "numerics.boundary.conditioning_backend must be one of "
+            "[scaled_log_riccati_auto, scaled_log_riccati_forced]."
+        )
+    if (
+        boundary.conditioning_backend is not None
+        and boundary.experimental_required_radius_oracle is not None
+    ):
+        raise ConfigError(
+            "generic conditioning_backend and legacy experimental oracle "
+            "cannot be enabled together."
+        )
+    if boundary.conditioning_backend is not None and boundary.required_eval_radius is None:
+        raise ConfigError(
+            "numerics.boundary.conditioning_backend requires required_eval_radius."
+        )
     convergence = _optional_convergence(raw, lmax)
 
     return SolverConfig(
@@ -240,6 +293,15 @@ def _parse_observer(raw: dict[str, Any], *, mass: float) -> ObserverConfig:
         raise ConfigError("observer.kind must be a string.")
     if kind not in {"angular", "xz_plane"}:
         raise ConfigError("observer.kind must be one of ['angular', 'xz_plane'].")
+    observer_frame = raw.get("observer_frame", "static_orthonormal")
+    if not isinstance(observer_frame, str) or observer_frame not in {
+        "static_orthonormal",
+        "li_literal_cartesian",
+    }:
+        raise ConfigError(
+            "observer.observer_frame must be one of "
+            "['static_orthonormal', 'li_literal_cartesian']."
+        )
     if kind == "angular":
         radius = _required_float(raw, "observer.r")
         if radius <= 2.0 * mass:
@@ -263,6 +325,7 @@ def _parse_observer(raw: dict[str, Any], *, mass: float) -> ObserverConfig:
             phi_values=phi_values,
             theta_range=theta_range,
             phi_range=phi_range,
+            observer_frame=observer_frame,
         )
 
     policy = _required_string(raw, "observer.invalid_radius_policy")
@@ -278,6 +341,7 @@ def _parse_observer(raw: dict[str, Any], *, mass: float) -> ObserverConfig:
         x_values=x_values,
         z_values=z_values,
         invalid_radius_policy=policy,
+        observer_frame=observer_frame,
     )
 
 

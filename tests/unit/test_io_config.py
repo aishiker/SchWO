@@ -53,6 +53,8 @@ numerics:
         "r_out": 80.0,
         "rtol": 1.0e-10,
         "atol": 1.0e-12,
+        "outer_basis": "jost_1_over_r",
+        "outer_series_order": 160,
     }
     assert config.convergence is None
 
@@ -91,9 +93,124 @@ numerics:
         "r_out": 300.0,
         "rtol": 1.0e-10,
         "atol": 1.0e-12,
+        "outer_basis": "jost_1_over_r",
+        "outer_series_order": 160,
         "required_eval_radius": 60.0,
         "experimental_required_radius_oracle": "q018_riccati",
     }
+
+
+def test_load_config_parses_generic_conditioning_backend(tmp_path):
+    path = tmp_path / "case_conditioned_boundary.yaml"
+    path.write_text(
+        """
+case_id: CASE_CONDITIONED_BOUNDARY
+output: results.npz
+background: {M: 1.0}
+wave:
+  kM: 2.0
+  A_plus: {real: 1.0, imag: 0.0}
+  A_cross: {real: 0.0, imag: 0.0}
+observer: {r: 60.0, theta_values: [0.0], phi_values: [0.0]}
+numerics:
+  lmax: 180
+  boundary:
+    r_in_eps: 1.0e-6
+    r_out: 300.0
+    rtol: 1.0e-10
+    atol: 1.0e-12
+    required_eval_radius: 60.0
+    conditioning_backend: scaled_log_riccati_auto
+""",
+        encoding="utf-8",
+    )
+
+    config = load_config(path)
+
+    assert config.numerics.boundary.conditioning_backend == (
+        "scaled_log_riccati_auto"
+    )
+    assert config.to_dict()["numerics"]["boundary"]["conditioning_backend"] == (
+        "scaled_log_riccati_auto"
+    )
+
+
+@pytest.mark.parametrize(
+    "extra, message",
+    [
+        ("conditioning_backend: unsupported", "conditioning_backend"),
+        (
+            "conditioning_backend: scaled_log_riccati_auto",
+            "requires required_eval_radius",
+        ),
+    ],
+)
+def test_load_config_rejects_invalid_generic_conditioning_backend(
+    tmp_path,
+    extra,
+    message,
+):
+    path = tmp_path / "case_invalid_conditioning.yaml"
+    path.write_text(
+        f"""
+case_id: CASE_INVALID_CONDITIONING
+output: results.npz
+background: {{M: 1.0}}
+wave:
+  kM: 0.5
+  A_plus: {{real: 1.0, imag: 0.0}}
+  A_cross: {{real: 0.0, imag: 0.0}}
+observer: {{r: 20.0, theta_values: [0.0], phi_values: [0.0]}}
+numerics:
+  lmax: 3
+  boundary:
+    r_in_eps: 1.0e-6
+    r_out: 80.0
+    rtol: 1.0e-10
+    atol: 1.0e-12
+    {extra}
+""",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ConfigError, match=message):
+        load_config(path)
+
+
+def test_load_config_parses_explicit_outer_basis_and_observer_frame(tmp_path):
+    path = tmp_path / "case_explicit_surfaces.yaml"
+    path.write_text(
+        """
+case_id: CASE_EXPLICIT_SURFACES
+output: results.npz
+background: {M: 1.0}
+wave:
+  kM: 0.5
+  A_plus: {real: 0.9, imag: 1.1}
+  A_cross: {real: 0.4, imag: 0.6}
+observer:
+  r: 20.0
+  theta_values: [0.0]
+  phi_values: [0.0]
+  observer_frame: li_literal_cartesian
+numerics:
+  lmax: 3
+  boundary:
+    r_in_eps: 1.0e-6
+    r_out: 80.0
+    rtol: 1.0e-10
+    atol: 1.0e-12
+    outer_basis: plane_wave
+    outer_series_order: 24
+""",
+        encoding="utf-8",
+    )
+
+    config = load_config(path)
+
+    assert config.observer.observer_frame == "li_literal_cartesian"
+    assert config.numerics.boundary.outer_basis == "plane_wave"
+    assert config.numerics.boundary.outer_series_order == 24
 
 
 def test_load_config_parses_optional_convergence_settings(tmp_path):
@@ -166,6 +283,7 @@ numerics:
         4.71238898038469,
     )
     assert config.to_dict()["observer"] == {
+        "observer_frame": "static_orthonormal",
         "r": 60.0,
         "theta_values": [0.0, 1.5707963267948966, 3.141592653589793],
         "phi_values": [
@@ -269,6 +387,7 @@ numerics:
     assert config.observer.invalid_radius_policy == "mask"
     assert config.to_dict()["observer"] == {
         "kind": "xz_plane",
+        "observer_frame": "static_orthonormal",
         "x_values": [-1.0, 0.0, 3.0],
         "z_values": [0.0, 4.0],
         "invalid_radius_policy": "mask",
@@ -305,6 +424,7 @@ numerics:
     assert config.observer.z_values == (2.5, 3.0, 3.5)
     assert config.to_dict()["observer"] == {
         "kind": "xz_plane",
+        "observer_frame": "static_orthonormal",
         "x_values": [-1.0, -0.5, 0.0, 0.5, 1.0],
         "z_values": [2.5, 3.0, 3.5],
         "invalid_radius_policy": "mask",

@@ -156,7 +156,7 @@ def test_generate_kirchhoff_review_grid_artifact_contract(tmp_path: Path) -> Non
         assert np.max(np.abs(data["eta_minus_paper"])) < 5.0e-5
         embedded = json.loads(str(data["metadata_json"].item()))
         assert embedded["schema_version"] == (
-            "phase5_t8al_kirchhoff_review_grid_v2_units_dtype"
+            "phase5_kirchhoff_review_grid_v3_explicit_convention"
         )
         assert embedded["units"] == EXPECTED_UNITS
         assert embedded["dtype"] == EXPECTED_DTYPES
@@ -164,12 +164,17 @@ def test_generate_kirchhoff_review_grid_artifact_contract(tmp_path: Path) -> Non
             assert str(data[name].dtype) == expected_dtype
     metadata = json.loads(sidecar.read_text(encoding="utf-8"))
     assert metadata["schema_version"] == (
-        "phase5_t8al_kirchhoff_review_grid_v2_units_dtype"
+        "phase5_kirchhoff_review_grid_v3_explicit_convention"
+    )
+    assert metadata["prefactor_convention"] == "standard_point_mass"
+    assert metadata["formula_and_branches"]["real_exponential_prefactor"] == (
+        "exp(-pi gamma/2)"
     )
     assert metadata["units"] == EXPECTED_UNITS
     assert metadata["dtype"] == EXPECTED_DTYPES
     manifest_text = manifest.read_text(encoding="utf-8")
     assert "## Units and dtypes" in manifest_text
+    assert "standard point-mass exp(-pi gamma/2)" in manifest_text
     for name in EXPECTED_UNITS:
         expected_line = (
             f"- `{name}`: unit=`{EXPECTED_UNITS[name]}`; "

@@ -15,6 +15,10 @@ from schwgw.io.results import (
     load_amplification_results,
     load_results,
 )
+from schwgw.viz.paper_geometry import (
+    EVENT_HORIZON_RADIUS_OVER_M,
+    LIGHT_RING_IMAGE_RADIUS_OVER_M,
+)
 
 
 COMPONENTS = {"h_plus", "h_cross"}
@@ -239,6 +243,7 @@ def plot_fig3_multifrequency_panel_from_results(
     output_path: str | Path,
     dpi: int = DEFAULT_FIG3_DPI,
     style: str = "default",
+    row_color_vmax: dict[str, float] | None = None,
 ) -> Path:
     """Plot the four-frequency Fig.3-lite x-z panel from saved fields only."""
 
@@ -271,10 +276,35 @@ def plot_fig3_multifrequency_panel_from_results(
 
     h_plus_values = [_quantity_values(result.h_plus, quantity) for result in results]
     h_cross_values = [_quantity_values(result.h_cross, quantity) for result in results]
-    row_color_scales = {
-        "h_plus": _symmetric_color_limits_across_results(results, h_plus_values),
-        "h_cross": _symmetric_color_limits_across_results(results, h_cross_values),
-    }
+    if row_color_vmax is None:
+        row_color_scales = {
+            "h_plus": _symmetric_color_limits_across_results(
+                results, h_plus_values
+            ),
+            "h_cross": _symmetric_color_limits_across_results(
+                results, h_cross_values
+            ),
+        }
+        color_scale_source = "finite_valid_data_max"
+    else:
+        expected_components = {"h_plus", "h_cross"}
+        if set(row_color_vmax) != expected_components:
+            raise PlotError(
+                "row_color_vmax must contain exactly h_plus and h_cross."
+            )
+        normalized_vmax: dict[str, float] = {}
+        for component, value in row_color_vmax.items():
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                raise PlotError("row_color_vmax values must be finite positive numbers.")
+            value = float(value)
+            if not np.isfinite(value) or value <= 0.0:
+                raise PlotError("row_color_vmax values must be finite positive numbers.")
+            normalized_vmax[component] = value
+        row_color_scales = {
+            component: (-value, value)
+            for component, value in normalized_vmax.items()
+        }
+        color_scale_source = "explicit_display_window"
     mass = _shared_background_mass(results)
 
     output = Path(output_path)
@@ -308,6 +338,7 @@ def plot_fig3_multifrequency_panel_from_results(
                 dpi=dpi,
                 output_format=output_format,
                 style=style,
+                color_scale_source=color_scale_source,
             ),
             indent=2,
             sort_keys=True,
@@ -1215,7 +1246,7 @@ def _render_fig3_panel(
             origin="lower",
             aspect="equal",
             extent=extent,
-            cmap="RdBu_r",
+            cmap="viridis",
             vmin=color_vmin,
             vmax=color_vmax,
             interpolation=interpolation,
@@ -1279,6 +1310,10 @@ def _render_fig3_multifrequency_panel(
         ("h_plus", h_plus_values),
         ("h_cross", h_cross_values),
     ]
+    component_labels = {
+        "h_plus": r"$\mathrm{Re}\,\widetilde{h}_{+}$",
+        "h_cross": r"$\mathrm{Re}\,\widetilde{h}_{\times}$",
+    }
     for row_index, (component, values_by_frequency) in enumerate(row_specs):
         color_vmin, color_vmax = row_color_scales[component]
         row_image = None
@@ -1296,7 +1331,7 @@ def _render_fig3_multifrequency_panel(
                 origin="lower",
                 aspect="equal",
                 extent=extent,
-                cmap="RdBu_r",
+                cmap="viridis",
                 vmin=color_vmin,
                 vmax=color_vmax,
                 interpolation=interpolation,
@@ -1315,12 +1350,12 @@ def _render_fig3_multifrequency_panel(
                 ax.set_title(f"kM={kM:g}", **title_kwargs)
             if column_index == 0:
                 ax.set_ylabel(
-                    f"real({component})\nz/M",
+                    component_labels[component] + "\n" + r"$z/M$",
                     **_fig3_text_kwargs(fontsize=style_params["label_fontsize"]),
                 )
             if row_index == 1:
                 ax.set_xlabel(
-                    "x/M",
+                    r"$x/M$",
                     **_fig3_text_kwargs(fontsize=style_params["label_fontsize"]),
                 )
             tick_kwargs = _fig3_text_kwargs(
@@ -1338,7 +1373,7 @@ def _render_fig3_multifrequency_panel(
             fig.colorbar(
                 image,
                 ax=axes[row_index, :].ravel().tolist(),
-                label=f"real({component})",
+                label=component_labels[component],
                 fraction=style_params["colorbar_fraction"],
                 pad=style_params["colorbar_pad"],
             )
@@ -1356,20 +1391,18 @@ def _draw_xz_overlays(ax: Any, mass: float, *, linewidth: float = 0.8) -> None:
 
     light_ring = Circle(
         (0.0, 0.0),
-        3.0 * mass,
-        facecolor="0.7",
-        edgecolor="0.45",
-        linewidth=linewidth,
-        alpha=0.45,
+        LIGHT_RING_IMAGE_RADIUS_OVER_M * mass,
+        facecolor="0.60",
+        edgecolor="none",
+        linewidth=0.0,
         zorder=3,
     )
     horizon = Circle(
         (0.0, 0.0),
-        2.0 * mass,
+        EVENT_HORIZON_RADIUS_OVER_M * mass,
         facecolor="black",
         edgecolor="black",
         linewidth=linewidth,
-        alpha=0.95,
         zorder=4,
     )
     ax.add_patch(light_ring)
@@ -1759,6 +1792,7 @@ def _fig3_panel_metadata(
         "lmax": result.metadata.get("lmax", numerics.get("lmax")),
         "requested_dpi": dpi,
         "output_format": output_format,
+        "colormap": "viridis",
         "final_lmax_pair": diagnostics.get("final_lmax_pair"),
         "final_pair_passed": policy.get("final_pair_passed"),
         "symmetric_color_scale": True,
@@ -1785,6 +1819,7 @@ def _fig3_multifrequency_panel_metadata(
     dpi: int,
     output_format: str,
     style: str,
+    color_scale_source: str,
 ) -> dict[str, Any]:
     reference = results[0]
     style_params = _fig3_multifrequency_style_params(style)
@@ -1798,6 +1833,7 @@ def _fig3_multifrequency_panel_metadata(
         "interpolation": interpolation,
         "requested_dpi": dpi,
         "output_format": output_format,
+        "colormap": "viridis",
         "render_style": style,
         "figure_size_inches": list(style_params["figsize"]),
         "publication_rendering_candidate": style == "publication",
@@ -1805,6 +1841,8 @@ def _fig3_multifrequency_panel_metadata(
             component: {"vmin": limits[0], "vmax": limits[1]}
             for component, limits in row_color_scales.items()
         },
+        "color_scale_source": color_scale_source,
+        "display_clipping": color_scale_source == "explicit_display_window",
         "overlays": _overlay_metadata(mass),
         "convention": reference.metadata.get("convention", {}),
         "source_summaries": [
@@ -2183,8 +2221,9 @@ def _overlay_metadata(mass: float | None) -> dict[str, Any]:
         return {"drawn": False}
     return {
         "drawn": True,
-        "event_horizon_radius": 2.0 * mass,
-        "light_ring_radius": 3.0 * mass,
+        "event_horizon_radius": EVENT_HORIZON_RADIUS_OVER_M * mass,
+        "light_ring_radius": LIGHT_RING_IMAGE_RADIUS_OVER_M * mass,
+        "light_ring_geometry": "image-plane critical impact parameter b_c=3*sqrt(3)*M",
     }
 
 

@@ -67,6 +67,10 @@ def test_run_solver_grid_calls_solver_for_each_angular_point(tmp_path):
     assert np.issubdtype(result.h_plus.dtype, np.complexfloating)
     assert result.h_cross[1, 1] == 2.0 * complex(0.2 + 3.0, -1.0)
     assert result.metadata["convention"]["fourier"] == "exp(-i k t)"
+    assert result.metadata["convention"]["polarization_bridge"] == (
+        "unspecified caller-supplied solver"
+    )
+    assert result.metadata["convention"]["physical_claim"] is False
     assert result.metadata["config"]["case_id"] == "CASE_IO"
     assert result.metadata["diagnostics"]["points"][0]["radial_solve_count"] == 1.0
     assert "lmax_convergence_history" not in result.metadata["diagnostics"]

@@ -1,8 +1,18 @@
 # T10 Current Handoff
 
-Last updated: 2026-07-09
+Last updated: 2026-08-01
 
 Thread: T10, literature and numerical-method support.
+
+## 2026-08-01 project sync
+
+T10i is historical and no T10 task is active. The present literature need is
+more specific than render polish: determine whether the paper, supplementary
+material, author code, or cited conventions specify the complex-frequency
+reality bridge, total/scattered field used in Fig.4, Kirchhoff normalization
+in Figs.5/6, and apparent-mode projection in Fig.7. Literature findings must
+be converted into numerical point regressions before another production run.
+See `status.md`.
 
 ## Current Status
 

@@ -1,10 +1,13 @@
+import importlib.util
 import json
+from pathlib import Path
+import sys
 
 import numpy as np
 import pytest
 
 import schwgw.numerics as public_numerics
-import schwgw.numerics.radial_solver as radial_solver_module
+from schwgw.numerics.legacy import paper_oracles as legacy_paper_oracles
 from schwgw.backgrounds.schwarzschild import SchwarzschildBackground
 from schwgw.numerics import BoundaryConfig, RadialSolution, solve_radial_mode
 import schwgw.numerics.experimental.q018_rescaled_oracle as q018_oracle_module
@@ -69,6 +72,374 @@ Q018_DELTA0P1_RISK_TRANSITION_ANCHORS = (
     (Sector.ODD, 3.8, 175, "near_axis_x0_z30"),
     (Sector.EVEN, 3.9, 176, "near_axis_x0_z30"),
 )
+
+Q018_TARGETED_ADAPTIVE_FREQUENCIES = (
+    0.35,
+    0.45,
+    0.85,
+    0.95,
+    1.55,
+    1.65,
+    1.725,
+    2.775,
+    2.85,
+    2.95,
+    3.775,
+    3.85,
+    3.95,
+)
+Q018_TARGETED_ADAPTIVE_TOKENS = (
+    "0p35",
+    "0p45",
+    "0p85",
+    "0p95",
+    "1p55",
+    "1p65",
+    "1p725",
+    "2p775",
+    "2p85",
+    "2p95",
+    "3p775",
+    "3p85",
+    "3p95",
+)
+Q018_TARGETED_ADAPTIVE_LMAX = {
+    0.35: (24, 36, 60, 84),
+    0.45: (24, 36, 60, 84),
+    0.85: (24, 36, 60, 84),
+    0.95: (24, 48, 72, 96),
+    1.55: (72, 96, 120, 144),
+    1.65: (84, 108, 132, 156),
+    1.725: (84, 108, 132, 156),
+    2.775: (180, 204, 228, 252),
+    2.85: (192, 216, 240, 264),
+    2.95: (204, 228, 252, 276),
+    3.775: (276, 300, 324, 348),
+    3.85: (276, 300, 324, 348),
+    3.95: (288, 312, 336, 360),
+}
+Q018_TARGETED_ADAPTIVE_ORACLE = "q018_tablei_targeted_adaptive_transition"
+Q018_TARGETED_ADAPTIVE_BOUNDARY = {
+    "M": 1.0,
+    "r_out": 300.0,
+    "r_in_eps": 1e-6,
+    "rtol": 1e-10,
+    "atol": 1e-12,
+}
+Q018_TARGETED_ADAPTIVE_EXPECTED_ROWS = 42_224
+
+Q018_FURTHER_LOCAL_FREQUENCIES = (
+    0.325, 0.375, 0.825, 0.875, 0.925, 0.975,
+    1.525, 1.575, 1.625, 1.675, 1.7125, 1.7375,
+    2.7625, 2.7875, 2.825, 2.875, 2.925, 2.975,
+    3.7625, 3.7875, 3.825, 3.875, 3.925, 3.975,
+)
+Q018_FURTHER_LOCAL_TOKENS = (
+    "0p325", "0p375", "0p825", "0p875", "0p925", "0p975",
+    "1p525", "1p575", "1p625", "1p675", "1p7125", "1p7375",
+    "2p7625", "2p7875", "2p825", "2p875", "2p925", "2p975",
+    "3p7625", "3p7875", "3p825", "3p875", "3p925", "3p975",
+)
+Q018_FURTHER_LOCAL_LMAX = {
+    0.325: (24, 36, 60, 84), 0.375: (24, 36, 60, 84),
+    0.825: (24, 36, 60, 84), 0.875: (24, 36, 60, 84),
+    0.925: (24, 36, 60, 84), 0.975: (24, 48, 72, 96),
+    1.525: (72, 96, 120, 144), 1.575: (72, 96, 120, 144),
+    1.625: (84, 108, 132, 156), 1.675: (84, 108, 132, 156),
+    1.7125: (84, 108, 132, 156), 1.7375: (96, 120, 144, 168),
+    2.7625: (180, 204, 228, 252), 2.7875: (180, 204, 228, 252),
+    2.825: (192, 216, 240, 264), 2.875: (192, 216, 240, 264),
+    2.925: (192, 216, 240, 264), 2.975: (204, 228, 252, 276),
+    3.7625: (276, 300, 324, 348), 3.7875: (276, 300, 324, 348),
+    3.825: (276, 300, 324, 348), 3.875: (288, 312, 336, 360),
+    3.925: (288, 312, 336, 360), 3.975: (288, 312, 336, 360),
+}
+Q018_FURTHER_LOCAL_ORACLE = "q018_tablei_further_local_transition"
+Q018_FURTHER_LOCAL_EXPECTED_ROWS = 81_792
+
+Q018_LITERAL_FAILED_CHILD_FREQUENCIES = (
+    0.3125, 0.3375, 0.3625, 0.3875,
+    0.8625, 0.9125, 0.9375, 0.9625, 0.9875,
+    1.5125, 1.5375, 1.5625, 1.5875, 1.6125, 1.6375, 1.6625,
+    1.6875, 1.70625, 1.71875,
+    2.78125, 2.79375, 2.8125, 2.8375, 2.8625, 2.8875, 2.9125,
+    2.9375, 2.9625, 2.9875,
+    3.75625, 3.76875, 3.78125, 3.79375, 3.8125, 3.8375, 3.8625,
+    3.8875, 3.9125, 3.9375, 3.9625, 3.9875,
+)
+Q018_LITERAL_FAILED_CHILD_TOKENS = tuple(
+    str(value).replace(".", "p")
+    for value in Q018_LITERAL_FAILED_CHILD_FREQUENCIES
+)
+Q018_LITERAL_FAILED_CHILD_LMAX = {
+    0.3125: (24, 36, 60, 84), 0.3375: (24, 36, 60, 84),
+    0.3625: (24, 36, 60, 84), 0.3875: (24, 36, 60, 84),
+    0.8625: (24, 36, 60, 84), 0.9125: (24, 36, 60, 84),
+    0.9375: (24, 48, 72, 96), 0.9625: (24, 48, 72, 96),
+    0.9875: (24, 48, 72, 96),
+    1.5125: (72, 96, 120, 144), 1.5375: (72, 96, 120, 144),
+    1.5625: (72, 96, 120, 144), 1.5875: (72, 96, 120, 144),
+    1.6125: (84, 108, 132, 156), 1.6375: (84, 108, 132, 156),
+    1.6625: (84, 108, 132, 156), 1.6875: (84, 108, 132, 156),
+    1.70625: (84, 108, 132, 156), 1.71875: (84, 108, 132, 156),
+    2.78125: (180, 204, 228, 252), 2.79375: (180, 204, 228, 252),
+    2.8125: (192, 216, 240, 264), 2.8375: (192, 216, 240, 264),
+    2.8625: (192, 216, 240, 264), 2.8875: (192, 216, 240, 264),
+    2.9125: (192, 216, 240, 264), 2.9375: (204, 228, 252, 276),
+    2.9625: (204, 228, 252, 276), 2.9875: (204, 228, 252, 276),
+    3.75625: (276, 300, 324, 348), 3.76875: (276, 300, 324, 348),
+    3.78125: (276, 300, 324, 348), 3.79375: (276, 300, 324, 348),
+    3.8125: (276, 300, 324, 348), 3.8375: (276, 300, 324, 348),
+    3.8625: (276, 300, 324, 348), 3.8875: (288, 312, 336, 360),
+    3.9125: (288, 312, 336, 360), 3.9375: (288, 312, 336, 360),
+    3.9625: (288, 312, 336, 360), 3.9875: (288, 312, 336, 360),
+}
+Q018_LITERAL_FAILED_CHILD_ORACLE = (
+    "q018_tablei_literal_failed_child_transition"
+)
+Q018_LITERAL_FAILED_CHILD_EXPECTED_ROWS = 146_416
+
+Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES = (
+    0.86875,
+    0.94375, 0.95625, 0.96875,
+    1.54375, 1.56875, 1.58125, 1.59375, 1.63125, 1.65625,
+    1.69375, 1.703125, 1.715625,
+    2.778125, 2.784375, 2.80625, 2.81875, 2.83125, 2.84375,
+    2.85625, 2.86875, 2.88125, 2.89375, 2.90625, 2.91875,
+    2.93125, 2.94375, 2.95625, 2.96875, 2.98125, 2.99375,
+    3.753125, 3.759375, 3.765625, 3.771875, 3.778125, 3.784375,
+    3.790625, 3.796875, 3.80625, 3.81875, 3.83125, 3.84375,
+    3.85625, 3.86875, 3.88125, 3.89375, 3.90625, 3.91875,
+    3.93125, 3.94375, 3.95625, 3.96875, 3.98125, 3.99375,
+)
+Q018_ANOTHER_BOUNDED_LOCAL_TOKENS = tuple(
+    str(value).replace(".", "p")
+    for value in Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES
+)
+
+
+def _another_bounded_local_lmax_values(k: float) -> tuple[int, ...]:
+    seed = 12 * int(np.ceil(max(84.0, 90.0 * k) / 12.0))
+    return tuple(sorted({max(24, seed - 72), seed - 48, seed - 24, seed}))
+
+
+Q018_ANOTHER_BOUNDED_LOCAL_LMAX = {
+    k: _another_bounded_local_lmax_values(k)
+    for k in Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES
+}
+Q018_ANOTHER_BOUNDED_LOCAL_ORACLE = (
+    "q018_tablei_another_bounded_local_transition"
+)
+Q018_ANOTHER_BOUNDED_LOCAL_EXPECTED_ROWS = 239_120
+
+
+def test_another_bounded_local_frozen_classification_contract() -> None:
+    assert len(Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES) == 55
+    assert len(set(Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES)) == 55
+    assert tuple(Q018_ANOTHER_BOUNDED_LOCAL_LMAX) == (
+        Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES
+    )
+    assert Q018_ANOTHER_BOUNDED_LOCAL_TOKENS == tuple(
+        str(value).replace(".", "p")
+        for value in Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES
+    )
+    assert max(map(max, Q018_ANOTHER_BOUNDED_LOCAL_LMAX.values())) == 360
+    assert sum(
+        (max(Q018_ANOTHER_BOUNDED_LOCAL_LMAX[frequency]) - 1) * 2 * 8
+        for frequency in Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES
+    ) == Q018_ANOTHER_BOUNDED_LOCAL_EXPECTED_ROWS
+
+
+def test_another_bounded_local_default_covered_mode_makes_zero_oracle_calls(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls = 0
+
+    def forbidden_oracle(*args: object, **kwargs: object) -> object:
+        nonlocal calls
+        calls += 1
+        raise AssertionError("default-covered mode must not call the oracle")
+
+    monkeypatch.setattr(
+        q018_oracle_module,
+        "solve_q018_rescaled_oracle",
+        forbidden_oracle,
+    )
+    solution = solve_radial_mode(
+        Sector.ODD,
+        2,
+        0.86875,
+        SchwarzschildBackground(M=1.0),
+        _tablei_review_grid_boundary_config(
+            30.0,
+            experimental_required_radius_oracle=(
+                Q018_ANOTHER_BOUNDED_LOCAL_ORACLE
+            ),
+        ),
+    )
+    assert isinstance(solution, RadialSolution)
+    assert calls == 0
+    assert solution.diagnostics.solver != (
+        "q018_tablei_another_bounded_local_transition_oracle"
+    )
+
+
+def test_another_bounded_local_snapshot_provenance_is_complete() -> None:
+    from schwgw.numerics.q018_tablei_another_bounded_local_envelope import (
+        CLASSIFICATION_SHA256,
+        CLASSIFICATION_SNAPSHOT_SHA256,
+        ORACLE_VALIDATION_SHA256,
+        SOURCE_HASHES,
+    )
+
+    assert len(CLASSIFICATION_SNAPSHOT_SHA256) == 64
+    assert len(CLASSIFICATION_SHA256) == 64
+    assert len(ORACLE_VALIDATION_SHA256) == 64
+    assert "src/schwgw/numerics/radial_solver.py" in SOURCE_HASHES
+    assert "scripts/phase5_another_bounded_local_radial_gate.py" in SOURCE_HASHES
+
+
+def test_literal_failed_child_frozen_classification_contract() -> None:
+    assert len(Q018_LITERAL_FAILED_CHILD_FREQUENCIES) == 41
+    assert len(set(Q018_LITERAL_FAILED_CHILD_FREQUENCIES)) == 41
+    assert tuple(Q018_LITERAL_FAILED_CHILD_LMAX) == (
+        Q018_LITERAL_FAILED_CHILD_FREQUENCIES
+    )
+    assert Q018_LITERAL_FAILED_CHILD_TOKENS == tuple(
+        str(value).replace(".", "p")
+        for value in Q018_LITERAL_FAILED_CHILD_FREQUENCIES
+    )
+    assert max(map(max, Q018_LITERAL_FAILED_CHILD_LMAX.values())) == 360
+    assert sum(
+        (max(Q018_LITERAL_FAILED_CHILD_LMAX[frequency]) - 1) * 2 * 8
+        for frequency in Q018_LITERAL_FAILED_CHILD_FREQUENCIES
+    ) == Q018_LITERAL_FAILED_CHILD_EXPECTED_ROWS
+
+
+def test_literal_failed_child_default_covered_mode_makes_zero_oracle_calls(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls = 0
+
+    def forbidden_oracle(*args: object, **kwargs: object) -> object:
+        nonlocal calls
+        calls += 1
+        raise AssertionError("default-covered mode must not call the oracle")
+
+    monkeypatch.setattr(
+        q018_oracle_module,
+        "solve_q018_rescaled_oracle",
+        forbidden_oracle,
+    )
+    solution = solve_radial_mode(
+        Sector.ODD,
+        2,
+        0.3125,
+        SchwarzschildBackground(M=1.0),
+        _tablei_review_grid_boundary_config(
+            30.0,
+            experimental_required_radius_oracle=(
+                Q018_LITERAL_FAILED_CHILD_ORACLE
+            ),
+        ),
+    )
+    assert isinstance(solution, RadialSolution)
+    assert calls == 0
+    assert solution.diagnostics.solver != (
+        "q018_tablei_literal_failed_child_transition_oracle"
+    )
+
+
+def test_literal_failed_child_snapshot_provenance_is_complete() -> None:
+    from schwgw.numerics.q018_tablei_literal_failed_child_envelope import (
+        CLASSIFICATION_SHA256,
+        CLASSIFICATION_SNAPSHOT_SHA256,
+        ORACLE_VALIDATION_SHA256,
+        SOURCE_HASHES,
+    )
+
+    assert len(CLASSIFICATION_SNAPSHOT_SHA256) == 64
+    assert len(CLASSIFICATION_SHA256) == 64
+    assert len(ORACLE_VALIDATION_SHA256) == 64
+    assert "src/schwgw/numerics/radial_solver.py" in SOURCE_HASHES
+    assert "scripts/phase5_literal_failed_child_radial_gate.py" in SOURCE_HASHES
+
+
+def test_further_local_frozen_classification_contract() -> None:
+    assert len(Q018_FURTHER_LOCAL_FREQUENCIES) == 24
+    assert len(set(Q018_FURTHER_LOCAL_FREQUENCIES)) == 24
+    assert tuple(Q018_FURTHER_LOCAL_LMAX) == Q018_FURTHER_LOCAL_FREQUENCIES
+    assert Q018_FURTHER_LOCAL_TOKENS == tuple(
+        str(value).replace(".", "p") for value in Q018_FURTHER_LOCAL_FREQUENCIES
+    )
+    assert sum(
+        (max(Q018_FURTHER_LOCAL_LMAX[frequency]) - 1) * 2 * 8
+        for frequency in Q018_FURTHER_LOCAL_FREQUENCIES
+    ) == Q018_FURTHER_LOCAL_EXPECTED_ROWS
+
+
+def test_further_local_adapter_name_is_supported() -> None:
+    background = SchwarzschildBackground(M=1.0)
+    config = _tablei_review_grid_boundary_config(
+        30.0,
+        experimental_required_radius_oracle=Q018_FURTHER_LOCAL_ORACLE,
+    )
+    solution = solve_radial_mode(Sector.ODD, 2, 0.325, background, config)
+    assert isinstance(solution, RadialSolution)
+    assert solution.diagnostics.solver != (
+        "q018_tablei_further_local_transition_oracle"
+    )
+    assert not any(
+        warning.code == "q018_tablei_further_local_transition_oracle_used"
+        for warning in solution.diagnostics.warnings
+    )
+
+
+def test_targeted_adaptive_frozen_classification_contract() -> None:
+    assert len(Q018_TARGETED_ADAPTIVE_FREQUENCIES) == 13
+    assert len(set(Q018_TARGETED_ADAPTIVE_FREQUENCIES)) == 13
+    assert Q018_TARGETED_ADAPTIVE_TOKENS == tuple(
+        {
+            0.35: "0p35",
+            0.45: "0p45",
+            0.85: "0p85",
+            0.95: "0p95",
+            1.55: "1p55",
+            1.65: "1p65",
+            1.725: "1p725",
+            2.775: "2p775",
+            2.85: "2p85",
+            2.95: "2p95",
+            3.775: "3p775",
+            3.85: "3p85",
+            3.95: "3p95",
+        }[frequency]
+        for frequency in Q018_TARGETED_ADAPTIVE_FREQUENCIES
+    )
+    assert tuple(Q018_TARGETED_ADAPTIVE_LMAX) == Q018_TARGETED_ADAPTIVE_FREQUENCIES
+    assert Q018_TARGETED_ADAPTIVE_BOUNDARY == {
+        "M": 1.0,
+        "r_out": 300.0,
+        "r_in_eps": 1e-6,
+        "rtol": 1e-10,
+        "atol": 1e-12,
+    }
+    assert sum(
+        (max(Q018_TARGETED_ADAPTIVE_LMAX[frequency]) - 1) * 2 * 8
+        for frequency in Q018_TARGETED_ADAPTIVE_FREQUENCIES
+    ) == Q018_TARGETED_ADAPTIVE_EXPECTED_ROWS
+
+
+def test_targeted_adaptive_adapter_name_is_supported() -> None:
+    background = SchwarzschildBackground(M=1.0)
+    config = _tablei_review_grid_boundary_config(
+        30.0,
+        experimental_required_radius_oracle=Q018_TARGETED_ADAPTIVE_ORACLE,
+    )
+
+    solution = solve_radial_mode(Sector.ODD, 2, 0.35, background, config)
+
+    assert isinstance(solution, RadialSolution)
 
 
 def _r60_boundary_config(**overrides) -> BoundaryConfig:
@@ -317,7 +688,7 @@ def test_delta0p1_risk_adapter_rejects_unmeasured_ell_or_point_membership(
         RuntimeError,
         match="q018_experimental_oracle_out_of_envelope",
     ) as raised:
-        radial_solver_module._validate_q018_delta0p1_risk_oracle_envelope(
+        legacy_paper_oracles._validate_q018_delta0p1_risk_oracle_envelope(
             sector=Sector.ODD,
             ell=ell,
             k=2.8,
@@ -488,6 +859,10 @@ def test_q018_reviewed_opt_in_returns_local_production_radial_solution(
     assert metadata["r_out"] == 300.0
     assert metadata["rtol"] == 1e-10
     assert metadata["atol"] == 1e-12
+    assert metadata["requested_precision_dps"] == 80
+    assert metadata["actual_precision_bits"] == 53
+    assert metadata["actual_decimal_digits"] == 15.95
+    assert "precision_dps" not in metadata
     assert metadata["finite_psi"] is True
     assert metadata["finite_dpsi_dr"] is True
     assert metadata["finite_A_in"] is True
@@ -1066,3 +1441,42 @@ def test_q018_production_oracle_unknown_opt_in_fails_closed() -> None:
 def test_q018_experimental_oracle_is_not_publicly_exported() -> None:
     assert not hasattr(public_numerics, "solve_q018_rescaled_oracle")
     assert "solve_q018_rescaled_oracle" not in public_numerics.__all__
+
+
+def test_t4ae_methods_gate_preserves_the_frozen_q018_matrix() -> None:
+    path = Path("scripts/phase5_equivalence_preserving_methods_gate.py")
+    spec = importlib.util.spec_from_file_location(
+        "phase5_t4ae_q018_contract",
+        path,
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+
+    expected_frequencies = (0.86875, 1.58125, 2.91875, 3.759375, 3.89375)
+    assert module.FROZEN_FREQUENCIES == expected_frequencies
+    assert all(
+        frequency in Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES
+        for frequency in module.FROZEN_FREQUENCIES
+    )
+    assert module.FROZEN_LMAX_VALUES == {
+        frequency: Q018_ANOTHER_BOUNDED_LOCAL_LMAX[frequency]
+        for frequency in expected_frequencies
+    }
+    assert module.BOUNDARY_CONTRACT == {
+        "M": 1.0,
+        "r_out": 300.0,
+        "r_in_eps": 1e-6,
+        "rtol": 1e-10,
+        "atol": 1e-12,
+    }
+    assert module.DIAGNOSTIC_FAILED_CHILD_MIDPOINT_COUNT == 87
+    assert not hasattr(module, "DIAGNOSTIC_FAILED_CHILD_MIDPOINTS")
+
+
+def test_t4ae_methods_gate_does_not_expand_q018_public_api() -> None:
+    assert not hasattr(public_numerics, "RadialCache")
+    assert "RadialCache" not in public_numerics.__all__
+    assert not hasattr(public_numerics, "OracleRadialArtifact")
+    assert "OracleRadialArtifact" not in public_numerics.__all__

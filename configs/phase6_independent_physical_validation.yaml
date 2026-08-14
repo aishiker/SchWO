@@ -1,0 +1,55 @@
+phase: 6
+name: independent_physical_validation
+global_green_permitted: false
+paper_figure_agreement:
+  role: secondary_regression_only
+  full_figure_rerun_authorized: false
+
+radial_domain:
+  kM: [0.01, 0.05, 0.1, 0.5, 1.0, 2.0, 4.0, 8.0]
+  ell:
+    minimum: 2
+    maximum: actual_production_lmax
+  sectors: [odd, even]
+  dense_regions:
+    - turning_shell_ell_approximately_k_r_eval
+    - q018_transition
+    - evanescent_transition
+  ladders:
+    r_in_eps: [1.0e-4, 3.0e-5, 1.0e-5, 3.0e-6, 1.0e-6, 3.0e-7]
+    r_out_M: [300.0, 600.0, 1200.0, 1800.0, 2400.0]
+    jost_order: [40, 80, 120, 160, 200]
+    arithmetic_backend:
+      - scipy_float64
+      - independent_arbitrary_precision
+  external_backends:
+    - bhpt_reggewheeler_mst
+    - bhpt_direct_integration
+    - independent_arbitrary_precision_ode
+
+observable_gates:
+  V0: claim_and_provenance
+  V1: radial_s_matrix_and_flux
+  V1Q: generic_conditioning_backend
+  V2: martel_poisson_waveform_and_flux
+  V3: analytic_scattering_benchmarks
+  V4: operational_finite_radius_response
+  V5: polarization_transfer_matrix_and_phase
+  V6: per_observable_release_certificates
+
+uncertainty_budget:
+  numerical:
+    - lmax
+    - r_in
+    - r_out
+    - jost_order
+    - ode_tolerance
+    - arithmetic_precision
+    - axis_limit
+    - backend_difference
+  convention:
+    - observer
+    - tetrad
+    - polarization_basis
+    - phase_origin
+    - total_scattered_definition

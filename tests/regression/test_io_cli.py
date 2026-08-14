@@ -66,6 +66,8 @@ def test_cli_run_serializes_and_passes_optional_q018_boundary_fields(tmp_path, m
         "atol": 1.0e-12,
         "required_eval_radius": 60.0,
         "experimental_required_radius_oracle": "q018_riccati",
+        "outer_basis": "jost_1_over_r",
+        "outer_series_order": 160,
     }
     assert metadata["boundary"] == metadata["config"]["numerics"]["boundary"]
 

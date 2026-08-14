@@ -1,0 +1,137 @@
+{
+  "artifact_rev": 2,
+  "created_at_utc": "2026-08-11T12:24:44Z",
+  "failed_roots": [
+    {
+      "manifest_sha256": "f2320d5da8bfebdf3b0542dd6bcbb0cf3b6e855bd363ea0342c8ef697a19bb8c",
+      "path": "runs/phase6/classic_scattering/v3_1_mode_greybody_r1_20260811T120359Z_py314",
+      "policy": "immutable superseded preflight diagnostic; forbidden as resume or accepted input"
+    },
+    {
+      "manifest_sha256": "78ee1b9b9c9490ddb438639d175a7e9f0ec4b46985c7d35fc604f4a497e0e319",
+      "path": "runs/phase6/classic_scattering/v3_1_mode_greybody_r1_20260811T120717Z_py314",
+      "policy": "immutable consumed science failure; forbidden as resume or accepted input"
+    }
+  ],
+  "global_green_permitted": false,
+  "liveness": {
+    "completed_bounded_repair_cycles": 0,
+    "current_bounded_repair_cycle": 1,
+    "maximum_bounded_repair_cycles": 2
+  },
+  "members": [
+    {
+      "path": "docs/phase6_v3_1_repair_cycle1_design.md",
+      "role": "bounded repair design and execution plan",
+      "sha256": "710eecce86e7372c837335ef630cfda94e4e718ac1f7490773e15fa11f349270"
+    },
+    {
+      "path": "docs/prompts/phase6_t4_v3_1_repair_cycle1.md",
+      "role": "formal T4 repair execution prompt",
+      "sha256": "40324abfede42f5ce484d34909cd1a20eeaf2e9cc35b290a8f40921af116f0d2"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_delta_review_cycle1.md",
+      "role": "formal post-execution T7 incremental review prompt",
+      "sha256": "6b247f5736813d2ba9eb9ea415688a21dd7dc4948659f8bd21d747f90be0498e"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_repair_package_review.md",
+      "role": "formal pre-execution T7 package-review prompt",
+      "sha256": "1485857eb0fc9151261031f976daa90234abe4a9b493f1b039cdc5b37e30d1f4"
+    }
+  ],
+  "nonclaims": [
+    "repair-package approval is not V3.1 scientific acceptance",
+    "no V3.2 authorization",
+    "no full-domain V3 certification",
+    "no Li figure equivalence",
+    "no global GREEN"
+  ],
+  "protected_radial_files": [
+    {
+      "path": "src/schwgw/numerics/adaptive_jost_radial.py",
+      "sha256": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896"
+    },
+    {
+      "path": "src/schwgw/numerics/boundary_conditions.py",
+      "sha256": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22"
+    },
+    {
+      "path": "src/schwgw/numerics/conditioned_radial.py",
+      "sha256": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2"
+    },
+    {
+      "path": "src/schwgw/numerics/matching.py",
+      "sha256": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340"
+    },
+    {
+      "path": "src/schwgw/numerics/physical_boundary_radial.py",
+      "sha256": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f"
+    },
+    {
+      "path": "src/schwgw/numerics/radial_solver.py",
+      "sha256": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9"
+    },
+    {
+      "path": "src/schwgw/numerics/scaled_tortoise_radial.py",
+      "sha256": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+    }
+  ],
+  "repair_scope": {
+    "class_a_blockers": [
+      "v31_route_a_first_node_native_failure",
+      "v31_official_runner_incomplete_scope"
+    ],
+    "expected_ap_keys": 102,
+    "expected_ap_nodes": 458,
+    "expected_external_records": 23,
+    "expected_mode_pairs": 248,
+    "expected_route_a_ladder_nodes": 9920,
+    "expected_route_a_modes": 496,
+    "expected_thresholds": 16,
+    "formal_certificates": 5
+  },
+  "schema": "schwo.phase6.v3_1.repair_cycle1_package.v1",
+  "scientific_stage": "V3.1",
+  "timezone": "UTC",
+  "upstream_identities": {
+    "bhpt_reggewheeler": {
+      "commit": "2e01209271fb3d0d92705d5c27bd9e00a6140981",
+      "package_root": "/private/tmp/SchWO_ReggeWheeler_phase6_v1_20260808",
+      "source_inventory_sha256": "741fe7d356b17b4fff19444a1bdee4dbbcb692914a8a47cac94b5878d9ef0c0d"
+    },
+    "d_union_plan": {
+      "path": "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/plan.json",
+      "sha256": "de266846ff6672dd04be255a43a1b5899af4753bea0757e00c5c2d60cf2067e3"
+    },
+    "original_t4_prompt": {
+      "path": "docs/prompts/phase6_t4_v3_1_mode_greybody.md",
+      "sha256": "7e377f64782b8311e111469f53eeb182190d30347ffe0d9853a41b96deeafab6"
+    },
+    "original_t7_prompt": {
+      "path": "docs/prompts/phase6_t7_v3_1_review.md",
+      "sha256": "058cea918e0c41537b4af8b3973dbe9d378cd3b612aad884ac986d14733d3899"
+    },
+    "project_governance": {
+      "path": "project.md",
+      "sha256": "fdba5646eb0d9bb0776ea6148e509d91124871cf371ac08a7229b10e18b63b9a"
+    },
+    "t7_initial_review": {
+      "path": "docs/handoffs/archive/T7_2026-08-11_v3_1_initial_failure_review.md",
+      "sha256": "d0cb93d0ade94d0376a09e4207d6059558c04c2b45383fcb42039525dad2d7c5"
+    },
+    "v1_production_radial_states_manifest": "7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4",
+    "v1_radial_manifest": "2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728",
+    "v1_selected_independent_manifest": "aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c",
+    "v2_release_manifest": "51ddf1580448382be7e182f92cf76bbf53ed39f15418af9e546f357979c743eb",
+    "v3_0_domain": "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b",
+    "v3_0_external_anchor_matrix": "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485",
+    "v3_0_thresholds": "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a",
+    "wolfram_kernel": {
+      "path": "/Volumes/JohnnyTforGR/Applications/Wolfram.app/Contents/MacOS/WolframKernel",
+      "sha256": "70ad9d850224b4723a04c581e769579cc3df4b4392ae2ed1886780e6b9be046c",
+      "version": "14.3.0 for Mac OS X ARM (64-bit) (July 8, 2025)"
+    }
+  }
+}

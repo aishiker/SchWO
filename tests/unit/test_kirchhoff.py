@@ -10,7 +10,10 @@ import schwgw.numerics.radial_solver as radial_solver
 import schwgw.scattering.kirchhoff as kirchhoff_module
 from schwgw.scattering.kirchhoff import (
     KirchhoffEq47Result,
+    compute_kirchhoff,
     compute_kirchhoff_eq47,
+    compute_kirchhoff_figure_consistent,
+    standard_point_mass_axis_intensity,
 )
 
 
@@ -91,6 +94,88 @@ def test_eq47_never_calls_radial_solver(monkeypatch: pytest.MonkeyPatch) -> None
         dps=40,
     )
     assert result.valid_mask.tolist() == [[True]]
+
+
+def test_figure_consistent_sign_changes_only_real_magnitude_prefactor() -> None:
+    kM = np.asarray([0.1, 0.7, 2.0])
+    radius = np.asarray([30.0, np.hypot(25.0, 30.0)])
+    theta = np.asarray([0.0, np.arctan2(25.0, 30.0)])
+
+    printed = compute_kirchhoff_eq47(
+        kM_values=kM,
+        r_over_M=radius,
+        theta=theta,
+        dps=70,
+    )
+    corrected = compute_kirchhoff_figure_consistent(
+        kM_values=kM,
+        r_over_M=radius,
+        theta=theta,
+        dps=70,
+    )
+
+    expected_ratio = np.broadcast_to(
+        np.exp(2.0 * np.pi * kM)[:, None],
+        corrected.F_complex.shape,
+    )
+    np.testing.assert_allclose(
+        corrected.F_complex / printed.F_complex,
+        expected_ratio,
+        rtol=3.0e-14,
+        atol=3.0e-14,
+    )
+    np.testing.assert_allclose(
+        corrected.arg_F_principal,
+        printed.arg_F_principal,
+        rtol=0.0,
+        atol=3.0e-14,
+    )
+    assert (
+        corrected.metadata["baseline"]["real_exponential_prefactor"]
+        == "exp(-pi gamma/2)"
+    )
+    assert (
+        printed.metadata["baseline"]["real_exponential_prefactor"]
+        == "exp(+pi gamma/2)"
+    )
+
+
+def test_standard_default_matches_independent_on_axis_identity() -> None:
+    kM = np.asarray([1.0e-8, 0.1, 0.5, 1.0, 2.0, 4.0])
+    result = compute_kirchhoff(
+        kM_values=kM,
+        r_over_M=np.asarray([30.0]),
+        theta=np.asarray([0.0]),
+        dps=80,
+    )
+
+    np.testing.assert_allclose(
+        result.abs_F[:, 0] ** 2,
+        standard_point_mass_axis_intensity(kM),
+        rtol=2.0e-14,
+        atol=2.0e-14,
+    )
+    assert (
+        result.metadata["baseline"]["prefactor_convention"]
+        == "standard_point_mass"
+    )
+    assert result.abs_F[-1, 0] == pytest.approx(7.089815403622064, rel=2e-14)
+
+
+def test_kirchhoff_conventions_are_explicit_and_invalid_value_is_rejected() -> None:
+    common = {
+        "kM_values": np.asarray([0.5]),
+        "r_over_M": np.asarray([30.0]),
+        "theta": np.asarray([0.0]),
+    }
+    literal = compute_kirchhoff(
+        **common,
+        prefactor_convention="literal_paper_v1",
+    )
+    legacy = compute_kirchhoff_eq47(**common)
+    np.testing.assert_array_equal(literal.F_complex, legacy.F_complex)
+    with pytest.raises(ValueError, match="prefactor_convention"):
+        compute_kirchhoff(**common, prefactor_convention="ambiguous")  # type: ignore[arg-type]
 
 
 @pytest.mark.parametrize(

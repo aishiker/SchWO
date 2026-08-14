@@ -60,14 +60,19 @@ dpsi_dr(r_in) = (-i k / f(r_in)) psi(r_in)
 
 ## 4. Outer matching
 
-在 `r_out` 处匹配：
+在 `r_out` 处，production 匹配到由 RW/Zerilli 方程递推得到的有限半径
+Jost basis：
 
 ```text
-psi(r_out)      = A_in exp(-i k r_star) + A_out exp(+i k r_star)
-dpsi/dr(r_out) = (-i k/f) A_in exp(-i k r_star) + (+i k/f) A_out exp(+i k r_star)
+J_±(r) = exp(±i k r_star) sum_{n=0}^N a_n^(±)/r^n
+psi(r_out)      = A_in J_-(r_out) + A_out J_+(r_out)
+dpsi/dr(r_out) = A_in J_-'(r_out) + A_out J_+'(r_out)
 ```
 
 求解 2x2 线性系统得到 `A_in`, `A_out`。
+`BoundaryConfig.outer_basis="jost_1_over_r"` 与
+`outer_series_order=160` 是当前 production 默认；历史 bare
+`exp(±i k r_star)` 只允许用 `outer_basis="plane_wave"` 显式诊断。
 
 目标边界要求：
 
@@ -87,7 +92,7 @@ A_out_scaled = scale * A_out_unit
 当前实现允许内部使用不同归一化。低势垒模式仍使用 unit horizon
 ingoing outward shooting；高势垒模式使用 unit incoming-at-infinity BVP，
 因此返回的 `A_in` 应接近 1。上层只应依赖 `A_in` 表示外边界
-`exp(-i k r_star)` 的入射系数，并用 `scale=c_lm/A_in` 归一到目标入射波。
+incoming Jost state 的系数，并用 `scale=c_lm/A_in` 归一到目标入射波。
 
 phase shift：
 
@@ -522,3 +527,159 @@ atol: 1e-12
 ```
 
 先生成 selected probes，再生成 full field map。
+
+## 12. T4ae equivalence-preserving methods contract
+
+本节只规定 pre-result implementation-comparison methods。它不能替代第
+2--10 节的 physics/numerics requirements，也不表示 optimized benchmark
+已经通过。
+
+### 12.1 Immutable scientific boundary
+
+Legacy 与 optimized 路径必须保持完全相同的：
+
+```text
+G=c=M=1
+metric signature (-,+,+,+)
+Fourier exp(-i k t)
+Schwarzschild tortoise coordinate
+radial ingoing/outgoing phases
+current RW/Zerilli master-variable normalization and phase convention
+r_in_eps=1e-6, r_out=300, rtol=1e-10, atol=1e-12
+```
+
+Odd/even sectors、incident `+z` state、angular/tetrad/reconstruction/
+observable packaging、frequency/mode/point order 和 independent checks 都不
+改变。Final adjacent-lmax criterion 仍是 `<=1e-4`；本文件或 validation
+文档较早的 historical/first-pass checklist 中出现的 `<1e-4` 记号不替代
+T4ae 冻结的 inclusive final gate。Phase criterion 严格
+`<pi/2`；failed-child hierarchy criterion 仍是
+`child_step <= immutable_failed_child_parent_step + 2e-15`。Methods
+comparison tolerance 不能替代或放宽这些 scientific gates。
+
+### 12.2 Certified ordinary dense reuse
+
+`RadialCache` 接受 injected solver，本身不选择 scientific backend。普通
+dense entry 的 key 包含：
+
+```text
+(sector, ell, k), rtol, atol,
+implementation/physics/solver/config/source/gate identity
+```
+
+Radius 不进入 ordinary key，是因为一次 ordinary solution 只有在其 certified
+interval 内才可 vectorized/dense evaluation。Certification 来自有限、严格
+递增的 `r_grid`；未给出 `valid_until_r` 时上界是 `r_grid[-1]`，给出时必须
+满足 `r_grid[0] <= valid_until_r <= r_grid[-1]` 并以它为上界，越界 metadata
+本身即 fail closed。
+Requested radius 不在该闭区间时必须 fail closed；不得 extrapolate、不得把
+一个小 domain solution 当作 larger-domain evidence。
+
+同一批 unresolved requests 按 radius 从大到小求解，以使覆盖更大 certified
+domain 的一个 ordinary solve 可服务较小 radii；最终结果仍恢复 caller 的
+original order。Cache 必须分别记录 fresh ODE/oracle solves、ordinary/
+oracle hits、misses、rejections 和 request rejections。每次 injected solver
+调用一开始就计入相应 fresh solve counter；随后因 identity、non-finite、
+uncertified interval 或 unauthenticated oracle provenance 被拒绝的 attempt
+也不能从计数中消失。
+
+这一 reuse 不改变 radial equation 或 tolerances。Legacy path 中 ODE 与 `m`
+无关仍是既有事实，但 generic typed contract 不据此假设所有 extension 都
+uncoupled 或 Schwarzschild-separable。
+
+### 12.3 Exact read-only oracle admission
+
+独立 oracle evidence 只能在完整 admission 匹配后一次性进入 cache：
+
+```text
+artifact_sha256
+schema_version
+snapshot_sha256
+origin ProvenanceIdentity
+```
+
+`origin ProvenanceIdentity` 的六段 hash 必须逐项等于预期 historical origin；
+current consumer request 也必须逐项等于 cache 的六段 current identity。
+Historical origin 与 current consumer identity 是两个不同角色，不能覆盖或
+混写。
+
+每个 `OracleRadialRecord` 继续以
+
+```text
+(sector, ell, k), point_id, exact radius, rtol, atol
+```
+
+为独立 certified state。不同 radius 或 point 的 records 不得合并成 dense
+oracle。Admission 先验证整个 artifact 的 type、identity、record uniqueness、
+complex fields、required diagnostics、warning tuple 和 residual finiteness；
+record 内嵌 `diagnostics.rtol/atol` 还必须分别 exact equal record/key 的
+`rtol/atol`。随后从 canonical
+`schema/snapshot/origin/records` bytes 独立重算 `artifact_sha256`，最后才
+atomically publish；任一 forged/bad hash、duplicate、non-finite 或 partial
+mismatch 都拒绝整个 admission，且不得留下部分 records。Admission、ordinary
+solution 和返回 diagnostics 都必须 deep-snapshot；caller 后续修改原始
+mapping/array/object 不能改变已缓存证据。
+
+后续 request 只有 mode/point/exact-radius/tolerance 全 key 匹配才可复用该
+record；任一 key 变化都记为 oracle miss/rejection 并走 injected ordinary
+solver，不能把近邻 record 当成 oracle evidence。若 injected solver 自称
+返回 oracle-derived solution，却没有先通过上述 artifact admission，则必须
+fail closed，不能把它作为 fresh oracle 写入 cache。Exact record hit 标记为
+`oracle_exact`；普通 dense hit 与 oracle hit 的 provenance/counters 不得混淆。
+
+### 12.4 Deterministic bounded execution
+
+Methods benchmark work unit 必须有唯一、canonical-JSON-serializable
+scientific key。Serial 与 parallel 都使用同一个递归 typed scientific order
+（numeric values 按数值而非 JSON 字符串、tuple/list 保持层次、mapping key
+按字典序）稳定排序，最多使用两个 workers，并以同一 order 返回和 reduction。
+`max_workers` 只能是 `1` 或 `2`；任何其他值 fail closed。
+
+Worker 内 BLAS/OpenMP thread count 必须固定为一，并在 legacy/optimized
+resource record 中保存相同 thread environment。并行化不能改变 floating
+reduction order、mode/channel order、solver tolerance 或 scientific work
+set。
+
+### 12.5 Atomic checkpoint and exact-identity resume
+
+每个 reusable work unit checkpoint 必须同时包含：
+
+```text
+schema_version
+state="complete"
+complete benchmark/checkpoint identity digest
+canonical work-unit key
+payload
+canonical payload_sha256
+```
+
+写入顺序是 same-directory exclusive temporary file、flush、`fsync`，再用
+same-filesystem hard-link publish 完成 no-overwrite atomic commit，随后
+unlink temporary 并再次 `fsync` directory。已有 target 或并发出现的 target
+都 fail closed，绝不以 replace 覆盖 complete evidence。Resume 只复用
+complete 且 schema/identity/key/payload hash 全部匹配的 unit，且不得重算该
+unit。Missing unit 才进入 executor；fresh result 写入后必须独立 reload
+验证。Quarantine move 可使用 `os.replace`，但它不属于 scientific artifact
+publication。
+
+Truncated、corrupt、interrupted/partial、stale-schema、wrong-key、
+wrong-identity 或 wrong-payload-hash checkpoint 必须 quarantine 并按 missing
+处理，不能 silent reuse。Canonical manifest membership/order 也必须稳定。
+Core cache 的 six-component `ProvenanceIdentity` 不包含 environment；benchmark
+checkpoint family 可另外绑定 `environment_sha256`，并要求 legacy/optimized
+environment 一致。
+
+### 12.6 Scope boundary
+
+T4ae 的优化仅允许减少重复工作，不允许减少 scientific work。特别是：
+
+- 87 个 diagnostic failed-child midpoints 不是 authorized inputs；
+- 不得删减 frequency、mode、point、lmax、residual 或 independent check；
+- 不得调整 solver tolerance、normalization、phase 或 finite/nonfinite policy；
+- generic/coupled mocks 必须 `physical_claim=false`；
+- 不实现或验证新的 spin-2、Teukolsky 或 coupled-channel theory；
+- 不授权 T7ch、T8、new frequency、production、plot、fixture、Kirchhoff 或
+  paper-style output。
+
+Exact array/error/performance budgets 和冻结 benchmark matrix 见
+`docs/validation_plan.md` 第 8 节。

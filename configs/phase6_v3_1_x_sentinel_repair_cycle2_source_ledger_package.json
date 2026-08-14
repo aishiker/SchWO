@@ -1,0 +1,177 @@
+{
+  "artifact_policy": {
+    "failed_dispatch_or_root_reuse_permitted": false,
+    "global_green_permitted": false,
+    "official_execution_authorized": false,
+    "scientific_stage": "V3.1-X",
+    "timezone": "UTC",
+    "v3_2_authorized": false
+  },
+  "authority_chain": {
+    "future_full_sentinel_dispatch": "docs/handoffs/archive/T0_2026-08-13_v3_1_x_external_direct_sentinel_dispatch_attempt_0003.json",
+    "future_full_sentinel_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_external_direct_sentinel_attempt_0003_terminal_review.md",
+    "future_implementation_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_sentinel_repair_cycle2_source_ledger_implementation_delta_review.md",
+    "future_micro_dispatch": "docs/handoffs/archive/T0_2026-08-13_v3_1_x_source_load_micro_sentinel_dispatch_attempt_0001.json",
+    "future_micro_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_source_load_micro_sentinel_terminal_review.md",
+    "future_package_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_sentinel_repair_cycle2_source_ledger_package_review.md",
+    "future_review_sha256_hardcoded_in_production": false,
+    "later_root_t0_dispatch_supplies_exact_future_review_sha256": true,
+    "micro_failure_tokens": [
+      "ADVANCE_DECISION: ESCALATE",
+      "CLAIM_STATUS: FAIL",
+      "GATE_LABEL: ESCALATE / T0 ADJUDICATION REQUIRED"
+    ],
+    "micro_success_tokens": [
+      "ADVANCE_DECISION: ADVANCE",
+      "CLAIM_STATUS: NOT_ASSESSED",
+      "GATE_LABEL: ACCEPT GREEN / V3.1-X SOURCE-LOAD MICRO SENTINEL SUFFICIENT FOR ONE-USE FULL SENTINEL DISPATCH"
+    ],
+    "multiple_or_runtime_selected_authorities_permitted": false
+  },
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "created_at_utc": "2026-08-13T09:48:00Z",
+  "failed_sentinels": [
+    {
+      "dispatch_sha256": "5a8bebeca2f1f0d9bcedf6bf4bf7986d8a9710df2b581bf2f56ef145597997a9",
+      "failure_sha256": "c002664933d58913b5793ffc1100a5958cb1dfdd12d0c9b3664ffa9ddfb2f541",
+      "manifest_sha256": "d905500bc70d6b562b7118454dfc020a053521d666e68619252c684905516772",
+      "policy": "immutable terminal diagnostic evidence only; no retry, resume, promotion, cache or science reuse",
+      "root": "runs/phase6/classic_scattering/v3_1_x_external_direct_sentinel_v1_20260813T055002Z_py314"
+    },
+    {
+      "dispatch_sha256": "6be8d88226179ed25d4e50dee06cc17a6f38e61e67617edf9751a88e2cea5112",
+      "failure_sha256": "c002664933d58913b5793ffc1100a5958cb1dfdd12d0c9b3664ffa9ddfb2f541",
+      "manifest_sha256": "6e0d2349d998f76ee8d149e4551bf27222c5d93bf4ec9fb7b790adbc9f506109",
+      "policy": "immutable terminal diagnostic evidence only; no retry, resume, promotion, cache or science reuse",
+      "root": "runs/phase6/classic_scattering/v3_1_x_external_direct_sentinel_v1_20260813T085010Z_py314"
+    }
+  ],
+  "frozen_implementation_baseline": {
+    "cli": {
+      "path": "scripts/phase6_v3_1_x_external_direct.py",
+      "sha256": "072a3520bb32090e1dd872037f4570cd29a35ffc7d47a0788d426d3840e7e768"
+    },
+    "core": {
+      "path": "src/schwgw/validation/phase6_v3_external_direct.py",
+      "sha256": "981c2b220c3e67e400f0d8c420fdf4f89ac57962483fa0a02bf9ed3649948da4"
+    },
+    "producer": {
+      "path": "src/schwgw/validation/phase6_v3_mode_greybody_external_direct_replacement.py",
+      "sha256": "81a33a4157d6e07b03621bff069c9383914464c16ce4314a9f7a556c7e1cd088"
+    },
+    "regression_test": {
+      "path": "tests/regression/test_phase6_v3_external_direct_publication.py",
+      "sha256": "24d26a8a9c2e0ad573b97f76b39db7743f2d6639cd57978be93f0c310062f858"
+    },
+    "unit_test": {
+      "path": "tests/unit/test_phase6_v3_external_direct.py",
+      "sha256": "056c7273edbdb612d3fc99c4b493f2fe4c96dc15b8ae7aa3a872587f33f3aaba"
+    },
+    "wls": {
+      "path": "scripts/phase6_v3_1_x_bhpt_direct.wls",
+      "sha256": "24df8e68eef190dfd43348537bf2ce487aec5947f439f117f072bb96e8751da6"
+    }
+  },
+  "implementation_scope": {
+    "allowed_unique_paths": [
+      "scripts/phase6_v3_1_x_bhpt_direct.wls",
+      "src/schwgw/validation/phase6_v3_mode_greybody_external_direct_replacement.py",
+      "scripts/phase6_v3_1_x_external_direct.py",
+      "tests/unit/test_phase6_v3_external_direct.py",
+      "tests/regression/test_phase6_v3_external_direct_publication.py"
+    ],
+    "direct_physics_core_must_remain_sha256": "981c2b220c3e67e400f0d8c420fdf4f89ac57962483fa0a02bf9ed3649948da4",
+    "maximum_changed_path_count": 5
+  },
+  "liveness": {
+    "completed_bounded_science_repairs": 1,
+    "current_bounded_science_repair": 2,
+    "failure_at_implementation_micro_or_full_sentinel_requires": "ESCALATE / T0 ADJUDICATION REQUIRED",
+    "maximum_bounded_science_repairs": 2,
+    "repair_cycle_3_permitted": false
+  },
+  "members": [
+    {
+      "path": "docs/phase6_v3_1_x_sentinel_repair_cycle2_source_ledger_design.md",
+      "role": "final bounded source-ledger repair design",
+      "sha256": "582bc3248a6acf7164485203d317b2cdc0d2a7819a13dcdb584e86e9a90bebdf"
+    },
+    {
+      "path": "docs/handoffs/archive/T4_2026-08-13_v3_1_x_sentinel_repair_cycle2_source_ledger_design_analysis.md",
+      "role": "formal T4 zero-science design analysis",
+      "sha256": "bdbe1c1d05b086cac50d3dd5b99759a5d131b86e73788f92b0788bc9775eba1b"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_x_sentinel_repair_cycle2_package_review.md",
+      "role": "formal T7 package-review prompt",
+      "sha256": "88a1f87d9c1c5bba94ef3c3db83ab5023ddd2b685d9406c0cddc2940bdfb795c"
+    },
+    {
+      "path": "docs/prompts/phase6_t6_v3_1_x_sentinel_repair_cycle2_source_ledger_implementation.md",
+      "role": "formal T6 implementation prompt",
+      "sha256": "d78e6ba25a8b8f8885d75552e50fbe52f9715fd4288d1a58982021448da2d97f"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_x_sentinel_repair_cycle2_source_ledger_delta_review.md",
+      "role": "formal T7 implementation-delta prompt",
+      "sha256": "52096dc832fed2bc64153273e3d5d69ac446ac96ccf63bf468d12e7b25162aa1"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_x_source_load_micro_sentinel_terminal_review.md",
+      "role": "formal T7 real micro-terminal review prompt",
+      "sha256": "1cf801469dc13fd076a5dd87e86c728b3b5c1c681c24f5d59e507f6172ab7c75"
+    }
+  ],
+  "micro_sentinel_contract": {
+    "exact_key": "V3A-MODE-BHPT-RW-001",
+    "exact_node": "P1",
+    "external_api_calls": 0,
+    "full_sentinel_or_science_reuse_permitted": false,
+    "root_namespace": "v3_1_x_source_load_micro_sentinel_v1_<YYYYMMDDTHHMMSSZ>_py314",
+    "scientific_calls": 0,
+    "solver_calls": 0,
+    "wolfram_launches": 1
+  },
+  "nonclaims": [
+    "package readiness is not implementation or scientific acceptance",
+    "no numerical node, threshold or certificate is predicted to pass",
+    "micro-sentinel evidence is non-scientific and non-reusable",
+    "no official V3.1-X execution, V3.2 or global GREEN"
+  ],
+  "parent_gate_id": "phase6_v3_1_x_external_direct_route_v1",
+  "protected_radial_identities": {
+    "src/schwgw/numerics/adaptive_jost_radial.py": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896",
+    "src/schwgw/numerics/boundary_conditions.py": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22",
+    "src/schwgw/numerics/conditioned_radial.py": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2",
+    "src/schwgw/numerics/matching.py": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340",
+    "src/schwgw/numerics/physical_boundary_radial.py": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f",
+    "src/schwgw/numerics/radial_solver.py": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9",
+    "src/schwgw/numerics/scaled_tortoise_radial.py": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+  },
+  "repair": {
+    "blocker_id": "v31x-sentinel-loaded-source-start-association-order-mismatch",
+    "method_domain_precision_threshold_source_or_convention_change_permitted": false,
+    "semantic_projection_field_order": [
+      "context",
+      "path",
+      "sha256",
+      "size",
+      "mode",
+      "nlink"
+    ]
+  },
+  "repair_id": "phase6_v3_1_x_source_ledger_repair_cycle2_v1",
+  "schema": "schwo.phase6.v3_1_x.source_ledger_repair_cycle2_package.v1",
+  "source_bindings": {
+    "configs/phase6_v3_0_domain.json": "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b",
+    "configs/phase6_v3_0_external_anchor_matrix.json": "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485",
+    "configs/phase6_v3_0_thresholds.json": "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a",
+    "configs/phase6_v3_1_x_external_direct_route_package.json": "6a4ab0f690afab975c981f65fc80e0e3f48541da00c4023330ee94274146f752",
+    "docs/handoffs/archive/T7_2026-08-13_v3_1_x_external_direct_sentinel_attempt_0002_terminal_review.md": "7f002b2e2abb5a80d0836ff4d458a52842af4aad337db0d1e50c8dc1ce8da232",
+    "docs/review_gate_liveness_protocol.md": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181",
+    "docs/templates/t7_gate_verdict_template.md": "3ac1fe9969b253be034aa6a6ccf37d6daa9168c1685554049c143b6d9513179d",
+    "references/notes/phase6_v3_absorption_scattering_conventions.md": "82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a",
+    "runs/phase6/classic_scattering/v3_1_x_external_direct_sentinel_v1_20260813T055002Z_py314/manifest.json": "d905500bc70d6b562b7118454dfc020a053521d666e68619252c684905516772",
+    "runs/phase6/classic_scattering/v3_1_x_external_direct_sentinel_v1_20260813T085010Z_py314/manifest.json": "6e0d2349d998f76ee8d149e4551bf27222c5d93bf4ec9fb7b790adbc9f506109"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "artifact_revision": 3,
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "created_at_utc": "2026-08-11T12:53:08Z",
+  "execution_authorized": false,
+  "failure_evidence": {
+    "cycle1_official_r2_created": false,
+    "cycle1_route_a_sentinel": {
+      "pass_count": 8,
+      "path": "/tmp/schwo_v31_repair_cycle1_route_a_20node_sentinel.json",
+      "sha256": "9cfc3f91d722d212a7dfc22ec3746b27d300ce462ca874e0131986e4f39fa892",
+      "total_count": 20
+    },
+    "cycle1_route_a_sentinel_stderr": {
+      "path": "/tmp/schwo_v31_repair_cycle1_route_a_20node_sentinel.stderr",
+      "sha256": "31bdbfa60f243467643d168b6df4e96b7667ab30eff6d1557a17f9e7168e1333"
+    },
+    "t4_cycle1_archive": {
+      "path": "docs/handoffs/archive/T4_2026-08-11_v3_1_repair_cycle1_preexecution_blocker.md",
+      "sha256": "12fcdd387c065e0d5f57df6c2b7ae24f7680e6609c7da7f20c685f8fcdf7c30d"
+    },
+    "t7_cycle1_delta_archive": {
+      "path": "docs/handoffs/archive/T7_2026-08-11_v3_1_repair_cycle1_delta_review.md",
+      "sha256": "cbd04d5bba74fef2daffca62f9e80c5c0a6589f89b35812aa8ce10a60592f55b"
+    }
+  },
+  "global_green_permitted": false,
+  "liveness": {
+    "completed_bounded_repairs": 1,
+    "current_cycle": 2,
+    "maximum_bounded_repairs": 2,
+    "same_substantive_blocker_remaining": true,
+    "terminal_if_same_blocker_remains": "ESCALATE / T0 ADJUDICATION REQUIRED"
+  },
+  "nonclaims": [
+    "no V3.1 scientific acceptance from this package",
+    "no protected radial backend modification or acceptance",
+    "no independent external even-sector BHPT solve",
+    "no V3.2 authorization",
+    "no full-domain V3 certification",
+    "no Li figure equivalence",
+    "no global GREEN"
+  ],
+  "package_members": [
+    {
+      "path": "docs/phase6_v3_1_repair_cycle2_design.md",
+      "role": "repair_design",
+      "sha256": "746d8753408bdb74cd1a9597108a63cf3c67842dc6cbedcbbb56fb68c0f967a7"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_repair_cycle2_package_review.md",
+      "role": "formal_t7_package_review",
+      "sha256": "27022e735bd61ce7aa41eee26c77f52de77df5aa69ee56d5a41b99b7ec420b19"
+    },
+    {
+      "path": "docs/prompts/phase6_t4_v3_1_repair_cycle2.md",
+      "role": "formal_t4_execution",
+      "sha256": "f2d0b45613ca8c10c5b36715379f215644dce31079e577ff11279b478ec81ed9"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_delta_review_cycle2.md",
+      "role": "formal_t7_delta_review_2",
+      "sha256": "8bab4d149876e3876559db021340be1a6151bf6c9c1cd6bcfc29ec653ae29724"
+    }
+  ],
+  "protected_radial_files": [
+    {
+      "path": "src/schwgw/numerics/adaptive_jost_radial.py",
+      "sha256": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896"
+    },
+    {
+      "path": "src/schwgw/numerics/boundary_conditions.py",
+      "sha256": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22"
+    },
+    {
+      "path": "src/schwgw/numerics/conditioned_radial.py",
+      "sha256": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2"
+    },
+    {
+      "path": "src/schwgw/numerics/matching.py",
+      "sha256": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340"
+    },
+    {
+      "path": "src/schwgw/numerics/physical_boundary_radial.py",
+      "sha256": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f"
+    },
+    {
+      "path": "src/schwgw/numerics/radial_solver.py",
+      "sha256": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9"
+    },
+    {
+      "path": "src/schwgw/numerics/scaled_tortoise_radial.py",
+      "sha256": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+    }
+  ],
+  "repair_algorithm": {
+    "auxiliary_exponent_domain": [
+      0,
+      1,
+      2
+    ],
+    "auxiliary_policy": "n_aux=min{n in [0,1,2]: omega*(2^n*r_match)>=4*sqrt(ell*(ell+1))}; r_aux=2^n_aux*r_match",
+    "direct_branch": "n_aux=0 calls the protected public scaled-tortoise solver at the requested match radius",
+    "independent_ap_policy": "same frozen geometric radius policy, separately implemented with mpmath and no protected radial imports",
+    "jost_leading_coefficient": "a_0=1",
+    "match_radius_policy": "final coefficient match always occurs at the original frozen requested r_match",
+    "name": "v3_local_numerically_continued_jost_matching",
+    "post_hoc_selection_permitted": false,
+    "protected_file_modification_permitted": false
+  },
+  "repair_scope": {
+    "class_a_blockers": [
+      "v31_route_a_first_node_native_failure",
+      "v31_official_runner_incomplete_scope"
+    ],
+    "expected_ap_keys": 102,
+    "expected_ap_nodes": 458,
+    "expected_external_records": 23,
+    "expected_mode_pairs": 248,
+    "expected_protected_route_a_calls": 9920,
+    "expected_route_a_ladder_nodes": 9920,
+    "expected_route_a_modes": 496,
+    "expected_thresholds": 16,
+    "formal_certificates": 5,
+    "official_root_pattern": "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_<UTC-Z>_py314"
+  },
+  "schema": "schwo.phase6.v3_1.repair_cycle2_package.v1",
+  "scientific_stage": "V3.1",
+  "timezone": "UTC",
+  "upstream_identities": {
+    "bhpt_reggewheeler": {
+      "commit": "2e01209271fb3d0d92705d5c27bd9e00a6140981",
+      "package_root": "/private/tmp/SchWO_ReggeWheeler_phase6_v1_20260808",
+      "source_inventory_sha256": "741fe7d356b17b4fff19444a1bdee4dbbcb692914a8a47cac94b5878d9ef0c0d"
+    },
+    "cycle1_package": {
+      "path": "configs/phase6_v3_1_repair_cycle1_package.json",
+      "sha256": "a439c5c0f93c8ae4ce5b01e8e6a1d98c8f55eb150615177ccfb5b2a1ee786255"
+    },
+    "cycle1_package_approval": {
+      "path": "docs/handoffs/archive/T7_2026-08-11_v3_1_repair_cycle1_package_review.md",
+      "sha256": "1be2473c15a69abdfcd11231d9a393ea7014bdea9ec849990b900a8ba89aa404"
+    },
+    "d_union_plan": {
+      "path": "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/plan.json",
+      "sha256": "de266846ff6672dd04be255a43a1b5899af4753bea0757e00c5c2d60cf2067e3"
+    },
+    "project_governance": {
+      "path": "project.md",
+      "sha256": "fdba5646eb0d9bb0776ea6148e509d91124871cf371ac08a7229b10e18b63b9a"
+    },
+    "t7_cycle1_delta_current": {
+      "path": "docs/handoffs/T7_current.md",
+      "sha256": "760d42a26be071c2540a53e0db569e6a8d59f592ec2d30749a669951ab7cbce7"
+    },
+    "v1_production_radial_states_manifest": "7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4",
+    "v1_radial_manifest": "2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728",
+    "v1_selected_independent_manifest": "aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c",
+    "v2_release_manifest": "51ddf1580448382be7e182f92cf76bbf53ed39f15418af9e546f357979c743eb",
+    "v3_0_authorities": {
+      "anchor_matrix": "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485",
+      "convention_note": "82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a",
+      "domain": "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b",
+      "formula_map": "e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac",
+      "literature_matrix": "088834348e980b81f814340a2a2c460b5bf11239521085c358bed7a90f603328",
+      "phase_taxonomy": "fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460",
+      "thresholds": "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a",
+      "validation_contract": "0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3"
+    },
+    "v3_0_t7_archive": {
+      "path": "docs/handoffs/archive/T7_2026-08-11_v3_0_contract_review.md",
+      "sha256": "b672c7f33d2f3cc891f455c6d8123ed846309a07244696da34236f8e254c0126"
+    },
+    "v3_1_initial_t7_archive": {
+      "path": "docs/handoffs/archive/T7_2026-08-11_v3_1_initial_failure_review.md",
+      "sha256": "d0cb93d0ade94d0376a09e4207d6059558c04c2b45383fcb42039525dad2d7c5"
+    },
+    "wolfram_kernel": {
+      "path": "/Volumes/JohnnyTforGR/Applications/Wolfram.app/Contents/MacOS/WolframKernel",
+      "sha256": "70ad9d850224b4723a04c581e769579cc3df4b4392ae2ed1886780e6b9be046c",
+      "version": "14.3.0 for Mac OS X ARM (64-bit) (July 8, 2025)"
+    }
+  }
+}

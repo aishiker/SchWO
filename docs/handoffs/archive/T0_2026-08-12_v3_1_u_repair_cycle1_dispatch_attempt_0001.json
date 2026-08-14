@@ -1,0 +1,67 @@
+{
+  "created_at_utc": "2026-08-12T06:46:53Z",
+  "exact_root": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_repair1_v1_20260812T064653Z_py314",
+  "frozen_cli": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/scripts/phase6_v3_1_hp_unitarity.py",
+    "sha256": "01ce96122b1c2dca9f29ec0355dd51ccf0611842fcdc7d0850107d012a6f25a4"
+  },
+  "gate_id": "phase6_v3_1_hp_unitarity_deficit_replacement_v1",
+  "implementation_hashes": {
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/validation/phase6_v3_hp_unitarity_oracle.py": "a6d88685223fddb8c37f8fdd1110c4400252a6e8f30ffebaab1d6eb4dea85be7",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/validation/phase6_v3_mode_greybody_hp_replacement.py": "168c8771fbe7cba8983b51d0ae58294169c2e901a75593953a91ad0c401fc146",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/tests/regression/test_phase6_v3_hp_unitarity_publication.py": "acdb1e30f69c2a5972af7394c08d360f8dfef32f3fc5f0a69c7401ca4d5167cc",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/tests/unit/test_phase6_v3_hp_unitarity.py": "e4e3cfb939cb7ccd2f267cbddfe52c4064873cddbc481fd26dc727ec08ea29aa"
+  },
+  "implementation_review": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/docs/handoffs/archive/T7_2026-08-12_v3_1_u_repair_cycle1_control_plane_delta_recheck.md",
+    "sha256": "1b2f1e356319226d16c1c75b230f5cc541e10448f5aae6eb9697e41c286fade2"
+  },
+  "package_review": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/docs/handoffs/archive/T7_2026-08-12_v3_1_u_repair_cycle1_package_review.md",
+    "sha256": "cfaf87f79cf11a9f6c0f8a73dd3faa3517cd15c105afe999cdfa687c2c5160b4"
+  },
+  "protected_radial_identities": {
+    "src/schwgw/numerics/adaptive_jost_radial.py": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896",
+    "src/schwgw/numerics/boundary_conditions.py": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22",
+    "src/schwgw/numerics/conditioned_radial.py": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2",
+    "src/schwgw/numerics/matching.py": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340",
+    "src/schwgw/numerics/physical_boundary_radial.py": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f",
+    "src/schwgw/numerics/radial_solver.py": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9",
+    "src/schwgw/numerics/scaled_tortoise_radial.py": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+  },
+  "repair_id": "phase6_v3_1_u_auxiliary_geometry_repair_cycle1_v1",
+  "repair_package": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/configs/phase6_v3_1_u_repair_cycle1_package.json",
+    "sha256": "85bff01def7286ebaf1682d5b5498209dfbbc452e098e1d8633e05fcc1b7554c"
+  },
+  "required_verdict_tokens": [
+    "ADVANCE_DECISION: ADVANCE",
+    "CLAIM_STATUS: NOT_ASSESSED",
+    "ACCEPT GREEN / V3.1-U REPAIR CYCLE 1 IMPLEMENTATION READY FOR ONE-USE T0 DISPATCH"
+  ],
+  "schema": "schwo.phase6.v3_1_u.repair_cycle1_dispatch.v1",
+  "single_use": true,
+  "source_bindings": {
+    "configs/phase6_v3_0_domain.json": "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b",
+    "configs/phase6_v3_0_external_anchor_matrix.json": "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485",
+    "configs/phase6_v3_0_thresholds.json": "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a",
+    "docs/handoffs/archive/T7_2026-08-11_v3_1_repair_cycle2_delta_review.md": "fe2b1c351fb02e8f67af7cd5e22547d305fe5d4ead2edf681a85f19f1e61c0f3",
+    "docs/phase6_v3_0_formula_map.md": "e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac",
+    "docs/phase6_v3_0_literature_matrix.md": "088834348e980b81f814340a2a2c460b5bf11239521085c358bed7a90f603328",
+    "docs/phase6_v3_0_phase_taxonomy.md": "fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460",
+    "docs/phase6_v3_0_validation_contract.md": "0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3",
+    "docs/phase6_v3_1_hp_unitarity_replacement_design.md": "243f312182528b10a895cef679d195dcedfd97d7a2e02e388449ae3af313dd28",
+    "docs/prompts/phase6_t4_v3_1_hp_unitarity_replacement.md": "a1bffc42a381489dadd483edf2e6952d97ce236fbad3fe9ca82eb8b0ca862945",
+    "docs/prompts/phase6_t7_v3_1_hp_unitarity_review.md": "8822263a09bde6d5b0bd3b2c00117eb5ac1648ae9f804a4e71380b27fa90cb82",
+    "docs/review_gate_liveness_protocol.md": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181",
+    "docs/templates/t7_gate_verdict_template.md": "3ac1fe9969b253be034aa6a6ccf37d6daa9168c1685554049c143b6d9513179d",
+    "references/notes/phase6_v3_absorption_scattering_conventions.md": "82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a",
+    "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314/failed_evaluation.json": "f24765b878f56a849e4c114f73bfb61a5d422bbcf8005db5c799ac4a4b7ecfbc",
+    "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314/failure.json": "a6001141310a0629b3b26aa7297891ee37ab06a2a70e29c752e117d237695d47",
+    "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314/failure_manifest.json": "ab0f155f14313abed1d95716a30793411ed1d0ac076123933a1b1bbdd9e69fae",
+    "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314/inventory.json": "c7d09f3e72c31f93d62491c859794b7c1b7fe9cc232e84e2560aa61e8f1b2133",
+    "src/schwgw/validation/phase6_v3_continued_jost.py": "e7fec2ceb3ad1147108b1ea23696ba61ed6476396eb861ecb3d931cb41088db4",
+    "src/schwgw/validation/phase6_v3_mode_greybody_ap.py": "bd592ed6118957c2d44f85c25096c5da11e945465c34b61921627534a3229743",
+    "src/schwgw/validation/phase6_v3_mode_greybody_cycle2.py": "a3990e9dc3bc5480478c037a77c0661e805508df49007848185e7178380da29e"
+  }
+}

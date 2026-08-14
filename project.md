@@ -1,10 +1,55 @@
 # Schwarzschild 引力波波光学求解器项目设计
 
+## 2026-08-06 Phase 6：Independent Physical Validation
+
+第三轮物理审计后，项目的主验收轴从 Li–Hou–Zhao raster agreement 转为
+逐 observable、逐参数域的独立物理验证。Phase 6 已启动，规范见
+`docs/phase6_independent_physical_validation.md`，冻结域配置见
+`configs/phase6_independent_physical_validation.yaml`。
+
+本阶段禁止全局 GREEN；所有正式结果分别携带 numerical uncertainty 与
+convention/observable uncertainty。Li 图像只保留为 secondary regression，
+本阶段不重算完整论文图。
+
 项目代号：`schw-gw-waveoptics`
 
 版本：v0.1-design
 
-更新时间：2026-07-05
+更新时间：2026-08-02
+
+## 2026-08-02 审计五项修复闭合快照
+
+- direct observable 已由 RW/Zerilli master solution 经 Appendix-A RW-gauge
+  metric、Schwarzschild linearized Riemann 和 incident-frame `E_xx/E_xy`
+  得到；旧 lower-NP completion 仅保留为 diagnostic。
+- Fig.2 完成独立 80-digit high-ell spot check；Fig.8 完成不含 empirical
+  blend 的 direct high-ell MST；Fig.3--7 完成 direct-curvature 全量重算。
+- Fig.3--8 已输出 PDF 和约 600 dpi PNG，并完成逐 panel raster comparison。
+  统一 validator 为 PASS，完整 test suite 为 `1131 passed, 117 skipped,
+  1 xfailed`。
+- 五项整改为 **COMPLETE**，但严格 Li--Hou--Zhao figure equivalence 仍为
+  **YELLOW**：Fig.4 高频、Fig.5/6 phase 和 Fig.7 longitudinal morphology
+  有残余差异，且作者没有提供 raw figure data。
+- 最终 artifact、hash、收敛量和适用边界见
+  `docs/reports/SchWO_audit_five_repairs_20260802.md`。
+
+## 2026-08-01 当前项目快照
+
+- 第一阶段 Schwarzschild finite-radius scattering、exact-six scientific
+  equivalence、performance 和 provenance gate 已闭合；最新独立方法学审核为
+  GREEN。该结论证明现有 optimized outputs 与冻结 legacy/golden 数据一致，
+  不等价于 Li–Hou–Zhao 全部 Figure 已按原文 convention 复刻。
+- Fig.2 当前冻结并暂缓。Fig.3–8 的高分辨率数值数据与 PDF/PNG 均已生成，
+  但 paper-facing 对照只支持：Fig.8 最接近；Fig.3–7 尚未通过严格论文等价性。
+- 已确认的非绘图差异包括：正频率 NP quantities 到 real-time
+  \(h_+,h_\times\) 的 observable bridge、exact total/scattered-field surface、
+  Fig.5/6 Kirchhoff normalization，以及 Fig.7 apparent-mode projection。
+- 后续不得继续以大网格重算替代物理闭合。优先顺序必须是单频率、单角度或
+  单观察点的低成本 paper-facing probe；只有数值基准与原文闭合后，才允许
+  扩展到完整 Figure。
+- 当前 Figure 产物、SHA-256、分辨率和适用边界见
+  `docs/reports/li_hou_zhao_figures_3_8_completion_20260801.md`。大体积
+  `runs/` 产物仍按 `.gitignore` 留在本地，不进入 GitHub。
 
 ## 1. 项目目标
 
@@ -259,7 +304,9 @@ Schwarzschild GR 中：
 1. 对每个 `(sector, l, k)` 构造一维 ODE。
 2. 从近 horizon 处施加 purely ingoing 解：`psi ~ exp(-i k r_star)`。
 3. 向外积分到 `r_out`。
-4. 在 `r_out` 匹配为 `A_in exp(-i k r_star) + A_out exp(+i k r_star)`。
+4. 在 `r_out` 匹配到受控 Jost basis
+   `exp(±i k r_star) sum_{n=0}^N a_n/r^n`；bare plane wave 仅保留为显式
+   diagnostic，不能用于 paper-facing production。
 5. 缩放解，使 `A_in` 等于目标入射系数 `c_lm`。
 6. 保存 scaled radial solution、derivative、phase shift、transmission coefficient。
 
@@ -269,6 +316,7 @@ Schwarzschild GR 中：
 - boundary residual；
 - ODE tolerance sensitivity；
 - `r_out` sensitivity；
+- paper-facing Fig.2/4/5/6 必须保存 `r_out` ladder、外推值和截断不确定度；
 - `lmax` convergence。
 
 ### 5.6 `scattering`
@@ -461,6 +509,18 @@ lmax_rule: ceil(k * r_obs + margin)
   skill，图像/可视化任务优先检查可用 plotting/visualization skill，仓库
   协作任务优先检查 GitHub/Codex thread tools。不要为了使用工具而改变任务
   范围；没有适配工具时按普通项目规则执行。
+- Wolfram external-SSD runtime discovery 硬规则：任何线程在宣称本机没有
+  `WolframKernel`、把 external BHPT/Wolfram route 判为 unavailable，或据此
+  停止 scientific preflight 之前，必须优先只读检查并实际探测
+  `/Volumes/JohnnyTforGR/Applications/Wolfram.app/Contents/MacOS/WolframKernel`；
+  不得仅依据 `PATH`、`which`、`wolframscript` 或系统 `/Applications` 的结果
+  下结论。可执行时必须使用该 exact absolute path，并在 request/preflight/
+  manifest 中冻结 binary path、SHA-256、版本输出及 external source identity。
+  若 `/Volumes/JohnnyTforGR` 未挂载、binary 不可读/不可执行或启动失败，必须
+  记录 exact stat/stderr 与解除条件；这首先是 runtime/control-plane 状态，
+  不得伪装成 scientific FAIL，也不得用旧 evidence、内部 solver、降精度或
+  另一算法静默替代。除非用户另行明确授权，不复制该 app、不修改全局 PATH、
+  不安装系统级 Wolfram runtime。
 - 任何符号约定变更必须先更新 `docs/physics_spec.md` 和 `status.md` 的 decision log。
 - 任何新函数必须有 unit test 或 physics test。
 - 绘图函数不得内嵌物理公式；只读取已保存数据。
@@ -475,9 +535,16 @@ lmax_rule: ceil(k * r_obs + margin)
   自检发现物理范围、source metadata、分辨率、Q018 或 no-solver boundary
   问题，必须停止并交回 T0，而不是继续排版。
 - T0 硬规则：每次 T0 提出下一步方案、阶段推进、go/no-go 判断、线程启动或线程重启建议时，必须同时提供可直接复制给对应线程的 prompt。若方案包含多个线程，必须逐线程给出 prompt、依赖关系、允许修改范围、停止条件和验证命令。若 prompt 需要长期复用，应写入 `docs/prompts/`，并在 `status.md` 记录文件路径；若当前不应启动任何线程，必须明确写出“不提供 prompt”的原因和解除条件。
-- T0 Codex 任务自动派发硬规则：当用户已经批准 T0 的下一步方案、对应 prompt 已冻结且目标 Codex 任务仍存在时，T0 必须在向用户报告最终方案的同一轮，通过 Codex task/thread messaging 工具把 prompt 直接发给目标任务；默认模型为 `5.6 Sol High`。多级链只允许上游任务在 exact GREEN、artifact/tests/status/handoff 全部完成并 fresh verify 后，向已冻结的下游复核任务派发；YELLOW、RED、incomplete、artifact 缺失、检查失败或状态不明确时不得启动下游，只能报告 T0。若出现明确的 model-capacity/system interruption，可由 T0 在同一任务使用 `5.6 Terra High` 恢复，且必须先检查进程、checkpoint 和 artifact 状态以避免重复计算；科学错误、测试失败、backend 不稳定或非有限结果不得通过换模型绕过。目标任务缺失、已归档或 messaging 不可用时，不得静默创建新任务，必须停止并报告用户。下游复核完成后只向 T0 回传 exact decision，不得自行开启下一科学阶段。该自动派发规则不授权任何非 T0 任务执行 GitHub push。
+- T0 Codex 任务自动派发硬规则：当用户已经批准 T0 的下一步方案、对应 prompt 已冻结且目标 Codex 任务仍存在时，T0 必须在向用户报告最终方案的同一轮，通过 Codex task/thread messaging 工具把 prompt 直接发给目标任务；默认模型为 `5.6 Sol High`。多级链只允许上游任务在 T7 双轴判词为 `ADVANCE_DECISION: ADVANCE`、prompt 要求的 bounded `GATE_LABEL` 精确匹配、artifact/tests/status/handoff 全部完成并 fresh verify 后，向已冻结的下游复核任务派发；`CLAIM_STATUS: PARTIAL` 本身不阻止推进。`REPAIR`、`ESCALATE`、incomplete、artifact 缺失、检查失败或状态不明确时不得启动依赖该 gate 的下游，只能报告 T0。若出现明确的 model-capacity/system interruption，可由 T0 在同一任务使用 `5.6 Terra High` 恢复，且必须先检查进程、checkpoint 和 artifact 状态以避免重复计算；科学错误、测试失败、backend 不稳定或非有限结果不得通过换模型绕过。目标任务缺失、已归档或 messaging 不可用时，不得静默创建新任务，必须停止并报告用户。下游复核完成后只向 T0 回传 identity-bound 双轴 decision，不得自行开启下一科学阶段。该自动派发规则不授权任何非 T0 任务执行 GitHub push。
+- T4 代码推理强度硬规则：自 2026-07-26 用户要求后的下一次 T4 代码编写 turn 起，T4 默认使用 `gpt-5.6-sol/high`；只有代码结构、科学/安全边界或 provenance 交互确属复杂且 `high` 不足时，才可使用 `gpt-5.6-sol/max`。T4 代码编写禁止使用 `ultra`，不得因罕见配置分支、机械 manifest/inventory、格式修正、重复 hash/path 检查或普通测试维护升级到 `max`。T0 派发 T4 代码任务时必须显式选择 `high` 或有理由的 `max`；固定 launch/poll、只读核验和普通 control-plane 工作可使用不高于任务所需的强度。该规则不追溯修改历史 turn，也不得为切换强度中断当前唯一健康 runner 或正在闭合的原子阶段。
+- T4 control-plane 持续自修硬规则：在项目完成前、同一已审核科学 scope 内，纯 control-plane、zero-science 的缺陷不得仅以 HOLD 结束 T4 turn，只要仍存在安全且有意义的本地进展路径，T4 必须继续诊断、修正、验证并推进到真实 checkpoint。pre-execution 阶段可在原未冻结 roots 内修正 executable discovery、argv/quoting、cwd/env、static assertion、mutable helper/launcher、fixture、manifest/inventory、observer/process-filter 或同类机械问题；不设固定修正次数，但禁止在没有新诊断或代码变化时盲目重复同一命令。若 helper/root/branch 已 frozen 或 published，旧 evidence 必须 immutable，T4 可为已明确诊断的 zero-science control defect创建 fresh unique no-overwrite evidence roots和修正版 helper/launcher，继续 control-only audit/preflight；不得覆盖、补写、chmod、清理或复用旧 root。post-boundary 纯只读 observer 的 self/parent argv false-positive 不得推翻已独立可重算的 durable success branch：T4 应使用 PID ancestry 与 executable/argument token 语义重做只读观察，或把该 observer 明确降为 non-authoritative warning 后返回 checkpoint。所有修正必须保留 before/after path、SHA、原因、测试和 superseded-root binding。此持续权限不允许重新启动或重复任何 scientific producer、official scientific audit、solver、one-shot witness、matrix item 或 canonical computation，也不允许放宽 scientific threshold/validator semantics、改变 runner/runtime/input identity、修改 canonical/external/frozen scientific evidence、执行 destructive/global/network/GitHub 动作或扩大已审科学 scope；这些边界一旦出现必须 fail closed 回 root T0，由 T0 在同一 heartbeat 立即处理，但自动监控不得因此停止项目。此规则不授权新 task/subagent/proxy/descendant；T4 默认 `gpt-5.6-sol/high`，复杂到 `high` 明确不足时仅由 root T0 显式批准 `max`，始终禁止 `ultra`。
+- T0 YELLOW/RED 修订独立审核闭环硬规则：当既有 gate 返回 `ADVANCE_DECISION: REPAIR` 时，T0 必须先依据完整 class-A blocker 形成一个可审计且已冻结的 bounded repair candidate package，至少包含 design/plan/prompt、允许修改范围、停止条件、验证要求，以及这些文件的路径和 commit/blob/hash 或等价 immutable identity；在向除本闭环独立 reviewer 之外的任何执行或下游复核任务派发该 package 前，必须启动一个与方案编写相分离的只读 reviewer，并取得绑定同一 candidate identity 的批准。当前 gate 采用 `T0 修改并冻结 candidate -> reviewer 独立审核 -> T0 针对性修改并冻结新 candidate -> 同一 reviewer delta 审核`；原则上由同一 reviewer 持续复核，以避免审核标准漂移。reviewer 必须读取适用的 `project.md`、`status.md`、T0/执行/复核线程 handoff、失败证据和 candidate package，并独立检查科学约定、单位与 ordering、scope、artifact/provenance、停止条件、测试和派发依赖。非 T7 repair-package reviewer 仍使用 `REVIEW GREEN / T0 REPAIR PACKAGE APPROVED`、`REVIEW YELLOW / T0 REPAIR PACKAGE CHANGES REQUIRED`、`REVIEW RED / T0 REPAIR PACKAGE INVALID`；正式 T7 reviewer 必须使用下述双轴 schema。reviewer 不得编辑项目文件、修改 artifact、向其他任务派发消息、执行 GitHub 操作或放宽任何科学/数值/测试门槛。只有绑定同一 candidate identity 的批准才补足上一条自动派发规则中的“用户已经批准”条件；批准后发生任何实质修改则原批准失效。每个 gate 的自循环严格受下述 liveness protocol 的“初审 + 最多两轮 bounded repair + 两轮 delta review”上限约束；第二轮复审后同一实质 blocker 仍存在必须 `ESCALATE / T0 ADJUDICATION REQUIRED`，不得第三轮同构修复。该批准只授权同一个既有 blocker 的 bounded repair package，不授权新科学阶段、显著 scope 扩张、新科学约定、GitHub push、破坏性或其他外部操作、目标任务创建，亦不得授权通过换模型绕过科学/数值/测试失败。
+- T7 gate liveness 双轴硬规则：所有本规则生效后的 T7 review 必须遵守 `docs/review_gate_liveness_protocol.md` 并使用 `docs/templates/t7_gate_verdict_template.md`。每次 verdict 分别输出 `ADVANCE_DECISION: ADVANCE|REPAIR|ESCALATE` 与 `CLAIM_STATUS: PASS|PARTIAL|FAIL|NOT_ASSESSED`；`CLAIM_STATUS: PARTIAL` 不自动阻止 `ADVANCE`，GREEN 仅表示当前 bounded gate 可推进。每个 finding 必须分类为 A `BLOCKING_CURRENT_GATE`、B `NONBLOCKING_LIMITATION`、C `CONTROL_PLANE_REPAIR` 或 D `FOLLOW_UP_DEBT`；只有 A 可导致 `REPAIR`，且必须完整给出 `blocker_id`、`violated_contract_item`、`exact_evidence`、`expected_value`、`observed_value`、`bounded_repair`、`allowed_files`、`recheck_command` 和 `unblock_condition`。T7 只能按任务开始前冻结的 contract/domain/threshold/blocking criteria 审核；新建议仅在直接证明当前 claim 无效时才可阻塞，否则登记为 D。初审后冻结 `passed_items/failed_items/partial_allowed_items/not_assessed_items`；复审只检查 failed items、passed invariants 是否被 repair 破坏及 protected identities，不得无证据重开 PASS 项。每 gate 最多初审、两轮 bounded repair 和两轮 delta review；同一实质 blocker 仍存在即 `ADVANCE_DECISION: ESCALATE` 与 `GATE_LABEL: ESCALATE / T0 ADJUDICATION REQUIRED`。HOLD 仅限 evidence/identity 缺失或不一致、active/concurrent writer、contract 自相矛盾、必要输入不可读或必需 provenance 无法恢复且需政策决定，并必须写明 exact reason、unblock condition、owner、minimum next action 和 independent downstream work 是否可推进；scientific PARTIAL、full-domain 未覆盖、future task 未完成或 Li figure 不一致不得单独 HOLD。纯 metadata/manifest/path/permission/wording/handoff/read-only-observer 问题且不改 science bytes/formula/threshold/input identity/solver behavior 时，由 T0/T6 bounded 修复，T7 只做 delta verification。V2.1 advance 仅绑定 normalization、120-record cardinality、total/free/scattered identity 与 no-radial/no-frame/no-angular-sum；V2.2 可在 `absolute_phase=PARTIAL` 时推进，只要 frozen phase-invariant/magnitude/relative-phase criteria 通过；V2.3 只绑定 selected-domain infinity/horizon/radial flux closure；V2.4 可在 `global_status=null`、`full_domain=PARTIAL` 与明确 non-claims 下对诚实 selected-domain release 给出 bounded GREEN。
+- T0 本地 skill 暂停规则：自本规则生效起，仅对 T0 且仅对本条所列 skills，本条构成本节“直接相关 skill 应按说明调用”通用规则的临时例外。T0 在后续方案设计、修订、审核编排和 prompt 编写中暂时不调用 `brainstorming` skill，也不调用 Superpowers 系列 skills（包括但不限于 `using-superpowers`、`writing-plans`、`executing-plans`、`subagent-driven-development` 等），而使用模型本身能力和本项目 frozen 文档完成工作；在平台能够选择或确认模型时使用 `5.6 Sol High`。只有用户明确重新启用时才恢复这些 skills。若平台无法选择或确认模型，T0 不得声称已使用 `5.6 Sol High`，必须如实报告实际可确认状态，且不得因此静默恢复已暂停的 skills；若平台更高优先级的 system/developer 指令在某一轮强制要求特定 skill，T0 必须遵守该上位指令，并向用户明确说明这一例外。不得把本条解释为关闭项目既有科学、测试、handoff、独立审核或 GitHub 安全门槛。
 - T0 GitHub 重大节点同步硬规则：当 T0 通过本地证据确认项目到达重大节点（包括 milestone/phase closeout、高风险 gate 的独立 GREEN 验收、production/benchmark artifact 的独立接受，或 frozen convention/public API 边界的正式冻结）时，必须先更新并核对 `status.md` 和 `docs/handoffs/T0_current.md`，完成对应 fresh verification，然后同步到项目已配置的私人 GitHub 仓库。同步前必须检查完整 diff 和待提交文件，排除 secrets/credentials、私人原始数据、非预期大文件以及无关或未经审查的工作区改动；使用范围明确的 commit，并以非 force push 推送当前授权分支。若工作区含无关未提交改动、远端或认证不可用、artifact 是否应入库不明确，或验证未通过，则不得盲目 stage/commit/push；必须在 `status.md` 与 T0 handoff 中记录 `GitHub sync pending`、准确阻塞原因和下一项安全操作。本规则不授权 force push、history rewrite、删除远端分支或扩大 GitHub 仓库的可见性。
 - Handoff 硬规则：每个线程在完成一个任务或停止在明确状态前，必须创建或更新自己的 `docs/handoffs/T*_current.md`。该文件用于同编号新线程在上下文耗尽后接手，必须简洁但足够精确地记录：当前线程状态、已完成内容、未完成内容、阻塞项、非阻塞 warning、下一线程必须读取的文件优先级、frozen decisions、forbidden actions、可直接执行的 exact next task、允许/禁止修改的文件、验证命令、definition of done，以及已 superseded 且不得再用的旧 prompt。不得逐字复制聊天历史，只保留决策、原因、文件、命令、测试结果和下一步。若某次任务形成阶段性 closeout 或重要历史边界，应先把旧 `T*_current.md` 复制到 `docs/handoffs/archive/T*_<date>_<slug>.md`，再更新 current handoff。`status.md` 仍是全局权威时间线，handoff 是线程本地恢复摘要。
+- `status.md` 即时入口硬规则：文件最前面的 YAML current-state header 是唯一即时状态入口，必须至少记录 `current_stage`、精确 `current_authority`、最近一次独立双轴 verdict、`next_authorized_action`、blocking/nonblocking debt 和当前 superseded-root denylist。任何会改变这些字段的真实 gate、authority 或授权变化，必须原子更新该 header 与对应 current handoff；历史正文继续 append-only 保存审计证据，不得要求新线程通过遍历历史自行猜测 current root。若 header 与历史快照冲突，current authority 以 header 的精确 path/hash 为即时入口，并立即把冲突作为 control-plane defect 修复；这不允许覆盖或重标历史 artifact。
+- 科学阶段、artifact revision 与时间戳硬规则：`V3.0`、`V3.1` 等 `V<stage>.<gate>` token 只表示科学阶段/gate；同一科学 gate 内的 artifact 或 release 修订一律写成 `V2.2-r3`，并在 machine metadata 中分别使用整数 `artifact_rev: 3` 或 `release_revision: 3`。新正文、prompt、handoff 或 verdict 不得再用裸 `V3 FROZEN` 表示第三版 artifact；必须保留旧 verdict 原文时，应同时标注它是 legacy artifact revision、不是 scientific V3。未来新 artifact 路径的生成时间统一采用 UTC `YYYYMMDDTHHMMSSZ`，manifest 必须显式记录 `created_at_utc`、`timezone: UTC`、`scientific_stage` 以及适用的 revision 字段。既有 immutable root 不重命名、不补写；其路径时间若没有冻结 timezone metadata，禁止仅凭名字推断先后，依赖顺序以 source map、manifest identity 和 SHA-256 为准。
 - Artifact 归档规则：smoke、pilot、未复核或临时中间结果可以写入 `/tmp`
   或系统临时目录；但一旦某个数值/图像 artifact 被 T7 接受并用于
   closeout，就必须复制到项目内归档目录，例如

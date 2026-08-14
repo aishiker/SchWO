@@ -246,6 +246,13 @@ def test_metadata_and_public_fields_avoid_bare_transmission_terminology() -> Non
     assert normalization["excludes_radial_horizon_transmission"] is True
     assert normalization["no_schwarzschild_horizon_boundary_in_baseline"] is True
     assert normalization["no_tiny_M_baseline"] is True
+    assert normalization["polarization_bridge_validated"] is False
+    assert normalization["positive_frequency_reality_bridge_validated"] is False
+    assert normalization["physical_claim"] is False
+    assert normalization["polarization_bridge_implementation"] == (
+        "not inferred by ratio layer"
+    )
+    assert normalization["source_bridge_metadata_required_for_physical_use"] is True
     assert normalization["excludes_radial_horizon_transmission"] is True
     public_field_names = {field.name for field in fields(PointwiseAmplificationResult)}
     assert "transmission" not in public_field_names

@@ -7,6 +7,7 @@ import pytest
 
 from schwgw.backgrounds.schwarzschild import SchwarzschildBackground
 from schwgw.numerics import BoundaryConfig, solve_radial_mode
+from schwgw.numerics.legacy import paper_oracles as legacy_paper_oracles
 from schwgw.perturbations import Sector, V_RW
 
 
@@ -375,6 +376,299 @@ class RadialSolverPhysicsTests(unittest.TestCase):
                     solution.diagnostics.warnings[0].code,
                     "q018_tablei_delta0p1_risk_pilot_transition_oracle_used",
                 )
+
+    def test_targeted_adaptive_adapter_rejects_wrong_frequency_fail_closed(self) -> None:
+        bg = SchwarzschildBackground(M=1.0)
+        config = BoundaryConfig(
+            r_in_eps=1e-6,
+            r_out=300.0,
+            rtol=1e-10,
+            atol=1e-12,
+            required_eval_radius=30.0,
+            experimental_required_radius_oracle=(
+                "q018_tablei_targeted_adaptive_transition"
+            ),
+        )
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "q018_experimental_oracle_out_of_envelope",
+        ):
+            solve_radial_mode(Sector.ODD, 2, 0.36, bg, config)
+
+    def test_further_local_adapter_recovers_only_inside_literal_envelope(self) -> None:
+        bg = SchwarzschildBackground(M=1.0)
+        required_radius = 30.0
+        config = BoundaryConfig(
+            r_in_eps=1e-6,
+            r_out=300.0,
+            rtol=1e-10,
+            atol=1e-12,
+            required_eval_radius=required_radius,
+            experimental_required_radius_oracle=(
+                "q018_tablei_further_local_transition"
+            ),
+        )
+
+        for sector in (Sector.ODD, Sector.EVEN):
+            with self.subTest(sector=sector.value):
+                solution = solve_radial_mode(sector, 163, 2.7625, bg, config)
+                self.assertEqual(
+                    solution.diagnostics.solver,
+                    "q018_tablei_further_local_transition_oracle",
+                )
+                self.assertEqual(solution.valid_until_r, required_radius)
+                self.assertEqual(
+                    solution.diagnostics.warnings[0].code,
+                    "q018_tablei_further_local_transition_oracle_used",
+                )
+
+    def test_further_local_adapter_rejects_every_wrong_contract_field(self) -> None:
+        oracle = "q018_tablei_further_local_transition"
+        base = {
+            "r_in_eps": 1e-6,
+            "r_out": 300.0,
+            "rtol": 1e-10,
+            "atol": 1e-12,
+            "required_eval_radius": 30.0,
+            "experimental_required_radius_oracle": oracle,
+        }
+        cases = (
+            (SchwarzschildBackground(M=1.1), 163, 2.7625, base),
+            (SchwarzschildBackground(M=1.0), 163, 2.7626, base),
+            (
+                SchwarzschildBackground(M=1.0),
+                163,
+                2.7625,
+                {**base, "required_eval_radius": 30.000000000000004},
+            ),
+            (SchwarzschildBackground(M=1.0), 163, 2.7625, {**base, "r_out": 301.0}),
+            (SchwarzschildBackground(M=1.0), 163, 2.7625, {**base, "r_in_eps": 1e-5}),
+            (SchwarzschildBackground(M=1.0), 163, 2.7625, {**base, "rtol": 1e-9}),
+            (SchwarzschildBackground(M=1.0), 163, 2.7625, {**base, "atol": 1e-11}),
+        )
+        for background, ell, k, values in cases:
+            with self.subTest(ell=ell, k=k, values=values):
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "q018_experimental_oracle_out_of_envelope",
+                ):
+                    solve_radial_mode(
+                        Sector.ODD,
+                        ell,
+                        k,
+                        background,
+                        BoundaryConfig(**values),
+                    )
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "q018_experimental_oracle_out_of_envelope",
+        ):
+            legacy_paper_oracles._validate_q018_further_local_oracle_envelope(
+                sector=Sector.ODD,
+                ell=182,
+                k=2.7625,
+                background=SchwarzschildBackground(M=1.0),
+                config=BoundaryConfig(**base),
+                r_out=300.0,
+                barrier_action=0.0,
+            )
+
+    def test_literal_failed_child_adapter_is_literal_and_fail_closed(self) -> None:
+        from schwgw.numerics.q018_tablei_literal_failed_child_envelope import (
+            TRANSITION_SEGMENTS,
+        )
+
+        selected = next(
+            (k, sector, ell_min, point_ids[0])
+            for (k, sector), segments in TRANSITION_SEGMENTS.items()
+            for ell_min, _ell_max, point_ids in segments
+            if point_ids
+        )
+        k, sector_name, ell, point_id = selected
+        point_radius = dict(legacy_paper_oracles._Q018_LITERAL_FAILED_CHILD_POINTS)[
+            point_id
+        ]
+        sector = Sector(sector_name)
+        base = {
+            "r_in_eps": 1e-6,
+            "r_out": 300.0,
+            "rtol": 1e-10,
+            "atol": 1e-12,
+            "required_eval_radius": point_radius,
+            "experimental_required_radius_oracle": (
+                "q018_tablei_literal_failed_child_transition"
+            ),
+        }
+        solution = solve_radial_mode(
+            sector,
+            ell,
+            k,
+            SchwarzschildBackground(M=1.0),
+            BoundaryConfig(**base),
+        )
+        self.assertEqual(
+            solution.diagnostics.solver,
+            "q018_tablei_literal_failed_child_transition_oracle",
+        )
+        self.assertEqual(
+            solution.diagnostics.warnings[0].code,
+            "q018_tablei_literal_failed_child_transition_oracle_used",
+        )
+
+        wrong_cases = (
+            (SchwarzschildBackground(M=1.1), ell, k, base),
+            (SchwarzschildBackground(M=1.0), ell, k + 1e-12, base),
+            (
+                SchwarzschildBackground(M=1.0),
+                ell,
+                k,
+                {**base, "required_eval_radius": point_radius + 1e-12},
+            ),
+            (SchwarzschildBackground(M=1.0), ell, k, {**base, "r_out": 301.0}),
+            (
+                SchwarzschildBackground(M=1.0),
+                ell,
+                k,
+                {**base, "r_in_eps": 1e-5},
+            ),
+            (SchwarzschildBackground(M=1.0), ell, k, {**base, "rtol": 1e-9}),
+            (SchwarzschildBackground(M=1.0), ell, k, {**base, "atol": 1e-11}),
+        )
+        for background, wrong_ell, wrong_k, values in wrong_cases:
+            with self.subTest(
+                background=background,
+                ell=wrong_ell,
+                k=wrong_k,
+                values=values,
+            ):
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "q018_experimental_oracle_out_of_envelope",
+                ):
+                    solve_radial_mode(
+                        sector,
+                        wrong_ell,
+                        wrong_k,
+                        background,
+                        BoundaryConfig(**values),
+                    )
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "q018_experimental_oracle_out_of_envelope",
+        ):
+            legacy_paper_oracles._validate_q018_literal_failed_child_oracle_envelope(
+                sector=sector,
+                ell=max(maximum for _minimum, maximum, _points in (
+                    TRANSITION_SEGMENTS[(k, sector.value)]
+                )) + 1,
+                k=k,
+                background=SchwarzschildBackground(M=1.0),
+                config=BoundaryConfig(**base),
+                r_out=300.0,
+                barrier_action=0.0,
+            )
+
+    def test_another_bounded_local_adapter_is_literal_and_fail_closed(self) -> None:
+        from schwgw.numerics.q018_tablei_another_bounded_local_envelope import (
+            TRANSITION_SEGMENTS,
+        )
+
+        selected = next(
+            (k, sector, ell_min, point_ids[0])
+            for (k, sector), segments in TRANSITION_SEGMENTS.items()
+            for ell_min, _ell_max, point_ids in segments
+            if point_ids
+        )
+        k, sector_name, ell, point_id = selected
+        point_radius = dict(legacy_paper_oracles._Q018_ANOTHER_BOUNDED_LOCAL_POINTS)[
+            point_id
+        ]
+        sector = Sector(sector_name)
+        base = {
+            "r_in_eps": 1e-6,
+            "r_out": 300.0,
+            "rtol": 1e-10,
+            "atol": 1e-12,
+            "required_eval_radius": point_radius,
+            "experimental_required_radius_oracle": (
+                "q018_tablei_another_bounded_local_transition"
+            ),
+        }
+        solution = solve_radial_mode(
+            sector,
+            ell,
+            k,
+            SchwarzschildBackground(M=1.0),
+            BoundaryConfig(**base),
+        )
+        self.assertEqual(
+            solution.diagnostics.solver,
+            "q018_tablei_another_bounded_local_transition_oracle",
+        )
+        self.assertEqual(
+            solution.diagnostics.warnings[0].code,
+            "q018_tablei_another_bounded_local_transition_oracle_used",
+        )
+
+        wrong_cases = (
+            (SchwarzschildBackground(M=1.1), ell, k, base),
+            (SchwarzschildBackground(M=1.0), ell, k + 1e-12, base),
+            (
+                SchwarzschildBackground(M=1.0),
+                ell,
+                k,
+                {**base, "required_eval_radius": point_radius + 1e-12},
+            ),
+            (SchwarzschildBackground(M=1.0), ell, k, {**base, "r_out": 301.0}),
+            (
+                SchwarzschildBackground(M=1.0),
+                ell,
+                k,
+                {**base, "r_in_eps": 1e-5},
+            ),
+            (SchwarzschildBackground(M=1.0), ell, k, {**base, "rtol": 1e-9}),
+            (SchwarzschildBackground(M=1.0), ell, k, {**base, "atol": 1e-11}),
+        )
+        for background, wrong_ell, wrong_k, values in wrong_cases:
+            with self.subTest(
+                background=background,
+                ell=wrong_ell,
+                k=wrong_k,
+                values=values,
+            ):
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "q018_experimental_oracle_out_of_envelope",
+                ):
+                    solve_radial_mode(
+                        sector,
+                        wrong_ell,
+                        wrong_k,
+                        background,
+                        BoundaryConfig(**values),
+                    )
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "q018_experimental_oracle_out_of_envelope",
+        ):
+            legacy_paper_oracles._validate_q018_another_bounded_local_oracle_envelope(
+                sector=sector,
+                ell=max(
+                    maximum
+                    for _minimum, maximum, _points in TRANSITION_SEGMENTS[
+                        (k, sector.value)
+                    ]
+                ) + 1,
+                k=k,
+                background=SchwarzschildBackground(M=1.0),
+                config=BoundaryConfig(**base),
+                r_out=300.0,
+                barrier_action=0.0,
+            )
 
 
 def _mode_diagnostic(sector: Sector, ell: int, k: float, r_out: float) -> ModeDiagnostic:
