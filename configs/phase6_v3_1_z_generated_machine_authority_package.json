@@ -1,0 +1,1636 @@
+{
+  "architecture": "GMA-Z1",
+  "authority_model": {
+    "canonical_declarative_source_count": 1,
+    "child_authority_role": "OBSERVATION_ONLY",
+    "generator_build_policy": "FRESH_ABSENT_ABSOLUTE_OUTPUT_ROOT_ONLY",
+    "parent_owned_decisions": [
+      "expected_values",
+      "comparisons",
+      "evidence_resolution",
+      "digests",
+      "acknowledgements",
+      "stage_open",
+      "terminal_status",
+      "future_authority"
+    ],
+    "prohibited_authority_mechanisms": [
+      "runtime_callback_or_function_name",
+      "implicit_dict_or_association_order",
+      "prose_only_behavior",
+      "glob",
+      "latest",
+      "current_handoff",
+      "environment_selected_authority",
+      "unbound_future_digest",
+      "implementation_generated_expected_answer"
+    ]
+  },
+  "candidate_members": {
+    "design": {
+      "mode": 292,
+      "nlink": 1,
+      "path": "docs/phase6_v3_1_z_generated_machine_authority_design.md",
+      "role": "human_readable_package_design",
+      "sha256": "f67a44404c9434fbff77443622228c0c08e8c7dc7598b0f9d806ebca37f103ca",
+      "size": 32452
+    },
+    "generated_bundle": {
+      "bundle_authority_sha256": "38b05963da0de1977feff8c7ebf2d7dae05b7022a35a6cd263894ee79a07a6c0",
+      "bundle_root_raw_sha256": "91ea795f5644f9b2b03a68c255d97a3be2d92d11319b9f55a2001a59d9a0c980",
+      "directory_mode": 365,
+      "leaf_inventory_sha256": "f230c992551da3b13ffacd893639e1cb87073cc57086f5331a3205782c7ee4ef",
+      "leaf_manifest_raw_sha256": "e111679723272a4c03967e20729e950222197097aa330859fbd449ea36f40ddf",
+      "package_checkpoint_raw_sha256": "94429a5b85b32ceb08e298b992d85d79d5fde938245884f63de56deb7ccd6ab2",
+      "path": "generated/phase6_v3_1_z",
+      "portable_tree_sha256": "2937dea5f8b169bcb85ed200c3b911d6eedee9438291d1e5101c4f361369a94d",
+      "regular_file_mode": 292,
+      "regular_file_nlink": 1,
+      "role": "closed_generated_machine_authority_bundle"
+    },
+    "generator": {
+      "mode": 292,
+      "nlink": 1,
+      "path": "scripts/phase6_v3_1_z_generate_machine_authority.py",
+      "role": "package_time_compiler",
+      "sha256": "553b663410ba5a6aaf0f0a48aa7388e2ad70835f56be4efd762e7d5a04056e40",
+      "size": 313642
+    },
+    "spec": {
+      "mode": 292,
+      "nlink": 1,
+      "path": "configs/phase6_v3_1_z_machine_authority_spec.json",
+      "role": "single_declarative_typed_source",
+      "sha256": "d220d33202f8002e6364ce792ffb72559bafa87bda673f750e3caf96351a02db",
+      "size": 3795400
+    }
+  },
+  "candidate_status": "READY_FOR_ROOT_T0_AND_FORMAL_T7_PACKAGE_REVIEW",
+  "checkpoint": "CHECKPOINT / V3.1-Z GENERATED MACHINE-AUTHORITY PACKAGE CANDIDATE READY FOR ROOT T0 AND FORMAL T7",
+  "created_at_utc": "2026-08-14T005957Z",
+  "frozen_design_inputs": [
+    {
+      "path": "docs/phase6_v3_1_z_generated_machine_authority_redesign_analysis.md",
+      "role": "accepted_analysis",
+      "sha256": "4d300bb9891763f7efa12d1f67bf993a98c39c93a49672618af6f1255472cd13"
+    },
+    {
+      "path": "docs/handoffs/archive/T4_2026-08-13_v3_1_z_generated_machine_authority_redesign_analysis.md",
+      "role": "accepted_analysis_archive",
+      "sha256": "7d0ccac1f14edae616da381f135232db7f92af53c3bf0bc36c47f579283b9d5e"
+    },
+    {
+      "path": "docs/prompts/phase6_t4_v3_1_z_generated_machine_authority_redesign_analysis.md",
+      "role": "formal_design_prompt",
+      "sha256": "6a7a6ecfe6d06be1630a9b9df3c266138c30b5e3bd4de4a2783c748da6b07d14"
+    },
+    {
+      "path": "docs/review_gate_liveness_protocol.md",
+      "role": "review_gate_liveness",
+      "sha256": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181"
+    }
+  ],
+  "future_authority": {
+    "bounded_repair_cycles_per_node": 0,
+    "dispatches": [
+      {
+        "one_use": true,
+        "path": "docs/handoffs/archive/T0_2026-08-14_v3_1_z_implementation_dispatch_attempt_0001.json",
+        "root_namespace": null
+      },
+      {
+        "one_use": true,
+        "path": "docs/handoffs/archive/T0_2026-08-14_v3_1_z_wolfram_compatibility_dispatch_attempt_0001.json",
+        "root_namespace": "wolfram_compatibility"
+      },
+      {
+        "one_use": true,
+        "path": "docs/handoffs/archive/T0_2026-08-14_v3_1_z_source_load_micro_dispatch_attempt_0001.json",
+        "root_namespace": "source_load_micro"
+      },
+      {
+        "one_use": true,
+        "path": "docs/handoffs/archive/T0_2026-08-14_v3_1_z_full_sentinel_dispatch_attempt_0001.json",
+        "root_namespace": "full_sentinel"
+      },
+      {
+        "one_use": true,
+        "path": "docs/handoffs/archive/T0_2026-08-14_v3_1_z_official_dispatch_attempt_0001.json",
+        "root_namespace": "official"
+      }
+    ],
+    "graph": [
+      "PACKAGE_CANDIDATE",
+      "PACKAGE_REVIEW",
+      "IMPLEMENTATION_DISPATCH",
+      "T6_IMPLEMENTATION",
+      "IMPLEMENTATION_REVIEW",
+      "WOLFRAM_COMPATIBILITY_DISPATCH_ROOT_REVIEW",
+      "SOURCE_LOAD_MICRO_DISPATCH_ROOT_REVIEW",
+      "FULL_SENTINEL_DISPATCH_ROOT_REVIEW",
+      "OFFICIAL_DISPATCH_ROOT",
+      "SCIENTIFIC_REVIEW"
+    ],
+    "non_advance_action": "RETURN_TO_ROOT_T0_DISTINCT_GATE_ADJUDICATION",
+    "prompts": [
+      {
+        "path": "docs/prompts/phase6_t6_v3_1_z_generated_machine_authority_implementation.md",
+        "role": "T6_ZERO_SCIENCE_IMPLEMENTER"
+      },
+      {
+        "path": "docs/prompts/phase6_t7_v3_1_z_generated_machine_authority_package_review.md",
+        "role": "T7_SOURCE_DISTINCT_PACKAGE_REVIEWER"
+      },
+      {
+        "path": "docs/prompts/phase6_t7_v3_1_z_generated_machine_authority_implementation_review.md",
+        "role": "T7_IMPLEMENTATION_REVIEWER"
+      },
+      {
+        "path": "docs/prompts/phase6_t7_v3_1_z_wolfram_compatibility_review.md",
+        "role": "T7_COMPATIBILITY_REVIEWER"
+      },
+      {
+        "path": "docs/prompts/phase6_t7_v3_1_z_source_load_micro_review.md",
+        "role": "T7_MICRO_REVIEWER"
+      },
+      {
+        "path": "docs/prompts/phase6_t7_v3_1_z_full_sentinel_review.md",
+        "role": "T7_SENTINEL_REVIEWER"
+      },
+      {
+        "path": "docs/prompts/phase6_t7_v3_1_z_science_review.md",
+        "role": "T7_SCIENCE_REVIEWER"
+      }
+    ],
+    "review_archives": [
+      {
+        "advance_decision": "ADVANCE",
+        "claim_status": "NOT_ASSESSED",
+        "gate_label": "ACCEPT GREEN / V3.1-Z GENERATED MACHINE-AUTHORITY PACKAGE READY FOR T6",
+        "path": "docs/handoffs/archive/T7_2026-08-14_v3_1_z_generated_machine_authority_package_review.md",
+        "sha256_source": "RUNTIME_REHASH_AFTER_O_EXCL_PUBLICATION"
+      },
+      {
+        "advance_decision": "ADVANCE",
+        "claim_status": "NOT_ASSESSED",
+        "gate_label": "ACCEPT GREEN / V3.1-Z IMPLEMENTATION READY FOR COMPATIBILITY DISPATCH",
+        "path": "docs/handoffs/archive/T7_2026-08-14_v3_1_z_generated_machine_authority_implementation_review.md",
+        "sha256_source": "RUNTIME_REHASH_AFTER_O_EXCL_PUBLICATION"
+      },
+      {
+        "advance_decision": "ADVANCE",
+        "claim_status": "NOT_ASSESSED",
+        "gate_label": "ACCEPT GREEN / V3.1-Z WOLFRAM COMPATIBILITY PASSED",
+        "path": "docs/handoffs/archive/T7_2026-08-14_v3_1_z_wolfram_compatibility_review.md",
+        "sha256_source": "RUNTIME_REHASH_AFTER_O_EXCL_PUBLICATION"
+      },
+      {
+        "advance_decision": "ADVANCE",
+        "claim_status": "NOT_ASSESSED",
+        "gate_label": "ACCEPT GREEN / V3.1-Z SOURCE-LOAD MICRO PASSED",
+        "path": "docs/handoffs/archive/T7_2026-08-14_v3_1_z_source_load_micro_review.md",
+        "sha256_source": "RUNTIME_REHASH_AFTER_O_EXCL_PUBLICATION"
+      },
+      {
+        "advance_decision": "ADVANCE",
+        "claim_status": "NOT_ASSESSED",
+        "gate_label": "ACCEPT GREEN / V3.1-Z FULL SENTINEL PASSED",
+        "path": "docs/handoffs/archive/T7_2026-08-14_v3_1_z_full_sentinel_review.md",
+        "sha256_source": "RUNTIME_REHASH_AFTER_O_EXCL_PUBLICATION"
+      },
+      {
+        "advance_decision": null,
+        "claim_status": null,
+        "gate_label": null,
+        "path": "docs/handoffs/archive/T7_2026-08-14_v3_1_z_scientific_review.md",
+        "sha256_source": "RUNTIME_REHASH_AFTER_O_EXCL_PUBLICATION"
+      }
+    ],
+    "root_namespaces": [
+      "^v3_1_z_wolfram_compatibility_v1_[0-9]{8}T[0-9]{6}Z_py314$",
+      "^v3_1_z_source_load_micro_v1_[0-9]{8}T[0-9]{6}Z_py314$",
+      "^v3_1_z_full_sentinel_v1_[0-9]{8}T[0-9]{6}Z_py314$",
+      "^v3_1_z_official_v1_[0-9]{8}T[0-9]{6}Z_py314$"
+    ],
+    "root_parent": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/classic_scattering",
+    "system_interruption_policy": "ESCALATE_NO_RESUME"
+  },
+  "gate_id": "phase6_v3_1_z_generated_machine_authority_redesign_v1",
+  "generated_bundle": {
+    "base_leaf_paths": [
+      "schema_catalog.json",
+      "digest_dag.json",
+      "operation_dags.json",
+      "path_grammar.json",
+      "authority_progression.json",
+      "resource_projection.json",
+      "validator_python.py",
+      "validator_wolfram.wl",
+      "compatibility_observer.wls",
+      "shard_inventory.json"
+    ],
+    "collection_index_paths": [
+      "conformance_vectors/conformance_expansion_index.json",
+      "mutation_oracle/mutation_expansion_index.json"
+    ],
+    "collections": [
+      {
+        "collection": "predicate_instances",
+        "first_path": "predicate_instances/predicate_instances_0000_000000000_000004095.jsonl",
+        "last_path": "predicate_instances/predicate_instances_0019_000077824_000080723.jsonl",
+        "rows": 80724,
+        "shards": 20
+      },
+      {
+        "collection": "conformance_vectors",
+        "rows": 159,
+        "shards": 1
+      },
+      {
+        "collection": "mutation_oracle",
+        "coverage_obligations": 2105410,
+        "rows": 2105410,
+        "shards": 515
+      }
+    ],
+    "leaf_manifest_excludes": [
+      "leaf_manifest.json",
+      "bundle_root.json",
+      "package_checkpoint.json"
+    ],
+    "max_rows_per_jsonl_shard": 4096,
+    "membership_authority": {
+      "generated_directory_count": 4,
+      "generated_regular_file_count": 551,
+      "generated_total_bytes": 1006400405,
+      "leaf_manifest_path": "generated/phase6_v3_1_z/leaf_manifest.json",
+      "leaf_manifest_sha256": "e111679723272a4c03967e20729e950222197097aa330859fbd449ea36f40ddf",
+      "package_checkpoint_path": "generated/phase6_v3_1_z/package_checkpoint.json",
+      "package_checkpoint_sha256": "94429a5b85b32ceb08e298b992d85d79d5fde938245884f63de56deb7ccd6ab2"
+    },
+    "resource_projection": {
+      "path": "generated/phase6_v3_1_z/resource_projection.json",
+      "sha256": "2a6a1ee033b5ee40981ccea5d569b30cbc74121a3292fe64d26376f5f99aec27"
+    },
+    "shard_filename_format": "<collection>/<collection>_<shard_index:04d>_<first_global_ordinal:09d>_<last_global_ordinal:09d>.jsonl",
+    "terminal_paths": [
+      {
+        "path": "generated/phase6_v3_1_z/leaf_manifest.json",
+        "sha256": "e111679723272a4c03967e20729e950222197097aa330859fbd449ea36f40ddf"
+      },
+      {
+        "authority_sha256": "38b05963da0de1977feff8c7ebf2d7dae05b7022a35a6cd263894ee79a07a6c0",
+        "path": "generated/phase6_v3_1_z/bundle_root.json",
+        "sha256": "91ea795f5644f9b2b03a68c255d97a3be2d92d11319b9f55a2001a59d9a0c980"
+      },
+      {
+        "path": "generated/phase6_v3_1_z/package_checkpoint.json",
+        "portable_tree_sha256": "2937dea5f8b169bcb85ed200c3b911d6eedee9438291d1e5101c4f361369a94d",
+        "sha256": "94429a5b85b32ceb08e298b992d85d79d5fde938245884f63de56deb7ccd6ab2"
+      }
+    ],
+    "validators_embed_bundle_root": false
+  },
+  "generation_measurements": {
+    "caps": {
+      "generated_bytes_strict_max": 2147483648,
+      "peak_rss_bytes_strict_max": 4294967296,
+      "wall_seconds_max": 600
+    },
+    "portable_output_root_fields_excluded": [
+      "absolute_output_root",
+      "cwd",
+      "pid",
+      "timestamp",
+      "device",
+      "inode",
+      "locale",
+      "hash_seed"
+    ],
+    "runs": [
+      {
+        "caps_pass": true,
+        "directory_count": 4,
+        "generated_bytes": 1006400405,
+        "name": "independent_a",
+        "peak_rss_bytes": 279363584,
+        "regular_file_count": 551,
+        "terminal_identity": "94429a5b85b32ceb08e298b992d85d79d5fde938245884f63de56deb7ccd6ab2",
+        "wall_seconds": 65.11382895801216
+      },
+      {
+        "caps_pass": true,
+        "directory_count": 4,
+        "generated_bytes": 1006400405,
+        "name": "independent_b",
+        "peak_rss_bytes": 279330816,
+        "regular_file_count": 551,
+        "terminal_identity": "94429a5b85b32ceb08e298b992d85d79d5fde938245884f63de56deb7ccd6ab2",
+        "wall_seconds": 65.13320479192771
+      },
+      {
+        "caps_pass": true,
+        "directory_count": 4,
+        "generated_bytes": 1006400405,
+        "name": "publication",
+        "peak_rss_bytes": 279543808,
+        "regular_file_count": 551,
+        "terminal_identity": "94429a5b85b32ceb08e298b992d85d79d5fde938245884f63de56deb7ccd6ab2",
+        "wall_seconds": 63.802429917035624
+      }
+    ],
+    "tree_comparison": {
+      "all_three_byte_identical": true,
+      "entry_count": 555,
+      "portable_inventory_sha256": "4436fabdb19449f4ec31953d4f08f4e23390ef2a2521303eeb4cdd67c8569456",
+      "publication_to_final_authorized_tree_byte_identical": true
+    }
+  },
+  "implementation_scope": {
+    "exact_path_count": 6,
+    "package_review_advance_authorizes": "ZERO_SCIENCE_T6_IMPLEMENTATION_ONLY",
+    "paths": [
+      "scripts/phase6_v3_1_z_raw_observer.wls",
+      "src/schwgw/validation/phase6_v3_1_z_authority_runtime.py",
+      "src/schwgw/validation/phase6_v3_1_z_external_route.py",
+      "scripts/phase6_v3_1_z_external_protocol.py",
+      "tests/unit/test_phase6_v3_1_z_authority_runtime.py",
+      "tests/regression/test_phase6_v3_1_z_authority_publication.py"
+    ],
+    "paths_must_be_absent_at_package_freeze": true
+  },
+  "machine_authority_counts": {
+    "artifact_schemas": {
+      "nested": 17,
+      "primary": 13,
+      "total": 30
+    },
+    "global": {
+      "acks": 51893,
+      "calls": 198,
+      "child_exits": 198,
+      "child_frames": 51893,
+      "events": 80724,
+      "lifecycle_receipts": 198,
+      "p17_closures": 198,
+      "predicates": 80724,
+      "prefixes": 80724,
+      "stage0_seeds": 198,
+      "stage_finals": 3564,
+      "stage_opens": 3366
+    },
+    "operations": [
+      {
+        "acks": 82,
+        "calls": 1,
+        "child_frames": 82,
+        "events": 151,
+        "operation": "compatibility",
+        "predicates": 151,
+        "prefixes": 151,
+        "seeds_exits_receipts_p17_each": 1,
+        "stage_finals": 18,
+        "stage_opens": 17
+      },
+      {
+        "acks": 263,
+        "calls": 1,
+        "child_frames": 263,
+        "events": 409,
+        "operation": "source_load_micro",
+        "predicates": 409,
+        "prefixes": 409,
+        "seeds_exits_receipts_p17_each": 1,
+        "stage_finals": 18,
+        "stage_opens": 17
+      },
+      {
+        "acks": 9205,
+        "calls": 35,
+        "child_frames": 9205,
+        "events": 14315,
+        "operation": "full_sentinel",
+        "predicates": 14315,
+        "prefixes": 14315,
+        "seeds_exits_receipts_p17_each": 35,
+        "stage_finals": 630,
+        "stage_opens": 595
+      },
+      {
+        "acks": 42343,
+        "calls": 161,
+        "child_frames": 42343,
+        "events": 65849,
+        "operation": "official",
+        "predicates": 65849,
+        "prefixes": 65849,
+        "seeds_exits_receipts_p17_each": 161,
+        "stage_finals": 2898,
+        "stage_opens": 2737
+      }
+    ],
+    "predicate_row_fields": 26,
+    "stage_predicate_vectors": {
+      "compatibility": [
+        5,
+        9,
+        9,
+        5,
+        6,
+        17,
+        10,
+        8,
+        11,
+        11,
+        7,
+        6,
+        4,
+        8,
+        16,
+        7,
+        4,
+        8
+      ],
+      "production": [
+        5,
+        9,
+        5,
+        10,
+        120,
+        4,
+        3,
+        16,
+        24,
+        24,
+        67,
+        7,
+        4,
+        24,
+        68,
+        7,
+        4,
+        8
+      ]
+    }
+  },
+  "noncircularity": {
+    "bundle_layers": [
+      "spec_and_generator",
+      "generated_leaves",
+      "leaf_manifest_excluding_self_bundle_checkpoint",
+      "bundle_root",
+      "package_checkpoint_excluding_self",
+      "design",
+      "package",
+      "prompts_binding_finalized_package"
+    ],
+    "future_review_sha256_in_candidate": false,
+    "package_excludes_prompt_sha256": true,
+    "package_self_sha256_embedded": false,
+    "prompt_binding_direction": "PROMPT_TO_FINALIZED_PACKAGE",
+    "prompt_self_sha256_embedded": false
+  },
+  "nonclaims": [
+    "PACKAGE_REVIEW_NOT_YET_ADVANCED",
+    "V3_1_Z_SCIENCE_NOT_ASSESSED",
+    "NO_T6_IMPLEMENTATION",
+    "NO_RUNTIME_EXECUTION",
+    "NO_WOLFRAM_LAUNCH_AT_PACKAGE_TIME",
+    "NO_BHPT_AP_RADIAL_SOLVER_OR_SCIENCE_CALL",
+    "NO_COMPATIBILITY_MICRO_SENTINEL_OR_OFFICIAL_ROOT",
+    "NO_INDEPENDENT_EXTERNAL_EVEN_SOLVE",
+    "COMMON_ABSOLUTE_PHASE_PARTIAL",
+    "NO_LI_FIGURE_EQUIVALENCE",
+    "NO_FINITE_RADIUS_OBSERVER_CLAIM",
+    "NO_FULL_DOMAIN_V3_CERTIFICATION",
+    "NO_V3_2",
+    "NO_GLOBAL_GREEN",
+    "NO_U_X_Y_RUNTIME_OR_SCIENCE_BYTE_PROMOTION",
+    "NO_FIXED_ROUTE_U_COUNT",
+    "SENTINEL_VALUES_NONPROMOTABLE",
+    "ZERO_BOUNDED_REPAIR_CYCLES"
+  ],
+  "package_path": "configs/phase6_v3_1_z_generated_machine_authority_package.json",
+  "package_revision": 1,
+  "resource_limits": {
+    "ack_max_bytes": 2048,
+    "artifact_max_encoded_record_bytes": [
+      [
+        "parent_event",
+        8192
+      ],
+      [
+        "prefix_checkpoint",
+        4096
+      ],
+      [
+        "final_stage_checkpoint",
+        8192
+      ],
+      [
+        "stage_open_authority",
+        8192
+      ],
+      [
+        "stage0_seed",
+        16384
+      ],
+      [
+        "child_exit_authority",
+        4096
+      ],
+      [
+        "lifecycle_receipt",
+        32768
+      ],
+      [
+        "p17_closure",
+        8192
+      ],
+      [
+        "terminal_manifest",
+        65536
+      ],
+      [
+        "operation_terminal_manifest",
+        65536
+      ],
+      [
+        "root_terminal_checkpoint",
+        32768
+      ]
+    ],
+    "compatibility_wall_seconds_max": 120,
+    "compatibility_whole_root_bytes_max": 16777216,
+    "concurrency": 1,
+    "fixed_authority_bytes_per_call": 65536,
+    "fixed_authority_bytes_per_operation": 65536,
+    "frame_max_bytes": 4096,
+    "free_space_rule": "projected_root_bytes <= floor(free_bytes/4) and free_bytes >= 4*projected_root_bytes",
+    "generated_bundle_bytes_strict_max": 2147483648,
+    "generation_wall_seconds_max": 600,
+    "micro_wall_seconds_max": 120,
+    "micro_whole_root_bytes_max": 16777216,
+    "official_rss_bytes_max": 8589934592,
+    "official_wall_seconds_max": 129600,
+    "peak_rss_bytes_strict_max": 4294967296,
+    "projected_root_bytes": [
+      [
+        "compatibility",
+        4313088
+      ],
+      [
+        "source_load_micro",
+        8595456
+      ],
+      [
+        "full_sentinel",
+        295270400
+      ],
+      [
+        "official",
+        1357654016
+      ]
+    ],
+    "projection_formula": "fixed_authority_bytes_per_call*calls + fixed_authority_bytes_per_operation + frame_max_bytes*child_frames + ack_max_bytes*acks + raw_stdout_limit_bytes_per_call*calls + raw_stderr_limit_bytes_per_call*calls + sum(artifact_max_encoded_record_bytes[schema]*declared_output_record_count[schema])",
+    "raw_stderr_limit_bytes_per_call": 262144,
+    "raw_stdout_limit_bytes_per_call": 1048576,
+    "sentinel_rss_bytes_max": 8589934592,
+    "sentinel_wall_seconds_max": 28800
+  },
+  "schema": "schwo.phase6.v3_1_z.generated_machine_authority_package.v1",
+  "science_freeze": {
+    "certificate_ids": [
+      "V3_MODE_GREYBODY_NUMERICAL",
+      "V3_MODE_GREYBODY_FLUX_VS_S",
+      "V3_MODE_GREYBODY_EXTERNAL",
+      "V3_MODE_PARITY_PROBABILITY",
+      "V3_MODE_DOMAIN_COVERAGE"
+    ],
+    "ell_max_by_frequency": [
+      16,
+      16,
+      16,
+      16,
+      17,
+      17,
+      19,
+      21,
+      26,
+      37,
+      58
+    ],
+    "exact_frequencies": [
+      "0.005",
+      "0.01",
+      "0.02",
+      "0.05",
+      "0.1",
+      "0.2",
+      "0.5",
+      "1",
+      "2",
+      "4",
+      "8"
+    ],
+    "exact_modes": 496,
+    "exact_pairs": 248,
+    "gamma_routes": {
+      "direct_horizon_flux": "Gamma_flux=F_H/F_in",
+      "independent_s_deficit": "Gamma_S=1-|S|^2",
+      "separate": true
+    },
+    "route_a": {
+      "applicability": "ALL_496_ORDERED_MODES",
+      "axes": {
+        "outer_jost": {
+          "jost_orders": [
+            80,
+            120,
+            160,
+            200
+          ],
+          "outer_multipliers": [
+            1,
+            2,
+            4,
+            8
+          ],
+          "rin_epsilon": "1e-10",
+          "tolerances": [
+            "1e-10",
+            "1e-12"
+          ]
+        },
+        "rin": {
+          "epsilons": [
+            "1e-8",
+            "1e-10",
+            "1e-12"
+          ],
+          "fixed_jost_order": 160,
+          "fixed_outer_multiplier": 1,
+          "tolerances": [
+            "1e-10",
+            "1e-12"
+          ]
+        },
+        "tolerance": {
+          "fixed_jost_order": 160,
+          "fixed_outer_multiplier": 1,
+          "fixed_rin_epsilon": "1e-10",
+          "pairs": [
+            [
+              "1e-9",
+              "1e-11"
+            ],
+            [
+              "1e-10",
+              "1e-12"
+            ],
+            [
+              "3e-11",
+              "3e-13"
+            ]
+          ]
+        }
+      },
+      "baseline": [
+        "1e-10",
+        1,
+        160,
+        "1e-10",
+        "1e-12"
+      ],
+      "baseline_memberships": [
+        "outer_jost",
+        "rin",
+        "tolerance"
+      ],
+      "candidate_nodes_per_mode_before_deduplication": 22,
+      "deduplicated_baseline_repetitions": 2,
+      "ladder_records_per_mode": 20,
+      "ladder_records_total": 9920,
+      "mode_count": 496,
+      "ordered_mode_inventory_sha256": "e4d09740c032c3c48ae43be56c1dd11512527b6266f5974f444302bb4afc45d8",
+      "protected_public_calls_total": 9920,
+      "required_radius": "40",
+      "solver_call": "solve_scaled_tortoise_radial_at_radius",
+      "terminal_mode_records": 496,
+      "transport": {
+        "auxiliary_exponent_domain": [
+          0,
+          1,
+          2
+        ],
+        "auxiliary_rule": "min n: k*(2^n*r_match)>=4*sqrt(ell*(ell+1))",
+        "integrator": "DOP853",
+        "maximum_rstar_segment": "4",
+        "pseudoinverse_or_fallback": false,
+        "two_by_two_exact_solve": true
+      }
+    },
+    "route_a_records": 9920,
+    "route_b": {
+      "arbitrary_exponent_decimal": true,
+      "evanescent_selector": "k in [0.1,0.5,1,2,4,8]; nearest ell to critical+8 and critical+12; both parities",
+      "independent_odd_even": true,
+      "key_count": 102,
+      "low_selector": "k in [0.005,0.01,0.02,0.05]; ell in [2,3,4,8,12]; both parities",
+      "node_records_total": 458,
+      "ordered_key_inventory_sha256": "25c4b2831924bd550a44e59df35b1d2b2687b66e0e1e2b96fb3ef88086667bf3",
+      "precision_dps": [
+        80,
+        120,
+        180
+      ],
+      "precision_records": 306,
+      "protected_route_a_import_or_call": false,
+      "records_per_nonturning_key": 3,
+      "records_per_turning_key": 7,
+      "selector_strata_counts": [
+        [
+          "LOW",
+          40
+        ],
+        [
+          "TURNING",
+          38
+        ],
+        [
+          "EVANESCENT",
+          24
+        ]
+      ],
+      "selector_union_deduplicated": true,
+      "turning_extra_nodes": [
+        [
+          180,
+          "1e-8",
+          1,
+          160
+        ],
+        [
+          180,
+          "1e-12",
+          1,
+          160
+        ],
+        [
+          180,
+          "1e-10",
+          2,
+          160
+        ],
+        [
+          180,
+          "1e-10",
+          1,
+          200
+        ]
+      ],
+      "turning_extra_records": 152,
+      "turning_selector": "k in [0.5,1,2,4,8]; abs((ell+0.5)-3*sqrt(3)*k)<=2; both parities"
+    },
+    "route_b_modes": 102,
+    "route_b_records": 458,
+    "route_c": {
+      "anchor_count": 23,
+      "anchors": [
+        [
+          0,
+          "0.1",
+          2,
+          "odd"
+        ],
+        [
+          1,
+          "0.1",
+          3,
+          "odd"
+        ],
+        [
+          2,
+          "0.1",
+          4,
+          "odd"
+        ],
+        [
+          3,
+          "0.1",
+          8,
+          "odd"
+        ],
+        [
+          4,
+          "0.5",
+          2,
+          "odd"
+        ],
+        [
+          5,
+          "0.5",
+          3,
+          "odd"
+        ],
+        [
+          6,
+          "0.5",
+          4,
+          "odd"
+        ],
+        [
+          7,
+          "0.5",
+          10,
+          "odd"
+        ],
+        [
+          8,
+          "1",
+          2,
+          "odd"
+        ],
+        [
+          9,
+          "1",
+          3,
+          "odd"
+        ],
+        [
+          10,
+          "1",
+          4,
+          "odd"
+        ],
+        [
+          11,
+          "1",
+          5,
+          "odd"
+        ],
+        [
+          12,
+          "1",
+          13,
+          "odd"
+        ],
+        [
+          13,
+          "2",
+          2,
+          "odd"
+        ],
+        [
+          14,
+          "2",
+          3,
+          "odd"
+        ],
+        [
+          15,
+          "2",
+          4,
+          "odd"
+        ],
+        [
+          16,
+          "2",
+          10,
+          "odd"
+        ],
+        [
+          17,
+          "2",
+          18,
+          "odd"
+        ],
+        [
+          18,
+          "4",
+          2,
+          "odd"
+        ],
+        [
+          19,
+          "4",
+          3,
+          "odd"
+        ],
+        [
+          20,
+          "4",
+          4,
+          "odd"
+        ],
+        [
+          21,
+          "4",
+          20,
+          "odd"
+        ],
+        [
+          22,
+          "4",
+          28,
+          "odd"
+        ]
+      ],
+      "api_calls": 161,
+      "boundary_calls": 322,
+      "frequency_representation": "EXACT_RATIONAL",
+      "geometry": {
+        "frequency_fraction_map": [
+          [
+            "0.1",
+            1,
+            10
+          ],
+          [
+            "0.5",
+            1,
+            2
+          ],
+          [
+            "1",
+            1,
+            1
+          ],
+          [
+            "2",
+            2,
+            1
+          ],
+          [
+            "4",
+            4,
+            1
+          ]
+        ],
+        "node_geometry": [
+          [
+            "P0",
+            10,
+            1,
+            "rin10_m1",
+            "a8601cd1b377bf4741035a03bec98590ebffbec0004a63af498a260f1d05c5fc"
+          ],
+          [
+            "P1",
+            10,
+            1,
+            "rin10_m1",
+            "a8601cd1b377bf4741035a03bec98590ebffbec0004a63af498a260f1d05c5fc"
+          ],
+          [
+            "I0",
+            8,
+            1,
+            "rin8_m1",
+            "ec110e7612a14fce135be77a649324a98498da04b18785502e969ec437622380"
+          ],
+          [
+            "I2",
+            12,
+            1,
+            "rin12_m1",
+            "574f64024363e59b2fea678f33ed3b373e73374b33efb318fe781aa5b6607958"
+          ],
+          [
+            "O2",
+            10,
+            2,
+            "rin10_m2",
+            "42369d4584fc079224d5ae9bd6e7565aafeb0a52d0d2a0f06c1666d54dbee008"
+          ],
+          [
+            "O4",
+            10,
+            4,
+            "rin10_m4",
+            "b5c7b2e496daac3f7d1edf48843b41e7633800329d528065c0f87a94db641bbf"
+          ],
+          [
+            "O8",
+            10,
+            8,
+            "rin10_m8",
+            "8bdf36d3bba5dc2ffa6e4949dffcd15d42a90acba9c0f9cf431fa8c30e71ffd5"
+          ]
+        ],
+        "outer_radius_formula": "outer_multiplier*max(300,8*sqrt(ell*(ell+1))/k)",
+        "overlap_multipliers": [
+          "0.80",
+          "0.88",
+          "0.96"
+        ]
+      },
+      "independent_solutions": [
+        "In",
+        "Up"
+      ],
+      "method": "BHPT ReggeWheeler NumericalIntegration independent In/Up",
+      "mst_calls": 0,
+      "node_order": [
+        "P0",
+        "P1",
+        "I0",
+        "I2",
+        "O2",
+        "O4",
+        "O8"
+      ],
+      "node_precision_semantics": [
+        [
+          "P0",
+          90,
+          45,
+          45
+        ],
+        [
+          "P1",
+          120,
+          60,
+          60
+        ],
+        [
+          "I0",
+          120,
+          60,
+          60
+        ],
+        [
+          "I2",
+          120,
+          60,
+          60
+        ],
+        [
+          "O2",
+          120,
+          60,
+          60
+        ],
+        [
+          "O4",
+          120,
+          60,
+          60
+        ],
+        [
+          "O8",
+          120,
+          60,
+          60
+        ]
+      ],
+      "ordered_anchor_inventory_sha256": "5e93fca57b6d4fb82762043fedea4631de92111164c8c4a991d76925e3867c76",
+      "overlap_calls": 483,
+      "precision_digits": [
+        90,
+        120
+      ],
+      "selected_node": "P1",
+      "spin": 2
+    },
+    "route_u_selector": {
+      "applicability": {
+        "direct_gamma_equal_1e-8": "NON_U",
+        "direct_gamma_ge_1e-8": "FLOAT64_ABSOLUTE_GAMMA_ROUTE_MAX_2E-8",
+        "direct_gamma_gt_0_lt_1e-8": "ROUTE_U_LOG_COMPARISON_MAX_2E-4"
+      },
+      "fixed_318_or_954_forbidden": true,
+      "forbidden_selector_operands": [
+        "Gamma_S",
+        "S",
+        "mismatch",
+        "predecessor_route_map",
+        "regime_label",
+        "Route_B_record",
+        "Route_C_record",
+        "threshold_result"
+      ],
+      "gamma_s_formula": "-expm1(2*0.5*log(Re(S)^2+Im(S)^2))",
+      "ladder_records_expression": "N_U",
+      "ordered_mode_inventory_sha256": "e4d09740c032c3c48ae43be56c1dd11512527b6266f5974f444302bb4afc45d8",
+      "parent_owned_admission": {
+        "adjacent_log_gamma_absolute_max": "2e-5",
+        "adjacent_s_symmetric_relative_max": "5e-8",
+        "decision_owner": "PARENT_AUTHORITY",
+        "forbidden_helper_decision_function": "validate_oracle_ladder"
+      },
+      "precision_records_expression": "3*N_U",
+      "precision_schedule": {
+        "guard_digits_minimum": 30,
+        "node_formula": [
+          "p0",
+          "p0+40",
+          "p0+100"
+        ],
+        "p0_formula": "20*ceil(max(80,30-exponent10)/20)"
+      },
+      "predicate": "direct log_Gamma_flux < log(1e-8)",
+      "runtime_N_U_range": [
+        0,
+        496
+      ],
+      "selector_entries": 496,
+      "selector_id": "Z.SELECTOR.ROUTE_U_FRESH_DIRECT_LOG_GAMMA"
+    },
+    "sentinel": {
+      "boundary_calls": 70,
+      "calls": 35,
+      "overlap_calls": 105
+    },
+    "thresholds": [
+      [
+        "V3T-S-COMPLEX-001",
+        "symmetric_relative",
+        "2e-6"
+      ],
+      [
+        "V3T-LOGGAMMA-001",
+        "absolute_log",
+        "2e-4"
+      ],
+      [
+        "V3T-FLUX-BALANCE-001",
+        "relative_balance",
+        "1e-8"
+      ],
+      [
+        "V3T-GAMMA-ROUTES-001",
+        "absolute",
+        "2e-8"
+      ],
+      [
+        "V3T-GAMMA-ROUTES-LOG-001",
+        "absolute_log",
+        "2e-4"
+      ],
+      [
+        "V3T-GAMMA-PHYSICAL-001",
+        "bound_violation",
+        "2e-10"
+      ],
+      [
+        "V3T-PARITY-PROB-001",
+        "absolute",
+        "2e-8"
+      ],
+      [
+        "V3T-PARITY-PHASE-001",
+        "wrapped_radians",
+        "2e-6"
+      ],
+      [
+        "V3T-PRECISION-S-001",
+        "max_adjacent",
+        "5e-7"
+      ],
+      [
+        "V3T-PRECISION-LOGGAMMA-001",
+        "max_adjacent",
+        "1e-4"
+      ],
+      [
+        "V3T-RIN-S-001",
+        "max_ladder",
+        "1e-6"
+      ],
+      [
+        "V3T-RIN-LOGGAMMA-001",
+        "max_ladder",
+        "2e-4"
+      ],
+      [
+        "V3T-ROUT-JOST-S-001",
+        "max_ladder",
+        "2e-6"
+      ],
+      [
+        "V3T-ROUT-JOST-LOGGAMMA-001",
+        "max_ladder",
+        "3e-4"
+      ],
+      [
+        "V3T-TOLERANCE-S-001",
+        "max_ladder",
+        "1e-6"
+      ],
+      [
+        "V3T-TOLERANCE-LOGGAMMA-001",
+        "max_ladder",
+        "2e-4"
+      ]
+    ]
+  },
+  "science_status_line": "V3.1-Z science NOT_ASSESSED; no T6 implementation/runtime/V3.2/global GREEN.",
+  "source_ledger": {
+    "bhpt": {
+      "content_inventory_sha256": "d849db67cb8f411af234f81695624868c76378e52d360acd5f65cd4d0660e6e2",
+      "directory_count": 5,
+      "file_count": 25,
+      "identity_inventory_sha256": "a1d2842d604dbd20226cc35ada71bfb49029f6b717bee33f0969f6d5bdda2f27",
+      "metadata_path": "runs/phase6/external_sources/bhpt_reggewheeler_2e012092_v1_20260813.snapshot.json",
+      "metadata_sha256": "8d5498ab5f825e721c6cd3764f302831c8b7bcf138a1ee9600a0f5e6f6e4e488"
+    },
+    "canonical_ledger_sha256": "16fe0ec58576025e9f74b833fee07a297cad327e3c594876e2d815d8d06f7e1b",
+    "denied_science_control": [
+      "scripts/phase6_v3_1_hp_unitarity.py",
+      "01ce96122b1c2dca9f29ec0355dd51ccf0611842fcdc7d0850107d012a6f25a4",
+      1559,
+      420,
+      1,
+      false,
+      "THREAT_MODEL_ONLY"
+    ],
+    "helper_import_graph": [
+      [
+        "src/schwgw/validation/phase6_v3_external_direct.py",
+        [
+          "__future__",
+          "dataclasses",
+          "hashlib",
+          "json",
+          "os",
+          "pathlib",
+          "re",
+          "stat",
+          "typing",
+          "mpmath"
+        ]
+      ],
+      [
+        "src/schwgw/validation/phase6_v3_hp_unitarity_oracle.py",
+        [
+          "__future__",
+          "dataclasses",
+          "fractions",
+          "hashlib",
+          "json",
+          "math",
+          "time",
+          "typing",
+          "mpmath",
+          "schwgw.validation.phase6_mpmath_radial"
+        ]
+      ],
+      [
+        "src/schwgw/validation/phase6_mpmath_radial.py",
+        [
+          "__future__",
+          "ast",
+          "dataclasses",
+          "hashlib",
+          "json",
+          "math",
+          "os",
+          "pathlib",
+          "platform",
+          "shlex",
+          "sys",
+          "time",
+          "typing",
+          "mpmath"
+        ]
+      ]
+    ],
+    "helper_symbol_edges": [
+      [
+        "src/schwgw/validation/phase6_v3_hp_unitarity_oracle.py",
+        "src/schwgw/validation/phase6_mpmath_radial.py",
+        [
+          "MpmathMode",
+          "MpmathRadialContractError",
+          "MpmathSolveConfig",
+          "_integrate_state_to_radii",
+          "_integrate_to_radii",
+          "independent_jost_basis",
+          "schwarzschild_rstar"
+        ]
+      ]
+    ],
+    "ledger_schema": "phase6_v3_1_z_package_input_ledger_v1",
+    "mpmath_overlay": {
+      "backend_environment": [
+        [
+          "MPMATH_NOGMPY",
+          "1"
+        ],
+        [
+          "PYTHONNOUSERSITE",
+          "1"
+        ]
+      ],
+      "canonical_content_inventory_sha256": "d63a843bc3777d25005cfde6073faead19e5cf324522fa605ea763d5efb5559c",
+      "canonical_directory_inventory_sha256": "04187b60e25cb250657c170e913c55e86c998b96dedc4087904eadc7d36dc06a",
+      "canonical_identity_inventory_sha256": "70e7c3312f2b68b3dbb52a20b260de68a1ebb6c7596f5610f6c760bbb577c097",
+      "canonical_tree_sha256": "57382a11ce8be19a6282e144323d9ee0ea15067fa7367d633b40833397fcf61a",
+      "directory_count": 14,
+      "directory_mode": 493,
+      "expected_backend": "python",
+      "file_count": 155,
+      "forbidden_import_candidates": [
+        "gmp",
+        "gmpy2"
+      ],
+      "inventory_order": "PYTHON_PATH_PART_LEXICOGRAPHIC",
+      "path": "runs/phase5/paper_figures/runtime_overlays/mpmath_1p4p1_py314",
+      "pre_science_requirements": [
+        "MPMATH_NOGMPY_EQUALS_1",
+        "MPMATH_BACKEND_EQUALS_PYTHON",
+        "GMP_AND_GMPY2_NOT_LOADED_OR_IMPORTABLE_UNDER_EXACT_CLEAN_PATH"
+      ],
+      "regular_file_mode": 420,
+      "regular_file_nlink": 1,
+      "total_file_bytes": 4075822,
+      "version": "1.4.1"
+    },
+    "per_run_start_end": [
+      {
+        "end_sha256": "16fe0ec58576025e9f74b833fee07a297cad327e3c594876e2d815d8d06f7e1b",
+        "equal": true,
+        "run": "independent_a",
+        "start_sha256": "16fe0ec58576025e9f74b833fee07a297cad327e3c594876e2d815d8d06f7e1b"
+      },
+      {
+        "end_sha256": "16fe0ec58576025e9f74b833fee07a297cad327e3c594876e2d815d8d06f7e1b",
+        "equal": true,
+        "run": "independent_b",
+        "start_sha256": "16fe0ec58576025e9f74b833fee07a297cad327e3c594876e2d815d8d06f7e1b"
+      },
+      {
+        "end_sha256": "16fe0ec58576025e9f74b833fee07a297cad327e3c594876e2d815d8d06f7e1b",
+        "equal": true,
+        "run": "publication",
+        "start_sha256": "16fe0ec58576025e9f74b833fee07a297cad327e3c594876e2d815d8d06f7e1b"
+      }
+    ],
+    "project_import_closure": [
+      [
+        "src/schwgw/__init__.py",
+        "60e617ee30cbdbb538bbd0ebadadcdb29574f4d53067469d41edccd888ae67e6",
+        108,
+        420,
+        1,
+        []
+      ],
+      [
+        "src/schwgw/validation/__init__.py",
+        "1fab932f4705158970f56868b0de6b8c9fe222338ff1e83b6f9260e7ed6c1b78",
+        594,
+        420,
+        1,
+        [
+          "schwgw.validation.contracts"
+        ]
+      ],
+      [
+        "src/schwgw/validation/contracts.py",
+        "5aa0e86d62e50febbd51dc44572408ec351b087148071e0e8ffca3064c8fc9f8",
+        7717,
+        420,
+        1,
+        [
+          "__future__",
+          "math",
+          "dataclasses",
+          "types",
+          "typing"
+        ]
+      ]
+    ],
+    "protected_sources": [
+      [
+        "src/schwgw/numerics/radial_solver.py",
+        "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9"
+      ],
+      [
+        "src/schwgw/numerics/conditioned_radial.py",
+        "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2"
+      ],
+      [
+        "src/schwgw/numerics/scaled_tortoise_radial.py",
+        "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+      ],
+      [
+        "src/schwgw/numerics/adaptive_jost_radial.py",
+        "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896"
+      ],
+      [
+        "src/schwgw/numerics/matching.py",
+        "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340"
+      ],
+      [
+        "src/schwgw/numerics/physical_boundary_radial.py",
+        "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f"
+      ],
+      [
+        "src/schwgw/numerics/boundary_conditions.py",
+        "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22"
+      ]
+    ],
+    "record_count": 30,
+    "record_fields": [
+      "path",
+      "resolved_path",
+      "sha256",
+      "size",
+      "mode",
+      "nlink",
+      "device",
+      "inode"
+    ],
+    "runtime_identities": [
+      {
+        "cache_tag": "cpython-314",
+        "mode": 493,
+        "nlink": 1,
+        "path": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "sha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf",
+        "size": 52448,
+        "version": "3.14.6"
+      },
+      {
+        "executed_at_package_time": false,
+        "mode": 493,
+        "nlink": 1,
+        "path": "/Volumes/JohnnyTforGR/Applications/Wolfram.app/Contents/MacOS/WolframKernel",
+        "sha256": "70ad9d850224b4723a04c581e769579cc3df4b4392ae2ed1886780e6b9be046c",
+        "size": 167488,
+        "version": "14.3.0 for Mac OS X ARM (64-bit) (July 8, 2025)"
+      }
+    ],
+    "science_observation_helpers": [
+      [
+        "src/schwgw/validation/phase6_v3_external_direct.py",
+        "981c2b220c3e67e400f0d8c420fdf4f89ac57962483fa0a02bf9ed3649948da4",
+        52295,
+        420,
+        1,
+        "ROUTE_C_GEOMETRY_OBSERVATION_ONLY",
+        true,
+        [
+          "exact_frequency_fraction",
+          "outer_radius",
+          "overlap_radii"
+        ],
+        [
+          "aggregate_key_records",
+          "build_sentinel_budgets",
+          "node_admission_budget",
+          "resource_projection",
+          "validate_node_records",
+          "validate_official_budgets",
+          "validate_sentinel_budgets"
+        ]
+      ],
+      [
+        "src/schwgw/validation/phase6_v3_hp_unitarity_oracle.py",
+        "a6d88685223fddb8c37f8fdd1110c4400252a6e8f30ffebaab1d6eb4dea85be7",
+        16796,
+        420,
+        1,
+        "ROUTE_U_HIGH_PRECISION_OBSERVATION_ONLY",
+        true,
+        [
+          "OracleMode",
+          "precision_schedule",
+          "solve_oracle_node"
+        ],
+        [
+          "validate_oracle_ladder"
+        ]
+      ],
+      [
+        "src/schwgw/validation/phase6_mpmath_radial.py",
+        "bb92fea624f01df347b0f3c5537bfd8be0319c0eb1d4302e9b81a26bef473c80",
+        119202,
+        420,
+        1,
+        "ROUTE_U_TRANSITIVE_NUMERICAL_DEPENDENCY_ONLY",
+        true,
+        [],
+        [
+          "prove_call_graph_isolation",
+          "validate_stage_a_evidence"
+        ]
+      ]
+    ],
+    "v3_authorities": [
+      [
+        "docs/prompts/phase6_v3_master_prompt.md",
+        "f8c48d9379efcc2534748e33b62a302ba7bd6fe11282b4b4ad6e7a9ae850b1c7"
+      ],
+      [
+        "docs/phase6_v3_0_validation_contract.md",
+        "0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3"
+      ],
+      [
+        "docs/phase6_v3_0_formula_map.md",
+        "e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac"
+      ],
+      [
+        "docs/phase6_v3_0_phase_taxonomy.md",
+        "fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460"
+      ],
+      [
+        "docs/phase6_v3_0_literature_matrix.md",
+        "088834348e980b81f814340a2a2c460b5bf11239521085c358bed7a90f603328"
+      ],
+      [
+        "configs/phase6_v3_0_domain.json",
+        "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b"
+      ],
+      [
+        "configs/phase6_v3_0_thresholds.json",
+        "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a"
+      ],
+      [
+        "configs/phase6_v3_0_external_anchor_matrix.json",
+        "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485"
+      ],
+      [
+        "references/notes/phase6_v3_absorption_scattering_conventions.md",
+        "82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a"
+      ],
+      [
+        "docs/handoffs/archive/T7_2026-08-11_v3_0_contract_review.md",
+        "b672c7f33d2f3cc891f455c6d8123ed846309a07244696da34236f8e254c0126"
+      ]
+    ]
+  },
+  "stop_rules": [
+    "SPEC_GENERATOR_OR_GENERATED_MISMATCH",
+    "NONDETERMINISTIC_REBUILD",
+    "UNRESOLVED_ID_OR_HIDDEN_SEMANTIC_CALLBACK",
+    "SCHEMA_OR_TYPE_INCOMPLETENESS",
+    "DIGEST_DAG_OR_FSM_AMBIGUITY",
+    "CARDINALITY_OR_SHARD_MISMATCH",
+    "MUTATION_COVERAGE_BELOW_100_PERCENT",
+    "MODE_NLINK_HASH_PATH_OR_ALIAS_DRIFT",
+    "SOURCE_OR_PROTECTED_IDENTITY_DRIFT",
+    "FUTURE_AUTHORITY_PATH_COLLISION",
+    "RESOURCE_CAP_FAILURE",
+    "ANY_SCIENCE_DOMAIN_THRESHOLD_METHOD_PRECISION_SOURCE_OR_CONVENTION_CHANGE",
+    "ANY_PREDECESSOR_OR_SENTINEL_VALUE_REUSE"
+  ],
+  "threat_model": {
+    "all_u_x_y_bytes_nonpromotable": true,
+    "nonpromotion_rules": [
+      "NO_SCIENCE_VALUE",
+      "NO_CACHE",
+      "NO_ROUTE_MAP",
+      "NO_CHECKPOINT",
+      "NO_REQUEST",
+      "NO_DISPATCH",
+      "NO_ROOT",
+      "NO_TIMING",
+      "NO_FIXED_318_OR_954",
+      "NO_SENTINEL_TO_OFFICIAL"
+    ],
+    "route_u_failed_authority_denylist": [
+      "e3874e7565dc35498513af8112577810dd9059035f43a9d4573d633c2ae752aa",
+      "f977a0d555652d028b3b73d18990b902f37a55c3dd9305c6e6da55f66593050d",
+      "5eee07ece78204265fe45069ef57a653a61a8ee9d09ff4b4d7e8928bb385c822"
+    ]
+  },
+  "verification": {
+    "all_pass": true,
+    "bhpt_ap_radial_solver_science_calls": 0,
+    "checks": [
+      "CPYTHON_3_14_EXACT_RUNTIME",
+      "STRICT_DUPLICATE_KEY_CANONICAL_SPEC",
+      "EXACT_39_TOP_LEVEL_KEYS",
+      "ALL_IDS_RESOLVED_AND_TYPE_COMPLETE",
+      "EXACT_OPERATION_AND_GLOBAL_COUNTS",
+      "DIGEST_DAG_ACYCLIC",
+      "NO_ID_OR_PATH_COLLISION",
+      "EXACT_SHARD_NAMES_RANGES_COUNTS",
+      "EXHAUSTIVE_MUTATION_COVERAGE_NO_SAMPLING",
+      "GENERATED_PYTHON_VALIDATOR_COMPILES",
+      "GENERATED_WOLFRAM_VALIDATOR_STATIC_ZERO_SCIENCE",
+      "COMPATIBILITY_OBSERVER_STATIC_ZERO_SCIENCE",
+      "FULL_GENERATED_TREE_READ_ONLY_CHECK",
+      "DUAL_INDEPENDENT_FRESH_TREE_REBUILD_BYTE_IDENTITY",
+      "PUBLICATION_TREE_BYTE_IDENTITY",
+      "RUFF_CHECK_AND_FORMAT",
+      "COMPILER_COMPILE",
+      "EXACT_AUTHORIZED_PATH_AUDIT",
+      "FUTURE_PATH_ABSENCE",
+      "PROCESS_AND_EXECUTABLE_ROOT_ABSENCE",
+      "FINAL_MODE_NLINK_HASH_AUDIT",
+      "SOURCE_LEDGER_START_END_EQUAL",
+      "FULL_MPMATH_OVERLAY_AND_PYC_RECORD_CLOSURE",
+      "SCIENCE_HELPER_SYMBOL_AND_TRANSITIVE_IMPORT_CLOSURE",
+      "EXACT_RESOURCE_PROJECTION_RECOMPUTED",
+      "ROUTE_A_B_U_C_LITERAL_METHOD_PRECISION_GRAPH"
+    ],
+    "dispatches_created": 0,
+    "executable_roots_created": 0,
+    "resource_projection_sha256": "2a6a1ee033b5ee40981ccea5d569b30cbc74121a3292fe64d26376f5f99aec27",
+    "source_ledger_record_count": 30,
+    "wolfram_launches": 0
+  }
+}

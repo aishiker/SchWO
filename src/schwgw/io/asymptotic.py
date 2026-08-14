@@ -29,6 +29,7 @@ FIG8_KM_VALUES = (0.5, 1.0, 1.5, 2.0)
 FIG8_REDUCTION_ORDERS = (0, 1, 2)
 FIG8_SCHEMA_VERSION = "schwgw_fig8_asymptotic_scattering_v1"
 FIG8_HYBRID_SCHEMA_VERSION = "schwgw_fig8_matched_schwarzschild_tail_v2"
+FIG8_DIRECT_MST_SCHEMA_VERSION = "schwgw_fig8_jost_low_direct_high_ell_mst_v2"
 RadialSolver = Callable[..., Any]
 ProgressCallback = Callable[[dict[str, Any]], None]
 
@@ -218,7 +219,17 @@ def produce_fig8_asymptotic_dataset(
             "fixed_kM_order": list(FIG8_KM_VALUES),
         },
         "radial_diagnostics": radial_diagnostics,
-        "lmax_ladder_diagnostics": _ladder_diagnostics(ladder, ladder_cross_section),
+        "strict_paper_reproduction_claim": False,
+        "paper_equivalence": "YELLOW",
+        "strict_paper_reproduction_limitation": (
+            "external odd-sector BHPT/MST phase benchmark passed; independent "
+            "even-sector radial normalization and author raw data remain unavailable"
+        ),
+        "lmax_ladder_diagnostics": _ladder_diagnostics(
+            ladder,
+            ladder_cross_section,
+            theta=theta_values,
+        ),
         "forward_axis": {
             "theta_zero_present": False,
             "policy": "excluded; theta grid is (0, pi]",
@@ -363,11 +374,20 @@ def build_fig8_matched_dataset(
             "method": "Poisson-Sasaki/Dolan Schwarzschild large-ell Coulomb-MST tail",
             "matching": matching,
             "blend": "raised cosine in phase and log amplitude",
+            "direct_mst_phase_solver_used": False,
+            "empirical_overlap_blend_used": True,
         },
+        "strict_paper_reproduction_claim": False,
+        "strict_paper_reproduction_limitation": (
+            "author phase-shift sequence and extraction prescription are not public; "
+            "finite-r correction and empirical high-ell matching are project choices"
+        ),
         "common_target_lmax": int(target_lmax),
         "supplied_phase_lmax": int(output_lmax),
         "lmax_ladder_diagnostics": _ladder_diagnostics(
-            phase_ladder, ladder_cross_section
+            phase_ladder,
+            ladder_cross_section,
+            theta=theta,
         ),
         "forward_axis": {
             "theta_zero_present": False,
@@ -584,8 +604,14 @@ def _validate_dataset(result: Fig8AsymptoticDataset) -> None:
     if not isinstance(metadata, dict) or metadata.get("schema_version") not in {
         FIG8_SCHEMA_VERSION,
         FIG8_HYBRID_SCHEMA_VERSION,
+        FIG8_DIRECT_MST_SCHEMA_VERSION,
     }:
         raise ValueError("Fig. 8 metadata has an invalid schema version.")
+    if metadata.get("strict_paper_reproduction_claim") is not False:
+        raise ValueError(
+            "Fig. 8 metadata must not claim strict paper reproduction while "
+            "literal paper equivalence remains unproven."
+        )
     if metadata["schema_version"] == FIG8_SCHEMA_VERSION:
         if not isinstance(metadata.get("radial_diagnostics"), dict) or not isinstance(
             metadata.get("provenance"), dict
@@ -593,13 +619,163 @@ def _validate_dataset(result: Fig8AsymptoticDataset) -> None:
             raise ValueError(
                 "Fig. 8 metadata must retain radial diagnostics and provenance."
             )
-    elif not isinstance(metadata.get("tail"), dict) or not isinstance(
-        metadata.get("source_record"), dict
-    ):
-        raise ValueError("Matched Fig. 8 metadata must retain tail and source records.")
+    elif metadata["schema_version"] == FIG8_HYBRID_SCHEMA_VERSION:
+        if not isinstance(metadata.get("tail"), dict) or not isinstance(
+            metadata.get("source_record"), dict
+        ):
+            raise ValueError(
+                "Matched Fig. 8 metadata must retain tail and source records."
+            )
+    else:
+        tail = metadata.get("tail")
+        transactions = metadata.get("transactions")
+        if (
+            not isinstance(tail, dict)
+            or tail.get("direct_mst_phase_solver_used") is not True
+            or tail.get("empirical_overlap_blend_used") is not False
+            or tail.get("empirical_phase_offset_used") is not False
+            or not isinstance(transactions, list)
+            or len(transactions) != 4
+        ):
+            raise ValueError(
+                "Direct-MST Fig. 8 metadata must retain its unblended "
+                "four-frequency transaction contract."
+            )
 
 
-def _ladder_diagnostics(ladder: np.ndarray, values: np.ndarray) -> list[dict[str, Any]]:
+def scan_fig8_matching_sensitivity(
+    raw: Fig8AsymptoticDataset,
+    *,
+    r_out_values: Sequence[float] = (240.0, 300.0, 360.0),
+    overlap_half_width_values: Sequence[int] = (10, 15, 20),
+    output_lmax: int = 502,
+    target_lmax: int = 500,
+    theta_min_fraction: float = 0.2,
+) -> dict[str, Any]:
+    """Compare the empirical Fig. 8 matching choices without new ODE solves.
+
+    The reference is the frozen ``r_out=300`` and overlap-half-width ``15``
+    construction.  For each requested combination, the reported q=2 error is
+    the stable-window L-infinity difference divided by the reference curve's
+    stable-window L-infinity norm.  This is a sensitivity diagnostic, not an
+    uncertainty estimate and not a replacement for direct high-ell MST data.
+    """
+
+    if not isinstance(raw, Fig8AsymptoticDataset):
+        raise TypeError("raw must be a Fig8AsymptoticDataset instance.")
+    minimum_fraction = float(theta_min_fraction)
+    if not 0.0 < minimum_fraction < 1.0:
+        raise ValueError("theta_min_fraction must lie strictly between 0 and 1.")
+    radii = tuple(float(value) for value in r_out_values)
+    widths = tuple(int(value) for value in overlap_half_width_values)
+    if not radii or any(not np.isfinite(value) or value <= 0.0 for value in radii):
+        raise ValueError("r_out_values must contain positive finite values.")
+    if not widths or any(value < 2 for value in widths):
+        raise ValueError("overlap_half_width_values must contain integers >= 2.")
+
+    reference = build_fig8_matched_dataset(
+        raw,
+        output_lmax=output_lmax,
+        target_lmax=target_lmax,
+        overlap_half_width=15,
+        r_out=300.0,
+        source_record={"purpose": "matching_sensitivity_reference"},
+    )
+    q2_index = FIG8_REDUCTION_ORDERS.index(2)
+    mask = reference.theta / np.pi >= minimum_fraction
+    reference_q2 = reference.differential_cross_section[:, q2_index, mask]
+    records: list[dict[str, Any]] = []
+    for radius in radii:
+        for width in widths:
+            try:
+                candidate = build_fig8_matched_dataset(
+                    raw,
+                    output_lmax=output_lmax,
+                    target_lmax=target_lmax,
+                    overlap_half_width=width,
+                    r_out=radius,
+                    source_record={"purpose": "matching_sensitivity_candidate"},
+                )
+            except ValueError as exc:
+                records.append(
+                    {
+                        "r_out": radius,
+                        "overlap_half_width": width,
+                        "status": "rejected_by_existing_matching_gate",
+                        "reason": str(exc),
+                    }
+                )
+                continue
+            candidate_q2 = candidate.differential_cross_section[:, q2_index, mask]
+            by_frequency = []
+            for frequency_index, kM in enumerate(FIG8_KM_VALUES):
+                denominator = max(
+                    float(np.max(np.abs(reference_q2[frequency_index]))),
+                    1.0e-30,
+                )
+                by_frequency.append(
+                    {
+                        "kM": float(kM),
+                        "normalized_linf_difference": float(
+                            np.max(
+                                np.abs(
+                                    candidate_q2[frequency_index]
+                                    - reference_q2[frequency_index]
+                                )
+                            )
+                            / denominator
+                        ),
+                    }
+                )
+            records.append(
+                {
+                    "r_out": radius,
+                    "overlap_half_width": width,
+                    "status": "passed_existing_matching_gates",
+                    "q2_by_frequency": by_frequency,
+                    "q2_max_normalized_linf_difference": max(
+                        item["normalized_linf_difference"]
+                        for item in by_frequency
+                    ),
+                }
+            )
+    return {
+        "schema_version": "schwgw_fig8_matching_sensitivity_v1",
+        "no_radial_solver_rerun": True,
+        "reference": {"r_out": 300.0, "overlap_half_width": 15},
+        "theta_min_fraction": minimum_fraction,
+        "reduction_order": 2,
+        "normalization": "max_abs_difference / max_abs_reference_curve",
+        "interpretation": (
+            "empirical matching sensitivity only; direct high-ell MST remains "
+            "the strict-reproduction requirement"
+        ),
+        "records": records,
+    }
+
+
+def _ladder_diagnostics(
+    ladder: np.ndarray,
+    values: np.ndarray,
+    *,
+    theta: np.ndarray | None = None,
+) -> list[dict[str, Any]]:
+    if values.ndim != 4 or values.shape[1] != ladder.size:
+        raise ValueError("ladder values must have shape (frequency, ladder, q, theta).")
+    if values.shape[2] != len(FIG8_REDUCTION_ORDERS):
+        raise ValueError("ladder values have an invalid reduction-order dimension.")
+    if theta is None:
+        stable_mask = np.ones(values.shape[-1], dtype=bool)
+        stable_window = None
+    else:
+        theta_values = np.asarray(theta, dtype=np.float64)
+        if theta_values.shape != (values.shape[-1],):
+            raise ValueError("theta shape does not match ladder values.")
+        stable_mask = theta_values / np.pi >= 0.2
+        if not np.any(stable_mask):
+            raise ValueError("theta grid has no samples in theta/pi >= 0.2.")
+        stable_window = {"theta_over_pi_min": 0.2, "theta_over_pi_max": 1.0}
+
     records: list[dict[str, Any]] = []
     for previous_index, current_index in zip(
         range(ladder.size - 1), range(1, ladder.size)
@@ -608,11 +784,45 @@ def _ladder_diagnostics(ladder: np.ndarray, values: np.ndarray) -> list[dict[str
         relative = np.abs(new - old) / np.maximum(
             np.maximum(np.abs(new), np.abs(old)), 1.0e-30
         )
+        by_reduction_order = []
+        for order_index, order in enumerate(FIG8_REDUCTION_ORDERS):
+            by_frequency = []
+            for frequency_index, kM in enumerate(FIG8_KM_VALUES):
+                old_curve = old[frequency_index, order_index, stable_mask]
+                new_curve = new[frequency_index, order_index, stable_mask]
+                denominator = max(float(np.max(np.abs(new_curve))), 1.0e-30)
+                curve_relative = relative[frequency_index, order_index, stable_mask]
+                by_frequency.append(
+                    {
+                        "kM": float(kM),
+                        "max_pointwise_relative_change": float(
+                            np.max(curve_relative)
+                        ),
+                        "normalized_linf_change": float(
+                            np.max(np.abs(new_curve - old_curve)) / denominator
+                        ),
+                    }
+                )
+            by_reduction_order.append(
+                {
+                    "reduction_order": int(order),
+                    "stable_window": stable_window,
+                    "by_frequency": by_frequency,
+                    "max_normalized_linf_change": max(
+                        item["normalized_linf_change"] for item in by_frequency
+                    ),
+                }
+            )
         records.append(
             {
                 "previous_lmax": int(ladder[previous_index]),
                 "current_lmax": int(ladder[current_index]),
                 "max_relative_change": float(np.max(relative)),
+                "aggregate_warning": (
+                    "mixes q=0,1,2 and is not a convergence claim; inspect "
+                    "by_reduction_order"
+                ),
+                "by_reduction_order": by_reduction_order,
             }
         )
     return records
@@ -656,6 +866,7 @@ def _fsync_directory(path: Path) -> None:
 
 
 __all__ = [
+    "FIG8_DIRECT_MST_SCHEMA_VERSION",
     "FIG8_HYBRID_SCHEMA_VERSION",
     "FIG8_KM_VALUES",
     "FIG8_REDUCTION_ORDERS",
@@ -666,4 +877,5 @@ __all__ = [
     "load_fig8_asymptotic_dataset",
     "produce_fig8_asymptotic_dataset",
     "save_fig8_asymptotic_dataset",
+    "scan_fig8_matching_sensitivity",
 ]

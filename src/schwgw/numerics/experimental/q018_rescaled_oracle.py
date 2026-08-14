@@ -123,6 +123,10 @@ def solve_q018_rescaled_oracle(
         r=float(request.r_out),
         k=request.k,
         background=background,
+        sector=request.sector,
+        ell=request.ell,
+        basis="jost_1_over_r",
+        series_order=160,
     )
     if abs(A_in_unit) <= 100.0 * np.finfo(float).eps:
         raise RuntimeError("experimental Q018 oracle produced near-zero A_in.")
@@ -140,6 +144,10 @@ def solve_q018_rescaled_oracle(
         r=float(request.r_out),
         k=request.k,
         background=background,
+        sector=request.sector,
+        ell=request.ell,
+        basis="jost_1_over_r",
+        series_order=160,
     )
     recovered_log_derivative = background.f(required_radius) * dpsi_dr / psi
     log_derivative_match_residual = _relative_complex_residual(
@@ -158,8 +166,9 @@ def solve_q018_rescaled_oracle(
         "ell": int(request.ell),
         "sector": request.sector.value,
         "k": float(request.k),
-        "precision_dps": 53,
-        "precision_note": "double_precision_scipy",
+        "actual_precision_bits": 53,
+        "actual_decimal_digits": 15.95,
+        "precision_note": "scipy_float64_53_binary_significand_bits",
         "requested_precision_dps": (
             0 if request.precision_dps is None else int(request.precision_dps)
         ),

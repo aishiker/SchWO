@@ -34,6 +34,12 @@ _SPIN_WEIGHTS = {
 }
 
 
+FULL_NP_PSEUDOINVERSE_BRIDGE_NAME = (
+    "full strict-NP pseudoinverse tidal projection"
+)
+FULL_NP_PSEUDOINVERSE_BRIDGE_VALIDATED = False
+
+
 @dataclass(frozen=True)
 class WeylModeComponents:
     """One `(sector, ell, m)` Weyl-scalar mode in the Kinnersley tetrad."""
@@ -211,11 +217,19 @@ def transform_strict_np_weyl_to_incident_tetrad(
 def compute_packaged_polarization_scalars(
     strict_np_scalars: StrictNPScalars,
 ) -> PackagedPolarizationScalars:
-    """Package incident-frame tidal projections for polarization extraction.
+    """Return the legacy full-NP pseudoinverse tidal projection.
 
     The input is a full strict-NP Weyl quintuple in the incident tetrad.  The
     output is the project positive-frequency packaged pair consumed by
     ``polarization_from_packaged_scalars``; it is not a strict-NP transform.
+
+    This bridge is retained for reproducibility and diagnostics, but it is
+    *not* validated as a physical observable bridge for a one-sided
+    positive-frequency curved field.  In particular, reconstructing a real
+    Weyl tensor from all five NP scalars also requires the unresolved
+    ``(+k,m)``/``(-k,-m)`` reality partner.  Paper-facing callers must record
+    :data:`FULL_NP_PSEUDOINVERSE_BRIDGE_VALIDATED` and must not present this
+    result as a closed Li--Hou--Zhao observable convention.
     """
 
     if not isinstance(strict_np_scalars, StrictNPScalars):
@@ -224,7 +238,7 @@ def compute_packaged_polarization_scalars(
         raise ValueError("strict_np_scalars must be in the incident frame.")
     source = _weyl_mapping(strict_np_scalars)
     source_vector = np.array([source[label] for label in _NP_LABELS], dtype=complex)
-    matrix = _electric_tidal_matrix()
+    matrix = _full_np_pseudoinverse_tidal_matrix()
     e_xx, e_xy = matrix @ source_vector
     return package_electric_tidal_components(
         ElectricTidalComponents(
@@ -415,7 +429,14 @@ def _weyl_constraint_nullspace() -> np.ndarray:
 
 
 @lru_cache(maxsize=1)
-def _electric_tidal_matrix() -> np.ndarray:
+def _full_np_pseudoinverse_tidal_matrix() -> np.ndarray:
+    """Build the legacy diagnostic map from a strict-NP quintuple to E_ij.
+
+    The linear algebra itself is exact for one internally consistent Weyl
+    tensor.  Its use on the current one-sided positive-frequency quintuple is
+    the unvalidated step; naming it explicitly prevents that distinction from
+    being hidden behind a generic ``electric_tidal`` label.
+    """
     legs = _incident_cartesian_legs()
     nullspace = _weyl_constraint_nullspace()
     source_map = _np_contraction_rows(legs) @ nullspace
@@ -560,6 +581,8 @@ def _coerce_sector(sector: Sector | str) -> Sector:
 
 
 __all__ = [
+    "FULL_NP_PSEUDOINVERSE_BRIDGE_NAME",
+    "FULL_NP_PSEUDOINVERSE_BRIDGE_VALIDATED",
     "StrictNPScalars",
     "WeylModeComponents",
     "assemble_weyl_scalars",

@@ -1,0 +1,253 @@
+{
+  "schema": "schwgw_phase6_v2_3_flux_threshold_contract_v1",
+  "contract_id": "phase6_v2_3_selected_120_flux_closure_thresholds_v1",
+  "frozen_before_v2_3_execution": true,
+  "science_executed_for_threshold_calibration": false,
+  "derived_only_from_preexisting_v1_v2_1_v2_2_external_evidence": true,
+  "paper_or_li_figure_agreement_gate": false,
+  "global_green_permitted": false,
+  "claim_scope": "exact selected 120 mode/channel/incident-column records at future null infinity and the future event horizon",
+  "source_identities": {
+    "v2_0_convention_contract": {
+      "path": "configs/phase6_v2_0_convention_contract_20260810.json",
+      "sha256": "1251392e0799ebafad91d832a128a6ad93a4d9dacf1a07a4fa50f5af2b119517"
+    },
+    "v2_0_selected_domain": {
+      "path": "configs/phase6_v2_0_selected_domain_20260810.json",
+      "sha256": "9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818"
+    },
+    "v2_1_manifest": {
+      "path": "runs/phase6/asymptotic_waveform/v2_1_mode_amplitudes_v1_20260810T184729_py314/manifest.json",
+      "sha256": "ae39829a3e95169f88aa7ce95639e5e3d473c9b7db23d6301cea24d40109ad90"
+    },
+    "v2_1_records": {
+      "path": "runs/phase6/asymptotic_waveform/v2_1_mode_amplitudes_v1_20260810T184729_py314/records.jsonl",
+      "sha256": "eb0e36ae49a1b868f22279d9948e748a69f89d281890df3e6af5ea4356d1bcc5"
+    },
+    "v2_1_report": {
+      "path": "runs/phase6/asymptotic_waveform/v2_1_mode_amplitudes_v1_20260810T184729_py314/report.json",
+      "sha256": "a9fbfd658211eb17b2b7d99177ad233b342eefaafffedf10ba56f0b41fb74a3a"
+    },
+    "v2_2_threshold_contract": {
+      "path": "configs/phase6_v2_2_waveform_threshold_contract_20260811.json",
+      "sha256": "8c2ab9ca254df9c15e3947479bb0af3bb6204f37d326b52c16a0984604ae005e"
+    },
+    "v2_2_manifest": {
+      "path": "runs/phase6/asymptotic_waveform/v2_2_waveform_routes_v3_20260811T113135_py314/manifest.json",
+      "sha256": "3981aeb5424cbac4e7774fc84b5f03d5764561ea21a7338a60f19bf5f0d46660"
+    },
+    "v2_2_records": {
+      "path": "runs/phase6/asymptotic_waveform/v2_2_waveform_routes_v3_20260811T113135_py314/records.jsonl",
+      "sha256": "2f7b466036d1481766794aa13581dd9824c851a7e405117f94e192d849f526c9"
+    },
+    "v2_2_report": {
+      "path": "runs/phase6/asymptotic_waveform/v2_2_waveform_routes_v3_20260811T113135_py314/report.json",
+      "sha256": "fc66bb1a66f10257b80827ee292d180b0582587c3291332471971731dc352f9b"
+    },
+    "v2_2_source_ledger": {
+      "path": "runs/phase6/asymptotic_waveform/v2_2_waveform_routes_v3_20260811T113135_py314/source_ledger.json",
+      "sha256": "9fdbd6302fdc0eea93cc1ced1db76f2355343b3538dfee35f5145ac8e5b518a1"
+    },
+    "v2_2_summary": {
+      "path": "runs/phase6/asymptotic_waveform/v2_2_waveform_routes_v3_20260811T113135_py314/summary.json",
+      "sha256": "fdd314e760c4fa71c555f9eadb13eeb8389d0b24c0f6e8822eb1005afc9b8b19"
+    },
+    "v1_selected_acceptance_manifest": {
+      "path": "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/manifest.json",
+      "sha256": "aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c"
+    },
+    "v1_selected_acceptance_report": {
+      "path": "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/report.json",
+      "sha256": "3dc46242f171eedd15fcd5f697a728637ce863a9e393994ec611896d275939a1"
+    },
+    "v1_selected_acceptance_summary": {
+      "path": "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/summary.json",
+      "sha256": "ae2480c9989e9a7eaf0056ae39aefb7594ddbb3ad840c0b0bdd70c4203900695"
+    },
+    "external_direct_manifest": {
+      "path": "runs/phase6/radial_validation/v1_external_bhpt_direct_bounded_selected_v1_20260810_py314/manifest.json",
+      "sha256": "e12c49b00efecc9c65d42699f2a5052ecac1fe2c988312ed21c4da085fe5ee6d"
+    },
+    "external_direct_plan": {
+      "path": "runs/phase6/radial_validation/v1_external_bhpt_direct_bounded_selected_v1_20260810_py314/plan.json",
+      "sha256": "5dcde79f9feacfcab065b6cf817a430a63dec7a7bba312888342efd2a5f6cacc"
+    },
+    "external_direct_summary": {
+      "path": "runs/phase6/radial_validation/v1_external_bhpt_direct_bounded_selected_v1_20260810_py314/summary.json",
+      "sha256": "50f448455ddf978591bf210ec103a1475ea0ccc0c3efd477dda77962081c644b"
+    },
+    "review_gate_liveness_protocol": {
+      "path": "docs/review_gate_liveness_protocol.md",
+      "sha256": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181"
+    },
+    "t7_gate_verdict_template": {
+      "path": "docs/templates/t7_gate_verdict_template.md",
+      "sha256": "3ac1fe9969b253be034aa6a6ccf37d6daa9168c1685554049c143b6d9513179d"
+    }
+  },
+  "exact_domain": {
+    "domain_id": "v2_0_external30_mode_channels_v1",
+    "radial_key_count": 30,
+    "odd_key_count": 15,
+    "even_key_count": 15,
+    "m_values": [
+      -2,
+      2
+    ],
+    "incident_columns": [
+      "plus",
+      "cross"
+    ],
+    "record_count": 120,
+    "boundaries": [
+      "future_null_infinity",
+      "future_event_horizon"
+    ],
+    "external_odd_solver": "Regge-Wheeler direct numerical integration",
+    "external_even_solver": "independent Zerilli direct numerical integration",
+    "angular_sum": false,
+    "finite_radius_observer_frame": false,
+    "total_plane_wave_sum": false
+  },
+  "flux_and_current_definition": {
+    "fourier_convention": "exp(-i omega t)",
+    "real_field_peak_time_average_factor": "1/2",
+    "sigma_l": "(ell+2)!/(ell-2)!",
+    "martel_poisson_mode_flux": "F=sigma_l*omega^2*abs(Psi_MP)^2/(128*pi)",
+    "signed_radial_current": "J=(Psi_conjugate*d_rstar(Psi)-Psi*d_rstar(Psi_conjugate))/(2i)",
+    "asymptotic_currents": {
+      "incoming": "J_in=-omega*abs(A_in_MP)^2",
+      "total_outgoing": "J_out=+omega*abs(A_out_total_MP)^2",
+      "future_horizon": "J_h=-omega*abs(T_horizon_MP)^2"
+    },
+    "current_to_energy_flux": "F=sigma_l*omega*abs(J)/(128*pi)",
+    "balance_equation": "F_infinity_in=F_infinity_out_total+F_horizon",
+    "odd_bridge": "Psi_CPM=(2i/omega) Psi_RW under exp(-i omega t)",
+    "normalization": "multiply every incoming, total-outgoing and horizon raw coefficient by the same N_lm^p=c_lm^p/A_in_raw and the sector MP bridge",
+    "scattered_only_balance_forbidden": true,
+    "free_and_scattered_flux_qualification": "diagnostic only; their interference prevents treating them as independent positive balance terms"
+  },
+  "comparator_definitions": {
+    "normalized_balance_residual": {
+      "formula": "abs(F_in-F_out_total-F_horizon)/F_in",
+      "units": "dimensionless"
+    },
+    "waveform_vs_current_relative_flux_residual": {
+      "formula": "abs(F_MP-F_current)/max(F_MP,F_current)",
+      "units": "dimensionless",
+      "mandatory_for": "incoming, total-outgoing and horizon flux for every selected record"
+    },
+    "route_A_B_total_outgoing_flux_fraction_difference": {
+      "formula": "abs(F_out_total_A-F_out_total_B)/F_in",
+      "units": "dimensionless"
+    },
+    "schwo_external_total_outgoing_flux_fraction_difference": {
+      "formula": "abs(F_out_schwo/F_in_schwo-F_out_external/F_in_external)",
+      "units": "dimensionless"
+    },
+    "schwo_external_horizon_flux_symmetric_relative_difference": {
+      "formula": "abs(f_h_schwo-f_h_external)/max(f_h_schwo,f_h_external), where f_h=F_horizon/F_in",
+      "units": "dimensionless",
+      "arbitrary_precision_required": true,
+      "zero_or_floor_omission_forbidden": true
+    }
+  },
+  "preexecution_source_diagnostics": {
+    "method": "recomputed at 100 decimal digits from the already immutable 30-key V1 selected comparison and external wp60 records before V2.3 execution",
+    "max_schwo_radial_balance_residual": "2.456693814984740735626905876280748921163992416622833176415819278372140944488437543204004717030763109e-10",
+    "max_external_radial_balance_residual": "1.507593570579673192937307132619084520714038294582230999999999999999999999999999999874753189328475638e-29",
+    "max_observed_schwo_external_complex_S_difference": "1.726826030369852213662071439044843722766909713649992652101699543526872256469867291501036946592546366e-8",
+    "max_observed_schwo_external_log_abs_T_difference": "6.110507953220471280783994980808239090661856499934599443527020446170738536071544484556465760712373678e-8",
+    "max_observed_total_outgoing_flux_fraction_difference": "5.08025051273057067843589317823485994987427022700385948766591280167144e-12",
+    "max_observed_horizon_flux_symmetric_relative_difference": "1.222101515967482405495767720750382147522429256085095822423961578601283521012321997540219502788112362e-7",
+    "minimum_observed_horizon_flux_fraction": "9.373615409990476292528436114160436756813021669668934587236550056169801667903105e-1498",
+    "minimum_observed_abs_S": "0.1244369266265345875368201454048016885392579691171185096048249798352553279235451034273486062311859313",
+    "observed_values_are_acceptance_thresholds": false
+  },
+  "frozen_thresholds": {
+    "schwo_normalized_balance_residual_max": {
+      "value": 1e-08,
+      "source": "preexisting V1 selected flux_residual threshold"
+    },
+    "external_normalized_balance_residual_max": {
+      "value": 1e-15,
+      "source": "preexisting external direct flux_unitarity_residual threshold"
+    },
+    "waveform_vs_current_relative_flux_residual_max": {
+      "value": 2.1e-11,
+      "source": "conservative quadratic propagation of the pre-frozen V2.2 A/B relative-amplitude route-map bound 1e-11; 2*epsilon+epsilon^2 is rounded upward"
+    },
+    "route_A_B_total_outgoing_flux_fraction_difference_max": {
+      "value": 2.1e-11,
+      "source": "conservative quadratic propagation of the pre-frozen V2.2 A/B amplitude bounds; no V2.3 result used"
+    },
+    "schwo_external_total_outgoing_flux_fraction_difference_max": {
+      "value": 4.1e-06,
+      "source": "abs(abs(S_s)^2-abs(S_e)^2)<=2*epsilon+epsilon^2 with pre-frozen V1 selected abs(S_s-S_e)<=epsilon=2e-6, rounded upward"
+    },
+    "schwo_external_horizon_flux_symmetric_relative_difference_max": {
+      "value": 4.1e-06,
+      "source": "exp(2*epsilon)-1 with pre-frozen V1 selected abs(log(abs(T_s))-log(abs(T_e)))<=epsilon=2e-6, rounded upward"
+    }
+  },
+  "exact_predicates": {
+    "record_inventory": "exactly 120 unique records; every 30-key x two-m x two-column item is present",
+    "finite_values": "every required arbitrary-precision current, flux, fraction and residual is finite",
+    "positivity": "incoming, total-outgoing and horizon physical energy fluxes are strictly positive for every selected record",
+    "current_signs": "J_in<0, J_out>0 and J_h<0 under the frozen outgoing-rstar orientation",
+    "normalization_factors": "time-average 1/2, sigma_l, 1/(128*pi), omega^2, N_lm^p and odd 2i/omega are explicit and exactly source-bound",
+    "route_A_B_identity": "Route A and Route B use the same frozen total/free/scattered decomposition and differ only in their accepted observable map",
+    "radial_solve_count": 0,
+    "no_dropped_tiny_horizon_modes": true,
+    "no_fit_or_retuned_factor": true
+  },
+  "acceptance_logic": {
+    "inventory_policy": "all 120 selected records and every mandatory comparator/predicate must be present; no subset or signal-floor acceptance",
+    "threshold_policy": "every numeric comparator must be finite and <= its exact frozen threshold",
+    "predicate_policy": "every exact predicate must be true",
+    "absolute_phase_status": "PARTIAL",
+    "absolute_phase_nonclaim": "flux is phase invariant; V2.3 neither repairs nor promotes the independently convention-limited absolute phase",
+    "advance_semantics": "CLAIM_STATUS=PARTIAL may accompany ADVANCE when all selected-domain infinity, horizon and radial flux criteria pass",
+    "claim_adjudication": "per selected-domain mode flux observable only",
+    "full_domain_v2": "NOT_ASSESSED",
+    "global_status": null
+  },
+  "separate_uncertainty_budget_policy": {
+    "numerical_required": true,
+    "convention_required": true,
+    "combined_scalar_forbidden": true,
+    "numerical_components": [
+      "schwo_radial_balance",
+      "external_radial_balance",
+      "arithmetic_precision",
+      "waveform_current_map",
+      "route_A_B_flux_map",
+      "schwo_external_outgoing_flux",
+      "schwo_external_horizon_flux"
+    ],
+    "convention_components": [
+      "master_normalization",
+      "fourier_and_tortoise_phase",
+      "incident_partial_wave_normalization",
+      "current_orientation",
+      "time_average_and_real_field_amplitude",
+      "total_free_scattered_definition",
+      "absolute_phase"
+    ],
+    "unassessed_policy": "missing components remain NOT_ASSESSED or PARTIAL and are never encoded as zero"
+  },
+  "forbidden_operations_and_claims": [
+    "modify any frozen V2.0 convention or selected-domain byte",
+    "modify or call any radial backend",
+    "fit or retune a normalization, threshold, complex phase or scale",
+    "drop a selected record because its horizon flux is small",
+    "use finite-precision float arithmetic for the mandatory horizon comparison",
+    "substitute scattered-only outgoing flux into the balance equation",
+    "use a finite-radius observer frame",
+    "sum a total plane wave at null infinity",
+    "perform an angular sum",
+    "rerun Li paper figures",
+    "use Li figure agreement as an acceptance gate",
+    "claim full-domain V2 or global GREEN"
+  ]
+}

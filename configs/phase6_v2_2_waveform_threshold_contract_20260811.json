@@ -1,0 +1,222 @@
+{
+  "schema": "schwgw_phase6_v2_2_waveform_threshold_contract_v1",
+  "contract_id": "phase6_v2_2_selected_120_three_route_thresholds_v1",
+  "frozen_before_v2_2_execution": true,
+  "science_executed_for_threshold_calibration": false,
+  "derived_only_from_preexisting_v1_v2_1_evidence": true,
+  "paper_or_li_figure_agreement_gate": false,
+  "global_green_permitted": false,
+  "claim_scope": "exact selected 120 future-null-infinity scattered mode/channel/incident-column records",
+  "source_identities": {
+    "v2_0_convention_contract": {
+      "path": "configs/phase6_v2_0_convention_contract_20260810.json",
+      "sha256": "1251392e0799ebafad91d832a128a6ad93a4d9dacf1a07a4fa50f5af2b119517"
+    },
+    "v2_0_selected_domain": {
+      "path": "configs/phase6_v2_0_selected_domain_20260810.json",
+      "sha256": "9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818"
+    },
+    "v2_1_manifest": {
+      "path": "runs/phase6/asymptotic_waveform/v2_1_mode_amplitudes_v1_20260810T184729_py314/manifest.json",
+      "sha256": "ae39829a3e95169f88aa7ce95639e5e3d473c9b7db23d6301cea24d40109ad90"
+    },
+    "v2_1_records": {
+      "path": "runs/phase6/asymptotic_waveform/v2_1_mode_amplitudes_v1_20260810T184729_py314/records.jsonl",
+      "sha256": "eb0e36ae49a1b868f22279d9948e748a69f89d281890df3e6af5ea4356d1bcc5"
+    },
+    "v2_1_report": {
+      "path": "runs/phase6/asymptotic_waveform/v2_1_mode_amplitudes_v1_20260810T184729_py314/report.json",
+      "sha256": "a9fbfd658211eb17b2b7d99177ad233b342eefaafffedf10ba56f0b41fb74a3a"
+    },
+    "v1_selected_acceptance_manifest": {
+      "path": "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/manifest.json",
+      "sha256": "aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c"
+    },
+    "v1_selected_acceptance_report": {
+      "path": "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/report.json",
+      "sha256": "3dc46242f171eedd15fcd5f697a728637ce863a9e393994ec611896d275939a1"
+    },
+    "v1_selected_acceptance_summary": {
+      "path": "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/summary.json",
+      "sha256": "ae2480c9989e9a7eaf0056ae39aefb7594ddbb3ad840c0b0bdd70c4203900695"
+    },
+    "external_direct_manifest": {
+      "path": "runs/phase6/radial_validation/v1_external_bhpt_direct_bounded_selected_v1_20260810_py314/manifest.json",
+      "sha256": "e12c49b00efecc9c65d42699f2a5052ecac1fe2c988312ed21c4da085fe5ee6d"
+    },
+    "external_direct_plan": {
+      "path": "runs/phase6/radial_validation/v1_external_bhpt_direct_bounded_selected_v1_20260810_py314/plan.json",
+      "sha256": "5dcde79f9feacfcab065b6cf817a430a63dec7a7bba312888342efd2a5f6cacc"
+    },
+    "external_direct_summary": {
+      "path": "runs/phase6/radial_validation/v1_external_bhpt_direct_bounded_selected_v1_20260810_py314/summary.json",
+      "sha256": "50f448455ddf978591bf210ec103a1475ea0ccc0c3efd477dda77962081c644b"
+    },
+    "review_gate_liveness_protocol": {
+      "path": "docs/review_gate_liveness_protocol.md",
+      "sha256": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181"
+    },
+    "t7_gate_verdict_template": {
+      "path": "docs/templates/t7_gate_verdict_template.md",
+      "sha256": "3ac1fe9969b253be034aa6a6ccf37d6daa9168c1685554049c143b6d9513179d"
+    }
+  },
+  "exact_domain": {
+    "domain_id": "v2_0_external30_mode_channels_v1",
+    "radial_key_count": 30,
+    "odd_key_count": 15,
+    "even_key_count": 15,
+    "m_values": [
+      -2,
+      2
+    ],
+    "incident_columns": [
+      "plus",
+      "cross"
+    ],
+    "record_count_per_route": 120,
+    "route_ids": [
+      "A_project_master_to_martel_poisson_strain_flux",
+      "B_rw_metric_to_direct_curvature_to_asymptotic_psi4_strain",
+      "C_external_rw_zerilli_amplitude_to_martel_poisson_strain_flux"
+    ],
+    "route_pairs": [
+      "A_B",
+      "A_C",
+      "B_C"
+    ],
+    "boundary": "future_null_infinity",
+    "angular_sum": false,
+    "finite_radius_observer_frame": false,
+    "total_plane_wave_sum": false
+  },
+  "waveform_amplitude_definition": {
+    "observable": "scattered outgoing Martel-Poisson master coefficient at future null infinity",
+    "fourier_convention": "exp(-i omega t)",
+    "sector_bridge": {
+      "even": "F_even=1 for Psi_ZM",
+      "odd": "F_odd=2 i/omega for Psi_CPM=(2 i/omega) Psi_RW"
+    },
+    "formula": "H_sc=F_sector*c_lm*(-1)^ell*(1-S_l)",
+    "fixed_record_scale": "C_record=abs(F_sector*c_lm)",
+    "normalized_signal": "rho=abs(H_sc)/C_record=abs(1-S_l)",
+    "qualification": "C_record is fixed by the V2.0 incident normalization and is never fitted to a route result"
+  },
+  "preexecution_source_diagnostics": {
+    "method": "recomputed from the already immutable 30 V1 selected comparison records before any V2.2 route execution",
+    "schwo_min_normalized_signal": 0.21573803340039804,
+    "external_min_normalized_signal": 0.21573804826069762,
+    "schwo_max_normalized_signal": 1.9997736678071671,
+    "max_observed_schwo_external_complex_S_difference": 1.7268260316599918e-08,
+    "observed_values_are_acceptance_thresholds": false
+  },
+  "comparator_definitions": {
+    "scale_normalized_complex_difference": {
+      "symbol": "D_complex",
+      "formula": "abs(H_i-H_j)/C_record",
+      "units": "dimensionless",
+      "mandatory_when": "every record for the applicable route pair"
+    },
+    "relative_magnitude_difference": {
+      "symbol": "D_relmag",
+      "formula": "abs(abs(H_i)-abs(H_j))/max(abs(H_i),abs(H_j))",
+      "units": "dimensionless",
+      "mandatory_when": "min(abs(H_i),abs(H_j))/C_record >= phase_and_relative_magnitude_signal_floor"
+    },
+    "wrapped_relative_phase": {
+      "symbol": "D_phase",
+      "formula": "abs(Arg(H_i*conjugate(H_j))) in [0,pi]",
+      "units": "radian",
+      "mandatory_when": "min(abs(H_i),abs(H_j))/C_record >= phase_and_relative_magnitude_signal_floor",
+      "no_phase_fit_or_unwrap_offset": true
+    },
+    "phase_invariant_scale_normalized_magnitude_difference": {
+      "symbol": "D_invariant",
+      "formula": "abs(abs(H_i)-abs(H_j))/C_record",
+      "units": "dimensionless",
+      "mandatory_when": "every record for the applicable route pair",
+      "invariance": "unchanged by an arbitrary unit-modulus phase applied independently to either scalar amplitude"
+    }
+  },
+  "common_applicability": {
+    "phase_and_relative_magnitude_signal_floor": 0.1,
+    "signal_floor_units": "abs(H_sc)/C_record",
+    "signal_floor_failure_policy": "FAIL_CURRENT_GATE; do not silently mark the mandatory selected record unassessed",
+    "reason": "the floor is a generic ten-percent incident-scale conditioning bound and is below both preexecution source minima by more than a factor of two"
+  },
+  "route_pair_thresholds": {
+    "A_B": {
+      "provenance_class": "SHARED_SCHWO_RADIAL_INPUT_INDEPENDENT_OBSERVABLE_MAP",
+      "threshold_source": "preexecution analytic-route roundoff envelope; not fitted to a V2.2 result",
+      "scale_normalized_complex_difference_max": 1e-12,
+      "relative_magnitude_difference_max": 1e-11,
+      "wrapped_relative_phase_rad_max": 1.01e-11,
+      "phase_invariant_scale_normalized_magnitude_difference_max": 1e-12,
+      "derivation": "epsilon_AB=1e-12; D_relmag<=epsilon_AB/0.1; D_phase<=2 asin(epsilon_AB/(2*0.1)); the stored phase bound rounds that geometric bound upward",
+      "claim_ceiling": "PASS_SELECTED_DOMAIN_OBSERVABLE_ROUTE_ONLY"
+    },
+    "A_C": {
+      "provenance_class": "INDEPENDENT_RADIAL_ALGORITHM_SHARED_FROZEN_ANALYTIC_CONVENTIONS",
+      "threshold_source": "explicit propagation of V1 selected backend_complex_S threshold 2e-6 through H_sc=F*c*(-1)^ell*(1-S); not a silent radial-threshold relabel",
+      "scale_normalized_complex_difference_max": 2e-06,
+      "relative_magnitude_difference_max": 2e-05,
+      "wrapped_relative_phase_rad_max": 2.01e-05,
+      "phase_invariant_scale_normalized_magnitude_difference_max": 2e-06,
+      "derivation": "epsilon_external=2e-6; D_complex=abs(S_A-S_C); D_relmag<=epsilon_external/0.1; D_phase<=2 asin(epsilon_external/(2*0.1)); the stored phase bound rounds that geometric bound upward",
+      "claim_ceiling": "PASS_EXACT_SELECTED_DOMAIN"
+    },
+    "B_C": {
+      "provenance_class": "INDEPENDENT_RADIAL_AND_OBSERVABLE_ALGORITHMS_SHARED_FROZEN_CONVENTIONS",
+      "threshold_source": "triangle allocation epsilon_external=2e-6 with the A_B route-map error required to remain <=1e-12; not fitted to a V2.2 result",
+      "scale_normalized_complex_difference_max": 2.001e-06,
+      "relative_magnitude_difference_max": 2.001e-05,
+      "wrapped_relative_phase_rad_max": 2.011e-05,
+      "phase_invariant_scale_normalized_magnitude_difference_max": 2.001e-06,
+      "derivation": "epsilon_BC=epsilon_external+epsilon_AB=2.001e-6; magnitude and phase bounds use the same 0.1 signal floor and are rounded upward",
+      "claim_ceiling": "PASS_EXACT_SELECTED_DOMAIN"
+    }
+  },
+  "acceptance_logic": {
+    "record_inventory_policy": "all 120 records and all three route pairs must be present; no subset acceptance or dropped near-zero channel",
+    "mandatory_comparator_policy": "every applicable comparator must be finite and <= its exact route-pair threshold",
+    "absolute_phase_status": "PARTIAL",
+    "absolute_phase_nonclaim": "the selected relative phases are tested without fitting, but the common absolute phase convention is not independently convention-free and is not promoted beyond PARTIAL in V2.2",
+    "advance_semantics": "CLAIM_STATUS=PARTIAL may accompany ADVANCE when all frozen magnitude, relative-phase, phase-invariant and inventory criteria pass",
+    "claim_adjudication": "per observable and exact selected 120-record domain only",
+    "full_domain_v2": "NOT_ASSESSED",
+    "global_status": null
+  },
+  "separate_uncertainty_budget_policy": {
+    "numerical_required": true,
+    "convention_required": true,
+    "combined_scalar_forbidden": true,
+    "numerical_components": [
+      "radial_source",
+      "arithmetic_precision",
+      "inner_boundary",
+      "outer_boundary_and_jost_order",
+      "asymptotic_extraction",
+      "route_comparison"
+    ],
+    "convention_components": [
+      "master_normalization",
+      "fourier_and_tortoise_phase",
+      "incident_partial_wave_normalization",
+      "null_tetrad_and_psi4",
+      "total_free_scattered_definition",
+      "absolute_phase"
+    ],
+    "unassessed_policy": "missing components remain NOT_ASSESSED or PARTIAL and are never encoded as zero"
+  },
+  "forbidden_operations_and_claims": [
+    "modify any frozen V2.0 convention or selected-domain byte",
+    "modify or call any radial backend",
+    "fit a per-mode or global complex phase or scale",
+    "use a finite-radius observer frame",
+    "sum a total plane wave at null infinity",
+    "perform an angular sum",
+    "rerun Li paper figures",
+    "use Li figure agreement as an acceptance gate",
+    "claim full-domain V2 or global GREEN"
+  ]
+}

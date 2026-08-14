@@ -1,0 +1,352 @@
+{
+  "artifact_revision": 1,
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "created_at_utc": "2026-08-11T11:27:39Z",
+  "domains": {
+    "V3.1": {
+      "boundary_ladders": {
+        "arbitrary_precision_decimal_digits": [
+          80,
+          120,
+          180
+        ],
+        "jost_orders": [
+          80,
+          120,
+          160,
+          200
+        ],
+        "r_in_eps_over_M": [
+          1E-8,
+          1E-10,
+          1E-12
+        ],
+        "r_out_base_over_M": 300.0,
+        "r_out_multipliers": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "r_out_turning_floor": "sqrt(ell*(ell+1))/omega",
+        "tolerance_pairs": [
+          {
+            "atol": 1E-11,
+            "rtol": 1E-9
+          },
+          {
+            "atol": 1E-12,
+            "rtol": 1E-10
+          },
+          {
+            "atol": 3E-13,
+            "rtol": 3E-11
+          }
+        ]
+      },
+      "frequency_strata_kM": {
+        "high": [
+          2.0,
+          4.0,
+          8.0
+        ],
+        "low": [
+          0.005,
+          0.01,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "mid": [
+          0.2,
+          0.5,
+          1.0
+        ]
+      },
+      "frequency_variable": "kM = omega*M > 0",
+      "mode_strata": {
+        "critical_barrier_turning": "abs((ell+0.5)-3*sqrt(3)*kM) <= 2",
+        "evanescent_high_ell": "(ell+0.5)-3*sqrt(3)*kM >= 8",
+        "ordinary_reflected": "2 < (ell+0.5)-3*sqrt(3)*kM < 8",
+        "ordinary_transmitted": "(ell+0.5)-3*sqrt(3)*kM < -2"
+      },
+      "multipoles": {
+        "ell_max": "max(12, ceil(3*sqrt(3)*kM - 0.5) + 16)",
+        "ell_min": 2,
+        "sequence": "every integer ell from ell_min through ell_max, inclusive"
+      },
+      "observables": [
+        "A_in_complex",
+        "A_out_complex",
+        "A_H_complex",
+        "S_complex",
+        "signed_currents",
+        "positive_fluxes",
+        "Gamma_flux",
+        "Gamma_S",
+        "log_Gamma",
+        "parity_probability_and_phase_relation"
+      ],
+      "parities": [
+        "odd_independent_solve",
+        "even_independent_solve"
+      ],
+      "stage": "V3.1"
+    },
+    "V3.2": {
+      "asymptotic_subdomains": {
+        "high_frequency_capture_blocking": [
+          4.0,
+          6.0,
+          8.0,
+          12.0
+        ],
+        "high_frequency_pointwise_oscillations": "diagnostic_only",
+        "low_frequency_fit_blocking": [
+          0.005,
+          0.01,
+          0.02,
+          0.05
+        ]
+      },
+      "frequency_grid_kM": [
+        0.005,
+        0.01,
+        0.02,
+        0.05,
+        0.1,
+        0.2,
+        0.3,
+        0.5,
+        0.75,
+        1.0,
+        1.5,
+        2.0,
+        3.0,
+        4.0,
+        6.0,
+        8.0,
+        12.0
+      ],
+      "frequency_variable": "kM = omega*M > 0",
+      "multipoles": {
+        "base_ell_max": "max(12, ceil(3*sqrt(3)*kM - 0.5) + 16)",
+        "ell_max_ladder": [
+          "base_ell_max",
+          "base_ell_max+8",
+          "base_ell_max+16"
+        ],
+        "ell_min": 2,
+        "sequence": "every integer ell from 2 through each ell_max, with no gaps",
+        "tail_requirement": "a positive upper bound for the omitted sum beyond the accepted ell_max, evaluated in log domain where needed"
+      },
+      "observables": [
+        "sigma_abs_l_over_M2",
+        "sigma_abs_over_M2",
+        "low_frequency_coefficient",
+        "low_frequency_power",
+        "high_frequency_window_average_over_27pi",
+        "ell_max_change",
+        "tail_upper_bound"
+      ],
+      "parity_policy": "equal weight of independently solved odd and even Gamma; isospectral reduction only after parity checks pass",
+      "stage": "V3.2",
+      "v2_sparse_controls": "inherited provenance/control only; not a substitute for this domain"
+    },
+    "V3.3": {
+      "angle_domain_degrees": {
+        "convergence_steps": [
+          2.0,
+          1.0,
+          0.5
+        ],
+        "forward_exclusion": "theta < 5 degrees and theta=0 distribution are excluded",
+        "maximum": 175.0,
+        "minimum": 5.0,
+        "production_step": 1.0
+      },
+      "frequency_grid_kM": {
+        "blocking_low_frequency": [
+          0.01,
+          0.02,
+          0.05
+        ],
+        "diagnostic_transition": [
+          0.1
+        ]
+      },
+      "helicity_channels": [
+        "f_helicity_preserving",
+        "g_helicity_reversing",
+        "differential_cross_section"
+      ],
+      "multipole_ladders": [
+        128,
+        256,
+        512
+      ],
+      "observables": [
+        "f_over_M_complex_mod_common_phase",
+        "g_over_M_complex_mod_common_phase",
+        "M2_inverse_dsigma_dOmega",
+        "angle_grid_change",
+        "ell_max_change",
+        "series_reduction_change"
+      ],
+      "series_reduction": {
+        "adopted_order": 2,
+        "order_ladder": [
+          1,
+          2,
+          3
+        ],
+        "recurrence_formula_id": "V3-F11-SERIES-REDUCTION"
+      },
+      "stage": "V3.3"
+    },
+    "V3.4": {
+      "angle_domain_degrees": {
+        "convergence_steps": [
+          0.2,
+          0.1,
+          0.05
+        ],
+        "maximum": 180.0,
+        "minimum": 150.0,
+        "production_step": 0.05
+      },
+      "frequency_grid_kM": {
+        "blocking_high_frequency": [
+          4.0,
+          6.0,
+          8.0,
+          12.0
+        ],
+        "diagnostic_onset": [
+          2.0
+        ]
+      },
+      "geodesic_anchors": {
+        "b_critical_over_M": 5.196152422706632,
+        "b_glory_over_M": 5.357,
+        "b_glory_squared_abs_db_dtheta_over_M3": 4.896,
+        "bessel_order": 4
+      },
+      "multipoles": {
+        "base_ell_max": "max(64, ceil(5.357*kM) + 24)",
+        "ell_max_ladder": [
+          "base_ell_max",
+          "base_ell_max+8",
+          "base_ell_max+16"
+        ]
+      },
+      "observables": [
+        "first_glory_ring_peak_angle",
+        "first_glory_ring_fwhm",
+        "first_glory_ring_peak_height",
+        "geodesic_b_glory",
+        "geodesic_abs_db_dtheta_at_pi",
+        "angle_grid_change",
+        "ell_max_change",
+        "series_reduction_change"
+      ],
+      "series_reduction": {
+        "adopted_order": 2,
+        "order_ladder": [
+          1,
+          2,
+          3
+        ]
+      },
+      "stage": "V3.4"
+    }
+  },
+  "global_green_permitted": false,
+  "nonclaims": [
+    "no full-domain V1, V2, or V3 certification",
+    "no global GREEN",
+    "no Li figure equivalence",
+    "no finite-radius observer or detector response",
+    "no ordinary total-plane-wave infinity sum",
+    "no V3 science execution in V3.0"
+  ],
+  "schema": "schwo.phase6.v3_0.domain.v1",
+  "scientific_stage": "V3.0",
+  "timezone": "UTC",
+  "upstream_identities": {
+    "dispatch_addendum": {
+      "path": "docs/phase6_v2_to_v3_transition_dispatch_addendum.md",
+      "sha256": "5a36c7fc72fcf10241a0ae0261cf220d08830c11466660c8259bfbc71b2c16db"
+    },
+    "phase6_v2_to_v3_transition": {
+      "path": "docs/phase6_v2_to_v3_transition.md",
+      "sha256": "4493c1359974bf58abcc4b93ebe30a6ebab5edef9bc229654c873846a95bfebb"
+    },
+    "protected_d_union_plan": {
+      "path": "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/plan.json",
+      "sha256": "de266846ff6672dd04be255a43a1b5899af4753bea0757e00c5c2d60cf2067e3"
+    },
+    "protected_radial_files": [
+      {
+        "path": "src/schwgw/numerics/radial_solver.py",
+        "sha256": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9"
+      },
+      {
+        "path": "src/schwgw/numerics/conditioned_radial.py",
+        "sha256": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2"
+      },
+      {
+        "path": "src/schwgw/numerics/scaled_tortoise_radial.py",
+        "sha256": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+      },
+      {
+        "path": "src/schwgw/numerics/adaptive_jost_radial.py",
+        "sha256": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896"
+      },
+      {
+        "path": "src/schwgw/numerics/matching.py",
+        "sha256": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340"
+      },
+      {
+        "path": "src/schwgw/numerics/physical_boundary_radial.py",
+        "sha256": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f"
+      },
+      {
+        "path": "src/schwgw/numerics/boundary_conditions.py",
+        "sha256": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22"
+      }
+    ],
+    "t1_prompt": {
+      "path": "docs/prompts/phase6_t1_v3_0_literature_formula_freeze.md",
+      "sha256": "03a352b881c97f1f767092340d5dc65f61e800dafde9c28b9f870eaa5ad454cc"
+    },
+    "v1_production_state_manifest": {
+      "path": "runs/phase6/radial_validation/v1_production_state_evidence_v2_20260810_py314/manifest.json",
+      "sha256": "7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4"
+    },
+    "v1_radial_manifest": {
+      "path": "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/manifest.json",
+      "sha256": "2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728"
+    },
+    "v1_selected_independent_manifest": {
+      "path": "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/manifest.json",
+      "sha256": "aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c"
+    },
+    "v2_convention_contract": {
+      "path": "configs/phase6_v2_0_convention_contract_20260810.json",
+      "sha256": "1251392e0799ebafad91d832a128a6ad93a4d9dacf1a07a4fa50f5af2b119517"
+    },
+    "v2_release_manifest": {
+      "path": "runs/phase6/asymptotic_waveform/v2_selected_release_v2_20260811T083414_py314/manifest.json",
+      "sha256": "51ddf1580448382be7e182f92cf76bbf53ed39f15418af9e546f357979c743eb"
+    },
+    "v2_selected_domain": {
+      "path": "configs/phase6_v2_0_selected_domain_20260810.json",
+      "sha256": "9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818"
+    },
+    "v3_master_prompt": {
+      "path": "docs/prompts/phase6_v3_master_prompt.md",
+      "sha256": "f8c48d9379efcc2534748e33b62a302ba7bd6fe11282b4b4ad6e7a9ae850b1c7"
+    }
+  }
+}

@@ -1,0 +1,346 @@
+{
+  "artifact_policy": {
+    "failed_science_reuse_permitted": false,
+    "global_green_permitted": false,
+    "li_figure_agreement_primary_gate": false,
+    "package_green_authorizes": "exact-six zero-science implementation only",
+    "scientific_stage": "V3.1-Y",
+    "timezone": "UTC",
+    "v3_2_authorized": false
+  },
+  "artifact_revision": 3,
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "created_at_utc": "2026-08-13T15:04:00Z",
+  "denylisted_authorities": [
+    {
+      "failure_sha256": "c80327f57b56f762fde9df3b215cf94c895e98de8c0d1e48157a31b44a65dc23",
+      "manifest_sha256": "e9ef19b336e1eb9faac34b2f080f2c4956fd2316eb050287e769cbdb401aead4",
+      "policy": "immutable V3.1-U diagnostic only; 14 successful MST rows are nonpromotable",
+      "root": "runs/phase6/classic_scattering/v3_1_u_route_c_sentinel_repair2_v1_20260812T221323Z_py314"
+    },
+    {
+      "failure_sha256": "c002664933d58913b5793ffc1100a5958cb1dfdd12d0c9b3664ffa9ddfb2f541",
+      "manifest_sha256": "d905500bc70d6b562b7118454dfc020a053521d666e68619252c684905516772",
+      "policy": "immutable V3.1-X attempt-0001 diagnostic only; dispatch/root permanently nonreusable",
+      "root": "runs/phase6/classic_scattering/v3_1_x_external_direct_sentinel_v1_20260813T055002Z_py314"
+    },
+    {
+      "failure_sha256": "c002664933d58913b5793ffc1100a5958cb1dfdd12d0c9b3664ffa9ddfb2f541",
+      "manifest_sha256": "6e0d2349d998f76ee8d149e4551bf27222c5d93bf4ec9fb7b790adbc9f506109",
+      "policy": "immutable V3.1-X attempt-0002 diagnostic only; dispatch/root permanently nonreusable",
+      "root": "runs/phase6/classic_scattering/v3_1_x_external_direct_sentinel_v1_20260813T085010Z_py314"
+    },
+    {
+      "policy": "immutable review-only zero-science diagnostic; runtime failed leaf remains UNKNOWN and bytes cannot authorize Y",
+      "root": "/private/tmp/schwo_t7_v31x_r2_review_preflight.ptN6p0",
+      "tree_identity_sha256": "64602b35aec85f8facac412b90eb8e8a329fe5300e493d76fc1afd1d1f31a534"
+    },
+    {
+      "failure_sha256": "e3874e7565dc35498513af8112577810dd9059035f43a9d4573d633c2ae752aa",
+      "manifest_sha256": "f977a0d555652d028b3b73d18990b902f37a55c3dd9305c6e6da55f66593050d",
+      "policy": "entire failed-U root/map/count/value/timing/subset forbidden as Y input",
+      "root": "runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_repair1_v1_20260812T064653Z_py314",
+      "route_map_sha256": "5eee07ece78204265fe45069ef57a653a61a8ee9d09ff4b4d7e8928bb385c822"
+    }
+  ],
+  "future_authority_paths": {
+    "compatibility_dispatch": "docs/handoffs/archive/T0_2026-08-13_v3_1_y_wolfram_protocol_compatibility_dispatch_attempt_0001.json",
+    "compatibility_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_wolfram_protocol_compatibility_review.md",
+    "full_sentinel_dispatch": "docs/handoffs/archive/T0_2026-08-13_v3_1_y_external_direct_sentinel_dispatch_attempt_0001.json",
+    "full_sentinel_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_full_sentinel_review.md",
+    "future_review_digest_hardcoded": false,
+    "implementation_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_external_protocol_implementation_review.md",
+    "later_t0_dispatch_supplies_exact_existing_review_digest": true,
+    "official_dispatch": "docs/handoffs/archive/T0_2026-08-13_v3_1_y_external_direct_dispatch_attempt_0001.json",
+    "package_delta_review_2": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_external_protocol_package_delta_review_2.md",
+    "package_delta_review_2_digest_in_candidate": null,
+    "package_delta_review_2_required_tokens": {
+      "advance_decision": "ADVANCE",
+      "claim_status": "NOT_ASSESSED",
+      "gate_label": "ACCEPT GREEN / V3.1-Y EXTERNAL PROTOCOL PACKAGE READY FOR T6"
+    },
+    "package_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_external_protocol_package_review.md",
+    "package_review_role": "immutable initial YELLOW; not executable ADVANCE authority",
+    "scientific_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_scientific_review.md",
+    "source_load_micro_dispatch": "docs/handoffs/archive/T0_2026-08-13_v3_1_y_source_load_micro_dispatch_attempt_0001.json",
+    "source_load_micro_review": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_source_load_micro_review.md"
+  },
+  "implementation_scope": {
+    "allowed_new_paths": [
+      "scripts/phase6_v3_1_y_wolfram_protocol_compatibility.wls",
+      "scripts/phase6_v3_1_y_bhpt_direct.wls",
+      "src/schwgw/validation/phase6_v3_mode_greybody_external_protocol.py",
+      "scripts/phase6_v3_1_y_external_protocol.py",
+      "tests/unit/test_phase6_v3_external_protocol.py",
+      "tests/regression/test_phase6_v3_external_protocol_publication.py"
+    ],
+    "exact_changed_path_count": 6,
+    "real_wolfram_launches_during_implementation": 0,
+    "science_calls_during_implementation": 0
+  },
+  "liveness": {
+    "completed_bounded_repairs": 2,
+    "corrected_revision_requires_delta_review": true,
+    "distinct_gate": true,
+    "gate_id": "phase6_v3_1_y_external_protocol_v1",
+    "initial_review_consumes_repair": false,
+    "maximum_bounded_repairs": 2,
+    "repair_cycle_3_permitted": false,
+    "v3_1_u_and_v3_1_x_frozen": true,
+    "v3_1_x_repair_cycle3_permitted": false
+  },
+  "members": [
+    {
+      "path": "docs/phase6_v3_1_y_external_protocol_redesign_analysis.md",
+      "role": "formal T4 zero-science protocol and failure analysis",
+      "sha256": "4e4f6eff3b22c170bf9502d86c3d5af70d5221a5aa746ac266f77e5065c60cd0"
+    },
+    {
+      "path": "docs/handoffs/archive/T4_2026-08-13_v3_1_y_external_protocol_redesign_analysis.md",
+      "role": "formal T4 analysis archive",
+      "sha256": "e162a1fc5e396c11234fef09bdeb04f8c1e7496da588da105971a4c8868dbefb"
+    },
+    {
+      "path": "docs/phase6_v3_1_y_external_protocol_design.md",
+      "role": "frozen V3.1-Y protocol design",
+      "sha256": "78fc6d2d62549ebb907c80685f41222d0e5be5f85329e071cd0510c5da20bb44"
+    },
+    {
+      "path": "configs/phase6_v3_1_y_external_protocol_contract.json",
+      "role": "machine-readable protocol/science/authority contract",
+      "sha256": "c3d601940b8f297eb23cccad404c8ec5c326ffc6fb9a1dfa005ec6f5db3ef45c"
+    },
+    {
+      "path": "docs/prompts/phase6_t6_v3_1_y_external_protocol_implementation.md",
+      "role": "future formal T6 exact-six zero-science implementation prompt",
+      "sha256": "32ec19023973a4f49801efaa9dade8fd47d97e5919befd5f7634191f50a576a5"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_y_external_protocol_package_review.md",
+      "role": "formal T7 initial package-review prompt",
+      "sha256": "2c4487fb3fab836f297a8b0bb405f0b51acdeb68593f901541a475cb48c8cb01"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_y_external_protocol_implementation_review.md",
+      "role": "future formal T7 implementation-review prompt",
+      "sha256": "9bd7f90e1615e82db053461a60de23389d18fbe61171f6ee7253741dc87665f0"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_y_wolfram_protocol_compatibility_review.md",
+      "role": "future formal T7 compatibility terminal-review prompt",
+      "sha256": "1571a13fe7e88bd03012a375dcd8abfc7c913db85c00db36f053a33f0cf0cafb"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_y_source_load_micro_review.md",
+      "role": "future formal T7 source-load-micro terminal-review prompt",
+      "sha256": "157b0e943d170c60779d4eef1a28c3086f8c89b2a88795849c32f95b4d8051d0"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_y_full_sentinel_review.md",
+      "role": "future formal T7 full-sentinel terminal-review prompt",
+      "sha256": "9a40e2334989235bfc50690046b870318678ea7e7b64e31f155582a82d0f80c4"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_y_science_review.md",
+      "role": "future formal T7 official scientific-review prompt",
+      "sha256": "c5d30024c7418888d267b9de044ae3336acbf709894d89dbf89b44d5b23e112b"
+    }
+  ],
+  "nonclaims": [
+    "final repair-cycle-2 package has not yet received formal T7 delta-2 ADVANCE",
+    "V3.1-Y implementation and all runtime/science remain NOT_ASSESSED",
+    "no predecessor Route-U value/map/count reuse",
+    "no independent even-sector external result",
+    "no common absolute scattering-phase validation",
+    "no V3.2 before formal V3.1-Y scientific ADVANCE",
+    "no Li-figure equivalence",
+    "no finite-radius observer claim",
+    "no full-domain V3 certification",
+    "no global GREEN"
+  ],
+  "operation_profile_summary": {
+    "compatibility": {
+      "calls": 1,
+      "fixture_cases": 118,
+      "predicates": 151
+    },
+    "full_sentinel": {
+      "calls": 35,
+      "predicates": 14315
+    },
+    "global_predicate_instances": 80724,
+    "official": {
+      "calls": 161,
+      "predicates": 65849
+    },
+    "source_load_micro": {
+      "calls": 1,
+      "predicates": 409
+    }
+  },
+  "protected_radial_identities": {
+    "src/schwgw/numerics/adaptive_jost_radial.py": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896",
+    "src/schwgw/numerics/boundary_conditions.py": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22",
+    "src/schwgw/numerics/conditioned_radial.py": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2",
+    "src/schwgw/numerics/matching.py": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340",
+    "src/schwgw/numerics/physical_boundary_radial.py": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f",
+    "src/schwgw/numerics/radial_solver.py": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9",
+    "src/schwgw/numerics/scaled_tortoise_radial.py": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+  },
+  "repair_cycle_1": {
+    "allowed_path_union": [
+      "configs/phase6_v3_1_y_external_protocol_package.json",
+      "configs/phase6_v3_1_y_external_protocol_contract.json",
+      "docs/phase6_v3_1_y_external_protocol_design.md",
+      "docs/phase6_v3_1_y_external_protocol_redesign_analysis.md",
+      "docs/prompts/phase6_t6_v3_1_y_external_protocol_implementation.md",
+      "docs/prompts/phase6_t7_v3_1_y_external_protocol_implementation_review.md",
+      "docs/prompts/phase6_t7_v3_1_y_wolfram_protocol_compatibility_review.md",
+      "docs/prompts/phase6_t7_v3_1_y_source_load_micro_review.md",
+      "docs/prompts/phase6_t7_v3_1_y_full_sentinel_review.md",
+      "docs/prompts/phase6_t7_v3_1_y_science_review.md"
+    ],
+    "frozen_failed_items": [
+      "v31y-predicate-registry-operation-profile-ambiguous",
+      "v31y-checkpoint-ack-parent-edge-wire-undefined",
+      "v31y-route-u-graph-authority-contradiction"
+    ],
+    "implementation_or_science_run": false,
+    "initial_t7_review": {
+      "advance_decision": "REPAIR",
+      "claim_status": "NOT_ASSESSED",
+      "class_a_blocker_count": 3,
+      "path": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_external_protocol_package_review.md",
+      "sha256": "1cc0da4cdfd7c9aecf7306ba7dd7b10219ce14f93e3a1c8bca37afe12417ac6b"
+    },
+    "predecessor_contract_sha256": "8079786b20a8bea7988cb28b10e8c8a5d4fa4dfe2b7fb6459ccdfc72e2c974a7",
+    "predecessor_package_sha256": "bbb9e97636a8da63d6e29be2a013fb99f09c8667a1608688de03006a9d916203"
+  },
+  "repair_cycle_2": {
+    "allowed_path_union": [
+      "configs/phase6_v3_1_y_external_protocol_package.json",
+      "configs/phase6_v3_1_y_external_protocol_contract.json",
+      "docs/phase6_v3_1_y_external_protocol_design.md",
+      "docs/phase6_v3_1_y_external_protocol_redesign_analysis.md",
+      "docs/prompts/phase6_t6_v3_1_y_external_protocol_implementation.md",
+      "docs/prompts/phase6_t7_v3_1_y_external_protocol_implementation_review.md",
+      "docs/prompts/phase6_t7_v3_1_y_wolfram_protocol_compatibility_review.md",
+      "docs/prompts/phase6_t7_v3_1_y_source_load_micro_review.md",
+      "docs/prompts/phase6_t7_v3_1_y_full_sentinel_review.md",
+      "docs/prompts/phase6_t7_v3_1_y_science_review.md"
+    ],
+    "delta_review_1": {
+      "advance_decision": "REPAIR",
+      "claim_status": "NOT_ASSESSED",
+      "path": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_external_protocol_package_delta_review_1.md",
+      "sha256": "63c1ae9286fa5cb7b07ee4c2995a7cf6bb71f9e1bc941399d46861f65f1aa499"
+    },
+    "delta_review_2_path": "docs/handoffs/archive/T7_2026-08-13_v3_1_y_external_protocol_package_delta_review_2.md",
+    "delta_review_2_sha256": null,
+    "final_bounded_repair": true,
+    "frozen_passed_items": [
+      "operation profiles/registry 151/409/14315/65849/global80724",
+      "fresh Route-U selector and exact496 inventory",
+      "V3.0/science/source/protected identities"
+    ],
+    "implementation_or_science_run": false,
+    "predecessor_contract_sha256": "4c59bfb635918e22934d9dcfa82c767fef771be5744059f5294443257e0c2aa4",
+    "predecessor_package_sha256": "7f81d1e92b176cbed9dc8e9a038fed8342c9d05c175c1b633390cf21ba51eee6",
+    "remaining_blockers_addressed": [
+      "v31y-checkpoint-ack-parent-edge-wire-undefined",
+      "v31y-package-delta-review-authority-path-collision"
+    ],
+    "repair_cycle_3_permitted": false
+  },
+  "review_basis": {
+    "external_runtime": {
+      "bhpt_snapshot_metadata": {
+        "path": "runs/phase6/external_sources/bhpt_reggewheeler_2e012092_v1_20260813.snapshot.json",
+        "sha256": "8d5498ab5f825e721c6cd3764f302831c8b7bcf138a1ee9600a0f5e6f6e4e488"
+      },
+      "wolfram_kernel": {
+        "path": "/Volumes/JohnnyTforGR/Applications/Wolfram.app/Contents/MacOS/WolframKernel",
+        "sha256": "70ad9d850224b4723a04c581e769579cc3df4b4392ae2ed1886780e6b9be046c",
+        "version": "14.3.0 for Mac OS X ARM (64-bit) (July 8, 2025)"
+      }
+    },
+    "governance": [
+      {
+        "path": "docs/review_gate_liveness_protocol.md",
+        "sha256": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181"
+      },
+      {
+        "path": "docs/handoffs/archive/T0_2026-08-13_v3_1_x_final_escalation_adjudication.md",
+        "sha256": "7fd2012a57e86a8b085114c3b68243db616e8437983bf150ee85b2474775cee5"
+      },
+      {
+        "path": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_sentinel_repair_cycle2_source_ledger_implementation_delta_review.md",
+        "sha256": "e5f9b9503e16b053525dfba7dacb661abc433211d49dcccb2c5c9dc442af1dee"
+      }
+    ],
+    "historical_diagnostic_sources": [
+      {
+        "path": "configs/phase6_v3_1_x_external_direct_route_package.json",
+        "sha256": "6a4ab0f690afab975c981f65fc80e0e3f48541da00c4023330ee94274146f752"
+      },
+      {
+        "path": "configs/phase6_v3_1_x_sentinel_repair_cycle2_source_ledger_package.json",
+        "sha256": "2f4f2304b4e9507a3627ee26d3aadd9d7632152d7367653746bedf1ec591673c"
+      },
+      {
+        "path": "src/schwgw/validation/phase6_v3_external_direct.py",
+        "sha256": "981c2b220c3e67e400f0d8c420fdf4f89ac57962483fa0a02bf9ed3649948da4"
+      }
+    ],
+    "v3_0": [
+      {
+        "path": "docs/prompts/phase6_v3_master_prompt.md",
+        "sha256": "f8c48d9379efcc2534748e33b62a302ba7bd6fe11282b4b4ad6e7a9ae850b1c7"
+      },
+      {
+        "path": "configs/phase6_v3_0_domain.json",
+        "sha256": "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b"
+      },
+      {
+        "path": "configs/phase6_v3_0_external_anchor_matrix.json",
+        "sha256": "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485"
+      },
+      {
+        "path": "configs/phase6_v3_0_thresholds.json",
+        "sha256": "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a"
+      },
+      {
+        "path": "docs/phase6_v3_0_validation_contract.md",
+        "sha256": "0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3"
+      },
+      {
+        "path": "docs/phase6_v3_0_formula_map.md",
+        "sha256": "e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac"
+      },
+      {
+        "path": "docs/phase6_v3_0_phase_taxonomy.md",
+        "sha256": "fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460"
+      },
+      {
+        "path": "docs/phase6_v3_0_literature_matrix.md",
+        "sha256": "088834348e980b81f814340a2a2c460b5bf11239521085c358bed7a90f603328"
+      },
+      {
+        "path": "references/notes/phase6_v3_absorption_scattering_conventions.md",
+        "sha256": "82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a"
+      },
+      {
+        "path": "docs/handoffs/archive/T7_2026-08-11_v3_0_contract_review.md",
+        "sha256": "b672c7f33d2f3cc891f455c6d8123ed846309a07244696da34236f8e254c0126"
+      }
+    ]
+  },
+  "route_u_authority_summary": {
+    "failed_predecessor_route_map_reuse_permitted": false,
+    "fixed_318_or_954_acceptance_permitted": false,
+    "keys": "N_U, 0..496",
+    "nodes": "3*N_U, 0..1488",
+    "selector": "fresh direct Route-A log_Gamma_flux < log(1e-8) after exact 496/9920 closure"
+  },
+  "schema": "schwo.phase6.v3_1_y.external_protocol_package.v3"
+}

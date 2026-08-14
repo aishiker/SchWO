@@ -24,6 +24,10 @@ def render_tablei_uniform_figures(
     output_dir: str | Path,
     dpi: int = 600,
     created_by_cli: bool = False,
+    scattering_description: str | None = None,
+    kirchhoff_description: str | None = None,
+    scattering_legend: str = "scattering (exact)",
+    kirchhoff_legend: str = "Kirchhoff integral",
 ) -> dict[str, Path]:
     """Render Fig.5 (near) and Fig.6 (far) from direct 40-point samples.
 
@@ -100,7 +104,7 @@ def render_tablei_uniform_figures(
                 marker="^",
                 linestyle="None",
                 ms=3.3,
-                label=r"$+$, scattering (exact)",
+                label=rf"$+$, {scattering_legend}",
             )[0]
             cross_line = top.plot(
                 km,
@@ -109,7 +113,7 @@ def render_tablei_uniform_figures(
                 marker="^",
                 linestyle="None",
                 ms=3.3,
-                label=r"$\times$, scattering (exact)",
+                label=rf"$\times$, {scattering_legend}",
             )[0]
             kirchhoff_line = top.plot(
                 km,
@@ -117,7 +121,7 @@ def render_tablei_uniform_figures(
                 color="black",
                 linestyle="--",
                 lw=1.15,
-                label="Kirchhoff integral",
+                label=kirchhoff_legend,
             )[0]
             if col == 0:
                 legend_handles = [plus_line, cross_line, kirchhoff_line]
@@ -167,9 +171,9 @@ def render_tablei_uniform_figures(
         fig.legend(
             legend_handles,
             [
-                r"$+$, scattering (exact)",
-                r"$\times$, scattering (exact)",
-                "Kirchhoff integral",
+                rf"$+$, {scattering_legend}",
+                rf"$\times$, {scattering_legend}",
+                kirchhoff_legend,
             ],
             loc="outside upper center",
             ncol=3,
@@ -185,7 +189,10 @@ def render_tablei_uniform_figures(
             "source_npz": str(source),
             "source_sha256": _sha(source),
             "dpi": dpi,
-            "kirchhoff": (
+            "scattering": scattering_description
+            or "direct complex amplification values loaded from source_npz",
+            "kirchhoff": kirchhoff_description
+            or (
                 "caller-supplied Eq. (47) values evaluated at the identical "
                 "40-by-8 grid; renderer performs no scattering computation"
             ),

@@ -379,7 +379,8 @@ def _validate_oracle_record(
         "effective_residual": effective,
         "match_condition_number": float(diagnostics["match_condition_number"]),
         "requested_precision_dps": int(diagnostics["requested_precision_dps"]),
-        "actual_precision_dps": int(diagnostics["precision_dps"]),
+        "actual_precision_bits": int(diagnostics["actual_precision_bits"]),
+        "actual_decimal_digits": float(diagnostics["actual_decimal_digits"]),
         "precision_note": str(diagnostics["precision_note"]),
         "runtime_seconds": float(diagnostics["runtime_seconds"]),
     }

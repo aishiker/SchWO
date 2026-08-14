@@ -60,14 +60,19 @@ dpsi_dr(r_in) = (-i k / f(r_in)) psi(r_in)
 
 ## 4. Outer matching
 
-在 `r_out` 处匹配：
+在 `r_out` 处，production 匹配到由 RW/Zerilli 方程递推得到的有限半径
+Jost basis：
 
 ```text
-psi(r_out)      = A_in exp(-i k r_star) + A_out exp(+i k r_star)
-dpsi/dr(r_out) = (-i k/f) A_in exp(-i k r_star) + (+i k/f) A_out exp(+i k r_star)
+J_±(r) = exp(±i k r_star) sum_{n=0}^N a_n^(±)/r^n
+psi(r_out)      = A_in J_-(r_out) + A_out J_+(r_out)
+dpsi/dr(r_out) = A_in J_-'(r_out) + A_out J_+'(r_out)
 ```
 
 求解 2x2 线性系统得到 `A_in`, `A_out`。
+`BoundaryConfig.outer_basis="jost_1_over_r"` 与
+`outer_series_order=160` 是当前 production 默认；历史 bare
+`exp(±i k r_star)` 只允许用 `outer_basis="plane_wave"` 显式诊断。
 
 目标边界要求：
 
@@ -87,7 +92,7 @@ A_out_scaled = scale * A_out_unit
 当前实现允许内部使用不同归一化。低势垒模式仍使用 unit horizon
 ingoing outward shooting；高势垒模式使用 unit incoming-at-infinity BVP，
 因此返回的 `A_in` 应接近 1。上层只应依赖 `A_in` 表示外边界
-`exp(-i k r_star)` 的入射系数，并用 `scale=c_lm/A_in` 归一到目标入射波。
+incoming Jost state 的系数，并用 `scale=c_lm/A_in` 归一到目标入射波。
 
 phase shift：
 

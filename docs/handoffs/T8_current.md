@@ -1,6 +1,16 @@
 # T8 Current Handoff
 
-Last updated: 2026-08-01
+Last updated: 2026-08-02
+
+## Current project sync — 2026-08-02
+
+The five audit repair items are complete. Four full direct-curvature XZ
+grids, four angular datasets, a 40-by-8 Table-I dataset, direct high-ell MST,
+and final PDF/approximately-600-dpi renders now exist and pass the unified
+validator. No T8 producer is active or authorized. Strict paper equivalence
+remains YELLOW only for the documented residual Fig.4/5/6/7 differences.
+Read `docs/reports/SchWO_audit_five_repairs_20260802.md`; the older instruction
+below prohibiting full-grid work has been satisfied and is historical.
 
 ## Current project sync
 

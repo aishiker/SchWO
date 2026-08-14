@@ -1,0 +1,242 @@
+{
+  "allowed_t4_changes": [
+    "src/schwgw/validation/phase6_v3_hp_unitarity_resume.py",
+    "scripts/phase6_v3_1_hp_unitarity_resume.py",
+    "tests/unit/test_phase6_v3_hp_unitarity_resume.py",
+    "tests/regression/test_phase6_v3_hp_unitarity_resume_publication.py"
+  ],
+  "archive_only_governance": {
+    "current_surfaces_update_after_terminal_only": true,
+    "formal_t7_implementation_review_archive_only": true,
+    "formal_t7_package_review_archive_only": true,
+    "frozen_coordination_identities": {
+      "docs/handoffs/T0_current.md": "f80779de4990d6d18581d8ee4bccef1393f3a61b6fdb7cdbced272a357ac0ffa",
+      "docs/handoffs/T7_current.md": "61e25ccb891b992cc82426a135dca1bccdaafa3f84ccb9bfa338a6d3e8a4c383",
+      "status.md": "15d29b641b66b061c8865edb72eb811519360bda6a314515fd115cbe1ab96158"
+    },
+    "reason": "the original science source_start ledger binds these exact live bytes"
+  },
+  "artifact_policy": {
+    "existing_root_only": true,
+    "fresh_replacement_root_forbidden": true,
+    "global_green_permitted": false,
+    "manifest_must_bind_additive_control_artifacts": true,
+    "resume_attempts_monotone": true,
+    "resume_requires_one_use_t0_dispatch": true,
+    "scientific_stage": "V3.1-U",
+    "timezone": "UTC"
+  },
+  "checkpoint_inventory": {
+    "algorithm": "sha256(compact JSON with sort_keys=true, separators=(',',':'), no trailing newline, mapping each mode_checkpoints/route_a_NNNN.json relative path to {sha256,size,mode,nlink})",
+    "count": 435,
+    "first_ordinal": 0,
+    "last_ordinal": 434,
+    "sha256": "2269f129814c26d609cf3fdd0a451a5fd35661a576cf4d030f4f7b9516366d11"
+  },
+  "created_at_utc": "2026-08-12T01:49:54Z",
+  "revised_at_utc": "2026-08-12T02:13:00Z",
+  "dispatch_contract": {
+    "implementation_delta_review_required": true,
+    "package_review_required": true,
+    "real_root_mutation_before_both_reviews": false,
+    "required_runtime_executable": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "t0_dispatch_published_after_final_implementation_hashes": true,
+    "t0_dispatch_single_use": true
+  },
+  "forbidden_changes": [
+    "the original V3.1-U five implementation/test files",
+    "the seven protected radial files",
+    "the existing interrupted-root bytes before reviewed dispatch",
+    "the V3.0 domain, thresholds, formulas and conventions",
+    "all predecessor roots and authorities",
+    "status.md, docs/handoffs/T0_current.md and docs/handoffs/T7_current.md before terminalization",
+    "manual deletion or truncation of the stale writer lock or any JSONL",
+    "V3.2 execution or any global GREEN claim"
+  ],
+  "gate_id": "phase6_v3_1_u_resume_controller_repair_1",
+  "interrupted_root": {
+    "active_writer": false,
+    "checkpoint_last": {
+      "path": "mode_checkpoints/route_a_0434.json",
+      "sha256": "c61e44e027d05d65a5c8a39868cc138fb4b72df7e6efb6d014d9e03c666ce986",
+      "size": 256
+    },
+    "ladder_records": {
+      "count": 8700,
+      "device": 16777244,
+      "inode": 2087773,
+      "mode": 384,
+      "nlink": 1,
+      "sha256": "8f387abb83115ac76d87170bc5c1220d6effc6f4586c6202bb069fb35cb8d088",
+      "size": 16898419
+    },
+    "next_key": {
+      "ell": 28,
+      "frequency_ordinal": 10,
+      "kM": "8",
+      "mode_ordinal": 435,
+      "parity": "even",
+      "parity_ordinal": 1
+    },
+    "official_root": "runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_v1_20260811T143911Z_py314",
+    "records": {
+      "count": 435,
+      "device": 16777244,
+      "inode": 2087774,
+      "mode": 384,
+      "nlink": 1,
+      "sha256": "932129a4921cd71b7867bcc2f0e146ed6940eb84403f366b58989e447402b9a0",
+      "size": 943913
+    },
+    "remaining_route_a_modes": 61,
+    "route_a_committed_ordinals": "0..434",
+    "route_b_records": 0,
+    "route_c_records": 0,
+    "route_u_records": 0,
+    "terminal_artifacts_present": false,
+    "writer_lock": {
+      "device": 16777244,
+      "inode": 2087768,
+      "mode": 384,
+      "nlink": 1,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    }
+  },
+  "liveness": {
+    "bounded_repair_cycle": 1,
+    "claim_status_before_execution": "NOT_ASSESSED",
+    "control_plane_repair_only": true,
+    "parent_gate": "phase6_v3_1_hp_unitarity_deficit_replacement_v1",
+    "predecessor_r3_retry": false,
+    "replacement_gate_cycle3": false,
+    "v3_2": false
+  },
+  "lock_contract": {
+    "active_lock_fd_flocked_until_terminal_0555_and_dual_validation": true,
+    "concurrent_controller_fails_closed": true,
+    "liveness_rechecked_under_flock": true,
+    "manual_delete_rename_replace_or_rewrite_forbidden": true,
+    "open_stable_lock_o_nofollow_and_flock_nonblocking": true,
+    "stable_lock_path": ".writer.lock",
+    "stable_lock_path_never_absent": true,
+    "stable_lock_terminal_policy": "chmod 0444, bind in terminal manifest, release flock only after root 0555 and dual validation",
+    "stable_original_lock_identity_preserved_until_terminal_chmod": true
+  },
+  "non_claims": [
+    "no V3.1-U scientific acceptance",
+    "no promotion of failed predecessor r3",
+    "no V3.2 authorization",
+    "no full-domain V3",
+    "no Li-figure equivalence",
+    "common absolute phase remains PARTIAL",
+    "no global GREEN"
+  ],
+  "package_revision": 2,
+  "prior_package_review": {
+    "advance_decision": "REPAIR",
+    "archive_path": "docs/handoffs/archive/T7_2026-08-12_v3_1_u_resume_controller_package_review.md",
+    "archive_sha256": "daba09ea92781596d54e9eefee729cfa0a1c117862443fa6445f4ab0d20f2c76",
+    "claim_status": "NOT_ASSESSED",
+    "failed_items": [
+      "v31ur_lock_authority_crash_chain",
+      "v31ur_transaction_partial_suffix_recovery"
+    ],
+    "passed_items_frozen": true
+  },
+  "protected_radial_identities": {
+    "src/schwgw/numerics/adaptive_jost_radial.py": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896",
+    "src/schwgw/numerics/boundary_conditions.py": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22",
+    "src/schwgw/numerics/conditioned_radial.py": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2",
+    "src/schwgw/numerics/matching.py": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340",
+    "src/schwgw/numerics/physical_boundary_radial.py": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f",
+    "src/schwgw/numerics/radial_solver.py": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9",
+    "src/schwgw/numerics/scaled_tortoise_radial.py": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+  },
+  "required_controller_state_machine": [
+    "DISCOVER_READ_ONLY",
+    "VERIFY_FROZEN_IDENTITIES",
+    "VALIDATE_ORIGINAL_CONTRACT",
+    "VALIDATE_CONTIGUOUS_PREFIX",
+    "CLASSIFY_SYSTEM_INTERRUPTION",
+    "ACQUIRE_WRITER_EXCLUSION",
+    "PUBLISH_RESUME_AUTHORITY",
+    "RECOVER_PREPARED_TRANSACTION",
+    "APPEND_ROUTE_A",
+    "FREEZE_ROUTE_MAP",
+    "APPEND_ROUTE_U",
+    "APPEND_ROUTE_B",
+    "APPEND_ROUTE_C",
+    "ORIGINAL_THRESHOLD_EVALUATION",
+    "ORIGINAL_VALIDATOR",
+    "RESUME_VALIDATOR",
+    "TERMINAL_PASS"
+  ],
+  "schema": "schwo.phase6.v3_1_u.resume_controller_package.v1",
+  "source_bindings": {
+    "configs/phase6_v3_0_domain.json": "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b",
+    "configs/phase6_v3_0_external_anchor_matrix.json": "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485",
+    "configs/phase6_v3_0_thresholds.json": "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a",
+    "configs/phase6_v3_1_hp_unitarity_replacement_package.json": "decde34bcdc90db0bc69be446357e306cfe942c84a8d575902eddaa7d1ff6877",
+    "docs/handoffs/archive/T7_2026-08-11_v3_1_hp_unitarity_package_review.md": "9616b3fb4d0999e782e164740f5815f6bcdf46a955910cd2bcfcae032bde75cf",
+    "docs/handoffs/archive/T7_2026-08-12_v3_1_u_resume_controller_package_review.md": "daba09ea92781596d54e9eefee729cfa0a1c117862443fa6445f4ab0d20f2c76",
+    "docs/phase6_v3_0_formula_map.md": "e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac",
+    "docs/phase6_v3_0_phase_taxonomy.md": "fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460",
+    "docs/phase6_v3_0_validation_contract.md": "0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3",
+    "docs/phase6_v3_1_hp_unitarity_replacement_design.md": "243f312182528b10a895cef679d195dcedfd97d7a2e02e388449ae3af313dd28",
+    "docs/phase6_v3_1_u_resume_controller_design.md": "094235c0ce0158521da81ec0587899dc6dc942ab92866e8afe8f3102487fa9d7",
+    "docs/prompts/phase6_t4_v3_1_hp_unitarity_replacement.md": "a1bffc42a381489dadd483edf2e6952d97ce236fbad3fe9ca82eb8b0ca862945",
+    "docs/prompts/phase6_t4_v3_1_u_resume_controller.md": "72e40f540d3f406c6d1af79931d425b9efc8e5517f21d6e91ba9b1c8b0333b05",
+    "docs/prompts/phase6_t7_v3_1_hp_unitarity_review.md": "8822263a09bde6d5b0bd3b2c00117eb5ac1648ae9f804a4e71380b27fa90cb82",
+    "docs/prompts/phase6_t7_v3_1_u_resume_controller_delta_review.md": "d61acbb61787746a5442dedbf52caa7815376bff482edd2ba5450e1c278e457a",
+    "docs/review_gate_liveness_protocol.md": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181",
+    "docs/templates/t7_gate_verdict_template.md": "3ac1fe9969b253be034aa6a6ccf37d6daa9168c1685554049c143b6d9513179d",
+    "references/notes/phase6_v3_absorption_scattering_conventions.md": "82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a",
+    "runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_v1_20260811T143911Z_py314/inventory.json": "c7d09f3e72c31f93d62491c859794b7c1b7fe9cc232e84e2560aa61e8f1b2133",
+    "runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_v1_20260811T143911Z_py314/run_contract.json": "d9c495a5beedad6c96b667a7ac8a72460872d077b4e040480ac9fdfcc0a3fbcb",
+    "runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_v1_20260811T143911Z_py314/source_start.json": "03768ae080e794c7f607b980999a0639c4f2c954e6a2afcc77d1fb8be102f3f4",
+    "scripts/phase6_v3_1_hp_unitarity.py": "01ce96122b1c2dca9f29ec0355dd51ccf0611842fcdc7d0850107d012a6f25a4",
+    "src/schwgw/validation/phase6_v3_hp_unitarity_oracle.py": "84fe4c299b46042b841a09d92ab7e38af73cfd12428513753e20c8b4b40b3e39",
+    "src/schwgw/validation/phase6_v3_mode_greybody_hp_replacement.py": "81f5ca43480976975fa185ce24ff3f47b83c755dc8b74892b97a93798a914e51",
+    "tests/regression/test_phase6_v3_hp_unitarity_publication.py": "5c33f18a4e327f18a7b8e5cdedc02f7ab8fb777e7bc8add645d55c27e93aa007",
+    "tests/unit/test_phase6_v3_hp_unitarity.py": "1a0d1eea3e4d4047b1b8f84b02feb4dade8c3c40c8ba84dbf772b50b96774512"
+  },
+  "transaction_contract": {
+    "append_flags": [
+      "O_WRONLY",
+      "O_APPEND",
+      "O_NOFOLLOW"
+    ],
+    "authenticated_partial_suffix_action": "append only the missing byte tail of the exact prepared block",
+    "checkpoint_after_data_fsync": true,
+    "checkpoint_atomic_no_replace_publication": true,
+    "commit_after_checkpoint_and_directory_fsync": true,
+    "commit_atomic_no_replace_publication": true,
+    "intent_before_solver_call": true,
+    "intent_atomic_no_replace_publication": true,
+    "original_prefix_ranges_rehashed_after_every_commit": true,
+    "partial_staging_without_final_prepared": "retain as incomplete evidence; successor may recalculate because no authenticated prepared science exists",
+    "prepared_atomic_no_replace_publication": true,
+    "prepared_contains_exact_canonical_output_before_append": true,
+    "route_c_attempt_local_staging_required": true,
+    "unknown_mismatched_duplicate_or_gapped_suffix_fails_closed": true,
+    "truncate_replace_seek_write_forbidden": true
+  },
+  "atomic_publication_contract": {
+    "authority_commit_is_last_pre_science_file": true,
+    "final_name_partial_bytes_permitted": false,
+    "incomplete_attempts_preserved_and_adjudicated": true,
+    "no_science_before_authority_commit": true,
+    "primitive": "same-filesystem complete staging file + fsync + Darwin renamex_np(RENAME_EXCL) + destination-directory fsync",
+    "primitive_unavailable_action": "fail closed",
+    "staging_fragments_are_not_committed_authority_or_prepared_science": true
+  },
+  "validation_contract": {
+    "additive_resume_validator_required": true,
+    "original_validator_live_sources_false_forbidden": true,
+    "original_validator_live_sources_true_required": true,
+    "real_filesystem_fault_injection_tests_required": true,
+    "real_root_read_only_until_reviewed_dispatch": true,
+    "temporary_actual_prefix_copy_test_required": true
+  }
+}

@@ -114,6 +114,10 @@ def test_q018_rescaled_oracle_returns_finite_matrix_r60_when_enabled(
     assert result.diagnostics["k"] == request.k
     assert result.diagnostics["rtol"] == request.rtol
     assert result.diagnostics["atol"] == request.atol
+    assert result.diagnostics["requested_precision_dps"] == 80
+    assert result.diagnostics["actual_precision_bits"] == 53
+    assert result.diagnostics["actual_decimal_digits"] == 15.95
+    assert "precision_dps" not in result.diagnostics
     assert result.diagnostics["unit_incoming_at_infinity"] is True
     assert result.diagnostics["experimental"] is True
     assert result.diagnostics["valid_at_required_radius"] is True

@@ -1,0 +1,135 @@
+{
+  "adjudication": {
+    "path": "docs/handoffs/archive/T0_2026-08-13_v3_1_x_authority_bridge_adjudication.md",
+    "sha256": "958858f2b8d7a07d409447f2054711932bef62f2cd3e5a80e4798b633708ac45"
+  },
+  "authority_bridge": {
+    "digest_binding_owner": "later one-use Root-T0 sentinel dispatch",
+    "future_review_path": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_authority_bridge_delta_review.md",
+    "future_review_sha256_hardcoded_in_production": false,
+    "required_review_tokens": [
+      "ADVANCE_DECISION: ADVANCE",
+      "CLAIM_STATUS: NOT_ASSESSED",
+      "GATE_LABEL: ACCEPT GREEN / V3.1-X AUTHORITY BRIDGE READY FOR ONE-USE SENTINEL DISPATCH",
+      "V3.1-X AUTHORITY-BRIDGE"
+    ],
+    "review_binds_post_bridge_six_hashes": true,
+    "self_hash_cycle_present": false
+  },
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "classification": "CONTROL_PLANE_REPAIR",
+  "created_at_utc": "2026-08-13T04:52:03Z",
+  "gate_id": "phase6_v3_1_x_external_direct_authority_bridge_v1",
+  "hard_prohibitions": [
+    "WolframKernel or solver invocation",
+    "dispatch publication or consumption",
+    "sentinel, official, staging or scientific root creation",
+    "formula, threshold, domain, precision, graph or overlay change",
+    "WLS, core numerical module, CLI or protected-radial-file change",
+    "predecessor, failed-root or sentinel science reuse",
+    "V3.2 start",
+    "global GREEN claim"
+  ],
+  "implementation_scope": {
+    "allowed_unique_paths": [
+      "src/schwgw/validation/phase6_v3_mode_greybody_external_direct_replacement.py",
+      "tests/unit/test_phase6_v3_external_direct.py",
+      "tests/regression/test_phase6_v3_external_direct_publication.py"
+    ],
+    "expected_changed_path_count": 3,
+    "semantic_delta": "replace the stale fixed YELLOW implementation-review path with the one predeclared future bridge-review path and prove the authority semantics with zero-science tests"
+  },
+  "liveness": {
+    "completed_bounded_repairs": 0,
+    "distinct_from_source_implementation_gate": true,
+    "maximum_bounded_repairs": 2,
+    "source_gate_completed_bounded_repairs": 2,
+    "source_gate_repair_cycle_3_permitted": false
+  },
+  "members": [
+    {
+      "path": "docs/handoffs/archive/T0_2026-08-13_v3_1_x_authority_bridge_adjudication.md",
+      "role": "Root-T0 liveness adjudication",
+      "sha256": "958858f2b8d7a07d409447f2054711932bef62f2cd3e5a80e4798b633708ac45"
+    },
+    {
+      "path": "docs/phase6_v3_1_x_authority_bridge_design.md",
+      "role": "frozen non-circular control-plane design",
+      "sha256": "4c7bb43098bf489bd3b24650626d269fed18ef5a0a08995171faeb5c476fef26"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_x_authority_bridge_package_review.md",
+      "role": "formal T7 initial package-review prompt",
+      "sha256": "a180f5c9a7e63149670f0f3753d3179f5cd610c3cef43a65c979bd3a570b7ca4"
+    },
+    {
+      "path": "docs/prompts/phase6_t6_v3_1_x_authority_bridge_implementation.md",
+      "role": "future formal T6 implementation prompt",
+      "sha256": "12042b33581629203be96dcab5ad7fb0e73a45e1e123a0d24d9b1e4116142b7a"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_x_authority_bridge_delta_review.md",
+      "role": "future formal T7 delta-only review prompt",
+      "sha256": "3be1ad2cfa1f638049ae05cee27a9812e664ded907a18a7bb8484897bdc5418d"
+    }
+  ],
+  "nonclaims": [
+    "V3.1-X science remains NOT_ASSESSED",
+    "V3.1 and V3.1-U remain FAIL",
+    "no sentinel or official scientific result",
+    "no independent even-sector external result",
+    "no full-domain V3 certification",
+    "no V3.2 authorization",
+    "no global GREEN"
+  ],
+  "protected_radial_identities": {
+    "src/schwgw/numerics/adaptive_jost_radial.py": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896",
+    "src/schwgw/numerics/boundary_conditions.py": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22",
+    "src/schwgw/numerics/conditioned_radial.py": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2",
+    "src/schwgw/numerics/matching.py": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340",
+    "src/schwgw/numerics/physical_boundary_radial.py": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f",
+    "src/schwgw/numerics/radial_solver.py": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9",
+    "src/schwgw/numerics/scaled_tortoise_radial.py": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+  },
+  "required_zero_science_tests": [
+    "future fixed review path may be absent during T6 preflight",
+    "exact future-path surrogate with required tokens and all six hashes passes",
+    "repair-1 YELLOW and delta-recheck-2 ESCALATE authorities fail",
+    "arbitrary path, wrong digest, wrong token and missing or stale implementation hash fail",
+    "wrong environment, argv, cwd, executable, launcher and replay fail",
+    "all existing V3.1-X focused and adjacent zero-science tests pass",
+    "Wolfram, solver, dispatch, root and real-root-mutation counters remain zero"
+  ],
+  "schema": "schwo.phase6.v3_1_x.authority_bridge_package.v1",
+  "source_gate": {
+    "final_candidate_hashes": {
+      "scripts/phase6_v3_1_x_bhpt_direct.wls": "652ced5b32983e79df6c36a5e697c5263aa0570f4cf4b20d58a2b3c20e6e1907",
+      "scripts/phase6_v3_1_x_external_direct.py": "072a3520bb32090e1dd872037f4570cd29a35ffc7d47a0788d426d3840e7e768",
+      "src/schwgw/validation/phase6_v3_external_direct.py": "981c2b220c3e67e400f0d8c420fdf4f89ac57962483fa0a02bf9ed3649948da4",
+      "src/schwgw/validation/phase6_v3_mode_greybody_external_direct_replacement.py": "8f6225ce176be25fe17753f4d64c1e41f6ea9d575887940cd9b040fb79740d51",
+      "tests/regression/test_phase6_v3_external_direct_publication.py": "46bec0847f81a332427686bc66270988d3aa6f9a21aa5892f881ef0669bdf774",
+      "tests/unit/test_phase6_v3_external_direct.py": "c986b8f298216651d18accf37b5dd4d8c62995a688305c9060c55b039ff09827"
+    },
+    "implementation_delta_recheck_1": {
+      "path": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_external_direct_route_implementation_delta_recheck_1.md",
+      "sha256": "e1dde2575e8ad328062ef360a5146bb02d29d2ea3b462ea5e72d566d4d645285"
+    },
+    "implementation_delta_recheck_2": {
+      "path": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_external_direct_route_implementation_delta_recheck_2.md",
+      "sha256": "549440b9d528112eb4cad4882fdae16d105295ad8f86e077ebfe1a163edbb26c"
+    },
+    "implementation_initial_review": {
+      "path": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_external_direct_route_implementation_review.md",
+      "sha256": "43227b575af051b7beee0c1e568c7842b6724bbb12bb85aebc8389d6b7d2c393"
+    },
+    "package": {
+      "path": "configs/phase6_v3_1_x_external_direct_route_package.json",
+      "sha256": "6a4ab0f690afab975c981f65fc80e0e3f48541da00c4023330ee94274146f752"
+    },
+    "package_review": {
+      "path": "docs/handoffs/archive/T7_2026-08-13_v3_1_x_external_direct_route_package_review.md",
+      "sha256": "4ecfdbbf0df84657fb4a24d0ebb8143c4bb0b01cdc3d925b4eca4bf4df0bad50"
+    },
+    "terminal_verdict": "ESCALATE / NOT_ASSESSED / T0 ADJUDICATION REQUIRED"
+  }
+}

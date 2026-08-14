@@ -6,8 +6,8 @@ import numpy as np
 import pytest
 
 from schwgw.backgrounds.schwarzschild import SchwarzschildBackground
-from schwgw.numerics import radial_solver
 from schwgw.numerics import BoundaryConfig, solve_radial_mode
+from schwgw.numerics.legacy import paper_oracles as legacy_paper_oracles
 from schwgw.perturbations import Sector, V_RW
 
 
@@ -465,7 +465,7 @@ class RadialSolverPhysicsTests(unittest.TestCase):
             RuntimeError,
             "q018_experimental_oracle_out_of_envelope",
         ):
-            radial_solver._validate_q018_further_local_oracle_envelope(
+            legacy_paper_oracles._validate_q018_further_local_oracle_envelope(
                 sector=Sector.ODD,
                 ell=182,
                 k=2.7625,
@@ -487,7 +487,9 @@ class RadialSolverPhysicsTests(unittest.TestCase):
             if point_ids
         )
         k, sector_name, ell, point_id = selected
-        point_radius = dict(radial_solver._Q018_LITERAL_FAILED_CHILD_POINTS)[point_id]
+        point_radius = dict(legacy_paper_oracles._Q018_LITERAL_FAILED_CHILD_POINTS)[
+            point_id
+        ]
         sector = Sector(sector_name)
         base = {
             "r_in_eps": 1e-6,
@@ -557,7 +559,7 @@ class RadialSolverPhysicsTests(unittest.TestCase):
             RuntimeError,
             "q018_experimental_oracle_out_of_envelope",
         ):
-            radial_solver._validate_q018_literal_failed_child_oracle_envelope(
+            legacy_paper_oracles._validate_q018_literal_failed_child_oracle_envelope(
                 sector=sector,
                 ell=max(maximum for _minimum, maximum, _points in (
                     TRANSITION_SEGMENTS[(k, sector.value)]
@@ -581,7 +583,7 @@ class RadialSolverPhysicsTests(unittest.TestCase):
             if point_ids
         )
         k, sector_name, ell, point_id = selected
-        point_radius = dict(radial_solver._Q018_ANOTHER_BOUNDED_LOCAL_POINTS)[
+        point_radius = dict(legacy_paper_oracles._Q018_ANOTHER_BOUNDED_LOCAL_POINTS)[
             point_id
         ]
         sector = Sector(sector_name)
@@ -653,7 +655,7 @@ class RadialSolverPhysicsTests(unittest.TestCase):
             RuntimeError,
             "q018_experimental_oracle_out_of_envelope",
         ):
-            radial_solver._validate_q018_another_bounded_local_oracle_envelope(
+            legacy_paper_oracles._validate_q018_another_bounded_local_oracle_envelope(
                 sector=sector,
                 ell=max(
                     maximum

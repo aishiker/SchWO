@@ -8,6 +8,7 @@ from schwgw.viz.fig4_comparison import (
     add_incident_plane_wave,
     asymptotic_total_polarizations,
     render_fig4_exact_asymptotic_comparison,
+    validate_saved_total_field,
 )
 
 
@@ -29,6 +30,19 @@ def test_add_incident_plane_wave_adds_eq46_without_reserializing_fields() -> Non
     phase = np.exp(1j * 0.5 * 60.0 * np.cos(theta))
     np.testing.assert_allclose(h_plus, scattered_plus + A_plus * phase)
     np.testing.assert_allclose(h_cross, scattered_cross + A_cross * phase)
+
+
+def test_saved_production_total_field_is_not_given_a_second_incident_wave() -> None:
+    theta = np.array([0.0, 0.4, np.pi])
+    total_plus = np.array([1.0j, 2.0j, 3.0j])
+    total_cross = np.array([0.5, 1.0, 1.5], dtype=complex)
+    h_plus, h_cross = validate_saved_total_field(
+        theta,
+        total_plus=total_plus,
+        total_cross=total_cross,
+    )
+    np.testing.assert_array_equal(h_plus, total_plus)
+    np.testing.assert_array_equal(h_cross, total_cross)
 
 
 def test_asymptotic_total_polarizations_reduces_to_incident_wave_for_zero_matrix() -> None:

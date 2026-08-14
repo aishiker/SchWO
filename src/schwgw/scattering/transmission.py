@@ -146,9 +146,12 @@ def compute_pointwise_amplification(
             "same_k": True,
             "same_A_plus_A_cross": True,
             "same_observer_coordinates": True,
-            "polarization_bridge": (
-                "Route B incident-frame electric tidal packaged scalars"
-            ),
+            "polarization_bridge": "inherited from caller-supplied source fields",
+            "polarization_bridge_implementation": "not inferred by ratio layer",
+            "polarization_bridge_validated": False,
+            "positive_frequency_reality_bridge_validated": False,
+            "source_bridge_metadata_required_for_physical_use": True,
+            "physical_claim": False,
             "no_schwarzschild_horizon_boundary_in_baseline": True,
             "no_tiny_M_baseline": True,
             "excludes_radial_horizon_transmission": True,

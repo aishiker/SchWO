@@ -77,20 +77,20 @@ _COMPONENT_FACTORS = (
 _ODD_CHANNEL = ChannelSpec(
     name="legacy_rwz_odd",
     field_spin=2,
-    polarization="legacy_tensor",
+    polarization="legacy_tensor_diagnostic",
     parity="odd",
     radial_structure="scalar",
     component_names=("master",),
-    physical_claim=True,
+    physical_claim=False,
 )
 _EVEN_CHANNEL = ChannelSpec(
     name="legacy_rwz_even",
     field_spin=2,
-    polarization="legacy_tensor",
+    polarization="legacy_tensor_diagnostic",
     parity="even",
     radial_structure="scalar",
     component_names=("master",),
-    physical_claim=True,
+    physical_claim=False,
 )
 
 
@@ -419,7 +419,7 @@ def test_default_legacy_path_runs_through_full_adapter_facade_exactly(
         replace(LEGACY_ODD_CHANNEL, field_spin=0),
         replace(LEGACY_ODD_CHANNEL, polarization="toy"),
         replace(LEGACY_ODD_CHANNEL, component_names=("toy",)),
-        replace(LEGACY_ODD_CHANNEL, physical_claim=False),
+        replace(LEGACY_ODD_CHANNEL, physical_claim=True),
         replace(LEGACY_ODD_CHANNEL, name="spoofed_legacy_name"),
     ),
 )

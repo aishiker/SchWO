@@ -120,9 +120,12 @@ def run_apparent_solver_grid(
         rtol=config.numerics.boundary.rtol,
         atol=config.numerics.boundary.atol,
         required_eval_radius=config.numerics.boundary.required_eval_radius,
+        conditioning_backend=config.numerics.boundary.conditioning_backend,
         experimental_required_radius_oracle=(
             config.numerics.boundary.experimental_required_radius_oracle
         ),
+        outer_basis=config.numerics.boundary.outer_basis,
+        outer_series_order=config.numerics.boundary.outer_series_order,
     )
     k = config.wave.kM / config.background.M
     radial_cache = _ApparentRunRadialCache(solve_radial_mode)
@@ -199,6 +202,13 @@ def run_apparent_solver_grid(
         k=k,
         observer_r=float(np.max(radius[valid_mask])),
     )
+    bridge_metadata = getattr(solver, "__schwgw_bridge_metadata__", None)
+    if bridge_metadata is None:
+        bridge_metadata = {
+            "tetrad": "incident-aligned strict Newman-Penrose",
+            "direct_metric_curvature": False,
+            "strict_np_lower_scalar_completion": False,
+        }
     metadata = {
         "case_id": config.case_id,
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -212,7 +222,7 @@ def run_apparent_solver_grid(
         "convention": {
             "fourier": "exp(-i k t)",
             "metric_signature": "(-,+,+,+)",
-            "tetrad": "incident-aligned strict Newman-Penrose",
+            **dict(bridge_metadata),
             "units": "G=c=M=1",
         },
         "definitions": {

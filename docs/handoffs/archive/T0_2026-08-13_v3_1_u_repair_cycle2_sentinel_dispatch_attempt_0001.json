@@ -1,0 +1,266 @@
+{
+  "anchors": [
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 2,
+      "kM": "0.1",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 3,
+      "kM": "0.1",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 4,
+      "kM": "0.1",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 8,
+      "kM": "0.1",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 2,
+      "kM": "0.5",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 3,
+      "kM": "0.5",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 4,
+      "kM": "0.5",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 10,
+      "kM": "0.5",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 2,
+      "kM": "1",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 3,
+      "kM": "1",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 4,
+      "kM": "1",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 5,
+      "kM": "1",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 13,
+      "kM": "1",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 2,
+      "kM": "2",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 3,
+      "kM": "2",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 4,
+      "kM": "2",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 10,
+      "kM": "2",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 18,
+      "kM": "2",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 2,
+      "kM": "4",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 3,
+      "kM": "4",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 4,
+      "kM": "4",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 20,
+      "kM": "4",
+      "parity": "odd"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "ell": 28,
+      "kM": "4",
+      "parity": "odd"
+    }
+  ],
+  "created_at_utc": "2026-08-12T22:13:23Z",
+  "environment_authority": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/configs/phase6_v3_1_u_repair_cycle2_sentinel_environment_authority.json",
+    "sha256": "936e4a403030d96ce4575e35fbefdff7d6eb29acaad564c137488a27aabec581"
+  },
+  "exact_root": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/classic_scattering/v3_1_u_route_c_sentinel_repair2_v1_20260812T221323Z_py314",
+  "gate_id": "phase6_v3_1_hp_unitarity_deficit_replacement_v1",
+  "implementation_hashes": {
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/scripts/phase6_v3_1_bhpt_mst_cycle2.wls": "894bb2ebe6bd9637e3e449e7785241085de0f673ad93ebbf7865c4a5023b888f",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/validation/phase6_v3_mode_greybody_cycle2.py": "60fdc7c3f46ab21eafbe2b319f0c7b15b3ab64d6633d360f79ada078dcbd36b1",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/src/schwgw/validation/phase6_v3_mode_greybody_hp_replacement.py": "3292aea5074ae42b68cdb475bf86364b3aecc6ab08c37bf5ca51718f2834d730",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/tests/regression/test_phase6_v3_hp_unitarity_publication.py": "c5f07055a79d99b1f03cf6954dc9d51a5832cd7eaa6fcd6a58875bb708b5356c",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/tests/unit/test_phase6_v3_cycle2.py": "47e29bf2ee0c900aaff1153ebee31848916b8c94b5de7e488220ef0f457b5323",
+    "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/tests/unit/test_phase6_v3_hp_unitarity.py": "a61b53e84ab2aeab5f66639cb6a11d7c593803ac7067ddb437ca6811e554a2c3"
+  },
+  "implementation_review": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle2_implementation_delta_recheck_2.md",
+    "sha256": "a0556466626efb2215cd9d9bcb5739668e7ab7b81b1420a4c1409937ce9cb7e9"
+  },
+  "method_contract": {
+    "AccuracyGoal": 45,
+    "BoundaryConditions": "In",
+    "Method": "MST",
+    "Potential": "ReggeWheeler",
+    "PrecisionGoal": 45,
+    "WorkingPrecision": 90,
+    "anchor_count": 23,
+    "even_independent_solve": false,
+    "sector": "odd"
+  },
+  "package_review": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle2_package_delta_recheck_1.md",
+    "sha256": "f67ce9fa3f0b3f65a7ad34c736c06236f1b0c87674a0e943e8b749f1ca9387e5"
+  },
+  "protected_radial_identities": {
+    "src/schwgw/numerics/adaptive_jost_radial.py": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896",
+    "src/schwgw/numerics/boundary_conditions.py": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22",
+    "src/schwgw/numerics/conditioned_radial.py": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2",
+    "src/schwgw/numerics/matching.py": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340",
+    "src/schwgw/numerics/physical_boundary_radial.py": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f",
+    "src/schwgw/numerics/radial_solver.py": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9",
+    "src/schwgw/numerics/scaled_tortoise_radial.py": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+  },
+  "repair_id": "phase6_v3_1_u_route_c_totality_repair_cycle2_v1",
+  "repair_package": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/configs/phase6_v3_1_u_repair_cycle2_package.json",
+    "sha256": "61460a45d4d47ba9247e68969a5d91e2d77aac722c9324014a414ed4126dbfa2"
+  },
+  "required_verdict_tokens": [
+    "ADVANCE_DECISION: ADVANCE",
+    "CLAIM_STATUS: NOT_ASSESSED",
+    "ACCEPT GREEN / V3.1-U REPAIR CYCLE 2 IMPLEMENTATION READY FOR ONE-SHOT ROUTE-C SENTINEL"
+  ],
+  "schema": "schwo.phase6.v3_1_u.route_c_sentinel_dispatch.v1",
+  "sentinel_invocation": {
+    "argv": [
+      "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-m",
+      "schwgw.validation.phase6_v3_mode_greybody_hp_replacement",
+      "route-c-sentinel"
+    ],
+    "cwd": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO",
+    "environment_allowlist": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "runs/phase5/paper_figures/runtime_overlays/mpmath_1p4p1_py314:src"
+    },
+    "executable": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "schema": "schwo.phase6.v3_1_u.route_c_sentinel_invocation.v1"
+  },
+  "single_use": true,
+  "snapshot": {
+    "audit_archive_path": "SchWO_third_audit_package_20260806.zip",
+    "audit_archive_sha256": "715e27a45b15ec2ab78f92c77506de4317f5a26af79bb665de5a16d30557d162",
+    "commit_association": "2e01209271fb3d0d92705d5c27bd9e00a6140981",
+    "content_inventory_sha256": "d849db67cb8f411af234f81695624868c76378e52d360acd5f65cd4d0660e6e2",
+    "file_count": 25,
+    "historical_identity_inventory_sha256": "512685e2860d784cf3152b96ba71fac76d4cdc8fd23e74825ebb519ac7ddb57c",
+    "historical_source_ledger_path": "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314/source_start.json",
+    "historical_source_ledger_sha256": "c73c1c585af9bbfeed8d50a2b28c9c2f94e08b38214b3db716fe1c7e501e2d16",
+    "metadata_path": "runs/phase6/external_sources/bhpt_reggewheeler_2e012092_v1_20260813.snapshot.json",
+    "metadata_sha256": "8d5498ab5f825e721c6cd3764f302831c8b7bcf138a1ee9600a0f5e6f6e4e488",
+    "restored_identity_inventory_sha256": "a1d2842d604dbd20226cc35ada71bfb49029f6b717bee33f0969f6d5bdda2f27",
+    "root": "runs/phase6/external_sources/bhpt_reggewheeler_2e012092_v1_20260813/source",
+    "snapshot_contains_git_metadata": false,
+    "volatile_predecessor_path_forbidden": "/private/tmp/SchWO_ReggeWheeler_phase6_v1_20260808"
+  },
+  "source_bindings": {
+    "configs/phase6_v3_0_domain.json": "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b",
+    "configs/phase6_v3_0_external_anchor_matrix.json": "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485",
+    "configs/phase6_v3_0_thresholds.json": "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a",
+    "configs/phase6_v3_1_hp_unitarity_replacement_package.json": "decde34bcdc90db0bc69be446357e306cfe942c84a8d575902eddaa7d1ff6877",
+    "configs/phase6_v3_1_u_repair_cycle1_package.json": "85bff01def7286ebaf1682d5b5498209dfbbc452e098e1d8633e05fcc1b7554c",
+    "docs/handoffs/archive/T7_2026-08-11_v3_1_hp_unitarity_package_review.md": "9616b3fb4d0999e782e164740f5815f6bcdf46a955910cd2bcfcae032bde75cf",
+    "docs/handoffs/archive/T7_2026-08-12_v3_1_u_repair_cycle1_control_plane_delta_recheck.md": "1b2f1e356319226d16c1c75b230f5cc541e10448f5aae6eb9697e41c286fade2",
+    "docs/handoffs/archive/T7_2026-08-12_v3_1_u_repair_cycle1_package_review.md": "cfaf87f79cf11a9f6c0f8a73dd3faa3517cd15c105afe999cdfa687c2c5160b4",
+    "docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle1_terminal_scientific_review.md": "7552b2dbc19269be0eb11b61ae8eb04c55a1225d10db1962d881e0f6ac7925c1",
+    "docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle2_package_review.md": "08e206d58b178bbed0ae96f7aa395db67f4c2bcb4620a5cd996f00afb028b23f",
+    "docs/phase6_v3_0_formula_map.md": "e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac",
+    "docs/phase6_v3_0_literature_matrix.md": "088834348e980b81f814340a2a2c460b5bf11239521085c358bed7a90f603328",
+    "docs/phase6_v3_0_phase_taxonomy.md": "fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460",
+    "docs/phase6_v3_0_validation_contract.md": "0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3",
+    "docs/phase6_v3_1_hp_unitarity_replacement_design.md": "243f312182528b10a895cef679d195dcedfd97d7a2e02e388449ae3af313dd28",
+    "docs/phase6_v3_1_u_repair_cycle1_design.md": "efa30a32e46db3e64ced8bfad95b720a0aae003e5361b81526d5801ffa48f1ff",
+    "docs/prompts/phase6_t4_v3_1_hp_unitarity_replacement.md": "a1bffc42a381489dadd483edf2e6952d97ce236fbad3fe9ca82eb8b0ca862945",
+    "docs/prompts/phase6_t7_v3_1_hp_unitarity_review.md": "8822263a09bde6d5b0bd3b2c00117eb5ac1648ae9f804a4e71380b27fa90cb82",
+    "docs/review_gate_liveness_protocol.md": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181",
+    "docs/templates/t7_gate_verdict_template.md": "3ac1fe9969b253be034aa6a6ccf37d6daa9168c1685554049c143b6d9513179d",
+    "references/notes/phase6_v3_absorption_scattering_conventions.md": "82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a",
+    "runs/phase6/asymptotic_waveform/v2_selected_release_v2_20260811T083414_py314/manifest.json": "51ddf1580448382be7e182f92cf76bbf53ed39f15418af9e546f357979c743eb",
+    "runs/phase6/external_sources/bhpt_reggewheeler_2e012092_v1_20260813.snapshot.json": "8d5498ab5f825e721c6cd3764f302831c8b7bcf138a1ee9600a0f5e6f6e4e488",
+    "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/manifest.json": "2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728",
+    "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/plan.json": "de266846ff6672dd04be255a43a1b5899af4753bea0757e00c5c2d60cf2067e3",
+    "runs/phase6/radial_validation/v1_production_state_evidence_v2_20260810_py314/manifest.json": "7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4",
+    "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/manifest.json": "aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c",
+    "src/schwgw/validation/phase6_mpmath_radial.py": "bb92fea624f01df347b0f3c5537bfd8be0319c0eb1d4302e9b81a26bef473c80",
+    "src/schwgw/validation/phase6_v3_continued_jost.py": "e7fec2ceb3ad1147108b1ea23696ba61ed6476396eb861ecb3d931cb41088db4",
+    "src/schwgw/validation/phase6_v3_hp_unitarity_oracle.py": "a6d88685223fddb8c37f8fdd1110c4400252a6e8f30ffebaab1d6eb4dea85be7",
+    "src/schwgw/validation/phase6_v3_mode_greybody_ap.py": "bd592ed6118957c2d44f85c25096c5da11e945465c34b61921627534a3229743"
+  },
+  "wolfram_kernel": {
+    "path": "/Volumes/JohnnyTforGR/Applications/Wolfram.app/Contents/MacOS/WolframKernel",
+    "sha256": "70ad9d850224b4723a04c581e769579cc3df4b4392ae2ed1886780e6b9be046c",
+    "version": "14.3"
+  }
+}

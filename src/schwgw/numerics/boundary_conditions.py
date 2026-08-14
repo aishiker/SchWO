@@ -19,7 +19,10 @@ class BoundaryConfig:
     max_step: float | None = None
     dense_output: bool = True
     required_eval_radius: float | None = None
+    conditioning_backend: str | None = None
     experimental_required_radius_oracle: str | None = None
+    outer_basis: str = "jost_1_over_r"
+    outer_series_order: int = 160
 
 
 def radial_domain(
@@ -32,6 +35,16 @@ def radial_domain(
     _validate_mode_parameters(ell=ell, k=k)
     if config.r_in_eps <= 0.0:
         raise ValueError("r_in_eps must be positive.")
+    if config.outer_basis not in {"jost_1_over_r", "plane_wave"}:
+        raise ValueError(
+            "outer_basis must be one of ['jost_1_over_r', 'plane_wave']."
+        )
+    if (
+        not isinstance(config.outer_series_order, int)
+        or isinstance(config.outer_series_order, bool)
+        or not 2 <= config.outer_series_order <= 256
+    ):
+        raise ValueError("outer_series_order must be an integer in [2, 256].")
 
     r_in = background.horizon_radius * (1.0 + config.r_in_eps)
     r_out = (
@@ -49,6 +62,25 @@ def radial_domain(
             raise ValueError("required_eval_radius must be outside the horizon.")
         if required_eval_radius > r_out:
             raise ValueError("required_eval_radius must not exceed r_out.")
+    if config.conditioning_backend not in {
+        None,
+        "scaled_log_riccati_auto",
+        "scaled_log_riccati_forced",
+    }:
+        raise ValueError(
+            "conditioning_backend must be None, scaled_log_riccati_auto, "
+            "or scaled_log_riccati_forced."
+        )
+    if (
+        config.conditioning_backend is not None
+        and config.experimental_required_radius_oracle is not None
+    ):
+        raise ValueError(
+            "generic conditioning_backend and legacy experimental oracle "
+            "cannot be enabled together."
+        )
+    if config.conditioning_backend is not None and config.required_eval_radius is None:
+        raise ValueError("conditioning_backend requires required_eval_radius.")
     return r_in, r_out
 
 

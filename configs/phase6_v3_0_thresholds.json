@@ -1,0 +1,521 @@
+{
+  "artifact_revision": 1,
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "created_at_utc": "2026-08-11T11:27:39Z",
+  "freeze_policy": {
+    "changes_after_first_producer": "forbidden; create a new artifact revision and obtain independent review",
+    "producer_exists_at_freeze": false,
+    "threshold_class": "pre-producer governance thresholds; literature asymptotes remain separately identified"
+  },
+  "global_green_permitted": false,
+  "nonclaims": [
+    "no full-domain V1, V2, or V3 certification",
+    "no global GREEN",
+    "no Li figure equivalence",
+    "no finite-radius observer or detector response",
+    "no ordinary total-plane-wave infinity sum",
+    "no V3 science execution in V3.0"
+  ],
+  "schema": "schwo.phase6.v3_0.thresholds.v1",
+  "scientific_stage": "V3.0",
+  "thresholds": [
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "symmetric_relative_error <=",
+      "domain": "all V3.1 modes with max(|S_ref|,|S_test|)>=1e-12",
+      "field_id": "V3T-S-COMPLEX-001",
+      "observable": "complex S_l^odd/even across independent numerical and arbitrary-precision routes",
+      "rationale_source_derivation": "Same complex-S observable and definition as the accepted V1 selected comparison; 2e-6 is inherited only for this identical observable, not copied to a new quantity.",
+      "units": "dimensionless",
+      "value": 0.000002
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "absolute_difference <=",
+      "domain": "all V3.1 modes with 0<Gamma<=1e-8, comparing finite log(Gamma)",
+      "field_id": "V3T-LOGGAMMA-001",
+      "observable": "log Gamma across independent direct-flux/AP routes",
+      "rationale_source_derivation": "New greybody observable budget: 2e-4 in log space corresponds to about 0.02% relative probability and prevents binary64-zero acceptance.",
+      "units": "natural-log units",
+      "value": 0.0002
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "absolute_value <=",
+      "domain": "all V3.1 modes, normalized by F_in",
+      "field_id": "V3T-FLUX-BALANCE-001",
+      "observable": "(F_in-F_out-F_H)/F_in from signed-current extraction",
+      "rationale_source_derivation": "Real-potential Wronskian identity from V3-F03; 1e-8 is an observable-level conservation allocation below the S comparison budget.",
+      "units": "dimensionless",
+      "value": 1E-8
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "absolute_difference <=",
+      "domain": "all V3.1 modes with Gamma_flux>=1e-8",
+      "field_id": "V3T-GAMMA-ROUTES-001",
+      "observable": "Gamma_flux versus Gamma_S",
+      "rationale_source_derivation": "Independent direct horizon-flux versus S-unitarity route; absolute budget avoids inflating relative error near zero.",
+      "units": "probability",
+      "value": 2E-8
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "absolute_difference <=",
+      "domain": "all V3.1 modes with 0<Gamma_flux<1e-8, comparing log values",
+      "field_id": "V3T-GAMMA-ROUTES-LOG-001",
+      "observable": "log(Gamma_flux) versus log(Gamma_S)",
+      "rationale_source_derivation": "Small-Gamma companion to V3T-GAMMA-ROUTES-001; uses the same 2e-4 log budget as the AP comparison.",
+      "units": "natural-log units",
+      "value": 0.0002
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "maximum_bound_violation <=",
+      "domain": "all V3.1 Schwarzschild modes",
+      "field_id": "V3T-GAMMA-PHYSICAL-001",
+      "observable": "distance of Gamma_flux and Gamma_S outside [0,1]",
+      "rationale_source_derivation": "Schwarzschild has no superradiance; V3-F04 requires a probability in [0,1]. Small numerical slack is bounded below the route-agreement tolerance.",
+      "units": "probability",
+      "value": 2E-10
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "absolute_difference <=",
+      "domain": "all independently solved odd/even V3.1 mode pairs",
+      "field_id": "V3T-PARITY-PROB-001",
+      "observable": "Gamma_odd versus Gamma_even and |S_odd|^2 versus |S_even|^2",
+      "rationale_source_derivation": "Exact modulus equality from V3-F05; numerical budget matches direct flux-route agreement.",
+      "units": "probability",
+      "value": 2E-8
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "wrapped_phase_absolute_difference <=",
+      "domain": "all independently solved odd/even V3.1 pairs with |S|>=1e-10",
+      "field_id": "V3T-PARITY-PHASE-001",
+      "observable": "arg(S_even/S_odd) versus arg[(sigma_l+12iMomega)/(sigma_l-12iMomega)]",
+      "rationale_source_derivation": "Exact relative phase from Dolan Eq. (9)/Folacci Eq. (12); 2e-6 rad aligns with the complex-S comparison scale.",
+      "units": "radian",
+      "value": 0.000002
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "maximum_symmetric_relative_change <=",
+      "domain": "adjacent 80/120/180 decimal-digit AP ladder values for complex S",
+      "field_id": "V3T-PRECISION-S-001",
+      "observable": "complex S precision-ladder stability",
+      "rationale_source_derivation": "Allocates one quarter of the independent-route complex-S budget to AP-anchor convergence.",
+      "units": "dimensionless",
+      "value": 5E-7
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "maximum_absolute_change <=",
+      "domain": "adjacent 80/120/180 decimal-digit AP ladder values where Gamma>0",
+      "field_id": "V3T-PRECISION-LOGGAMMA-001",
+      "observable": "log Gamma precision-ladder stability",
+      "rationale_source_derivation": "Reserves half of the log-Gamma external-route budget for anchor convergence.",
+      "units": "natural-log units",
+      "value": 0.0001
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "maximum_symmetric_relative_change <=",
+      "domain": "adjacent r_in_eps/M values 1e-8, 1e-10, 1e-12 for complex S",
+      "field_id": "V3T-RIN-S-001",
+      "observable": "complex S horizon-start ladder stability",
+      "rationale_source_derivation": "Boundary-systematic allocation for the same complex-S observable; it is not a new radial PASS claim.",
+      "units": "dimensionless",
+      "value": 0.000001
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "maximum_absolute_change <=",
+      "domain": "adjacent r_in_eps/M values where Gamma>0",
+      "field_id": "V3T-RIN-LOGGAMMA-001",
+      "observable": "log Gamma horizon-start ladder stability",
+      "rationale_source_derivation": "Direct small-probability boundary-systematic budget.",
+      "units": "natural-log units",
+      "value": 0.0002
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "maximum_symmetric_relative_change <=",
+      "domain": "accepted adjacent r_out multipliers and Jost orders in the V3.1 ladder",
+      "field_id": "V3T-ROUT-JOST-S-001",
+      "observable": "complex S outer-boundary/Jost-order stability",
+      "rationale_source_derivation": "Same S observable as V3T-S-COMPLEX-001; outer-boundary allocation equals its total independent-route budget and must pass separately.",
+      "units": "dimensionless",
+      "value": 0.000002
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "maximum_absolute_change <=",
+      "domain": "accepted adjacent r_out multipliers and Jost orders where Gamma>0",
+      "field_id": "V3T-ROUT-JOST-LOGGAMMA-001",
+      "observable": "log Gamma outer-boundary/Jost-order stability",
+      "rationale_source_derivation": "Small-probability outer-boundary budget, kept separate from complex S.",
+      "units": "natural-log units",
+      "value": 0.0003
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "maximum_symmetric_relative_change <=",
+      "domain": "adjacent tolerance pairs in the V3.1 ladder",
+      "field_id": "V3T-TOLERANCE-S-001",
+      "observable": "complex S ODE-tolerance stability",
+      "rationale_source_derivation": "Numerical convergence allocation for complex S.",
+      "units": "dimensionless",
+      "value": 0.000001
+    },
+    {
+      "blocking_stages": [
+        "V3.1"
+      ],
+      "comparison_operator": "maximum_absolute_change <=",
+      "domain": "adjacent tolerance pairs where Gamma>0",
+      "field_id": "V3T-TOLERANCE-LOGGAMMA-001",
+      "observable": "log Gamma ODE-tolerance stability",
+      "rationale_source_derivation": "Numerical convergence allocation for extremely small greybody factors.",
+      "units": "natural-log units",
+      "value": 0.0002
+    },
+    {
+      "blocking_stages": [
+        "V3.2"
+      ],
+      "comparison_operator": "symmetric_relative_change <=",
+      "domain": "every V3.2 frequency, adjacent accepted ell_max ladder totals",
+      "field_id": "V3T-ELLMAX-ABS-001",
+      "observable": "total sigma_abs adjacent-ell_max stability",
+      "rationale_source_derivation": "New summed-observable governance budget; not inherited from a radial gate.",
+      "units": "dimensionless",
+      "value": 0.00001
+    },
+    {
+      "blocking_stages": [
+        "V3.2"
+      ],
+      "comparison_operator": "tail_upper_bound_over_max_total_or_M2 <=",
+      "domain": "every V3.2 frequency at the accepted ell_max",
+      "field_id": "V3T-TAIL-ABS-001",
+      "observable": "positive omitted absorption-cross-section tail bound",
+      "rationale_source_derivation": "Tail allocation equal to the ell_max stability budget; denominator is max(sigma_abs, M^2) to remain defined near zero.",
+      "units": "dimensionless",
+      "value": 0.00001
+    },
+    {
+      "blocking_stages": [
+        "V3.2"
+      ],
+      "comparison_operator": "absolute_difference <=",
+      "domain": "log-log fit on kM=[0.005,0.01,0.02,0.05] with all four points and reported fit uncertainty",
+      "field_id": "V3T-LOWABS-POWER-001",
+      "observable": "fitted power of sigma_abs/M^2 versus kM",
+      "rationale_source_derivation": "Page Eq. (19) predicts power 4. Tolerance 0.10 separates a wrong scaling law from finite-frequency corrections.",
+      "units": "power",
+      "value": 0.1
+    },
+    {
+      "blocking_stages": [
+        "V3.2"
+      ],
+      "comparison_operator": "relative_error <=",
+      "domain": "zero-frequency intercept of sigma_abs/[M^2(kM)^4] from the frozen low-frequency fit",
+      "field_id": "V3T-LOWABS-COEFF-001",
+      "observable": "low-frequency coefficient versus 256*pi/45",
+      "rationale_source_derivation": "Primary-source coefficient from Page Eq. (19); 5% includes fit/asymptotic uncertainty but not failed numerical convergence.",
+      "units": "dimensionless",
+      "value": 0.05
+    },
+    {
+      "blocking_stages": [
+        "V3.2"
+      ],
+      "comparison_operator": "relative_error <=",
+      "domain": "trapezoidal frequency-window average over kM=[4,6,8,12] compared with 27*pi",
+      "field_id": "V3T-HIGHABS-CAPTURE-001",
+      "observable": "window-averaged sigma_abs/M^2 versus 27*pi",
+      "rationale_source_derivation": "Dolan/Page geometric-optics limit; 8% is a pre-producer asymptotic budget. Pointwise oscillations are diagnostic and cannot fail this field by themselves.",
+      "units": "dimensionless",
+      "value": 0.08
+    },
+    {
+      "blocking_stages": [
+        "V3.2"
+      ],
+      "comparison_operator": "symmetric_relative_error <=",
+      "domain": "external/AP total-absorption anchors listed for V3.2, after both routes pass internal convergence",
+      "field_id": "V3T-EXTERNAL-ABS-001",
+      "observable": "sigma_abs across independent backends",
+      "rationale_source_derivation": "Independent summed-observable agreement budget; intentionally looser than mode S but tighter than asymptotic-model tests.",
+      "units": "dimensionless",
+      "value": 0.0005
+    },
+    {
+      "blocking_stages": [
+        "V3.3"
+      ],
+      "comparison_operator": "maximum_symmetric_relative_change <=",
+      "domain": "theta in [5,175] degrees, adjacent 2/1/0.5 degree grids, excluding analytic zeros via absolute fallback 1e-8 M^2",
+      "field_id": "V3T-ANGLE-SCATTER-001",
+      "observable": "d sigma/dOmega angle-grid stability",
+      "rationale_source_derivation": "New angular observable convergence allocation.",
+      "units": "dimensionless",
+      "value": 0.0002
+    },
+    {
+      "blocking_stages": [
+        "V3.3"
+      ],
+      "comparison_operator": "maximum_symmetric_relative_change <=",
+      "domain": "theta in [5,175] degrees, adjacent ell_max=128/256/512 after angle convergence",
+      "field_id": "V3T-ELLMAX-SCATTER-001",
+      "observable": "d sigma/dOmega multipole-cutoff stability",
+      "rationale_source_derivation": "Long-range partial-wave sum requires its own cutoff gate; no radial threshold is reused.",
+      "units": "dimensionless",
+      "value": 0.0005
+    },
+    {
+      "blocking_stages": [
+        "V3.3",
+        "V3.4"
+      ],
+      "comparison_operator": "maximum_symmetric_relative_change <=",
+      "domain": "each stage angle domain, adjacent q=1/2/3 reduced series after ell_max convergence",
+      "field_id": "V3T-SERIES-REDUCTION-001",
+      "observable": "d sigma/dOmega reduction-order stability",
+      "rationale_source_derivation": "Yennie identity and Dolan q=2 practice; a reduction order may accelerate but must not change the physical sum.",
+      "units": "dimensionless",
+      "value": 0.0005
+    },
+    {
+      "blocking_stages": [
+        "V3.3"
+      ],
+      "comparison_operator": "maximum_relative_error <=",
+      "domain": "kM<=0.05 and theta in [10,170] degrees, after all numerical convergence gates",
+      "field_id": "V3T-LOWSCATTER-XSEC-001",
+      "observable": "M^-2 d sigma/dOmega versus Dolan Eq. (36)",
+      "rationale_source_derivation": "Dolan leading formula has O(kM) amplitude corrections; 10% is a frozen asymptotic-model budget and is not a numerical tolerance.",
+      "units": "dimensionless",
+      "value": 0.1
+    },
+    {
+      "blocking_stages": [
+        "V3.3"
+      ],
+      "comparison_operator": "minimum_common_phase_aligned_complex_relative_error <=",
+      "domain": "kM<=0.05, theta in [10,170] degrees, f and g assessed separately away from magnitude<1e-8 M",
+      "field_id": "V3T-LOWSCATTER-FG-001",
+      "observable": "complex f/M and g/M versus Dolan Eqs. (19)--(20), modulo one shared phase per frequency",
+      "rationale_source_derivation": "Common absolute phase remains PARTIAL; 12% includes O(kM) asymptotic error while retaining ell/parity/helicity phase sensitivity.",
+      "units": "dimensionless",
+      "value": 0.12
+    },
+    {
+      "blocking_stages": [
+        "V3.3"
+      ],
+      "comparison_operator": "maximum_symmetric_relative_error <=",
+      "domain": "V3.3 external-backend anchor frequencies/angles after route-specific convergence",
+      "field_id": "V3T-EXTERNAL-SCATTER-001",
+      "observable": "d sigma/dOmega across independent partial-wave/CAM/direct backends",
+      "rationale_source_derivation": "Independent backend numerical agreement budget; literature plots alone cannot satisfy it.",
+      "units": "dimensionless",
+      "value": 0.002
+    },
+    {
+      "blocking_stages": [
+        "V3.4"
+      ],
+      "comparison_operator": "relative_error <=",
+      "domain": "independent Schwarzschild null-geodesic solve for deflection pi",
+      "field_id": "V3T-GLORY-BG-001",
+      "observable": "b_glory/M versus 5.3570",
+      "rationale_source_derivation": "Exact-geodesic value reported by Dolan below Eq. (6); this is a geodesic numerical gate, not the Darwin approximation.",
+      "units": "dimensionless",
+      "value": 0.00001
+    },
+    {
+      "blocking_stages": [
+        "V3.4"
+      ],
+      "comparison_operator": "relative_error <=",
+      "domain": "independent Schwarzschild null-geodesic derivative at theta=pi",
+      "field_id": "V3T-GLORY-DBDTHETA-001",
+      "observable": "b_g^2*abs(db/dtheta)_pi/M^3 versus 4.896",
+      "rationale_source_derivation": "Exact-geodesic value reported by Dolan; derivative extraction is less conditioned than b_g and receives a 1e-4 budget.",
+      "units": "dimensionless",
+      "value": 0.0001
+    },
+    {
+      "blocking_stages": [
+        "V3.4"
+      ],
+      "comparison_operator": "absolute_difference <=",
+      "domain": "first off-axis backward ring in theta=[150,180] degrees for kM=[4,6,8,12]",
+      "field_id": "V3T-GLORY-PEAK-ANGLE-001",
+      "observable": "numerical first-ring peak angle versus V3-F13 glory predictor",
+      "rationale_source_derivation": "Semiclassical glory model; 0.75 degree pre-producer asymptotic allowance is separate from the 0.05 degree numerical grid.",
+      "units": "degree",
+      "value": 0.75
+    },
+    {
+      "blocking_stages": [
+        "V3.4"
+      ],
+      "comparison_operator": "relative_error <=",
+      "domain": "first-ring FWHM in theta=[150,180] degrees for kM=[4,6,8,12]",
+      "field_id": "V3T-GLORY-WIDTH-001",
+      "observable": "first-ring FWHM versus V3-F13 glory predictor",
+      "rationale_source_derivation": "Semiclassical approximation is leading order; 15% is the frozen model-error budget.",
+      "units": "dimensionless",
+      "value": 0.15
+    },
+    {
+      "blocking_stages": [
+        "V3.4"
+      ],
+      "comparison_operator": "relative_error <=",
+      "domain": "first-ring peak height for kM=[4,6,8,12] after grid/ell/q convergence",
+      "field_id": "V3T-GLORY-AMPLITUDE-001",
+      "observable": "first-ring peak d sigma/dOmega versus V3-F13 glory predictor",
+      "rationale_source_derivation": "Amplitude is most sensitive to neglected semiclassical corrections; 20% is a declared asymptotic budget, not a numerical pass threshold.",
+      "units": "dimensionless",
+      "value": 0.2
+    },
+    {
+      "blocking_stages": [
+        "V3.4"
+      ],
+      "comparison_operator": "maximum_relative_change <=",
+      "domain": "first-ring peak angle/FWHM/height across adjacent 0.2/0.1/0.05 degree grids and adjacent ell_max ladders",
+      "field_id": "V3T-GLORY-NUMERICAL-001",
+      "observable": "glory feature extraction numerical stability, with angle compared after division by one degree",
+      "rationale_source_derivation": "Numerical uncertainty must remain much smaller than the declared semiclassical-model allowances.",
+      "units": "dimensionless",
+      "value": 0.001
+    },
+    {
+      "blocking_stages": [
+        "V3.4"
+      ],
+      "comparison_operator": "maximum_relative_error <=",
+      "domain": "V3.4 external/CAM anchor feature triples after route-specific convergence",
+      "field_id": "V3T-EXTERNAL-GLORY-001",
+      "observable": "glory peak angle, width, and amplitude across independent backends",
+      "rationale_source_derivation": "Independent high-frequency observable agreement; 2% is tighter than the semiclassical allowance but looser than internal convergence.",
+      "units": "dimensionless",
+      "value": 0.02
+    }
+  ],
+  "timezone": "UTC",
+  "upstream_identities": {
+    "dispatch_addendum": {
+      "path": "docs/phase6_v2_to_v3_transition_dispatch_addendum.md",
+      "sha256": "5a36c7fc72fcf10241a0ae0261cf220d08830c11466660c8259bfbc71b2c16db"
+    },
+    "phase6_v2_to_v3_transition": {
+      "path": "docs/phase6_v2_to_v3_transition.md",
+      "sha256": "4493c1359974bf58abcc4b93ebe30a6ebab5edef9bc229654c873846a95bfebb"
+    },
+    "protected_d_union_plan": {
+      "path": "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/plan.json",
+      "sha256": "de266846ff6672dd04be255a43a1b5899af4753bea0757e00c5c2d60cf2067e3"
+    },
+    "protected_radial_files": [
+      {
+        "path": "src/schwgw/numerics/radial_solver.py",
+        "sha256": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9"
+      },
+      {
+        "path": "src/schwgw/numerics/conditioned_radial.py",
+        "sha256": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2"
+      },
+      {
+        "path": "src/schwgw/numerics/scaled_tortoise_radial.py",
+        "sha256": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+      },
+      {
+        "path": "src/schwgw/numerics/adaptive_jost_radial.py",
+        "sha256": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896"
+      },
+      {
+        "path": "src/schwgw/numerics/matching.py",
+        "sha256": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340"
+      },
+      {
+        "path": "src/schwgw/numerics/physical_boundary_radial.py",
+        "sha256": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f"
+      },
+      {
+        "path": "src/schwgw/numerics/boundary_conditions.py",
+        "sha256": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22"
+      }
+    ],
+    "t1_prompt": {
+      "path": "docs/prompts/phase6_t1_v3_0_literature_formula_freeze.md",
+      "sha256": "03a352b881c97f1f767092340d5dc65f61e800dafde9c28b9f870eaa5ad454cc"
+    },
+    "v1_production_state_manifest": {
+      "path": "runs/phase6/radial_validation/v1_production_state_evidence_v2_20260810_py314/manifest.json",
+      "sha256": "7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4"
+    },
+    "v1_radial_manifest": {
+      "path": "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/manifest.json",
+      "sha256": "2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728"
+    },
+    "v1_selected_independent_manifest": {
+      "path": "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/manifest.json",
+      "sha256": "aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c"
+    },
+    "v2_convention_contract": {
+      "path": "configs/phase6_v2_0_convention_contract_20260810.json",
+      "sha256": "1251392e0799ebafad91d832a128a6ad93a4d9dacf1a07a4fa50f5af2b119517"
+    },
+    "v2_release_manifest": {
+      "path": "runs/phase6/asymptotic_waveform/v2_selected_release_v2_20260811T083414_py314/manifest.json",
+      "sha256": "51ddf1580448382be7e182f92cf76bbf53ed39f15418af9e546f357979c743eb"
+    },
+    "v2_selected_domain": {
+      "path": "configs/phase6_v2_0_selected_domain_20260810.json",
+      "sha256": "9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818"
+    },
+    "v3_master_prompt": {
+      "path": "docs/prompts/phase6_v3_master_prompt.md",
+      "sha256": "f8c48d9379efcc2534748e33b62a302ba7bd6fe11282b4b4ad6e7a9ae850b1c7"
+    }
+  }
+}

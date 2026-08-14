@@ -109,7 +109,10 @@ def test_cli_plot_fig3_panel_writes_png_and_sidecar_from_xz_npz(tmp_path, monkey
     assert metadata["components"] == ["h_plus", "h_cross"]
     assert metadata["overlays"]["drawn"] is True
     assert metadata["overlays"]["event_horizon_radius"] == 2.0
-    assert metadata["overlays"]["light_ring_radius"] == 3.0
+    assert metadata["overlays"]["light_ring_radius"] == pytest.approx(
+        3.0 * np.sqrt(3.0)
+    )
+    assert metadata["colormap"] == "viridis"
 
 
 def test_cli_plot_fig3_panel_accepts_interpolation_option(tmp_path, monkeypatch):

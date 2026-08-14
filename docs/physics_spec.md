@@ -209,6 +209,22 @@ Interpretation:
 - `delta_l` and `a_lm` are determined numerically.
 - Solver may integrate a unit ingoing horizon solution, match at outer radius, then rescale to target `c_lm`.
 
+At finite `r_out`, production must not identify the asymptotic states with
+bare plane waves.  The frozen outer basis is
+
+```text
+J_±(r) = exp(±i k r_star) sum_{n=0}^N a_n^(±) / r^n,
+```
+
+where the coefficients are generated from the exact RW/Zerilli equation.
+`BoundaryConfig.outer_basis="jost_1_over_r"` is the production default and
+`outer_series_order=160` is the current bounded implementation.  The old
+`plane_wave` basis is retained only for an explicit diagnostic comparison.
+Paper-facing Fig.2/4/5/6 data must additionally retain the raw
+`r_out=(300,600,1200)M` ladder, a quadratic fit in `1/r_out`, and a separate
+extrapolation uncertainty; fixed-`r_out` `lmax` convergence alone is not an
+infinity-boundary proof.
+
 ## 7. Incident plane GW
 
 Default incident wave propagates along `+z`:
@@ -438,7 +454,19 @@ project packaged scalars from the electric part of the linearized
 Weyl/Riemann tensor in the incident observer frame. It must not feed
 one-sided strict NP `Psi0_NP/Psi4_NP` directly to `polarization_from_weyl(...)`.
 
-Use the incident tetrad to define the observer-frame orthonormal legs:
+The observer frame is an explicit, non-interchangeable runtime convention:
+
+```text
+observer_frame = "static_orthonormal" | "li_literal_cartesian"
+```
+
+`static_orthonormal` is the physical Schwarzschild static orthonormal frame.
+`li_literal_cartesian` is the literal flat-Cartesian tetrad pushed through
+the spherical-coordinate Jacobian for paper-comparison diagnostics.  Both
+must be recorded in metadata; selecting the latter does not by itself make
+the artifact strictly paper-equivalent.
+
+Use the selected incident tetrad to define the observer-frame legs:
 
 ```text
 e0 = (lhat + nhat) / sqrt(2)
@@ -472,13 +500,47 @@ h_cross_tilde = 2 E_xy / k^2
 
 Implementation rule for v0.1:
 
-- The preferred production path is direct metric/Riemann/Weyl tidal
-  projection from the reconstructed RW-gauge metric contributions.
+> **2026-08-02 repair status:** the preferred direct metric-curvature
+> projection is implemented in `scattering.metric_curvature` and exposed by
+> `compute_direct_metric_polarization(...)` and
+> `compute_direct_metric_apparent_polarizations(...)`.  It reconstructs the
+> RW-gauge metric, evaluates the linearized Riemann tensor, and contracts that
+> tensor with the incident-frame tetrad; it does not use the one-sided
+> strict-NP pseudoinverse or a `(+k,m)`/`(-k,-m)` completion.  The historical
+> `compute_polarization(...)` path remains a diagnostic with
+> `observable_bridge_validated=0`.  Only newly generated direct-curvature
+> artifacts may be described as repaired results.  Current grid artifacts
+> bind this as `convention.polarization_bridge="direct RW-gauge metric -> linearized
+> Riemann -> incident-frame E"` together with
+> `polarization_bridge_validated=true`.
+
+The generic metadata field `physical_claim` is therefore `false`: the
+unqualified claim is deliberately withheld.  Repaired artifacts instead
+record `gauge="Regge-Wheeler"`, their exact `observer_frame`,
+`physical_within_frozen_gauge_frame_convention=true`,
+`literal_li_paper_observer_equivalence` for the literal frame only, and
+`paper_equivalence="YELLOW"` while the remaining paper-level checks are open.
+
+The saved finite-radius grid fields are total fields, not isolated scattered
+fields.  The mode normalization ``scale=c_lm/A_in`` fixes the incoming part to
+the incident partial-wave expansion, while the same radial solution retains
+its reflected part.  Paper-facing renderers must therefore use saved
+``h_plus``/``h_cross`` directly and must not add Eq. (46)'s incident plane wave
+a second time.  The historical Fig. 4 ``total_v2`` renderer product did make
+that double-counting error and remains diagnostic-only.
+
+- The production path is direct metric/Riemann/Weyl tidal projection from the
+  reconstructed RW-gauge metric contributions.  The RW/Zerilli equation gives
+  `psi''` and `psi'''` at the observer anchor; a Richardson-extrapolated
+  five-point stencil differentiates only the smooth algebraic reconstruction
+  coefficients.  Dense ODE interpolation is never radially differenced.
+  Fourier-time derivatives are analytic, and the metric/curvature
+  intermediates remain available for audit.
 - A full-tensor reconstruction from all five strict NP scalars may be used
   only as a tensor-consistency diagnostic or as a future implementation
   after the full positive-frequency strict-NP tensor bridge is separately
-  frozen and tested. It is not the current `compute_polarization(...)`
-  production bridge.
+  frozen and tested. It remains only the historical
+  `compute_polarization(...)` diagnostic bridge.
 - No direct two-scalar formula
   `strict Psi0_NP/Psi4_NP -> Psi0_pack/Psi4_pack` is allowed for curved
   finite-radius production.
@@ -598,21 +660,24 @@ Fourier/Route B convention, denominator thresholds, mask field names, and an
 explicit statement that radial horizon transmission is excluded from this
 pointwise amplification factor.
 
-### 10.4 Kirchhoff Eq. (47) comparison baseline
+### 10.4 Kirchhoff point-mass comparison baseline
 
-Li-Hou-Zhao Eq. (47) is frozen in this project only as a scalar Kirchhoff
-comparison baseline for future Fig. 5/Fig. 6 diagnostics. It is not the
-production denominator for pointwise wave-optics amplification.
+The scalar Kirchhoff factor is a comparison baseline for Fig. 5/Fig. 6; it is
+not the production denominator for pointwise wave-optics amplification.
+Li--Hou--Zhao v1 Eq. (47) prints `exp(+pi gamma/2)` with `gamma=-2Mk`, but
+its own plotted on-axis curve and the independent point-mass identity require
+`exp(-pi gamma/2)`.  The project therefore exposes both conventions and uses
+`standard_point_mass` as the scientific default.  `literal_paper_v1` exists
+only to reproduce/audit the printed equation.
 
 With the project Fourier convention `exp(-i k t)`, Li-Hou-Zhao Eq. (46)
 `h_tilde^{(0)}_{+,\times}=A_tilde_{+,\times} exp(i k r cos(theta))` matches
 the project flat `+z` positive-frequency plane wave `exp(i k z)`. Therefore
-the Eq. (47) baseline is used without an additional positive-`k` complex
-conjugation or sign flip:
+neither convention receives an additional positive-`k` complex conjugation:
 
 ```text
 F_K(k, r, theta; M)
-  = exp(pi gamma / 2)
+  = exp(-pi gamma / 2)
     * (-gamma)^(-i gamma)
     * Gamma(1 + i gamma)
     * 1F1(-i gamma, 1; -i gamma * eta^2),
@@ -620,6 +685,16 @@ F_K(k, r, theta; M)
 gamma = -2 M k,
 eta = xi / xi0 = (1/2) * sqrt(r / M) * tan(theta).
 ```
+
+The independent on-axis check is
+
+```text
+|F_K(eta=0)|^2 = 4 pi Mk / (1 - exp(-4 pi Mk)).
+```
+
+For forensic reproduction only, `literal_paper_v1` changes the first factor
+to `exp(+pi gamma/2)` and consequently gives
+`4 pi Mk/(exp(4 pi Mk)-1)` on axis.
 
 The power `(-gamma)^(-i gamma)` uses the principal real logarithm of
 `-gamma=2Mk>0`. `Gamma(1+i gamma)` uses the principal complex Euler gamma
@@ -654,4 +729,4 @@ spin-2 prediction. See `references/notes/kirchhoff_eq47_conventions.md`.
 11. Li-Hou-Zhao Eq. (39)-(40) may transform strict NP scalars only, not packaged scalars.
 12. Curved production polarization must use incident-frame electric tidal projection, not flat type-N or helicity packaging.
 13. Pointwise wave-optics amplification `F=h_lensed/h_unlensed` is not radial horizon transmission or absorption.
-14. Li-Hou-Zhao Eq. (47) is a Kirchhoff scalar comparison baseline only; it is not the pointwise-amplification denominator and not a production spin-2 observable.
+14. The standard point-mass Kirchhoff factor is a scalar comparison baseline only; it is not the pointwise-amplification denominator and not a production spin-2 observable. Li-Hou-Zhao v1 Eq. (47)'s printed-sign branch is forensic-only.

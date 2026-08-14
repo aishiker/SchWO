@@ -15,31 +15,9 @@ from schwgw.numerics.boundary_conditions import (
     horizon_ingoing_initial_data,
     radial_domain,
 )
-from schwgw.numerics.matching import match_outer_asymptotic
-from schwgw.numerics.q018_delta0p1_risk_envelope import (
-    FREQUENCIES as _Q018_DELTA0P1_RISK_FREQUENCIES,
-    POINTS as _Q018_DELTA0P1_RISK_POINTS,
-    TRANSITION_SEGMENTS as _Q018_DELTA0P1_RISK_TRANSITION_SEGMENTS,
-)
-from schwgw.numerics.q018_further_local_envelope import (
-    FREQUENCIES as _Q018_FURTHER_LOCAL_FREQUENCIES,
-    POINTS as _Q018_FURTHER_LOCAL_POINTS,
-    TRANSITION_SEGMENTS as _Q018_FURTHER_LOCAL_TRANSITION_SEGMENTS,
-)
-from schwgw.numerics.q018_tablei_literal_failed_child_envelope import (
-    FREQUENCIES as _Q018_LITERAL_FAILED_CHILD_FREQUENCIES,
-    POINTS as _Q018_LITERAL_FAILED_CHILD_POINTS,
-    TRANSITION_SEGMENTS as _Q018_LITERAL_FAILED_CHILD_TRANSITION_SEGMENTS,
-)
-from schwgw.numerics.q018_tablei_another_bounded_local_envelope import (
-    FREQUENCIES as _Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES,
-    POINTS as _Q018_ANOTHER_BOUNDED_LOCAL_POINTS,
-    TRANSITION_SEGMENTS as _Q018_ANOTHER_BOUNDED_LOCAL_TRANSITION_SEGMENTS,
-)
-from schwgw.numerics.q018_targeted_adaptive_envelope import (
-    FREQUENCIES as _Q018_TARGETED_ADAPTIVE_FREQUENCIES,
-    POINTS as _Q018_TARGETED_ADAPTIVE_POINTS,
-    TRANSITION_SEGMENTS as _Q018_TARGETED_ADAPTIVE_TRANSITION_SEGMENTS,
+from schwgw.numerics.matching import (
+    match_outer_asymptotic,
+    outer_asymptotic_basis,
 )
 from schwgw.perturbations import Sector, V_RW, V_Zerilli
 
@@ -53,211 +31,7 @@ _HEALTHY_MATCH_CONDITION_NUMBER = 10.0
 _BVP_MAX_NODES = 50000
 _EVANESCENT_SUPPRESSION_BARRIER_ACTION = 706.0
 _EVANESCENT_SUPPRESSION_TAIL_ACTION = 55.0
-_Q018_REQUIRED_RADIUS_ORACLE_NAME = "q018_riccati"
-_Q018_REQUIRED_RADIUS_ORACLE_SOLVER = "q018_required_radius_oracle"
-_Q018_TABLEI_KM4_TRANSITION_ORACLE_NAME = "q018_tablei_km4_transition"
-_Q018_TABLEI_KM4_TRANSITION_ORACLE_SOLVER = (
-    "q018_tablei_km4_transition_oracle"
-)
-_Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME = (
-    "q018_tablei_review_grid_transition"
-)
-_Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_SOLVER = (
-    "q018_tablei_review_grid_transition_oracle"
-)
-_Q018_DELTA0P1_RISK_ORACLE_NAME = "q018_tablei_delta0p1_risk_pilot_transition"
-_Q018_DELTA0P1_RISK_ORACLE_SOLVER = (
-    "q018_tablei_delta0p1_risk_pilot_transition_oracle"
-)
-_Q018_TARGETED_ADAPTIVE_ORACLE_NAME = (
-    "q018_tablei_targeted_adaptive_transition"
-)
-_Q018_TARGETED_ADAPTIVE_ORACLE_SOLVER = (
-    "q018_tablei_targeted_adaptive_transition_oracle"
-)
-_Q018_FURTHER_LOCAL_ORACLE_NAME = "q018_tablei_further_local_transition"
-_Q018_FURTHER_LOCAL_ORACLE_SOLVER = (
-    "q018_tablei_further_local_transition_oracle"
-)
-_Q018_LITERAL_FAILED_CHILD_ORACLE_NAME = (
-    "q018_tablei_literal_failed_child_transition"
-)
-_Q018_LITERAL_FAILED_CHILD_ORACLE_SOLVER = (
-    "q018_tablei_literal_failed_child_transition_oracle"
-)
-_Q018_ANOTHER_BOUNDED_LOCAL_ORACLE_NAME = (
-    "q018_tablei_another_bounded_local_transition"
-)
-_Q018_ANOTHER_BOUNDED_LOCAL_ORACLE_SOLVER = (
-    "q018_tablei_another_bounded_local_transition_oracle"
-)
-_Q018_REQUIRED_RADIUS = 60.0
-_Q018_REQUIRED_R_OUT = 300.0
-_Q018_REQUIRED_K = 2.0
-_Q018_REQUIRED_M = 1.0
-_Q018_REQUIRED_R_IN_EPS = 1e-6
-_Q018_REQUIRED_RTOL = 1e-10
-_Q018_REQUIRED_ATOL = 1e-12
-_Q018_ALLOWED_ELLS = tuple(range(153, 181))
-_Q018_ALLOWED_ELLS_LABEL = "153..180"
-_Q018_TABLEI_KM4_REQUIRED_RADIUS = 39.051248
-_Q018_TABLEI_KM4_REQUIRED_R_OUT = 300.0
-_Q018_TABLEI_KM4_REQUIRED_K = 4.0
-_Q018_TABLEI_KM4_ALLOWED_ELLS = tuple(range(177, 241))
-_Q018_TABLEI_KM4_ALLOWED_ELLS_LABEL = "177..240"
-_Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT = 300.0
-_Q018_TABLEI_REVIEW_GRID_ALLOWED_KS = (2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0)
-_Q018_TABLEI_REVIEW_GRID_ALLOWED_KS_LABEL = "2.5,2.75,3.0,3.25,3.5,3.75,4.0"
-_Q018_TABLEI_REVIEW_GRID_POINTS = (
-    ("near_axis_x0_z30", 30.0),
-    ("near_axis_x1_z30", float(np.sqrt(1.0**2 + 30.0**2))),
-    ("near_axis_x2_z30", float(np.sqrt(2.0**2 + 30.0**2))),
-    ("near_axis_x3_z30", float(np.sqrt(3.0**2 + 30.0**2))),
-    ("far_axis_x10_z30", float(np.sqrt(10.0**2 + 30.0**2))),
-    ("far_axis_x15_z30", float(np.sqrt(15.0**2 + 30.0**2))),
-    ("far_axis_x20_z30", float(np.sqrt(20.0**2 + 30.0**2))),
-    ("far_axis_x25_z30", float(np.sqrt(25.0**2 + 30.0**2))),
-)
-_Q018_TABLEI_REVIEW_GRID_ALLOWED_RADII_LABEL = ",".join(
-    f"{radius:.17g}" for _, radius in _Q018_TABLEI_REVIEW_GRID_POINTS
-)
-_Q018_REVIEW_ALL_TABLEI_POINTS = tuple(
-    point_id for point_id, _ in _Q018_TABLEI_REVIEW_GRID_POINTS
-)
-_Q018_TABLEI_REVIEW_GRID_TRANSITION_SEGMENTS = {
-    2.5: (
-        (160, 160, _Q018_REVIEW_ALL_TABLEI_POINTS),
-        (161, 169, ("far_axis_x25_z30",)),
-    ),
-    2.75: (
-        (163, 163, _Q018_REVIEW_ALL_TABLEI_POINTS),
-        (164, 171, ("far_axis_x20_z30", "far_axis_x25_z30")),
-        (172, 181, ("far_axis_x25_z30",)),
-    ),
-    3.0: (
-        (166, 166, _Q018_REVIEW_ALL_TABLEI_POINTS),
-        (
-            167,
-            173,
-            ("far_axis_x15_z30", "far_axis_x20_z30", "far_axis_x25_z30"),
-        ),
-        (174, 182, ("far_axis_x20_z30", "far_axis_x25_z30")),
-        (183, 193, ("far_axis_x25_z30",)),
-    ),
-    3.25: (
-        (169, 169, _Q018_REVIEW_ALL_TABLEI_POINTS),
-        (
-            170,
-            175,
-            (
-                "far_axis_x10_z30",
-                "far_axis_x15_z30",
-                "far_axis_x20_z30",
-                "far_axis_x25_z30",
-            ),
-        ),
-        (
-            176,
-            183,
-            ("far_axis_x15_z30", "far_axis_x20_z30", "far_axis_x25_z30"),
-        ),
-        (184, 193, ("far_axis_x20_z30", "far_axis_x25_z30")),
-        (194, 205, ("far_axis_x25_z30",)),
-    ),
-    3.5: (
-        (172, 178, _Q018_REVIEW_ALL_TABLEI_POINTS),
-        (
-            179,
-            179,
-            (
-                "near_axis_x3_z30",
-                "far_axis_x10_z30",
-                "far_axis_x15_z30",
-                "far_axis_x20_z30",
-                "far_axis_x25_z30",
-            ),
-        ),
-        (
-            180,
-            185,
-            (
-                "far_axis_x10_z30",
-                "far_axis_x15_z30",
-                "far_axis_x20_z30",
-                "far_axis_x25_z30",
-            ),
-        ),
-        (
-            186,
-            193,
-            ("far_axis_x15_z30", "far_axis_x20_z30", "far_axis_x25_z30"),
-        ),
-        (194, 204, ("far_axis_x20_z30", "far_axis_x25_z30")),
-        (205, 217, ("far_axis_x25_z30",)),
-    ),
-    3.75: (
-        (175, 188, _Q018_REVIEW_ALL_TABLEI_POINTS),
-        (
-            189,
-            195,
-            (
-                "far_axis_x10_z30",
-                "far_axis_x15_z30",
-                "far_axis_x20_z30",
-                "far_axis_x25_z30",
-            ),
-        ),
-        (
-            196,
-            204,
-            ("far_axis_x15_z30", "far_axis_x20_z30", "far_axis_x25_z30"),
-        ),
-        (205, 215, ("far_axis_x20_z30", "far_axis_x25_z30")),
-        (216, 228, ("far_axis_x25_z30",)),
-    ),
-    4.0: (
-        (177, 197, _Q018_REVIEW_ALL_TABLEI_POINTS),
-        (
-            198,
-            198,
-            (
-                "near_axis_x3_z30",
-                "far_axis_x10_z30",
-                "far_axis_x15_z30",
-                "far_axis_x20_z30",
-                "far_axis_x25_z30",
-            ),
-        ),
-        (
-            199,
-            205,
-            (
-                "far_axis_x10_z30",
-                "far_axis_x15_z30",
-                "far_axis_x20_z30",
-                "far_axis_x25_z30",
-            ),
-        ),
-        (
-            206,
-            214,
-            ("far_axis_x15_z30", "far_axis_x20_z30", "far_axis_x25_z30"),
-        ),
-        (215, 226, ("far_axis_x20_z30", "far_axis_x25_z30")),
-        (227, 240, ("far_axis_x25_z30",)),
-    ),
-}
-_Q018_LOCAL_GRID_STEP = 1e-6
-_SUPPORTED_REQUIRED_RADIUS_ORACLE_NAMES = (
-    _Q018_REQUIRED_RADIUS_ORACLE_NAME,
-    _Q018_TABLEI_KM4_TRANSITION_ORACLE_NAME,
-    _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME,
-    _Q018_DELTA0P1_RISK_ORACLE_NAME,
-    _Q018_TARGETED_ADAPTIVE_ORACLE_NAME,
-    _Q018_FURTHER_LOCAL_ORACLE_NAME,
-    _Q018_LITERAL_FAILED_CHILD_ORACLE_NAME,
-    _Q018_ANOTHER_BOUNDED_LOCAL_ORACLE_NAME,
-)
+_CONDITIONED_LOCAL_GRID_STEP = 1e-6
 
 
 @dataclass(frozen=True)
@@ -332,6 +106,8 @@ class RadialDiagnostics:
     raw_wronskian_residual: float = 0.0
     expected_flux_scale: float = 0.0
     warnings: tuple[RadialDiagnosticWarning, ...] = ()
+    outer_basis: str = "jost_1_over_r"
+    outer_series_order: int = 160
 
 
 @dataclass
@@ -401,17 +177,31 @@ def solve_radial_mode(
     config = boundary_config or BoundaryConfig()
     r_in, r_out = radial_domain(ell=ell, k=k, background=background, config=config)
     barrier_action = _barrier_action(sector_enum, ell, k, background, r_in, r_out)
+    if config.conditioning_backend is not None:
+        force_conditioned = config.conditioning_backend == "scaled_log_riccati_forced"
+        if force_conditioned or _requires_stabilized_solver(barrier_action):
+            return _solve_radial_mode_conditioned(
+                sector=sector_enum,
+                ell=ell,
+                k=k,
+                background=background,
+                config=config,
+                r_in=r_in,
+                r_out=r_out,
+                barrier_action=barrier_action,
+                selector=(
+                    "explicit_forced"
+                    if force_conditioned
+                    else "pre_solve_barrier_action_threshold"
+                ),
+            )
     oracle_name = config.experimental_required_radius_oracle
-    if (
-        oracle_name is not None
-        and oracle_name not in _SUPPORTED_REQUIRED_RADIUS_ORACLE_NAMES
-    ):
-        raise ValueError(
-            "unsupported experimental_required_radius_oracle: "
-            f"{oracle_name!r}"
+    if oracle_name is not None:
+        from schwgw.numerics.legacy.paper_oracles import (
+            validate_legacy_oracle_request,
         )
-    if oracle_name == _Q018_TABLEI_KM4_TRANSITION_ORACLE_NAME:
-        _validate_q018_tablei_km4_transition_oracle_envelope(
+
+        validate_legacy_oracle_request(
             sector=sector_enum,
             ell=ell,
             k=k,
@@ -419,73 +209,6 @@ def solve_radial_mode(
             config=config,
             r_out=r_out,
             barrier_action=barrier_action,
-            validate_mode=False,
-        )
-    if oracle_name == _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME:
-        _validate_q018_tablei_review_grid_transition_oracle_envelope(
-            sector=sector_enum,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-            validate_mode=False,
-        )
-    if oracle_name == _Q018_DELTA0P1_RISK_ORACLE_NAME:
-        _validate_q018_delta0p1_risk_oracle_envelope(
-            sector=sector_enum,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-            validate_mode=False,
-        )
-    if oracle_name == _Q018_TARGETED_ADAPTIVE_ORACLE_NAME:
-        _validate_q018_targeted_adaptive_oracle_envelope(
-            sector=sector_enum,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-            validate_mode=False,
-        )
-    if oracle_name == _Q018_FURTHER_LOCAL_ORACLE_NAME:
-        _validate_q018_further_local_oracle_envelope(
-            sector=sector_enum,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-            validate_mode=False,
-        )
-    if oracle_name == _Q018_LITERAL_FAILED_CHILD_ORACLE_NAME:
-        _validate_q018_literal_failed_child_oracle_envelope(
-            sector=sector_enum,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-            validate_mode=False,
-        )
-    if oracle_name == _Q018_ANOTHER_BOUNDED_LOCAL_ORACLE_NAME:
-        _validate_q018_another_bounded_local_oracle_envelope(
-            sector=sector_enum,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-            validate_mode=False,
         )
 
     try:
@@ -512,11 +235,14 @@ def solve_radial_mode(
             barrier_action=barrier_action,
         )
     except RuntimeError as exc:
-        if (
-            oracle_name in _SUPPORTED_REQUIRED_RADIUS_ORACLE_NAMES
-            and _is_required_radius_oracle_recoverable_error(exc)
+        if oracle_name is not None and _is_required_radius_oracle_recoverable_error(
+            exc
         ):
-            return _solve_radial_mode_required_radius_oracle(
+            from schwgw.numerics.legacy.paper_oracles import (
+                solve_legacy_required_radius_oracle,
+            )
+
+            return solve_legacy_required_radius_oracle(
                 sector=sector_enum,
                 ell=ell,
                 k=k,
@@ -538,6 +264,182 @@ def _is_required_radius_oracle_recoverable_error(exc: RuntimeError) -> bool:
     return (
         "evanescent_tail_required_radius_uncovered" in message
         or "evanescent_tail_required_radius_solver_failed" in message
+    )
+
+
+def _solve_radial_mode_conditioned(
+    *,
+    sector: Sector,
+    ell: int,
+    k: float,
+    background: StaticSphericalBackground,
+    config: BoundaryConfig,
+    r_in: float,
+    r_out: float,
+    barrier_action: float,
+    selector: str,
+) -> RadialSolution:
+    """Adapt the generic scaled/log backend to the finite-radius public API."""
+
+    from schwgw.numerics.conditioned_radial import (
+        ConditionedRadialRequest,
+        solve_conditioned_radial_at_radius,
+    )
+
+    if config.required_eval_radius is None:
+        raise ValueError("generic conditioned backend requires required_eval_radius")
+    required_radius = float(config.required_eval_radius)
+    request = ConditionedRadialRequest(
+        sector=sector,
+        ell=ell,
+        k=float(k),
+        required_radius=required_radius,
+        r_out=float(r_out),
+        r_in_eps=float(config.r_in_eps),
+        rtol=float(config.rtol),
+        atol=float(config.atol),
+        outer_basis=config.outer_basis,
+        outer_series_order=config.outer_series_order,
+    )
+    result = solve_conditioned_radial_at_radius(request, background)
+    evidence = dict(result.diagnostics)
+    boundary_residual = _diagnostic_float(evidence, "outer_boundary_residual")
+    condition_number = _diagnostic_float(evidence, "match_condition_number")
+    state_status = str(evidence["complex_state_status"])
+    derivative_status = str(evidence["complex_derivative_status"])
+    local_step = min(
+        _CONDITIONED_LOCAL_GRID_STEP,
+        0.5 * (r_out - required_radius),
+    )
+    if local_step <= 0.0:
+        raise RuntimeError("conditioned local compatibility grid is empty")
+    r_grid = np.array([required_radius, required_radius + local_step], dtype=float)
+    allowed_statuses = {"FINITE_COMPLEX", "LOG_SCALED_UNDERFLOW"}
+    if state_status not in allowed_statuses or derivative_status not in allowed_statuses:
+        raise RuntimeError(
+            "conditioned backend returned incompatible complex-state statuses"
+        )
+    psi = np.array(
+        [result.psi, result.psi + result.dpsi_dr * local_step],
+        dtype=complex,
+    )
+    dpsi_dr = np.array([result.dpsi_dr, result.dpsi_dr], dtype=complex)
+
+    phase_factor = -result.A_out / (((-1) ** ell) * result.A_in)
+    selector_description = (
+        "caller explicitly forced the generic backend"
+        if selector == "explicit_forced"
+        else (
+            f"pre-solve barrier_action >= {_BVP_BRANCH_BARRIER_ACTION}; "
+            "no frequency, radius-grid point, figure, or paper-specific key was used"
+        )
+    )
+    metadata: dict[str, str | int | float | bool] = {
+        "conditioning_backend": str(config.conditioning_backend),
+        "conditioning_selector": selector,
+        "conditioning_selector_description": selector_description,
+        "paper_specific_envelope_used": False,
+        "physical_claim": False,
+        "scientific_acceptance": False,
+        "required_eval_radius": required_radius,
+        "r_in_eps": float(config.r_in_eps),
+        "r_out": float(r_out),
+        "rtol": float(config.rtol),
+        "atol": float(config.atol),
+        "outer_basis": config.outer_basis,
+        "outer_series_order": int(config.outer_series_order),
+        "actual_precision_bits": int(evidence["actual_precision_bits"]),
+        "actual_decimal_digits": float(evidence["actual_decimal_digits"]),
+        "complex_state_status": state_status,
+        "complex_derivative_status": derivative_status,
+        "log_abs_psi": float(result.log_abs_psi),
+        "phase_psi": float(result.phase_psi),
+        "log_abs_dpsi_dr": float(result.log_abs_dpsi_dr),
+        "phase_dpsi_dr": float(result.phase_dpsi_dr),
+        "T_horizon_real": float(result.T_horizon.real),
+        "T_horizon_imag": float(result.T_horizon.imag),
+        "log_abs_T_horizon": float(result.log_abs_T_horizon),
+        "phase_T_horizon": float(result.phase_T_horizon),
+        "complex_transmission_status": str(
+            evidence["complex_transmission_status"]
+        ),
+        "reflection_probability": float(evidence["reflection_probability"]),
+        "horizon_transmission_probability": float(
+            evidence["horizon_transmission_probability"]
+        ),
+        "flux_balance": float(evidence["flux_balance"]),
+        "horizon_flux_resolved": True,
+        "wronskian_residual_available": False,
+        "flux_residual_available": True,
+        "unavailable_wronskian_residual_sentinel": 1.0,
+        "unit_incoming_at_infinity": True,
+    }
+    warning = RadialDiagnosticWarning(
+        code="generic_conditioned_radial_backend_used",
+        severity="warning",
+        message=(
+            "Paper-independent scaled/log Riccati backend returned a state "
+            "qualified only at required_eval_radius. Its internal horizon-flux "
+            "accounting still requires independent precision ladders before "
+            "scientific acceptance."
+        ),
+        sector=sector.value,
+        ell=ell,
+        k=float(k),
+        solver="conditioned_scaled_log_riccati",
+        barrier_action=float(barrier_action),
+        raw_wronskian_residual=1.0,
+        effective_wronskian_residual=float(evidence["flux_residual"]),
+        flux_residual=float(evidence["flux_residual"]),
+        boundary_residual=boundary_residual,
+        expected_flux_scale=0.0,
+        match_condition_number=condition_number,
+        valid_until_r=required_radius,
+        required_eval_radius=required_radius,
+        required_eval_radius_covered=True,
+        no_go_reason=(
+            "finite-radius state, S ratio, and internal horizon-flux accounting "
+            "available; physical acceptance is not supplied without independent "
+            "precision and backend ladders"
+        ),
+        metadata=metadata,
+    )
+    diagnostics = RadialDiagnostics(
+        boundary_residual=boundary_residual,
+        wronskian_residual=1.0,
+        flux_residual=float(evidence["flux_residual"]),
+        ode_n_steps=int(evidence["rhs_evaluations"]),
+        ode_status=(
+            "generic conditioned scaled/log backend; "
+            f"selector={selector}; state={state_status}"
+        ),
+        r_in=r_in,
+        r_out=r_out,
+        atol=config.atol,
+        rtol=config.rtol,
+        match_condition_number=condition_number,
+        solver="conditioned_scaled_log_riccati",
+        barrier_action=barrier_action,
+        raw_wronskian_residual=1.0,
+        expected_flux_scale=0.0,
+        warnings=(warning,),
+        outer_basis=config.outer_basis,
+        outer_series_order=config.outer_series_order,
+    )
+    return RadialSolution(
+        sector=sector,
+        ell=ell,
+        k=k,
+        r_grid=r_grid,
+        psi=psi,
+        dpsi_dr=dpsi_dr,
+        A_in=complex(result.A_in),
+        A_out=complex(result.A_out),
+        phase_factor=complex(phase_factor),
+        phase_shift=complex(-0.5j * np.log(phase_factor)),
+        diagnostics=diagnostics,
+        background=background,
+        valid_until_r=required_radius,
     )
 
 
@@ -585,6 +487,10 @@ def _solve_radial_mode_outward(
         r=r_grid[-1],
         k=k,
         background=background,
+        sector=sector,
+        ell=ell,
+        basis=config.outer_basis,
+        series_order=config.outer_series_order,
     )
     if abs(A_in) <= 100.0 * np.finfo(float).eps:
         raise RuntimeError("Outer matching produced near-zero A_in; phase shift is unreliable.")
@@ -605,6 +511,8 @@ def _solve_radial_mode_outward(
         solver="outward_shooting",
         barrier_action=barrier_action,
         raw_wronskian_residual=wronskian_residual,
+        outer_basis=config.outer_basis,
+        outer_series_order=config.outer_series_order,
     )
     return RadialSolution(
         sector=sector,
@@ -643,6 +551,29 @@ def _solve_radial_mode_bvp(
 
     rstar_in = background.r_star(r_in)
     rstar_out = background.r_star(r_out)
+    incoming_basis = outer_asymptotic_basis(
+        sector=sector,
+        ell=ell,
+        r=r_out,
+        k=k,
+        background=background,
+        sign=-1,
+        basis=config.outer_basis,
+        series_order=config.outer_series_order,
+    )
+    outgoing_basis = outer_asymptotic_basis(
+        sector=sector,
+        ell=ell,
+        r=r_out,
+        k=k,
+        background=background,
+        sign=1,
+        basis=config.outer_basis,
+        series_order=config.outer_series_order,
+    )
+    f_out = float(background.f(r_out))
+    incoming_dpsi_drstar = f_out * incoming_basis.dpsi_dr
+    outgoing_dpsi_drstar = f_out * outgoing_basis.dpsi_dr
     mesh_size = _bvp_initial_mesh_size(barrier_action)
     rstar_mesh = np.linspace(rstar_in, rstar_out, mesh_size)
     y_guess = _bvp_initial_guess(rstar_mesh, ell, k)
@@ -663,7 +594,10 @@ def _solve_radial_mode_bvp(
             right,
             parameters,
             k,
-            rstar_out,
+            incoming_basis.psi,
+            incoming_dpsi_drstar,
+            outgoing_basis.psi,
+            outgoing_dpsi_drstar,
         ),
         rstar_mesh,
         y_guess,
@@ -777,10 +711,21 @@ def _solve_radial_mode_bvp(
         r=r_grid[-1],
         k=k,
         background=background,
+        sector=sector,
+        ell=ell,
+        basis=config.outer_basis,
+        series_order=config.outer_series_order,
     )
     boundary_residual = max(
         boundary_residual,
-        _bvp_boundary_norm(result, k, rstar_out),
+        _bvp_boundary_norm(
+            result,
+            k,
+            incoming_basis.psi,
+            incoming_dpsi_drstar,
+            outgoing_basis.psi,
+            outgoing_dpsi_drstar,
+        ),
         abs(A_out - A_out_parameter),
     )
     if abs(A_in) <= 100.0 * np.finfo(float).eps:
@@ -829,6 +774,8 @@ def _solve_radial_mode_bvp(
         raw_wronskian_residual=raw_wronskian_residual,
         expected_flux_scale=expected_flux_scale,
         warnings=warnings,
+        outer_basis=config.outer_basis,
+        outer_series_order=config.outer_series_order,
     )
     return RadialSolution(
         sector=sector,
@@ -885,12 +832,26 @@ def _solve_radial_mode_bidirectional(
         dpsi_dr_start=horizon_dpsi_dr,
     )
 
-    rstar_out = background.r_star(r_out)
-    f_out = background.f(r_out)
-    incoming_psi = np.exp(-1j * k * rstar_out)
-    incoming_dpsi_dr = (-1j * k / f_out) * incoming_psi
-    outgoing_psi = np.exp(1j * k * rstar_out)
-    outgoing_dpsi_dr = (1j * k / f_out) * outgoing_psi
+    incoming_basis = outer_asymptotic_basis(
+        sector=sector,
+        ell=ell,
+        r=r_out,
+        k=k,
+        background=background,
+        sign=-1,
+        basis=config.outer_basis,
+        series_order=config.outer_series_order,
+    )
+    outgoing_basis = outer_asymptotic_basis(
+        sector=sector,
+        ell=ell,
+        r=r_out,
+        k=k,
+        background=background,
+        sign=1,
+        basis=config.outer_basis,
+        series_order=config.outer_series_order,
+    )
     incoming = _integrate_radial_basis(
         sector=sector,
         ell=ell,
@@ -899,8 +860,8 @@ def _solve_radial_mode_bidirectional(
         config=config,
         r_start=r_out,
         r_stop=match_radius,
-        psi_start=incoming_psi,
-        dpsi_dr_start=incoming_dpsi_dr,
+        psi_start=incoming_basis.psi,
+        dpsi_dr_start=incoming_basis.dpsi_dr,
     )
     outgoing = _integrate_radial_basis(
         sector=sector,
@@ -910,8 +871,8 @@ def _solve_radial_mode_bidirectional(
         config=config,
         r_start=r_out,
         r_stop=match_radius,
-        psi_start=outgoing_psi,
-        dpsi_dr_start=outgoing_dpsi_dr,
+        psi_start=outgoing_basis.psi,
+        dpsi_dr_start=outgoing_basis.dpsi_dr,
     )
 
     horizon_match = _basis_state_at(horizon, match_radius)
@@ -976,6 +937,10 @@ def _solve_radial_mode_bidirectional(
         r=r_grid[-1],
         k=k,
         background=background,
+        sector=sector,
+        ell=ell,
+        basis=config.outer_basis,
+        series_order=config.outer_series_order,
     )
     if abs(A_in) <= 100.0 * np.finfo(float).eps:
         raise RuntimeError("Bidirectional radial matching produced near-zero A_in.")
@@ -1011,6 +976,8 @@ def _solve_radial_mode_bidirectional(
         barrier_action=barrier_action,
         raw_wronskian_residual=raw_wronskian_residual,
         expected_flux_scale=expected_flux_scale,
+        outer_basis=config.outer_basis,
+        outer_series_order=config.outer_series_order,
     )
     return RadialSolution(
         sector=sector,
@@ -1329,1371 +1296,14 @@ def _required_radius_solver_failure_if_available(
     )
 
 
-def _solve_radial_mode_required_radius_oracle(
-    *,
-    sector: Sector,
-    ell: int,
-    k: float,
-    background: StaticSphericalBackground,
-    config: BoundaryConfig,
-    r_in: float,
-    r_out: float,
-    barrier_action: float,
-) -> RadialSolution:
-    oracle_name = config.experimental_required_radius_oracle
-    if oracle_name not in _SUPPORTED_REQUIRED_RADIUS_ORACLE_NAMES:
-        raise ValueError(
-            "unsupported experimental_required_radius_oracle: "
-            f"{oracle_name!r}"
-        )
-    if oracle_name == _Q018_REQUIRED_RADIUS_ORACLE_NAME:
-        _validate_q018_required_radius_oracle_envelope(
-            sector=sector,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-        )
-        solver_name = _Q018_REQUIRED_RADIUS_ORACLE_SOLVER
-        warning_code = "q018_required_radius_oracle_used"
-        ode_status = "Q018 reviewed opt-in oracle used"
-        warning_message = (
-            "Reviewed Q018 opt-in required-radius oracle used for the "
-            "T4u continuous R60_K2 suppressed-mode envelope; the returned "
-            "solution is only certified at required_eval_radius."
-        )
-        production_review_id = "T4u/T7ap-pending"
-        experimental_evidence = "T4u continuous ell=153..180 matrix"
-    elif oracle_name == _Q018_TABLEI_KM4_TRANSITION_ORACLE_NAME:
-        _validate_q018_tablei_km4_transition_oracle_envelope(
-            sector=sector,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-        )
-        solver_name = _Q018_TABLEI_KM4_TRANSITION_ORACLE_SOLVER
-        warning_code = "q018_tablei_km4_transition_oracle_used"
-        ode_status = "Q018 kM=4 Table-I transition opt-in oracle used"
-        warning_message = (
-            "Reviewed Q018 opt-in required-radius oracle used for the "
-            "T4x kM=4 Table-I transition envelope; the returned solution "
-            "is only certified at required_eval_radius."
-        )
-        production_review_id = "T4x/T7bp-pending"
-        experimental_evidence = (
-            "T4x complete measured kM=4 Table-I transition set ell=177..240"
-        )
-    elif oracle_name == _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME:
-        _validate_q018_tablei_review_grid_transition_oracle_envelope(
-            sector=sector,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-        )
-        solver_name = _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_SOLVER
-        warning_code = "q018_tablei_review_grid_transition_oracle_used"
-        ode_status = "Q018 Fig.5/Fig.6 review-grid transition opt-in oracle used"
-        warning_message = (
-            "Reviewed Q018 opt-in required-radius oracle used for the "
-            "T4y Fig.5/Fig.6 review-grid transition envelope; the returned "
-            "solution is only certified at required_eval_radius."
-        )
-        production_review_id = "T4y/T7bq-pending"
-        experimental_evidence = (
-            "T4y complete measured Fig.5/Fig.6 review-grid transition set"
-        )
-    elif oracle_name == _Q018_DELTA0P1_RISK_ORACLE_NAME:
-        _validate_q018_delta0p1_risk_oracle_envelope(
-            sector=sector,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-        )
-        solver_name = _Q018_DELTA0P1_RISK_ORACLE_SOLVER
-        warning_code = "q018_tablei_delta0p1_risk_pilot_transition_oracle_used"
-        ode_status = "Q018 Delta0p1 risk-pilot transition opt-in oracle used"
-        warning_message = (
-            "Reviewed Q018 opt-in required-radius oracle used for the "
-            "T4z Delta0p1 risk-pilot transition envelope; the returned "
-            "solution is only certified at required_eval_radius."
-        )
-        production_review_id = "T4z/T7bv-pending"
-        experimental_evidence = (
-            "T4z complete measured Delta0p1 risk-pilot transition set"
-        )
-    elif oracle_name == _Q018_TARGETED_ADAPTIVE_ORACLE_NAME:
-        _validate_q018_targeted_adaptive_oracle_envelope(
-            sector=sector,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-        )
-        solver_name = _Q018_TARGETED_ADAPTIVE_ORACLE_SOLVER
-        warning_code = "q018_tablei_targeted_adaptive_transition_oracle_used"
-        ode_status = "Q018 targeted-adaptive transition opt-in oracle used"
-        warning_message = (
-            "Reviewed Q018 opt-in required-radius oracle used for the "
-            "T4aa targeted-adaptive radial transition envelope; the returned "
-            "solution is only certified at required_eval_radius."
-        )
-        production_review_id = "T4aa/T7by-pending"
-        experimental_evidence = (
-            "T4aa complete measured targeted-adaptive transition set"
-        )
-    elif oracle_name == _Q018_FURTHER_LOCAL_ORACLE_NAME:
-        _validate_q018_further_local_oracle_envelope(
-            sector=sector,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-        )
-        solver_name = _Q018_FURTHER_LOCAL_ORACLE_SOLVER
-        warning_code = "q018_tablei_further_local_transition_oracle_used"
-        ode_status = "Q018 further-local transition opt-in oracle used"
-        warning_message = (
-            "Reviewed Q018 opt-in required-radius oracle used for the "
-            "T4ab further-local radial transition envelope; the returned "
-            "solution is only certified at required_eval_radius."
-        )
-        production_review_id = "T4ab/T7ca-pending"
-        experimental_evidence = (
-            "T4ab complete measured further-local transition set"
-        )
-    elif oracle_name == _Q018_LITERAL_FAILED_CHILD_ORACLE_NAME:
-        _validate_q018_literal_failed_child_oracle_envelope(
-            sector=sector,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-        )
-        solver_name = _Q018_LITERAL_FAILED_CHILD_ORACLE_SOLVER
-        warning_code = (
-            "q018_tablei_literal_failed_child_transition_oracle_used"
-        )
-        ode_status = "Q018 literal failed-child transition opt-in oracle used"
-        warning_message = (
-            "Reviewed Q018 opt-in required-radius oracle used for the "
-            "T4ac literal failed-child radial transition envelope; the returned "
-            "solution is only certified at required_eval_radius."
-        )
-        production_review_id = "T4ac/T7cc-pending"
-        experimental_evidence = (
-            "T4ac complete measured literal failed-child transition set"
-        )
-    elif oracle_name == _Q018_ANOTHER_BOUNDED_LOCAL_ORACLE_NAME:
-        _validate_q018_another_bounded_local_oracle_envelope(
-            sector=sector,
-            ell=ell,
-            k=k,
-            background=background,
-            config=config,
-            r_out=r_out,
-            barrier_action=barrier_action,
-        )
-        solver_name = _Q018_ANOTHER_BOUNDED_LOCAL_ORACLE_SOLVER
-        warning_code = (
-            "q018_tablei_another_bounded_local_transition_oracle_used"
-        )
-        ode_status = "Q018 another-bounded-local transition opt-in oracle used"
-        warning_message = (
-            "Reviewed Q018 opt-in required-radius oracle used for the "
-            "T4ad another-bounded-local radial transition envelope; the "
-            "returned solution is only certified at required_eval_radius."
-        )
-        production_review_id = "T4ad/T7ce-pending"
-        experimental_evidence = (
-            "T4ad complete measured another-bounded-local transition set"
-        )
-    else:
-        raise ValueError(
-            "unsupported experimental_required_radius_oracle: "
-            f"{oracle_name!r}"
-        )
-
-    from schwgw.numerics.experimental.q018_rescaled_oracle import (
-        RescaledOracleRequest,
-        solve_q018_rescaled_oracle,
-    )
-
-    required_radius = float(config.required_eval_radius)
-    request = RescaledOracleRequest(
-        sector=sector,
-        ell=ell,
-        k=float(k),
-        required_radius=required_radius,
-        r_out=float(r_out),
-        r_in_eps=float(config.r_in_eps),
-        rtol=float(config.rtol),
-        atol=float(config.atol),
-        precision_dps=80,
-        method_hint="rescaled_log_amplitude",
-    )
-    result = solve_q018_rescaled_oracle(request, background)
-    oracle_diagnostics = dict(result.diagnostics)
-
-    outer_boundary_residual = _diagnostic_float(
-        oracle_diagnostics,
-        "outer_boundary_residual",
-    )
-    normalization_residual = _diagnostic_float(
-        oracle_diagnostics,
-        "normalization_residual",
-    )
-    log_derivative_match_residual = _diagnostic_float(
-        oracle_diagnostics,
-        "log_derivative_match_residual",
-    )
-    effective_residual = max(
-        outer_boundary_residual,
-        normalization_residual,
-        log_derivative_match_residual,
-    )
-    _validate_q018_oracle_result(
-        result=result,
-        residual=effective_residual,
-        outer_boundary_residual=outer_boundary_residual,
-        normalization_residual=normalization_residual,
-        log_derivative_match_residual=log_derivative_match_residual,
-        sector=sector,
-        ell=ell,
-        k=k,
-    )
-
-    r_grid = np.array(
-        [required_radius, required_radius + _Q018_LOCAL_GRID_STEP],
-        dtype=float,
-    )
-    psi = np.array(
-        [result.psi, result.psi + result.dpsi_dr * _Q018_LOCAL_GRID_STEP],
-        dtype=complex,
-    )
-    dpsi_dr = np.array([result.dpsi_dr, result.dpsi_dr], dtype=complex)
-    phase_factor = -result.A_out / (((-1) ** ell) * result.A_in)
-
-    oracle_metadata: dict[str, str | int | float | bool] = {
-        "experimental_required_radius_oracle": str(oracle_name),
-        "method": str(oracle_diagnostics["method"]),
-        "experimental": bool(oracle_diagnostics["experimental"]),
-        "unit_incoming_at_infinity": bool(
-            oracle_diagnostics["unit_incoming_at_infinity"]
-        ),
-        "production_integration_review_id": production_review_id,
-        "experimental_evidence": experimental_evidence,
-        "required_eval_radius": required_radius,
-        "r_out": float(r_out),
-        "r_in_eps": float(config.r_in_eps),
-        "rtol": float(config.rtol),
-        "atol": float(config.atol),
-        "precision_dps": int(oracle_diagnostics["precision_dps"]),
-        "requested_precision_dps": int(oracle_diagnostics["requested_precision_dps"]),
-        "finite_psi": bool(oracle_diagnostics["finite_psi"]),
-        "finite_dpsi_dr": bool(oracle_diagnostics["finite_dpsi_dr"]),
-        "finite_A_in": bool(oracle_diagnostics["finite_A_in"]),
-        "finite_A_out": bool(oracle_diagnostics["finite_A_out"]),
-        "outer_boundary_residual": outer_boundary_residual,
-        "normalization_residual": normalization_residual,
-        "log_derivative_match_residual": log_derivative_match_residual,
-        "riccati_steps": int(oracle_diagnostics["riccati_steps"]),
-        "outward_steps": int(oracle_diagnostics["outward_steps"]),
-        "runtime_seconds": _diagnostic_float(oracle_diagnostics, "runtime_seconds"),
-        "valid_at_required_radius": bool(
-            oracle_diagnostics["valid_at_required_radius"]
-        ),
-        "A_in_role": "outer exp(-i k r_star) incoming coefficient",
-    }
-    if oracle_name == _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME:
-        point_id = _q018_tablei_review_grid_point_id(required_radius)
-        if point_id is not None:
-            oracle_metadata["review_grid_point_id"] = point_id
-    elif oracle_name == _Q018_DELTA0P1_RISK_ORACLE_NAME:
-        point_id = _q018_delta0p1_risk_point_id(required_radius)
-        if point_id is not None:
-            oracle_metadata["review_grid_point_id"] = point_id
-    elif oracle_name == _Q018_TARGETED_ADAPTIVE_ORACLE_NAME:
-        point_id = _q018_targeted_adaptive_point_id(required_radius)
-        if point_id is not None:
-            oracle_metadata["review_grid_point_id"] = point_id
-    elif oracle_name == _Q018_FURTHER_LOCAL_ORACLE_NAME:
-        point_id = _q018_further_local_point_id(required_radius)
-        if point_id is not None:
-            oracle_metadata["review_grid_point_id"] = point_id
-    elif oracle_name == _Q018_LITERAL_FAILED_CHILD_ORACLE_NAME:
-        point_id = _q018_literal_failed_child_point_id(required_radius)
-        if point_id is not None:
-            oracle_metadata["review_grid_point_id"] = point_id
-    elif oracle_name == _Q018_ANOTHER_BOUNDED_LOCAL_ORACLE_NAME:
-        point_id = _q018_another_bounded_local_point_id(required_radius)
-        if point_id is not None:
-            oracle_metadata["review_grid_point_id"] = point_id
-    warning = RadialDiagnosticWarning(
-        code=warning_code,
-        severity="warning",
-        message=warning_message,
-        sector=sector.value,
-        ell=ell,
-        k=float(k),
-        solver=solver_name,
-        barrier_action=float(barrier_action),
-        raw_wronskian_residual=log_derivative_match_residual,
-        effective_wronskian_residual=effective_residual,
-        flux_residual=effective_residual,
-        boundary_residual=outer_boundary_residual,
-        expected_flux_scale=0.0,
-        match_condition_number=_diagnostic_float(
-            oracle_diagnostics,
-            "match_condition_number",
-        ),
-        valid_until_r=required_radius,
-        required_eval_radius=required_radius,
-        required_eval_radius_covered=True,
-        metadata=oracle_metadata,
-    )
-    diagnostics = RadialDiagnostics(
-        boundary_residual=outer_boundary_residual,
-        wronskian_residual=effective_residual,
-        flux_residual=effective_residual,
-        ode_n_steps=(
-            int(oracle_diagnostics["riccati_steps"])
-            + int(oracle_diagnostics["outward_steps"])
-        ),
-        ode_status=ode_status,
-        r_in=r_in,
-        r_out=r_out,
-        atol=config.atol,
-        rtol=config.rtol,
-        match_condition_number=_diagnostic_float(
-            oracle_diagnostics,
-            "match_condition_number",
-        ),
-        solver=solver_name,
-        barrier_action=barrier_action,
-        raw_wronskian_residual=log_derivative_match_residual,
-        expected_flux_scale=0.0,
-        warnings=(warning,),
-    )
-    return RadialSolution(
-        sector=sector,
-        ell=ell,
-        k=k,
-        r_grid=r_grid,
-        psi=psi,
-        dpsi_dr=dpsi_dr,
-        A_in=complex(result.A_in),
-        A_out=complex(result.A_out),
-        phase_factor=complex(phase_factor),
-        phase_shift=complex(-0.5j * np.log(phase_factor)),
-        diagnostics=diagnostics,
-        background=background,
-        valid_until_r=required_radius,
-    )
-
-
-def _validate_q018_required_radius_oracle_envelope(
-    *,
-    sector: Sector,
-    ell: int,
-    k: float,
-    background: StaticSphericalBackground,
-    config: BoundaryConfig,
-    r_out: float,
-    barrier_action: float,
-) -> None:
-    reasons: list[str] = []
-    if getattr(background, "name", None) != "schwarzschild":
-        reasons.append("background is not Schwarzschild")
-    if not _strict_float_equal(float(getattr(background, "M", np.nan)), _Q018_REQUIRED_M):
-        reasons.append("M is not 1")
-    if ell not in _Q018_ALLOWED_ELLS:
-        reasons.append("ell is outside reviewed matrix")
-    if not _strict_float_equal(float(k), _Q018_REQUIRED_K):
-        reasons.append("k is outside reviewed matrix")
-    if config.required_eval_radius is None:
-        reasons.append("required_eval_radius is missing")
-    elif not _strict_float_equal(
-        float(config.required_eval_radius),
-        _Q018_REQUIRED_RADIUS,
-    ):
-        reasons.append("required_eval_radius is outside reviewed matrix")
-    if not _strict_float_equal(float(r_out), _Q018_REQUIRED_R_OUT):
-        reasons.append("r_out is outside reviewed matrix")
-    if not _strict_float_equal(float(config.r_in_eps), _Q018_REQUIRED_R_IN_EPS):
-        reasons.append("r_in_eps is outside reviewed matrix")
-    if not _strict_float_equal(float(config.rtol), _Q018_REQUIRED_RTOL):
-        reasons.append("rtol is outside reviewed matrix")
-    if not _strict_float_equal(float(config.atol), _Q018_REQUIRED_ATOL):
-        reasons.append("atol is outside reviewed matrix")
-
-    if reasons:
-        metadata: dict[str, str | int | float | bool] = {
-            "code": "q018_experimental_oracle_out_of_envelope",
-            "severity": "error",
-            "message": (
-                "Q018 reviewed opt-in oracle was requested outside the "
-                "T4u continuous validated envelope."
-            ),
-            "experimental_required_radius_oracle": _Q018_REQUIRED_RADIUS_ORACLE_NAME,
-            "sector": sector.value,
-            "ell": int(ell),
-            "k": float(k),
-            "background_name": str(getattr(background, "name", "<unknown>")),
-            "M": float(getattr(background, "M", np.nan)),
-            "r_out": float(r_out),
-            "required_eval_radius": (
-                float("nan")
-                if config.required_eval_radius is None
-                else float(config.required_eval_radius)
-            ),
-            "r_in_eps": float(config.r_in_eps),
-            "rtol": float(config.rtol),
-            "atol": float(config.atol),
-            "barrier_action": float(barrier_action),
-            "allowed_ells": _Q018_ALLOWED_ELLS_LABEL,
-            "allowed_k": _Q018_REQUIRED_K,
-            "allowed_M": _Q018_REQUIRED_M,
-            "allowed_required_eval_radius": _Q018_REQUIRED_RADIUS,
-            "allowed_r_out": _Q018_REQUIRED_R_OUT,
-            "rejection_reasons": "; ".join(reasons),
-        }
-        raise RuntimeError(
-            "q018_experimental_oracle_out_of_envelope: structured radial no-go; "
-            f"metadata={json.dumps(metadata, sort_keys=True)}"
-        )
-
-
-def _validate_q018_tablei_km4_transition_oracle_envelope(
-    *,
-    sector: Sector,
-    ell: int,
-    k: float,
-    background: StaticSphericalBackground,
-    config: BoundaryConfig,
-    r_out: float,
-    barrier_action: float,
-    validate_mode: bool = True,
-) -> None:
-    reasons: list[str] = []
-    if getattr(background, "name", None) != "schwarzschild":
-        reasons.append("background is not Schwarzschild")
-    if not _strict_float_equal(float(getattr(background, "M", np.nan)), _Q018_REQUIRED_M):
-        reasons.append("M is not 1")
-    if validate_mode and sector not in (Sector.ODD, Sector.EVEN):
-        reasons.append("sector is outside reviewed matrix")
-    if validate_mode and ell not in _Q018_TABLEI_KM4_ALLOWED_ELLS:
-        reasons.append("ell is outside reviewed matrix")
-    if not _strict_float_equal(float(k), _Q018_TABLEI_KM4_REQUIRED_K):
-        reasons.append("k is outside reviewed matrix")
-    if config.required_eval_radius is None:
-        reasons.append("required_eval_radius is missing")
-    elif not _strict_float_equal(
-        float(config.required_eval_radius),
-        _Q018_TABLEI_KM4_REQUIRED_RADIUS,
-    ):
-        reasons.append("required_eval_radius is outside reviewed matrix")
-    if not _strict_float_equal(float(r_out), _Q018_TABLEI_KM4_REQUIRED_R_OUT):
-        reasons.append("r_out is outside reviewed matrix")
-    if not _strict_float_equal(float(config.r_in_eps), _Q018_REQUIRED_R_IN_EPS):
-        reasons.append("r_in_eps is outside reviewed matrix")
-    if not _strict_float_equal(float(config.rtol), _Q018_REQUIRED_RTOL):
-        reasons.append("rtol is outside reviewed matrix")
-    if not _strict_float_equal(float(config.atol), _Q018_REQUIRED_ATOL):
-        reasons.append("atol is outside reviewed matrix")
-
-    if reasons:
-        metadata: dict[str, str | int | float | bool] = {
-            "code": "q018_experimental_oracle_out_of_envelope",
-            "severity": "error",
-            "message": (
-                "Q018 reviewed opt-in oracle was requested outside the "
-                "T4x kM=4 Table-I transition validated envelope."
-            ),
-            "experimental_required_radius_oracle": (
-                _Q018_TABLEI_KM4_TRANSITION_ORACLE_NAME
-            ),
-            "sector": sector.value,
-            "ell": int(ell),
-            "k": float(k),
-            "background_name": str(getattr(background, "name", "<unknown>")),
-            "M": float(getattr(background, "M", np.nan)),
-            "r_out": float(r_out),
-            "required_eval_radius": (
-                float("nan")
-                if config.required_eval_radius is None
-                else float(config.required_eval_radius)
-            ),
-            "r_in_eps": float(config.r_in_eps),
-            "rtol": float(config.rtol),
-            "atol": float(config.atol),
-            "barrier_action": float(barrier_action),
-            "allowed_ells": _Q018_TABLEI_KM4_ALLOWED_ELLS_LABEL,
-            "allowed_k": _Q018_TABLEI_KM4_REQUIRED_K,
-            "allowed_M": _Q018_REQUIRED_M,
-            "allowed_required_eval_radius": _Q018_TABLEI_KM4_REQUIRED_RADIUS,
-            "allowed_r_out": _Q018_TABLEI_KM4_REQUIRED_R_OUT,
-            "rejection_reasons": "; ".join(reasons),
-        }
-        raise RuntimeError(
-            "q018_experimental_oracle_out_of_envelope: structured radial no-go; "
-            f"metadata={json.dumps(metadata, sort_keys=True)}"
-        )
-
-
-def _validate_q018_tablei_review_grid_transition_oracle_envelope(
-    *,
-    sector: Sector,
-    ell: int,
-    k: float,
-    background: StaticSphericalBackground,
-    config: BoundaryConfig,
-    r_out: float,
-    barrier_action: float,
-    validate_mode: bool = True,
-) -> None:
-    reasons: list[str] = []
-    point_id = (
-        None
-        if config.required_eval_radius is None
-        else _q018_tablei_review_grid_point_id(float(config.required_eval_radius))
-    )
-    normalized_k = _q018_tablei_review_grid_k(float(k))
-    if getattr(background, "name", None) != "schwarzschild":
-        reasons.append("background is not Schwarzschild")
-    if not _strict_float_equal(float(getattr(background, "M", np.nan)), _Q018_REQUIRED_M):
-        reasons.append("M is not 1")
-    if validate_mode and sector not in (Sector.ODD, Sector.EVEN):
-        reasons.append("sector is outside reviewed matrix")
-    if normalized_k is None:
-        reasons.append("k is outside reviewed matrix")
-    if config.required_eval_radius is None:
-        reasons.append("required_eval_radius is missing")
-    elif point_id is None:
-        reasons.append("required_eval_radius is outside reviewed Table-I radii")
-    if (
-        validate_mode
-        and normalized_k is not None
-        and point_id is not None
-        and not _q018_tablei_review_grid_mode_allowed(
-            k=normalized_k,
-            ell=ell,
-            point_id=point_id,
-        )
-    ):
-        reasons.append("mode is outside measured transition set")
-    if not _strict_float_equal(
-        float(r_out),
-        _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT,
-    ):
-        reasons.append("r_out is outside reviewed matrix")
-    if not _strict_float_equal(float(config.r_in_eps), _Q018_REQUIRED_R_IN_EPS):
-        reasons.append("r_in_eps is outside reviewed matrix")
-    if not _strict_float_equal(float(config.rtol), _Q018_REQUIRED_RTOL):
-        reasons.append("rtol is outside reviewed matrix")
-    if not _strict_float_equal(float(config.atol), _Q018_REQUIRED_ATOL):
-        reasons.append("atol is outside reviewed matrix")
-
-    if reasons:
-        metadata: dict[str, str | int | float | bool] = {
-            "code": "q018_experimental_oracle_out_of_envelope",
-            "severity": "error",
-            "message": (
-                "Q018 reviewed opt-in oracle was requested outside the "
-                "T4y Fig.5/Fig.6 review-grid transition validated envelope."
-            ),
-            "experimental_required_radius_oracle": (
-                _Q018_TABLEI_REVIEW_GRID_TRANSITION_ORACLE_NAME
-            ),
-            "sector": sector.value,
-            "ell": int(ell),
-            "k": float(k),
-            "background_name": str(getattr(background, "name", "<unknown>")),
-            "M": float(getattr(background, "M", np.nan)),
-            "r_out": float(r_out),
-            "required_eval_radius": (
-                float("nan")
-                if config.required_eval_radius is None
-                else float(config.required_eval_radius)
-            ),
-            "r_in_eps": float(config.r_in_eps),
-            "rtol": float(config.rtol),
-            "atol": float(config.atol),
-            "barrier_action": float(barrier_action),
-            "allowed_k": _Q018_TABLEI_REVIEW_GRID_ALLOWED_KS_LABEL,
-            "allowed_M": _Q018_REQUIRED_M,
-            "allowed_required_eval_radii": (
-                _Q018_TABLEI_REVIEW_GRID_ALLOWED_RADII_LABEL
-            ),
-            "allowed_r_out": _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT,
-            "review_grid_point_id": "" if point_id is None else point_id,
-            "validated_transition_segments": (
-                "T4y compressed measured Fig.5/Fig.6 review-grid transition set"
-            ),
-            "rejection_reasons": "; ".join(reasons),
-        }
-        raise RuntimeError(
-            "q018_experimental_oracle_out_of_envelope: structured radial no-go; "
-            f"metadata={json.dumps(metadata, sort_keys=True)}"
-        )
-
-
-def _q018_tablei_review_grid_point_id(required_radius: float) -> str | None:
-    for point_id, radius in _Q018_TABLEI_REVIEW_GRID_POINTS:
-        if _strict_float_equal(float(required_radius), radius):
-            return point_id
-    return None
-
-
-def _q018_tablei_review_grid_k(k: float) -> float | None:
-    for allowed_k in _Q018_TABLEI_REVIEW_GRID_ALLOWED_KS:
-        if _strict_float_equal(float(k), allowed_k):
-            return allowed_k
-    return None
-
-
-def _q018_tablei_review_grid_mode_allowed(
-    *,
-    k: float,
-    ell: int,
-    point_id: str,
-) -> bool:
-    for ell_min, ell_max, point_ids in _Q018_TABLEI_REVIEW_GRID_TRANSITION_SEGMENTS[k]:
-        if ell_min <= int(ell) <= ell_max and point_id in point_ids:
-            return True
-    return False
-
-
-def _validate_q018_targeted_adaptive_oracle_envelope(
-    *,
-    sector: Sector,
-    ell: int,
-    k: float,
-    background: StaticSphericalBackground,
-    config: BoundaryConfig,
-    r_out: float,
-    barrier_action: float,
-    validate_mode: bool = True,
-) -> None:
-    """Require literal T4aa sector-aware transition membership."""
-    reasons: list[str] = []
-    point_id = (
-        None
-        if config.required_eval_radius is None
-        else _q018_targeted_adaptive_point_id(
-            float(config.required_eval_radius)
-        )
-    )
-    normalized_k = _q018_targeted_adaptive_k(float(k))
-    if getattr(background, "name", None) != "schwarzschild":
-        reasons.append("background is not Schwarzschild")
-    if not _strict_float_equal(float(getattr(background, "M", np.nan)), _Q018_REQUIRED_M):
-        reasons.append("M is not 1")
-    if validate_mode and sector not in (Sector.ODD, Sector.EVEN):
-        reasons.append("sector is outside reviewed matrix")
-    if normalized_k is None:
-        reasons.append("k is outside measured targeted-adaptive matrix")
-    if config.required_eval_radius is None:
-        reasons.append("required_eval_radius is missing")
-    elif point_id is None:
-        reasons.append("required_eval_radius is outside measured Table-I radii")
-    if (
-        validate_mode
-        and normalized_k is not None
-        and point_id is not None
-        and not _q018_targeted_adaptive_mode_allowed(
-            k=normalized_k,
-            sector=sector,
-            ell=ell,
-            point_id=point_id,
-        )
-    ):
-        reasons.append("mode is outside measured targeted-adaptive transition set")
-    if not _strict_float_equal(float(r_out), _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT):
-        reasons.append("r_out is outside reviewed matrix")
-    if not _strict_float_equal(float(config.r_in_eps), _Q018_REQUIRED_R_IN_EPS):
-        reasons.append("r_in_eps is outside reviewed matrix")
-    if not _strict_float_equal(float(config.rtol), _Q018_REQUIRED_RTOL):
-        reasons.append("rtol is outside reviewed matrix")
-    if not _strict_float_equal(float(config.atol), _Q018_REQUIRED_ATOL):
-        reasons.append("atol is outside reviewed matrix")
-
-    if reasons:
-        metadata: dict[str, str | int | float | bool] = {
-            "code": "q018_experimental_oracle_out_of_envelope",
-            "severity": "error",
-            "message": (
-                "Q018 reviewed opt-in oracle was requested outside the "
-                "T4aa targeted-adaptive sector-aware transition envelope."
-            ),
-            "experimental_required_radius_oracle": _Q018_TARGETED_ADAPTIVE_ORACLE_NAME,
-            "sector": sector.value,
-            "ell": int(ell),
-            "k": float(k),
-            "background_name": str(getattr(background, "name", "<unknown>")),
-            "M": float(getattr(background, "M", np.nan)),
-            "r_out": float(r_out),
-            "required_eval_radius": (
-                float("nan")
-                if config.required_eval_radius is None
-                else float(config.required_eval_radius)
-            ),
-            "r_in_eps": float(config.r_in_eps),
-            "rtol": float(config.rtol),
-            "atol": float(config.atol),
-            "barrier_action": float(barrier_action),
-            "allowed_k": ",".join(
-                f"{allowed_k:.17g}"
-                for allowed_k in _Q018_TARGETED_ADAPTIVE_FREQUENCIES
-            ),
-            "allowed_M": _Q018_REQUIRED_M,
-            "allowed_required_eval_radii": ",".join(
-                f"{radius:.17g}" for _, radius in _Q018_TARGETED_ADAPTIVE_POINTS
-            ),
-            "allowed_r_out": _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT,
-            "review_grid_point_id": "" if point_id is None else point_id,
-            "validated_transition_segments": (
-                "T4aa complete measured targeted-adaptive transition set"
-            ),
-            "rejection_reasons": "; ".join(reasons),
-        }
-        raise RuntimeError(
-            "q018_experimental_oracle_out_of_envelope: structured radial no-go; "
-            f"metadata={json.dumps(metadata, sort_keys=True)}"
-        )
-
-
-def _q018_targeted_adaptive_point_id(required_radius: float) -> str | None:
-    for point_id, radius in _Q018_TARGETED_ADAPTIVE_POINTS:
-        if _strict_float_equal(float(required_radius), radius):
-            return point_id
-    return None
-
-
-def _q018_targeted_adaptive_k(k: float) -> float | None:
-    for allowed_k in _Q018_TARGETED_ADAPTIVE_FREQUENCIES:
-        if _strict_float_equal(float(k), allowed_k):
-            return allowed_k
-    return None
-
-
-def _q018_targeted_adaptive_mode_allowed(
-    *,
-    k: float,
-    sector: Sector,
-    ell: int,
-    point_id: str,
-) -> bool:
-    for ell_min, ell_max, point_ids in _Q018_TARGETED_ADAPTIVE_TRANSITION_SEGMENTS[
-        (k, sector.value)
-    ]:
-        if ell_min <= int(ell) <= ell_max and point_id in point_ids:
-            return True
-    return False
-
-
-def _validate_q018_further_local_oracle_envelope(
-    *,
-    sector: Sector,
-    ell: int,
-    k: float,
-    background: StaticSphericalBackground,
-    config: BoundaryConfig,
-    r_out: float,
-    barrier_action: float,
-    validate_mode: bool = True,
-) -> None:
-    """Require literal T4ab sector-aware transition membership."""
-    reasons: list[str] = []
-    point_id = (
-        None
-        if config.required_eval_radius is None
-        else _q018_further_local_point_id(float(config.required_eval_radius))
-    )
-    normalized_k = _q018_further_local_k(float(k))
-    if getattr(background, "name", None) != "schwarzschild":
-        reasons.append("background is not Schwarzschild")
-    if not _strict_float_equal(float(getattr(background, "M", np.nan)), _Q018_REQUIRED_M):
-        reasons.append("M is not 1")
-    if validate_mode and sector not in (Sector.ODD, Sector.EVEN):
-        reasons.append("sector is outside reviewed matrix")
-    if normalized_k is None:
-        reasons.append("k is outside measured further-local matrix")
-    if config.required_eval_radius is None:
-        reasons.append("required_eval_radius is missing")
-    elif point_id is None:
-        reasons.append("required_eval_radius is outside measured Table-I radii")
-    if (
-        validate_mode
-        and normalized_k is not None
-        and point_id is not None
-        and not _q018_further_local_mode_allowed(
-            k=normalized_k,
-            sector=sector,
-            ell=ell,
-            point_id=point_id,
-        )
-    ):
-        reasons.append("mode is outside measured further-local transition set")
-    if not _strict_float_equal(float(r_out), _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT):
-        reasons.append("r_out is outside reviewed matrix")
-    if not _strict_float_equal(float(config.r_in_eps), _Q018_REQUIRED_R_IN_EPS):
-        reasons.append("r_in_eps is outside reviewed matrix")
-    if not _strict_float_equal(float(config.rtol), _Q018_REQUIRED_RTOL):
-        reasons.append("rtol is outside reviewed matrix")
-    if not _strict_float_equal(float(config.atol), _Q018_REQUIRED_ATOL):
-        reasons.append("atol is outside reviewed matrix")
-
-    if reasons:
-        metadata: dict[str, str | int | float | bool] = {
-            "code": "q018_experimental_oracle_out_of_envelope",
-            "severity": "error",
-            "message": (
-                "Q018 reviewed opt-in oracle was requested outside the "
-                "T4ab further-local sector-aware transition envelope."
-            ),
-            "experimental_required_radius_oracle": _Q018_FURTHER_LOCAL_ORACLE_NAME,
-            "sector": sector.value,
-            "ell": int(ell),
-            "k": float(k),
-            "background_name": str(getattr(background, "name", "<unknown>")),
-            "M": float(getattr(background, "M", np.nan)),
-            "r_out": float(r_out),
-            "required_eval_radius": (
-                float("nan")
-                if config.required_eval_radius is None
-                else float(config.required_eval_radius)
-            ),
-            "r_in_eps": float(config.r_in_eps),
-            "rtol": float(config.rtol),
-            "atol": float(config.atol),
-            "barrier_action": float(barrier_action),
-            "allowed_k": ",".join(
-                f"{allowed_k:.17g}" for allowed_k in _Q018_FURTHER_LOCAL_FREQUENCIES
-            ),
-            "allowed_M": _Q018_REQUIRED_M,
-            "allowed_required_eval_radii": ",".join(
-                f"{radius:.17g}" for _, radius in _Q018_FURTHER_LOCAL_POINTS
-            ),
-            "allowed_r_out": _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT,
-            "review_grid_point_id": "" if point_id is None else point_id,
-            "validated_transition_segments": (
-                "T4ab complete measured further-local transition set"
-            ),
-            "rejection_reasons": "; ".join(reasons),
-        }
-        raise RuntimeError(
-            "q018_experimental_oracle_out_of_envelope: structured radial no-go; "
-            f"metadata={json.dumps(metadata, sort_keys=True)}"
-        )
-
-
-def _q018_further_local_point_id(required_radius: float) -> str | None:
-    for point_id, radius in _Q018_FURTHER_LOCAL_POINTS:
-        if _strict_float_equal(float(required_radius), radius):
-            return point_id
-    return None
-
-
-def _q018_further_local_k(k: float) -> float | None:
-    for allowed_k in _Q018_FURTHER_LOCAL_FREQUENCIES:
-        if _strict_float_equal(float(k), allowed_k):
-            return allowed_k
-    return None
-
-
-def _q018_further_local_mode_allowed(
-    *,
-    k: float,
-    sector: Sector,
-    ell: int,
-    point_id: str,
-) -> bool:
-    for ell_min, ell_max, point_ids in _Q018_FURTHER_LOCAL_TRANSITION_SEGMENTS[
-        (k, sector.value)
-    ]:
-        if ell_min <= int(ell) <= ell_max and point_id in point_ids:
-            return True
-    return False
-
-
-def _validate_q018_literal_failed_child_oracle_envelope(
-    *,
-    sector: Sector,
-    ell: int,
-    k: float,
-    background: StaticSphericalBackground,
-    config: BoundaryConfig,
-    r_out: float,
-    barrier_action: float,
-    validate_mode: bool = True,
-) -> None:
-    """Require literal T4ac sector-aware failed-child membership."""
-    reasons: list[str] = []
-    point_id = (
-        None
-        if config.required_eval_radius is None
-        else _q018_literal_failed_child_point_id(
-            float(config.required_eval_radius)
-        )
-    )
-    normalized_k = _q018_literal_failed_child_k(float(k))
-    if getattr(background, "name", None) != "schwarzschild":
-        reasons.append("background is not Schwarzschild")
-    if not _strict_float_equal(
-        float(getattr(background, "M", np.nan)), _Q018_REQUIRED_M
-    ):
-        reasons.append("M is not 1")
-    if validate_mode and sector not in (Sector.ODD, Sector.EVEN):
-        reasons.append("sector is outside reviewed matrix")
-    if normalized_k is None:
-        reasons.append("k is outside measured literal failed-child matrix")
-    if config.required_eval_radius is None:
-        reasons.append("required_eval_radius is missing")
-    elif point_id is None:
-        reasons.append("required_eval_radius is outside measured Table-I radii")
-    if (
-        validate_mode
-        and normalized_k is not None
-        and point_id is not None
-        and not _q018_literal_failed_child_mode_allowed(
-            k=normalized_k,
-            sector=sector,
-            ell=ell,
-            point_id=point_id,
-        )
-    ):
-        reasons.append(
-            "mode is outside measured literal failed-child transition set"
-        )
-    if not _strict_float_equal(
-        float(r_out), _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT
-    ):
-        reasons.append("r_out is outside reviewed matrix")
-    if not _strict_float_equal(float(config.r_in_eps), _Q018_REQUIRED_R_IN_EPS):
-        reasons.append("r_in_eps is outside reviewed matrix")
-    if not _strict_float_equal(float(config.rtol), _Q018_REQUIRED_RTOL):
-        reasons.append("rtol is outside reviewed matrix")
-    if not _strict_float_equal(float(config.atol), _Q018_REQUIRED_ATOL):
-        reasons.append("atol is outside reviewed matrix")
-
-    if reasons:
-        metadata: dict[str, str | int | float | bool] = {
-            "code": "q018_experimental_oracle_out_of_envelope",
-            "severity": "error",
-            "message": (
-                "Q018 reviewed opt-in oracle was requested outside the "
-                "T4ac literal failed-child sector-aware transition envelope."
-            ),
-            "experimental_required_radius_oracle": (
-                _Q018_LITERAL_FAILED_CHILD_ORACLE_NAME
-            ),
-            "sector": sector.value,
-            "ell": int(ell),
-            "k": float(k),
-            "background_name": str(getattr(background, "name", "<unknown>")),
-            "M": float(getattr(background, "M", np.nan)),
-            "r_out": float(r_out),
-            "required_eval_radius": (
-                float("nan")
-                if config.required_eval_radius is None
-                else float(config.required_eval_radius)
-            ),
-            "r_in_eps": float(config.r_in_eps),
-            "rtol": float(config.rtol),
-            "atol": float(config.atol),
-            "barrier_action": float(barrier_action),
-            "allowed_k": ",".join(
-                f"{allowed_k:.17g}"
-                for allowed_k in _Q018_LITERAL_FAILED_CHILD_FREQUENCIES
-            ),
-            "allowed_M": _Q018_REQUIRED_M,
-            "allowed_required_eval_radii": ",".join(
-                f"{radius:.17g}"
-                for _, radius in _Q018_LITERAL_FAILED_CHILD_POINTS
-            ),
-            "allowed_r_out": _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT,
-            "review_grid_point_id": "" if point_id is None else point_id,
-            "validated_transition_segments": (
-                "T4ac complete measured literal failed-child transition set"
-            ),
-            "rejection_reasons": "; ".join(reasons),
-        }
-        raise RuntimeError(
-            "q018_experimental_oracle_out_of_envelope: structured radial no-go; "
-            f"metadata={json.dumps(metadata, sort_keys=True)}"
-        )
-
-
-def _q018_literal_failed_child_point_id(
-    required_radius: float,
-) -> str | None:
-    for point_id, radius in _Q018_LITERAL_FAILED_CHILD_POINTS:
-        if _strict_float_equal(float(required_radius), radius):
-            return point_id
-    return None
-
-
-def _q018_literal_failed_child_k(k: float) -> float | None:
-    for allowed_k in _Q018_LITERAL_FAILED_CHILD_FREQUENCIES:
-        if _strict_float_equal(float(k), allowed_k):
-            return allowed_k
-    return None
-
-
-def _q018_literal_failed_child_mode_allowed(
-    *,
-    k: float,
-    sector: Sector,
-    ell: int,
-    point_id: str,
-) -> bool:
-    for ell_min, ell_max, point_ids in (
-        _Q018_LITERAL_FAILED_CHILD_TRANSITION_SEGMENTS[(k, sector.value)]
-    ):
-        if ell_min <= int(ell) <= ell_max and point_id in point_ids:
-            return True
-    return False
-
-
-def _validate_q018_another_bounded_local_oracle_envelope(
-    *,
-    sector: Sector,
-    ell: int,
-    k: float,
-    background: StaticSphericalBackground,
-    config: BoundaryConfig,
-    r_out: float,
-    barrier_action: float,
-    validate_mode: bool = True,
-) -> None:
-    """Require literal T4ad sector-aware failed-child membership."""
-    reasons: list[str] = []
-    point_id = (
-        None
-        if config.required_eval_radius is None
-        else _q018_another_bounded_local_point_id(
-            float(config.required_eval_radius)
-        )
-    )
-    normalized_k = _q018_another_bounded_local_k(float(k))
-    if getattr(background, "name", None) != "schwarzschild":
-        reasons.append("background is not Schwarzschild")
-    if not _strict_float_equal(
-        float(getattr(background, "M", np.nan)), _Q018_REQUIRED_M
-    ):
-        reasons.append("M is not 1")
-    if validate_mode and sector not in (Sector.ODD, Sector.EVEN):
-        reasons.append("sector is outside reviewed matrix")
-    if normalized_k is None:
-        reasons.append("k is outside measured another-bounded-local matrix")
-    if config.required_eval_radius is None:
-        reasons.append("required_eval_radius is missing")
-    elif point_id is None:
-        reasons.append("required_eval_radius is outside measured Table-I radii")
-    if (
-        validate_mode
-        and normalized_k is not None
-        and point_id is not None
-        and not _q018_another_bounded_local_mode_allowed(
-            k=normalized_k,
-            sector=sector,
-            ell=ell,
-            point_id=point_id,
-        )
-    ):
-        reasons.append(
-            "mode is outside measured another-bounded-local transition set"
-        )
-    if not _strict_float_equal(
-        float(r_out), _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT
-    ):
-        reasons.append("r_out is outside reviewed matrix")
-    if not _strict_float_equal(float(config.r_in_eps), _Q018_REQUIRED_R_IN_EPS):
-        reasons.append("r_in_eps is outside reviewed matrix")
-    if not _strict_float_equal(float(config.rtol), _Q018_REQUIRED_RTOL):
-        reasons.append("rtol is outside reviewed matrix")
-    if not _strict_float_equal(float(config.atol), _Q018_REQUIRED_ATOL):
-        reasons.append("atol is outside reviewed matrix")
-
-    if reasons:
-        metadata: dict[str, str | int | float | bool] = {
-            "code": "q018_experimental_oracle_out_of_envelope",
-            "severity": "error",
-            "message": (
-                "Q018 reviewed opt-in oracle was requested outside the "
-                "T4ad another-bounded-local sector-aware transition envelope."
-            ),
-            "experimental_required_radius_oracle": (
-                _Q018_ANOTHER_BOUNDED_LOCAL_ORACLE_NAME
-            ),
-            "sector": sector.value,
-            "ell": int(ell),
-            "k": float(k),
-            "background_name": str(getattr(background, "name", "<unknown>")),
-            "M": float(getattr(background, "M", np.nan)),
-            "r_out": float(r_out),
-            "required_eval_radius": (
-                float("nan")
-                if config.required_eval_radius is None
-                else float(config.required_eval_radius)
-            ),
-            "r_in_eps": float(config.r_in_eps),
-            "rtol": float(config.rtol),
-            "atol": float(config.atol),
-            "barrier_action": float(barrier_action),
-            "allowed_k": ",".join(
-                f"{allowed_k:.17g}"
-                for allowed_k in _Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES
-            ),
-            "allowed_M": _Q018_REQUIRED_M,
-            "allowed_required_eval_radii": ",".join(
-                f"{radius:.17g}"
-                for _, radius in _Q018_ANOTHER_BOUNDED_LOCAL_POINTS
-            ),
-            "allowed_r_out": _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT,
-            "review_grid_point_id": "" if point_id is None else point_id,
-            "validated_transition_segments": (
-                "T4ad complete measured another-bounded-local transition set"
-            ),
-            "rejection_reasons": "; ".join(reasons),
-        }
-        raise RuntimeError(
-            "q018_experimental_oracle_out_of_envelope: structured radial no-go; "
-            f"metadata={json.dumps(metadata, sort_keys=True)}"
-        )
-
-
-def _q018_another_bounded_local_point_id(
-    required_radius: float,
-) -> str | None:
-    for point_id, radius in _Q018_ANOTHER_BOUNDED_LOCAL_POINTS:
-        if _strict_float_equal(float(required_radius), radius):
-            return point_id
-    return None
-
-
-def _q018_another_bounded_local_k(k: float) -> float | None:
-    for allowed_k in _Q018_ANOTHER_BOUNDED_LOCAL_FREQUENCIES:
-        if _strict_float_equal(float(k), allowed_k):
-            return allowed_k
-    return None
-
-
-def _q018_another_bounded_local_mode_allowed(
-    *,
-    k: float,
-    sector: Sector,
-    ell: int,
-    point_id: str,
-) -> bool:
-    for ell_min, ell_max, point_ids in (
-        _Q018_ANOTHER_BOUNDED_LOCAL_TRANSITION_SEGMENTS[(k, sector.value)]
-    ):
-        if ell_min <= int(ell) <= ell_max and point_id in point_ids:
-            return True
-    return False
-
-
-def _validate_q018_delta0p1_risk_oracle_envelope(
-    *,
-    sector: Sector,
-    ell: int,
-    k: float,
-    background: StaticSphericalBackground,
-    config: BoundaryConfig,
-    r_out: float,
-    barrier_action: float,
-    validate_mode: bool = True,
-) -> None:
-    """Require literal T4z risk-pilot membership, without interpolation."""
-    reasons: list[str] = []
-    point_id = (
-        None
-        if config.required_eval_radius is None
-        else _q018_delta0p1_risk_point_id(float(config.required_eval_radius))
-    )
-    normalized_k = _q018_delta0p1_risk_k(float(k))
-    if getattr(background, "name", None) != "schwarzschild":
-        reasons.append("background is not Schwarzschild")
-    if not _strict_float_equal(float(getattr(background, "M", np.nan)), _Q018_REQUIRED_M):
-        reasons.append("M is not 1")
-    if validate_mode and sector not in (Sector.ODD, Sector.EVEN):
-        reasons.append("sector is outside reviewed matrix")
-    if normalized_k is None:
-        reasons.append("k is outside measured risk-pilot matrix")
-    if config.required_eval_radius is None:
-        reasons.append("required_eval_radius is missing")
-    elif point_id is None:
-        reasons.append("required_eval_radius is outside measured Table-I radii")
-    if (
-        validate_mode
-        and normalized_k is not None
-        and point_id is not None
-        and not _q018_delta0p1_risk_mode_allowed(
-            k=normalized_k,
-            ell=ell,
-            point_id=point_id,
-        )
-    ):
-        reasons.append("mode is outside measured transition set")
-    if not _strict_float_equal(float(r_out), _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT):
-        reasons.append("r_out is outside reviewed matrix")
-    if not _strict_float_equal(float(config.r_in_eps), _Q018_REQUIRED_R_IN_EPS):
-        reasons.append("r_in_eps is outside reviewed matrix")
-    if not _strict_float_equal(float(config.rtol), _Q018_REQUIRED_RTOL):
-        reasons.append("rtol is outside reviewed matrix")
-    if not _strict_float_equal(float(config.atol), _Q018_REQUIRED_ATOL):
-        reasons.append("atol is outside reviewed matrix")
-
-    if reasons:
-        metadata: dict[str, str | int | float | bool] = {
-            "code": "q018_experimental_oracle_out_of_envelope",
-            "severity": "error",
-            "message": (
-                "Q018 reviewed opt-in oracle was requested outside the "
-                "T4z Delta0p1 risk-pilot transition validated envelope."
-            ),
-            "experimental_required_radius_oracle": _Q018_DELTA0P1_RISK_ORACLE_NAME,
-            "sector": sector.value,
-            "ell": int(ell),
-            "k": float(k),
-            "background_name": str(getattr(background, "name", "<unknown>")),
-            "M": float(getattr(background, "M", np.nan)),
-            "r_out": float(r_out),
-            "required_eval_radius": (
-                float("nan")
-                if config.required_eval_radius is None
-                else float(config.required_eval_radius)
-            ),
-            "r_in_eps": float(config.r_in_eps),
-            "rtol": float(config.rtol),
-            "atol": float(config.atol),
-            "barrier_action": float(barrier_action),
-            "allowed_k": ",".join(
-                f"{allowed_k:.17g}" for allowed_k in _Q018_DELTA0P1_RISK_FREQUENCIES
-            ),
-            "allowed_M": _Q018_REQUIRED_M,
-            "allowed_required_eval_radii": ",".join(
-                f"{radius:.17g}" for _, radius in _Q018_DELTA0P1_RISK_POINTS
-            ),
-            "allowed_r_out": _Q018_TABLEI_REVIEW_GRID_REQUIRED_R_OUT,
-            "review_grid_point_id": "" if point_id is None else point_id,
-            "validated_transition_segments": (
-                "T4z complete measured Delta0p1 risk-pilot transition set"
-            ),
-            "rejection_reasons": "; ".join(reasons),
-        }
-        raise RuntimeError(
-            "q018_experimental_oracle_out_of_envelope: structured radial no-go; "
-            f"metadata={json.dumps(metadata, sort_keys=True)}"
-        )
-
-
-def _q018_delta0p1_risk_point_id(required_radius: float) -> str | None:
-    for point_id, radius in _Q018_DELTA0P1_RISK_POINTS:
-        if _strict_float_equal(float(required_radius), radius):
-            return point_id
-    return None
-
-
-def _q018_delta0p1_risk_k(k: float) -> float | None:
-    for allowed_k in _Q018_DELTA0P1_RISK_FREQUENCIES:
-        if _strict_float_equal(float(k), allowed_k):
-            return allowed_k
-    return None
-
-
-def _q018_delta0p1_risk_mode_allowed(
-    *,
-    k: float,
-    ell: int,
-    point_id: str,
-) -> bool:
-    for ell_min, ell_max, point_ids in _Q018_DELTA0P1_RISK_TRANSITION_SEGMENTS[k]:
-        if ell_min <= int(ell) <= ell_max and point_id in point_ids:
-            return True
-    return False
-
-
-def _validate_q018_oracle_result(
-    *,
-    result: Any,
-    residual: float,
-    outer_boundary_residual: float,
-    normalization_residual: float,
-    log_derivative_match_residual: float,
-    sector: Sector,
-    ell: int,
-    k: float,
-) -> None:
-    if (
-        result.valid_at_required_radius
-        and _finite_complex(result.psi)
-        and _finite_complex(result.dpsi_dr)
-        and _finite_complex(result.A_in)
-        and _finite_complex(result.A_out)
-        and abs(result.A_in - 1.0) < 1e-8
-        and outer_boundary_residual < 1e-8
-        and normalization_residual < 1e-8
-        and log_derivative_match_residual < 1e-7
-    ):
-        return
-
-    metadata: dict[str, str | int | float | bool] = {
-        "code": "q018_experimental_oracle_residual_failure",
-        "severity": "error",
-        "sector": sector.value,
-        "ell": int(ell),
-        "k": float(k),
-        "finite_psi": _finite_complex(result.psi),
-        "finite_dpsi_dr": _finite_complex(result.dpsi_dr),
-        "finite_A_in": _finite_complex(result.A_in),
-        "finite_A_out": _finite_complex(result.A_out),
-        "abs_A_in_minus_one": float(abs(result.A_in - 1.0)),
-        "outer_boundary_residual": float(outer_boundary_residual),
-        "normalization_residual": float(normalization_residual),
-        "log_derivative_match_residual": float(log_derivative_match_residual),
-        "effective_residual": float(residual),
-    }
-    raise RuntimeError(
-        "q018_experimental_oracle_residual_failure: structured radial no-go; "
-        f"metadata={json.dumps(metadata, sort_keys=True)}"
-    )
-
-
 def _diagnostic_float(
     diagnostics: Mapping[str, object],
     key: str,
 ) -> float:
     value = float(diagnostics[key])
     if not np.isfinite(value):
-        raise RuntimeError(f"Q018 oracle diagnostic {key!r} is non-finite.")
+        raise RuntimeError(f"radial backend diagnostic {key!r} is non-finite.")
     return value
-
-
-def _strict_float_equal(value: float, target: float) -> bool:
-    return bool(np.isclose(value, target, rtol=0.0, atol=1e-15))
-
-
-def _finite_complex(value: complex) -> bool:
-    return bool(np.isfinite(value.real) and np.isfinite(value.imag))
 
 
 def _finite_complex_array(value: np.ndarray) -> bool:
@@ -2745,20 +1355,21 @@ def _bvp_boundary_residual(
     right: np.ndarray,
     parameters: np.ndarray,
     k: float,
-    rstar_out: float,
+    incoming: complex,
+    incoming_dpsi_drstar: complex,
+    outgoing: complex,
+    outgoing_dpsi_drstar: complex,
 ) -> np.ndarray:
     A_out = complex(parameters[0], parameters[1])
     left_psi = complex(left[0], left[1])
     left_dpsi_drstar = complex(left[2], left[3])
     ingoing_residual = left_dpsi_drstar + 1j * k * left_psi
 
-    incoming = np.exp(-1j * k * rstar_out)
-    outgoing = np.exp(1j * k * rstar_out)
     right_psi = complex(right[0], right[1])
     right_dpsi_drstar = complex(right[2], right[3])
     outer_psi_residual = right_psi - (incoming + A_out * outgoing)
     outer_derivative_residual = right_dpsi_drstar - (
-        -1j * k * incoming + 1j * k * A_out * outgoing
+        incoming_dpsi_drstar + A_out * outgoing_dpsi_drstar
     )
     return np.array(
         [
@@ -2784,13 +1395,23 @@ def _bvp_initial_guess(rstar_grid: np.ndarray, ell: int, k: float) -> np.ndarray
     return np.vstack([psi.real, psi.imag, dpsi_drstar.real, dpsi_drstar.imag])
 
 
-def _bvp_boundary_norm(result, k: float, rstar_out: float) -> float:
+def _bvp_boundary_norm(
+    result,
+    k: float,
+    incoming: complex,
+    incoming_dpsi_drstar: complex,
+    outgoing: complex,
+    outgoing_dpsi_drstar: complex,
+) -> float:
     residual = _bvp_boundary_residual(
         result.y[:, 0],
         result.y[:, -1],
         result.p,
         k,
-        rstar_out,
+        incoming,
+        incoming_dpsi_drstar,
+        outgoing,
+        outgoing_dpsi_drstar,
     )
     return float(np.linalg.norm(residual))
 

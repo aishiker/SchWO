@@ -154,11 +154,16 @@ def test_renderer_uses_the_same_forty_samples_and_records_principal_phase(
         kirchhoff_complex=0.8 * values,
         output_dir=tmp_path / "figures",
         dpi=72,
+        scattering_description="inferred response-column test surface",
+        kirchhoff_description="corrected exponential-prefactor test surface",
+        scattering_legend="response test",
+        kirchhoff_legend="Kirchhoff test",
     )
     assert all(path.is_file() for path in paths.values())
     sidecar = json.loads(paths["fig5_json"].read_text(encoding="utf-8"))
     assert sidecar["phase"] == "principal raw phase (np.angle); no display unwrap"
-    assert "no scattering computation" in sidecar["kirchhoff"]
+    assert sidecar["scattering"] == "inferred response-column test surface"
+    assert sidecar["kirchhoff"] == "corrected exponential-prefactor test surface"
 
 
 def test_renderer_rejects_invalid_kirchhoff_arrays(tmp_path: Path) -> None:

@@ -1,0 +1,135 @@
+{
+  "authority_id": "phase6_v3_1_u_repair_cycle2_sentinel_requested_observed_environment_v1",
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "classification": "bounded pre-sentinel control-plane clarification; no science, threshold, domain, method, precision, convention or solver change",
+  "created_at_utc": "2026-08-12T21:47:22Z",
+  "execution_boundary": {
+    "argv": [
+      "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-m",
+      "schwgw.validation.phase6_v3_mode_greybody_hp_replacement",
+      "route-c-sentinel"
+    ],
+    "cwd": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO",
+    "executable": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "launcher": {
+      "argv_prefix": [
+        "/usr/bin/env",
+        "-i",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTHONPATH=runs/phase5/paper_figures/runtime_overlays/mpmath_1p4p1_py314:src"
+      ],
+      "path": "/usr/bin/env",
+      "sha256": "6e506aec3c0cff703ac1e66cedc6f1945354ad41339a38db4425c7c88227128f",
+      "size": 102368
+    },
+    "no_alternate_executable_module_argv_cwd_or_launcher": true
+  },
+  "frozen_invariants": {
+    "allowed_implementation_paths": [
+      "src/schwgw/validation/phase6_v3_mode_greybody_hp_replacement.py",
+      "tests/regression/test_phase6_v3_hp_unitarity_publication.py",
+      "tests/unit/test_phase6_v3_hp_unitarity.py"
+    ],
+    "loaded_source_closure_state": "PASS_FROZEN",
+    "protected_radial_identities": {
+      "src/schwgw/numerics/adaptive_jost_radial.py": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896",
+      "src/schwgw/numerics/boundary_conditions.py": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22",
+      "src/schwgw/numerics/conditioned_radial.py": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2",
+      "src/schwgw/numerics/matching.py": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340",
+      "src/schwgw/numerics/physical_boundary_radial.py": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f",
+      "src/schwgw/numerics/radial_solver.py": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9",
+      "src/schwgw/numerics/scaled_tortoise_radial.py": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+    },
+    "unchanged_passed_paths": {
+      "scripts/phase6_v3_1_bhpt_mst_cycle2.wls": "894bb2ebe6bd9637e3e449e7785241085de0f673ad93ebbf7865c4a5023b888f",
+      "src/schwgw/validation/phase6_v3_mode_greybody_cycle2.py": "60fdc7c3f46ab21eafbe2b319f0c7b15b3ab64d6633d360f79ada078dcbd36b1",
+      "tests/unit/test_phase6_v3_cycle2.py": "47e29bf2ee0c900aaff1153ebee31848916b8c94b5de7e488220ef0f457b5323"
+    }
+  },
+  "gate_id": "phase6_v3_1_hp_unitarity_deficit_replacement_v1",
+  "implementation_contract": {
+    "actual_module_entry_must_validate_complete_observed_environment": true,
+    "authority_or_root_from_environment_permitted": false,
+    "caller_supplied_environment_is_exact_requested_environment": true,
+    "dispatch_consumption_must_persist_requested_and_observed_environment": true,
+    "dispatch_must_bind_this_authority_identity": true,
+    "environment_prefix_wildcard_or_ignored_key_permitted": false,
+    "future_final_implementation_review_path": "docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle2_implementation_delta_recheck_2.md",
+    "future_required_verdict_tokens": [
+      "ADVANCE_DECISION: ADVANCE",
+      "CLAIM_STATUS: NOT_ASSESSED",
+      "ACCEPT GREEN / V3.1-U REPAIR CYCLE 2 IMPLEMENTATION READY FOR ONE-SHOT ROUTE-C SENTINEL"
+    ],
+    "missing_changed_or_extra_observed_key_must_fail_before_dispatch_consumption": true,
+    "requested_environment_is_not_inferred_from_observed_environment": true,
+    "requested_environment_must_be_bound_by_t0_dispatch_and_exact_launcher": true,
+    "science_calls_during_implementation_and_review": 0
+  },
+  "nonclaims": [
+    "the two platform-injected observed keys are not caller authority and cannot select a root, dispatch, source, method or fallback",
+    "this clarification does not broaden the requested exec environment beyond the original two frozen keys",
+    "this authority is not sentinel execution or V3.1-U scientific acceptance",
+    "repair cycle 2 remains unconsumed until a later one-use dispatch and launch",
+    "no V3.2 or global GREEN is authorized"
+  ],
+  "observed_environment": {
+    "exact_post_startup_map": {
+      "LC_CTYPE": "C.UTF-8",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "runs/phase5/paper_figures/runtime_overlays/mpmath_1p4p1_py314:src",
+      "__CF_USER_TEXT_ENCODING": "0x1F5:0x19:0x34"
+    },
+    "exact_post_startup_map_canonical_sha256": "275a7c96a039be3a15a61d6ff5f2dd4c5285be0b60759775123c5215289f10bb",
+    "platform_injected_exact_map": {
+      "LC_CTYPE": "C.UTF-8",
+      "__CF_USER_TEXT_ENCODING": "0x1F5:0x19:0x34"
+    },
+    "probe_contract": {
+      "direct_execve_and_env_i_agree": true,
+      "literal_values_are_frozen_not_pattern_matched": true,
+      "repeat_count": 3,
+      "result": "EXACT_MATCH_EACH_PROBE",
+      "science_calls": 0
+    },
+    "validation": "exact key set and exact literal values; no subset, prefix, wildcard, projection, normalization or ignored keys"
+  },
+  "platform_identity": {
+    "architecture": "arm64",
+    "darwin_kernel_release": "25.5.0",
+    "macos_build": "25F84",
+    "macos_version": "26.5.2",
+    "python": {
+      "path": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf",
+      "size": 52448,
+      "version": "3.14.6"
+    },
+    "uid_decimal": 501
+  },
+  "predecessor_authorities": {
+    "configs/phase6_v3_1_u_repair_cycle2_package.json": "61460a45d4d47ba9247e68969a5d91e2d77aac722c9324014a414ed4126dbfa2",
+    "docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle2_implementation_delta_recheck_1.md": "c5f827cbbc61c413d269c611e34cf72c72433a63752e71dcace21f670cec4210",
+    "docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle2_implementation_delta_review.md": "4c4f048eb909f5f714f76d7f6c55c3429da6f80396bd2683976ca4a826df7499",
+    "docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle2_package_delta_recheck_1.md": "f67ce9fa3f0b3f65a7ad34c736c06236f1b0c87674a0e943e8b749f1ca9387e5",
+    "docs/review_gate_liveness_protocol.md": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181",
+    "docs/templates/t7_gate_verdict_template.md": "3ac1fe9969b253be034aa6a6ccf37d6daa9168c1685554049c143b6d9513179d"
+  },
+  "repair_id": "phase6_v3_1_u_route_c_totality_repair_cycle2_v1",
+  "requested_environment": {
+    "exact_execve_map": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "runs/phase5/paper_figures/runtime_overlays/mpmath_1p4p1_py314:src"
+    },
+    "meaning": "the complete caller-supplied environment at the execve boundary",
+    "validation": "exact key set and exact literal values; no extra, missing, changed, prefix or authority-bearing key"
+  },
+  "review_contract": {
+    "allowed_authority_review_write": "docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle2_environment_clarification_review.md",
+    "failed_item": "v31u_repair2_sentinel_runtime_environment_allowlist_unlaunchable",
+    "implementation_not_yet_authorized_by_this_file_alone": true,
+    "loaded_source_closure_must_not_be_reopened_without_regression_evidence": true,
+    "no_dispatch_root_wolfram_or_science": true
+  },
+  "schema": "schwo.phase6.v3_1_u.repair_cycle2_sentinel_environment_authority.v1"
+}

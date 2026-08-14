@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 from types import MappingProxyType
-from typing import Callable, Literal
+from typing import Callable, Literal, Mapping
 
 import numpy as np
 from numpy.typing import ArrayLike
@@ -21,11 +21,13 @@ from schwgw.scattering.apparent import (
     ApparentPolarizationResult,
     apparent_polarizations_from_strict_np,
 )
-from schwgw.scattering.legacy_adapter import (
+from schwgw.scattering.legacy import (
+    FULL_NP_PSEUDOINVERSE_BRIDGE_VALIDATED,
     LEGACY_EVEN_CHANNEL,
     LEGACY_ODD_CHANNEL,
     LegacyIncidentSourceAdapter,
     LegacyScalarRWZAdapter,
+    compute_packaged_polarization_scalars,
 )
 from schwgw.scattering.observables import (
     PolarizationResult,
@@ -39,10 +41,10 @@ from schwgw.scattering.weyl import (
     StrictNPScalars,
     WeylModeComponents,
     assemble_weyl_scalars,
-    compute_packaged_polarization_scalars,
     transform_strict_np_weyl_to_incident_tetrad,
     weyl_mode_components,
 )
+from schwgw.validation import legacy_np_diagnostic_metadata as _legacy_np_metadata
 from schwgw.waves.incident import IncidentPlaneGW
 from schwgw.waves.polarizations import circular_to_linear
 
@@ -52,6 +54,29 @@ RadialSolver = Callable[
     object,
 ]
 Q011ZConjugation = Literal["linear", "literal_conjugate"]
+
+
+@dataclass(frozen=True)
+class StrictNPAssemblyResult:
+    """Strict incident-frame NP scalars plus assembly diagnostics.
+
+    This typed result deliberately exposes the full quintuple without
+    converting it into the project's Route-B packaged polarization scalars.
+    It is used by paper-facing diagnostic projections whose conventions must
+    remain explicit at the call site.
+    """
+
+    scalars: StrictNPScalars
+    diagnostics: Mapping[str, float]
+    lmax: int
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.scalars, StrictNPScalars):
+            raise TypeError("scalars must be StrictNPScalars.")
+        if self.scalars.frame != "incident":
+            raise ValueError("strict NP assembly must be in the incident frame.")
+        object.__setattr__(self, "diagnostics", MappingProxyType(dict(self.diagnostics)))
+        object.__setattr__(self, "lmax", int(self.lmax))
 
 
 @dataclass(frozen=True)
@@ -100,7 +125,15 @@ def compute_polarization(
     radial_solver: RadialSolver = solve_radial_mode,
     mode_source: IncidentSourceProtocol | None = None,
 ) -> PolarizationResult:
-    """Assemble finite-radius polarization from RW/Zerilli partial waves."""
+    """Assemble the legacy finite-radius polarization diagnostic.
+
+    Radial/RWZ and strict-NP assembly are retained, but the final full-NP
+    pseudoinverse observable bridge is not validated for the one-sided
+    positive-frequency field.  The returned diagnostics therefore include
+    ``observable_bridge_validated=0``.  Paper-facing code must not promote the
+    result to a physical claim until a direct metric-curvature projection or
+    a complete ``(+k,m)``/``(-k,-m)`` reality bridge is implemented.
+    """
 
     k_value = float(k)
     if k_value <= 0.0:
@@ -199,6 +232,86 @@ def compute_apparent_polarizations(
     )
 
 
+def compute_strict_np_scalars(
+    *,
+    background: StaticSphericalBackground,
+    k: float,
+    r: float,
+    theta: float,
+    phi: float,
+    A_plus: complex,
+    A_cross: complex,
+    lmax: int,
+    boundary_config: BoundaryConfig | None = None,
+    radial_solver: RadialSolver = solve_radial_mode,
+    mode_source: IncidentSourceProtocol | None = None,
+    q011_z_conjugation: Q011ZConjugation = "linear",
+) -> StrictNPAssemblyResult:
+    """Assemble the full strict-NP quintuple in the incident tetrad.
+
+    Unlike :func:`compute_polarization`, this function performs no Route-B
+    electric-tidal packaging and no strain projection.  The default retains
+    the existing linear positive-frequency radial-source convention.  The
+    explicit ``literal_conjugate`` option is restricted to paper-facing
+    reconstruction and implements the stars printed in Eqs. (35g)--(35h).
+    """
+
+    k_value = float(k)
+    if k_value <= 0.0:
+        raise ValueError("Wave number k must be positive.")
+    if not isinstance(lmax, int):
+        raise TypeError("lmax must be an integer.")
+    if lmax < 2:
+        raise ValueError("Strict-NP assembly requires ell >= 2.")
+    radius = float(r)
+    if radius <= background.horizon_radius:
+        raise ValueError("Strict-NP assembly requires r > 2M.")
+    if q011_z_conjugation not in ("linear", "literal_conjugate"):
+        raise ValueError("q011_z_conjugation must be 'linear' or 'literal_conjugate'.")
+
+    source = mode_source
+    if source is None:
+        source = LegacyScalarRWZAdapter().incident_source(
+            k_value,
+            A_plus,
+            A_cross,
+        )
+    if not isinstance(source, IncidentSourceProtocol):
+        raise TypeError("mode_source must satisfy IncidentSourceProtocol.")
+    if (
+        type(source) is LegacyIncidentSourceAdapter
+        and source.wave.A_plus == 0.0
+        and source.wave.A_cross == 0.0
+    ):
+        return StrictNPAssemblyResult(
+            scalars=StrictNPScalars(0.0j, 0.0j, 0.0j, 0.0j, 0.0j, frame="incident"),
+            diagnostics=_zero_diagnostics(lmax),
+            lmax=lmax,
+        )
+
+    scalars, diagnostics = _assemble_incident_strict_np_from_source(
+        background=background,
+        k=k_value,
+        r=radius,
+        theta=theta,
+        phi=phi,
+        lmax=lmax,
+        boundary_config=boundary_config,
+        radial_solver=radial_solver,
+        mode_source=source,
+        q011_z_conjugation=q011_z_conjugation,
+    )
+    diagnostics = dict(diagnostics)
+    diagnostics["q011_conjugation_literal"] = float(
+        q011_z_conjugation == "literal_conjugate"
+    )
+    return StrictNPAssemblyResult(
+        scalars=scalars,
+        diagnostics=diagnostics,
+        lmax=lmax,
+    )
+
+
 def _compute_polarization_from_source(
     *,
     background: StaticSphericalBackground,
@@ -235,6 +348,16 @@ def _compute_polarization_from_source(
         boundary_config=boundary_config,
         radial_solver=radial_solver,
         mode_source=source,
+    )
+    diagnostics = dict(diagnostics)
+    diagnostics.update(
+        {
+            "full_np_pseudoinverse_bridge": 1.0,
+            "observable_bridge_validated": float(
+                FULL_NP_PSEUDOINVERSE_BRIDGE_VALIDATED
+            ),
+            "positive_frequency_reality_bridge_validated": 0.0,
+        }
     )
     packaged_scalars = compute_packaged_polarization_scalars(strict_incident_np)
     psi0_hat = packaged_scalars.psi0_pack
@@ -310,6 +433,7 @@ def _assemble_incident_strict_np_from_source(
     boundary_config: BoundaryConfig | None,
     radial_solver: RadialSolver,
     mode_source: IncidentSourceProtocol,
+    q011_z_conjugation: Q011ZConjugation = "linear",
 ) -> tuple[StrictNPScalars, dict[str, float]]:
     """Return the shared strict incident-frame NP assembly and diagnostics."""
 
@@ -340,39 +464,47 @@ def _assemble_incident_strict_np_from_source(
             if odd_coefficient != 0.0:
                 nonzero_coefficients += 1
                 weyl_modes.append(
-                    _scaled_weyl_mode(
-                        sector=Sector.ODD,
-                        ell=ell,
-                        m=m,
-                        coefficient=odd_coefficient,
-                        radial_cache=radial_cache,
-                        radial_state_cache=radial_state_cache,
-                        radial_solver=radial_solver,
-                        boundary_config=boundary_config,
-                        background=background,
-                        k=k,
-                        r=r,
-                        theta=float(theta),
-                        phi=float(phi),
+                    _q011_adjusted_mode(
+                        _scaled_weyl_mode(
+                            sector=Sector.ODD,
+                            ell=ell,
+                            m=m,
+                            coefficient=odd_coefficient,
+                            radial_cache=radial_cache,
+                            radial_state_cache=radial_state_cache,
+                            radial_solver=radial_solver,
+                            boundary_config=boundary_config,
+                            background=background,
+                            k=k,
+                            r=r,
+                            theta=float(theta),
+                            phi=float(phi),
+                        ),
+                        background,
+                        q011_z_conjugation,
                     )
                 )
             if even_coefficient != 0.0:
                 nonzero_coefficients += 1
                 weyl_modes.append(
-                    _scaled_weyl_mode(
-                        sector=Sector.EVEN,
-                        ell=ell,
-                        m=m,
-                        coefficient=even_coefficient,
-                        radial_cache=radial_cache,
-                        radial_state_cache=radial_state_cache,
-                        radial_solver=radial_solver,
-                        boundary_config=boundary_config,
-                        background=background,
-                        k=k,
-                        r=r,
-                        theta=float(theta),
-                        phi=float(phi),
+                    _q011_adjusted_mode(
+                        _scaled_weyl_mode(
+                            sector=Sector.EVEN,
+                            ell=ell,
+                            m=m,
+                            coefficient=even_coefficient,
+                            radial_cache=radial_cache,
+                            radial_state_cache=radial_state_cache,
+                            radial_solver=radial_solver,
+                            boundary_config=boundary_config,
+                            background=background,
+                            k=k,
+                            r=r,
+                            theta=float(theta),
+                            phi=float(phi),
+                        ),
+                        background,
+                        q011_z_conjugation,
                     )
                 )
 
@@ -546,7 +678,54 @@ def compute_flat_no_lens_partial_wave_strict_np_weyl(
     lmax: int,
     tetrad: Literal["kinnersley", "incident"] = "incident",
 ) -> dict[str, complex]:
-    """Return flat diagnostic strict-NP scalars for the M=0 partial-wave bridge."""
+    """Return a type-N-completed flat partial-wave diagnostic.
+
+    This historical helper is *not* a raw validation of the five assembled NP
+    components.  It preserves raw ``Psi3/Psi4`` and solves for
+    ``Psi0/Psi1/Psi2`` so that the incident-frame result lies in the expected
+    type-N subspace.  Use
+    :func:`compute_flat_no_lens_partial_wave_raw_strict_np_weyl` to inspect the
+    uncompleted assembly.
+    """
+
+    raw = compute_flat_no_lens_partial_wave_raw_strict_np_weyl(
+        k=k,
+        r=r,
+        theta=theta,
+        phi=phi,
+        A_plus=A_plus,
+        A_cross=A_cross,
+        lmax=lmax,
+        tetrad="kinnersley",
+    )
+    completed = _complete_flat_type_n_kinnersley_weyl(
+        raw,
+        theta=float(theta),
+        phi=float(phi),
+    )
+    if tetrad == "kinnersley":
+        return completed
+    if tetrad != "incident":
+        raise ValueError("tetrad must be 'kinnersley' or 'incident'.")
+    return transform_strict_np_weyl_to_incident_tetrad(
+        completed,
+        theta=float(theta),
+        phi=float(phi),
+    )
+
+
+def compute_flat_no_lens_partial_wave_raw_strict_np_weyl(
+    *,
+    k: float,
+    r: float,
+    theta: float,
+    phi: float,
+    A_plus: complex,
+    A_cross: complex,
+    lmax: int,
+    tetrad: Literal["kinnersley", "incident"] = "incident",
+) -> dict[str, complex]:
+    """Return the raw, uncompleted M=0 strict-NP partial-wave assembly."""
 
     k_value = float(k)
     if k_value <= 0.0:
@@ -571,15 +750,11 @@ def compute_flat_no_lens_partial_wave_strict_np_weyl(
         lmax=lmax,
         q011_z_conjugation="linear",
     )
-    completed = _complete_flat_type_n_kinnersley_weyl(
-        assembly["assembled"],
-        theta=float(theta),
-        phi=float(phi),
-    )
+    raw = dict(assembly["assembled"])
     if tetrad == "kinnersley":
-        return completed
+        return raw
     return transform_strict_np_weyl_to_incident_tetrad(
-        completed,
+        raw,
         theta=float(theta),
         phi=float(phi),
     )
@@ -1257,7 +1432,13 @@ def _zero_diagnostics(lmax: int) -> dict[str, float]:
         "max_boundary_residual": 0.0,
         "max_wronskian_residual": 0.0,
         "max_match_condition_number": 0.0,
+        "full_np_pseudoinverse_bridge": 1.0,
+        "observable_bridge_validated": 0.0,
+        "positive_frequency_reality_bridge_validated": 0.0,
     }
+
+
+compute_polarization.__schwgw_bridge_metadata__ = _legacy_np_metadata()
 
 
 def _sigma_l(ell: int) -> int:
@@ -1271,12 +1452,15 @@ def _scalar_or_array(values: np.ndarray, original: ArrayLike) -> float | np.ndar
 
 
 __all__ = [
+    "StrictNPAssemblyResult",
     "compute_apparent_polarizations",
     "PolarizationResult",
     "compute_flat_no_lens_polarization",
     "compute_flat_no_lens_partial_wave_diagnostic",
+    "compute_flat_no_lens_partial_wave_raw_strict_np_weyl",
     "compute_flat_no_lens_partial_wave_strict_np_weyl",
     "compute_polarization",
+    "compute_strict_np_scalars",
     "direct_cartesian_tt_packaged_weyl",
     "direct_cartesian_tt_polarization",
     "direct_cartesian_tt_strict_np_weyl",

@@ -53,6 +53,15 @@ class SchwarzschildBackgroundTests(unittest.TestCase):
         np.testing.assert_allclose(recovered, r_values, rtol=1e-13, atol=1e-13)
         self.assertIsInstance(bg.r_from_r_star(bg.r_star(6.0)), float)
 
+    def test_inverse_tortoise_round_trips_large_radius_without_overflow(self) -> None:
+        bg = SchwarzschildBackground(M=1.0)
+        r_values = np.array([1200.0, 1800.0, 2400.0])
+
+        with np.errstate(over="raise", invalid="raise"):
+            recovered = bg.r_from_r_star(bg.r_star(r_values))
+
+        np.testing.assert_allclose(recovered, r_values, rtol=0.0, atol=5.0e-13)
+
     def test_exterior_only_methods_reject_horizon_and_interior_radius(self) -> None:
         bg = SchwarzschildBackground(M=1.0)
 

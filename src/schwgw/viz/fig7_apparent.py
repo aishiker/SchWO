@@ -18,6 +18,10 @@ from typing import Any
 import numpy as np
 
 from schwgw.io.apparent import ApparentGridResult, load_apparent_results
+from schwgw.viz.paper_geometry import (
+    EVENT_HORIZON_RADIUS_OVER_M,
+    LIGHT_RING_IMAGE_RADIUS_OVER_M,
+)
 
 
 EXPECTED_KM_VALUES = (0.5, 1.0, 1.5, 2.0)
@@ -27,7 +31,7 @@ FIG7_COMPONENTS = (
     ("h_b", r"$\mathrm{Re}\,\widetilde{h}_{b}$"),
     ("h_longitudinal", r"$\mathrm{Re}\,\widetilde{h}_{L}$"),
 )
-FIG7_RENDERER_SCHEMA = "li_hou_zhao_fig7_apparent_renderer_v1"
+FIG7_RENDERER_SCHEMA = "li_hou_zhao_fig7_apparent_renderer_v2"
 FIG7_PAPER_COLOR_LIMIT = 0.9
 
 
@@ -322,7 +326,7 @@ def _render_panel(
                 vmax=vmax,
                 interpolation=interpolation,
             )
-            _draw_overlays(axis)
+            _draw_overlays(axis, mass=mass)
             if row_index == 0:
                 axis.set_title(rf"$kM={kM:g}$", fontsize=8, pad=2)
             if column_index == 0:
@@ -345,19 +349,26 @@ def _render_panel(
     plt.close(figure)
 
 
-def _draw_overlays(axis: Any) -> None:
+def _draw_overlays(axis: Any, *, mass: float) -> None:
     from matplotlib.patches import Circle
 
     axis.add_patch(
         Circle(
             (0.0, 0.0),
-            3.0,
+            LIGHT_RING_IMAGE_RADIUS_OVER_M * mass,
             facecolor="0.60",
             edgecolor="none",
             zorder=4,
         )
     )
-    axis.add_patch(Circle((0.0, 0.0), 2.0, color="black", zorder=5))
+    axis.add_patch(
+        Circle(
+            (0.0, 0.0),
+            EVENT_HORIZON_RADIUS_OVER_M * mass,
+            color="black",
+            zorder=5,
+        )
+    )
 
 
 def _source_record(path: Path, result: ApparentGridResult, kM: float) -> dict[str, Any]:
@@ -396,10 +407,18 @@ def _render_common_metadata(
         },
         "coordinates": {"x": "x/M", "z": "z/M", "background_mass": mass},
         "overlays": {
-            "event_horizon": {"radius_over_M": 2.0, "style": "black filled"},
-            "light_ring": {"radius_over_M": 3.0, "style": "gray filled disk"},
+            "event_horizon": {
+                "radius_over_M": EVENT_HORIZON_RADIUS_OVER_M,
+                "style": "black filled",
+            },
+            "light_ring": {
+                "radius_over_M": LIGHT_RING_IMAGE_RADIUS_OVER_M,
+                "geometry": "image-plane critical impact parameter b_c=3*sqrt(3)*M",
+                "style": "gray filled disk",
+            },
         },
         "display_policy": {
+            "colormap": "viridis",
             "fixed_paper_color_limit": FIG7_PAPER_COLOR_LIMIT,
             "color_clipping_is_display_only": True,
             "interpolation_is_display_only": True,

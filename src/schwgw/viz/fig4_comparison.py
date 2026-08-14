@@ -1,9 +1,12 @@
 """Read-only Fig. 4 exact/asymptotic comparison renderer.
 
-The finite-radius production artifacts store the scattered contribution used
-for the wave-field plots.  Paper Fig. 4 instead plots the full field, so the
-exact curves below add the incident plane wave from Eq. (46).  The
-conventional curves must be computed before entering this module.  The
+The finite-radius production artifacts store the *total* field: every radial
+mode is normalized by ``A_in`` to the incident partial-wave coefficient, so
+the saved solution already contains incoming plus reflected content.  The
+renderer must therefore use the saved arrays directly.  Adding the incident
+plane wave from Eq. (46) a second time would double count it.
+
+The conventional curves must be computed before entering this module.  The
 renderer validates those arrays and their durable source, but never imports or
 calls a scattering implementation.
 """
@@ -38,7 +41,11 @@ def add_incident_plane_wave(
     A_plus: complex,
     A_cross: complex,
 ) -> tuple[NDArray[np.complex128], NDArray[np.complex128]]:
-    """Return the full Fig. 4 field from saved scattered fields and Eq. (46)."""
+    """Compose a total field from arrays known independently to be scattered.
+
+    This helper is intentionally not used for :func:`render_fig4_exact_asymptotic_comparison`:
+    SchWO production ``GridResult`` arrays are already total fields.
+    """
 
     theta_values = np.asarray(theta, dtype=np.float64)
     plus = np.asarray(scattered_plus, dtype=np.complex128)
@@ -61,6 +68,31 @@ def add_incident_plane_wave(
         np.asarray(plus + complex(A_plus) * incident_phase, dtype=np.complex128),
         np.asarray(cross + complex(A_cross) * incident_phase, dtype=np.complex128),
     )
+
+
+def validate_saved_total_field(
+    theta: ArrayLike,
+    *,
+    total_plus: ArrayLike,
+    total_cross: ArrayLike,
+) -> tuple[NDArray[np.complex128], NDArray[np.complex128]]:
+    """Validate and return production arrays without adding another incident wave."""
+
+    theta_values = np.asarray(theta, dtype=np.float64)
+    plus = np.asarray(total_plus, dtype=np.complex128)
+    cross = np.asarray(total_cross, dtype=np.complex128)
+    if theta_values.ndim != 1 or theta_values.size == 0:
+        raise Fig4ComparisonError("theta must be a non-empty vector")
+    if plus.shape != theta_values.shape or cross.shape != theta_values.shape:
+        raise Fig4ComparisonError("total fields must match theta")
+    if np.any(theta_values < 0.0) or np.any(theta_values > np.pi):
+        raise Fig4ComparisonError("theta must lie in [0, pi]")
+    if not all(
+        np.all(np.isfinite(value.real)) and np.all(np.isfinite(value.imag))
+        for value in (plus, cross)
+    ):
+        raise Fig4ComparisonError("total fields must be finite")
+    return plus, cross
 
 
 def asymptotic_total_polarizations(
@@ -180,8 +212,8 @@ def render_fig4_exact_asymptotic_comparison(
     theta_rows: list[NDArray[np.float64]] = []
     exact_plus: list[NDArray[np.complex128]] = []
     exact_cross: list[NDArray[np.complex128]] = []
-    scattered_plus: list[NDArray[np.complex128]] = []
-    scattered_cross: list[NDArray[np.complex128]] = []
+    saved_total_plus: list[NDArray[np.complex128]] = []
+    saved_total_cross: list[NDArray[np.complex128]] = []
     asymptotic_plus: list[NDArray[np.complex128]] = []
     asymptotic_cross: list[NDArray[np.complex128]] = []
     lmax_values: list[int] = []
@@ -190,7 +222,6 @@ def render_fig4_exact_asymptotic_comparison(
         phi = np.asarray(result.phi, dtype=np.float64)
         config = result.metadata.get("config", {})
         wave = config.get("wave", {}) if isinstance(config, dict) else {}
-        observer = config.get("observer", {}) if isinstance(config, dict) else {}
         numerics = config.get("numerics", {}) if isinstance(config, dict) else {}
         if (
             theta.shape != (1025,)
@@ -202,28 +233,18 @@ def render_fig4_exact_asymptotic_comparison(
         lmax = int(numerics.get("lmax", -1))
         if lmax < 2:
             raise Fig4ComparisonError("exact lmax must be at least two")
-        r = float(observer.get("r", np.nan))
-        M = float(config.get("background", {}).get("M", np.nan))
-        a_plus_record = wave.get("A_plus", {})
-        a_cross_record = wave.get("A_cross", {})
-        A_plus = complex(a_plus_record.get("real"), a_plus_record.get("imag"))
-        A_cross = complex(a_cross_record.get("real"), a_cross_record.get("imag"))
         conventional_plus = conventional_plus_rows[index]
         conventional_cross = conventional_cross_rows[index]
         saved_plus = np.asarray(result.h_plus[:, 0], dtype=np.complex128)
         saved_cross = np.asarray(result.h_cross[:, 0], dtype=np.complex128)
-        full_plus, full_cross = add_incident_plane_wave(
+        full_plus, full_cross = validate_saved_total_field(
             theta,
-            scattered_plus=saved_plus,
-            scattered_cross=saved_cross,
-            k=kM / M,
-            r=r,
-            A_plus=A_plus,
-            A_cross=A_cross,
+            total_plus=saved_plus,
+            total_cross=saved_cross,
         )
         theta_rows.append(theta)
-        scattered_plus.append(saved_plus)
-        scattered_cross.append(saved_cross)
+        saved_total_plus.append(saved_plus)
+        saved_total_cross.append(saved_cross)
         exact_plus.append(full_plus)
         exact_cross.append(full_cross)
         asymptotic_plus.append(conventional_plus)
@@ -234,8 +255,8 @@ def render_fig4_exact_asymptotic_comparison(
         "kM": np.asarray(FIG8_KM_VALUES, dtype=np.float64),
         "lmax": np.asarray(lmax_values, dtype=np.int64),
         "theta": np.stack(theta_rows),
-        "h_plus_scattered_finite_radius": np.stack(scattered_plus),
-        "h_cross_scattered_finite_radius": np.stack(scattered_cross),
+        "h_plus_saved_total_finite_radius": np.stack(saved_total_plus),
+        "h_cross_saved_total_finite_radius": np.stack(saved_total_cross),
         "h_plus_exact": np.stack(exact_plus),
         "h_cross_exact": np.stack(exact_cross),
         "h_plus_asymptotic_q2": np.stack(asymptotic_plus),
@@ -243,7 +264,7 @@ def render_fig4_exact_asymptotic_comparison(
     }
     _atomic_save_npz(artifacts["data"], arrays)
     manifest = {
-        "schema_version": "schwgw_fig4_exact_asymptotic_q2_v2",
+        "schema_version": "schwgw_fig4_exact_asymptotic_q2_v3",
         "figure": 4,
         "source_exact": [
             {"path": str(path.resolve()), "sha256": _sha256(path)} for path in paths
@@ -258,8 +279,10 @@ def render_fig4_exact_asymptotic_comparison(
             "calculation"
         ),
         "exact_field_composition": (
-            "saved finite-radius scattered field + incident plane wave from Eq. (46)"
+            "saved finite-radius total field used directly; radial modes are "
+            "normalized by A_in to incident partial-wave coefficients"
         ),
+        "incident_wave_added_by_renderer": False,
         "theta_zero_policy": "asymptotic value is NaN; no extrapolation",
         "display_ylim": [0.0, 9.0],
         "display_clipping_only": True,
@@ -382,4 +405,5 @@ __all__ = [
     "add_incident_plane_wave",
     "asymptotic_total_polarizations",
     "render_fig4_exact_asymptotic_comparison",
+    "validate_saved_total_field",
 ]

@@ -14,6 +14,7 @@ from schwgw.io.asymptotic import (
     default_fig8_theta_grid,
     load_fig8_asymptotic_dataset,
     produce_fig8_asymptotic_dataset,
+    scan_fig8_matching_sensitivity,
     save_fig8_asymptotic_dataset,
 )
 
@@ -28,6 +29,23 @@ from schwgw.io.config import (
     WaveConfig,
     load_config,
     parse_config,
+)
+from schwgw.io.direct_curvature import (
+    DirectCurvatureGridPair,
+    run_direct_curvature_xz_grids,
+)
+from schwgw.io.direct_tablei import (
+    DenseRadialSpanCache,
+    DirectResponseColumns,
+    DirectTableIError,
+    compute_direct_response_columns,
+    merge_direct_tablei_uniform,
+    produce_direct_tablei_uniform,
+)
+from schwgw.io.fig8_mst import (
+    Fig8MSTError,
+    merge_fig8_mst_dataset,
+    produce_fig8_mst_frequency,
 )
 from schwgw.io.results import (
     AmplificationGridResult,
@@ -96,6 +114,11 @@ __all__ = [
     "BoundarySettings",
     "ConvergenceConfig",
     "ConfigError",
+    "DirectCurvatureGridPair",
+    "DenseRadialSpanCache",
+    "DirectResponseColumns",
+    "DirectTableIError",
+    "Fig8MSTError",
     "GridResult",
     "AmplificationGridResult",
     "ADAPTIVE_FREQUENCIES",
@@ -123,6 +146,7 @@ __all__ = [
     "builtin_tablei_points",
     "extract_tablei_four_frequency_from_amplification_results",
     "generate_kirchhoff_review_grid_artifact",
+    "compute_direct_response_columns",
     "load_config",
     "load_fig8_asymptotic_dataset",
     "load_amplification_results",
@@ -131,7 +155,9 @@ __all__ = [
     "parse_config",
     "default_fig8_theta_grid",
     "produce_fig8_asymptotic_dataset",
+    "scan_fig8_matching_sensitivity",
     "run_solver_grid",
+    "run_direct_curvature_xz_grids",
     "run_apparent_solver_grid",
     "save_amplification_results",
     "save_apparent_results",
@@ -143,8 +169,12 @@ __all__ = [
     "UNIFORM_LMAX_VALUES",
     "UniformContractError",
     "merge_tablei_uniform",
+    "merge_direct_tablei_uniform",
+    "merge_fig8_mst_dataset",
     "preflight_tablei_uniform",
     "run_tablei_uniform_missing",
+    "produce_direct_tablei_uniform",
+    "produce_fig8_mst_frequency",
     "run_targeted_adaptive_refinement",
     "run_further_local_refinement",
     "run_literal_failed_child_refinement",

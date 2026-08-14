@@ -1,0 +1,266 @@
+{
+  "artifact_policy": {
+    "failed_root_reuse_permitted": false,
+    "fresh_root_required": true,
+    "global_green_permitted": false,
+    "official_root_namespace": "runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_repair1_v1_<YYYYMMDDTHHMMSSZ>_py314",
+    "scientific_stage": "V3.1-U",
+    "timezone": "UTC",
+    "v3_2_authorized": false
+  },
+  "authority_chain": {
+    "dispatch": {
+      "fixed_path": "docs/handoffs/archive/T0_2026-08-12_v3_1_u_repair_cycle1_dispatch_attempt_0001.json",
+      "must_be_created_after_implementation_review": true,
+      "must_be_o_excl_canonical_json_0444_nlink1": true,
+      "must_be_published_and_consumed_before_first_science_call": true,
+      "must_bind_exact_fresh_absent_root": true,
+      "must_bind_implementation_review_and_four_hashes": true,
+      "single_use": true
+    },
+    "future_implementation_review_path": "docs/handoffs/archive/T7_2026-08-12_v3_1_u_repair_cycle1_implementation_delta_review.md",
+    "future_package_review_path": "docs/handoffs/archive/T7_2026-08-12_v3_1_u_repair_cycle1_package_review.md",
+    "implementation_stage_requires_dispatch": false,
+    "live_handoff_hash_is_execution_prerequisite": false,
+    "multiple_acceptable_authority_hashes_permitted": false,
+    "official_execution_requires_dispatch": true,
+    "runtime_boolean_or_fallback_bypass_permitted": false,
+    "runtime_environment_or_argument_authority_selection_permitted": false
+  },
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "class_c_control_plane_repair": {
+    "allowed_implementation_path": "src/schwgw/validation/phase6_v3_mode_greybody_hp_replacement.py",
+    "finding_id": "v31u_live_handoff_start_gate_recursion",
+    "limits": [
+      "verify_start_gate constants and non-circular immutable authority-chain logic",
+      "source-ledger binding for repaired producer/oracle, frozen CLI and authorities",
+      "official pre-science validation and one-use consumption of the fixed-path T0 dispatch"
+    ],
+    "science_bytes_changed": false
+  },
+  "created_at_utc": "2026-08-12T05:42:03Z",
+  "failed_evidence": {
+    "failure_json_sha256": "5aef8aec8511e5fa35df6459b7cd520b046e080d43f6c24fd95a8b46379d1779",
+    "failure_manifest_sha256": "6a8ab79495bad03c2d08742a6a6b79f3afc6df658eb7d7dcb20f145efa905b1e",
+    "policy": "immutable terminal failure evidence only; forbidden as resume, cache, checkpoint, result or accepted-input source",
+    "root": "runs/phase6/classic_scattering/v3_1_hp_unitarity_deficit_v1_20260811T143911Z_py314",
+    "route_u_ladders_sha256": "d7c1381fd0e51f439056350de90022ddc8aaf1808e72ee736b304ef10b2a5537",
+    "route_u_records_sha256": "645e2e116b13dbc1c70e7be1db06f3827a04ccd723e6093ffac8b06199e56c2b"
+  },
+  "forbidden_changes": [
+    "scripts/phase6_v3_1_hp_unitarity.py",
+    "all seven protected radial files",
+    "all V3.0 domain, threshold, formula, phase-taxonomy and convention authorities",
+    "the Route-U selector or its 318-key result",
+    "the three-node precision schedule or guard-digit rule",
+    "the exponent set/order, match radius, actual auxiliary radii or solver equations",
+    "all 16 thresholds, comparison operators and domains",
+    "the 496/9920/102/458/23 graph or five certificate IDs",
+    "any predecessor or failed evidence root",
+    "status.md or any handoff during T4 implementation",
+    "Li figures, finite-radius observer paths and V3.2"
+  ],
+  "frozen_cli": {
+    "path": "scripts/phase6_v3_1_hp_unitarity.py",
+    "sha256": "01ce96122b1c2dca9f29ec0355dd51ccf0611842fcdc7d0850107d012a6f25a4"
+  },
+  "frozen_graph": {
+    "certificates": 5,
+    "route_a_modes": 496,
+    "route_a_nodes": 9920,
+    "route_b_keys": 102,
+    "route_b_nodes": 458,
+    "route_c_records": 23,
+    "route_u_keys": 318,
+    "route_u_nodes": 954,
+    "route_u_nodes_per_key": 3,
+    "thresholds": 16
+  },
+  "frozen_predecessor_identities": {
+    "clarification_archive": {
+      "path": "docs/handoffs/archive/T7_2026-08-12_v3_1_u_terminal_scientific_failure_control_plane_clarification.md",
+      "sha256": "2f661f45dc609f6f92bb475060d5860586df3a916de8acefbab5f539f8850da0"
+    },
+    "original_package": {
+      "path": "configs/phase6_v3_1_hp_unitarity_replacement_package.json",
+      "sha256": "decde34bcdc90db0bc69be446357e306cfe942c84a8d575902eddaa7d1ff6877"
+    },
+    "original_package_approval": {
+      "path": "docs/handoffs/archive/T7_2026-08-11_v3_1_hp_unitarity_package_review.md",
+      "sha256": "9616b3fb4d0999e782e164740f5815f6bcdf46a955910cd2bcfcae032bde75cf"
+    },
+    "original_replacement_design": {
+      "path": "docs/phase6_v3_1_hp_unitarity_replacement_design.md",
+      "sha256": "243f312182528b10a895cef679d195dcedfd97d7a2e02e388449ae3af313dd28"
+    },
+    "original_t4_prompt": {
+      "path": "docs/prompts/phase6_t4_v3_1_hp_unitarity_replacement.md",
+      "sha256": "a1bffc42a381489dadd483edf2e6952d97ce236fbad3fe9ca82eb8b0ca862945"
+    },
+    "package_start_status": {
+      "execution_time_equality_required": false,
+      "path": "status.md",
+      "sha256": "15d29b641b66b061c8865edb72eb811519360bda6a314515fd115cbe1ab96158"
+    },
+    "package_start_t0_handoff": {
+      "execution_time_equality_required": false,
+      "path": "docs/handoffs/T0_current.md",
+      "sha256": "f80779de4990d6d18581d8ee4bccef1393f3a61b6fdb7cdbced272a357ac0ffa"
+    },
+    "package_start_t7_handoff": {
+      "execution_time_equality_required": false,
+      "path": "docs/handoffs/T7_current.md",
+      "sha256": "c41a9a26146d16e1ab3c8c1bf69ea9e4f52cd3d3e853eaa783263cedd7e90e65"
+    },
+    "terminal_scientific_review": {
+      "path": "docs/handoffs/archive/T7_2026-08-12_v3_1_u_terminal_scientific_failure_review.md",
+      "sha256": "7aa90e012e7d079d7c16256647d97db663293cf9ff6f5a4346130aa1d82482f1"
+    }
+  },
+  "geometry_contract": {
+    "admissibility": "k*(2^q*R_match) >= 4*sqrt(ell*(ell+1))",
+    "ambient_precision_independent_decision_required": true,
+    "comparison_form": "algebraically equivalent exact nonnegative squared or exact dimensionless-ratio comparison",
+    "epsilon_or_almosteq_permitted": false,
+    "exponent_order": [
+      0,
+      1,
+      2
+    ],
+    "first_admissible_exponent_required": true,
+    "match_radius": "max(300,sqrt(ell*(ell+1))/k)",
+    "post_solve_input_permitted": false,
+    "turning_branch_ratio_squared": 1
+  },
+  "implementation_scope": {
+    "allowed_unique_paths": [
+      "src/schwgw/validation/phase6_v3_hp_unitarity_oracle.py",
+      "src/schwgw/validation/phase6_v3_mode_greybody_hp_replacement.py",
+      "tests/regression/test_phase6_v3_hp_unitarity_publication.py",
+      "tests/unit/test_phase6_v3_hp_unitarity.py"
+    ],
+    "expected_changed_path_count": 4
+  },
+  "liveness": {
+    "completed_bounded_scientific_repairs": 0,
+    "current_bounded_scientific_repair": 1,
+    "maximum_bounded_scientific_repairs": 2,
+    "package_review_consumes_scientific_repair": false,
+    "parent_predecessor_v3_1_repairs_consumed": 2,
+    "replacement_is_predecessor_cycle_3": false
+  },
+  "members": [
+    {
+      "path": "docs/phase6_v3_1_u_repair_cycle1_design.md",
+      "role": "bounded science and control-plane repair design",
+      "sha256": "efa30a32e46db3e64ced8bfad95b720a0aae003e5361b81526d5801ffa48f1ff"
+    },
+    {
+      "path": "docs/prompts/phase6_t4_v3_1_u_repair_cycle1.md",
+      "role": "formal T4 zero-science implementation prompt",
+      "sha256": "5a4bf3c05424671b23a95e11ecbffbdd5e65304fbf43f9b1f6e38c910bf48c15"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_u_repair_cycle1_package_review.md",
+      "role": "formal T7 pre-implementation package-review prompt",
+      "sha256": "4fd5518036df72ac5dac19fe469687b6a1b0484ba7952a22d66d4f9140ebfe23"
+    },
+    {
+      "path": "docs/prompts/phase6_t7_v3_1_u_repair_cycle1_delta_review.md",
+      "role": "formal T7 post-implementation incremental-review prompt",
+      "sha256": "c2be5b0b965868e62225252d1d8eb89444d8b5375d5947139b5829fd7564bd4e"
+    }
+  ],
+  "nonclaims": [
+    "package readiness is not V3.1-U scientific acceptance",
+    "completed Route-A and partial Route-U failure evidence are not reusable science",
+    "no V3.2 authorization before terminal V3.1-U ADVANCE",
+    "no full-domain V3 certification",
+    "no Li-figure equivalence",
+    "no finite-radius observer claim",
+    "no global GREEN"
+  ],
+  "parent_gate_id": "phase6_v3_1_hp_unitarity_deficit_replacement_v1",
+  "preimplementation_baseline": {
+    "oracle": {
+      "path": "src/schwgw/validation/phase6_v3_hp_unitarity_oracle.py",
+      "sha256": "84fe4c299b46042b841a09d92ab7e38af73cfd12428513753e20c8b4b40b3e39"
+    },
+    "producer": {
+      "path": "src/schwgw/validation/phase6_v3_mode_greybody_hp_replacement.py",
+      "sha256": "81f5ca43480976975fa185ce24ff3f47b83c755dc8b74892b97a93798a914e51"
+    },
+    "regression_test": {
+      "path": "tests/regression/test_phase6_v3_hp_unitarity_publication.py",
+      "sha256": "5c33f18a4e327f18a7b8e5cdedc02f7ab8fb777e7bc8add645d55c27e93aa007"
+    },
+    "unit_test": {
+      "path": "tests/unit/test_phase6_v3_hp_unitarity.py",
+      "sha256": "1a0d1eea3e4d4047b1b8f84b02feb4dade8c3c40c8ba84dbf772b50b96774512"
+    }
+  },
+  "protected_radial_identities": {
+    "src/schwgw/numerics/adaptive_jost_radial.py": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896",
+    "src/schwgw/numerics/boundary_conditions.py": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22",
+    "src/schwgw/numerics/conditioned_radial.py": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2",
+    "src/schwgw/numerics/matching.py": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340",
+    "src/schwgw/numerics/physical_boundary_radial.py": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f",
+    "src/schwgw/numerics/radial_solver.py": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9",
+    "src/schwgw/numerics/scaled_tortoise_radial.py": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+  },
+  "repair_id": "phase6_v3_1_u_auxiliary_geometry_repair_cycle1_v1",
+  "schema": "schwo.phase6.v3_1_u.repair_cycle1_package.v1",
+  "science_repair": {
+    "allowed_paths": [
+      "src/schwgw/validation/phase6_v3_hp_unitarity_oracle.py",
+      "tests/regression/test_phase6_v3_hp_unitarity_publication.py",
+      "tests/unit/test_phase6_v3_hp_unitarity.py"
+    ],
+    "blocker_id": "v31u_auxiliary_radius_closed_boundary_roundoff",
+    "failed_item": "v31u_route_u_auxiliary_geometry_totality",
+    "threshold_or_domain_change_permitted": false
+  },
+  "source_bindings": {
+    "configs/phase6_v3_0_domain.json": "803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b",
+    "configs/phase6_v3_0_external_anchor_matrix.json": "06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485",
+    "configs/phase6_v3_0_thresholds.json": "91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a",
+    "docs/handoffs/archive/T7_2026-08-11_v3_1_repair_cycle2_delta_review.md": "fe2b1c351fb02e8f67af7cd5e22547d305fe5d4ead2edf681a85f19f1e61c0f3",
+    "docs/phase6_v3_0_formula_map.md": "e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac",
+    "docs/phase6_v3_0_literature_matrix.md": "088834348e980b81f814340a2a2c460b5bf11239521085c358bed7a90f603328",
+    "docs/phase6_v3_0_phase_taxonomy.md": "fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460",
+    "docs/phase6_v3_0_validation_contract.md": "0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3",
+    "docs/phase6_v3_1_hp_unitarity_replacement_design.md": "243f312182528b10a895cef679d195dcedfd97d7a2e02e388449ae3af313dd28",
+    "docs/prompts/phase6_t4_v3_1_hp_unitarity_replacement.md": "a1bffc42a381489dadd483edf2e6952d97ce236fbad3fe9ca82eb8b0ca862945",
+    "docs/prompts/phase6_t7_v3_1_hp_unitarity_review.md": "8822263a09bde6d5b0bd3b2c00117eb5ac1648ae9f804a4e71380b27fa90cb82",
+    "docs/review_gate_liveness_protocol.md": "3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181",
+    "docs/templates/t7_gate_verdict_template.md": "3ac1fe9969b253be034aa6a6ccf37d6daa9168c1685554049c143b6d9513179d",
+    "references/notes/phase6_v3_absorption_scattering_conventions.md": "82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a",
+    "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314/failed_evaluation.json": "f24765b878f56a849e4c114f73bfb61a5d422bbcf8005db5c799ac4a4b7ecfbc",
+    "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314/failure.json": "a6001141310a0629b3b26aa7297891ee37ab06a2a70e29c752e117d237695d47",
+    "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314/failure_manifest.json": "ab0f155f14313abed1d95716a30793411ed1d0ac076123933a1b1bbdd9e69fae",
+    "runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314/inventory.json": "c7d09f3e72c31f93d62491c859794b7c1b7fe9cc232e84e2560aa61e8f1b2133",
+    "src/schwgw/validation/phase6_v3_continued_jost.py": "e7fec2ceb3ad1147108b1ea23696ba61ed6476396eb861ecb3d931cb41088db4",
+    "src/schwgw/validation/phase6_v3_mode_greybody_ap.py": "bd592ed6118957c2d44f85c25096c5da11e945465c34b61921627534a3229743",
+    "src/schwgw/validation/phase6_v3_mode_greybody_cycle2.py": "a3990e9dc3bc5480478c037a77c0661e805508df49007848185e7178380da29e"
+  },
+  "verification_contract": {
+    "all_routed_geometry_keys": 318,
+    "all_routed_geometry_nodes": 954,
+    "focused_test_files": [
+      "tests/unit/test_phase6_v3_hp_unitarity.py",
+      "tests/regression/test_phase6_v3_hp_unitarity_publication.py"
+    ],
+    "original_failed_key": {
+      "ell": 10,
+      "kM": "0.005",
+      "parity": "odd",
+      "precision_schedule": [
+        120,
+        160,
+        220
+      ]
+    },
+    "science_solver_calls": 0,
+    "t4_may_run_official_science_in_implementation_turn": false
+  }
+}

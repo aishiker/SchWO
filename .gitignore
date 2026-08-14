@@ -29,6 +29,10 @@ dist/
 runs/
 tmp/
 references/papers/
+generated/phase6_v3_1_z/predicate_instances/
+generated/phase6_v3_1_z/mutation_oracle/
+SchWO_source*.zip
+SchWO_third_audit_package_20260806.zip
 
 # Downloaded/derived full-text paper artifacts
 arxiv-reading/*.html

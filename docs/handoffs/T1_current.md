@@ -1,231 +1,229 @@
 # T1 Current Handoff
 
-Last updated: 2026-08-01
+Last updated: 2026-08-11T11:27:39Z
 
-Thread role: T1, literature and physics-convention adjudication.
+Thread role: formal T1 primary-literature and physics-convention owner.
 
-## 2026-08-01 project sync
+Task identity: `019f5fb7-9d0a-78b0-af5e-25a663dd153b`
 
-T1 has no active task, but it is the natural owner of the next convention
-gate. Figures 3–7 are numerically generated but not paper-equivalent. Before
-any new full-grid calculation, a future T1 task must resolve, from the paper
-and first principles, (i) the real-time Eq. (42) to complex
-positive-frequency \(h_+,h_\times\) bridge, (ii) incident/total/scattered
-field definitions used by Fig.4, and (iii) the exact normalization and
-observable in the Fig.5/6 Kirchhoff integral. The previous T1j comparison
-baseline is historical and is not sufficient evidence that the current
-Kirchhoff curve matches the paper. See `status.md` and the current figure
-report under `docs/reports/`.
+Scientific stage: `Phase 6 / V3.0`
 
-## 1. Thread Role And Current Status
+Artifact revision: `r1`
 
-T1 owns physics conventions and literature-to-project convention bridges.  T1
-does not implement solvers, generate production artifacts, or change source
-code unless a future prompt explicitly assigns a convention-facing code task.
+## 1. Current state
 
-Current status:
+T1 completed the bounded, zero-science V3.0 primary-literature, formula,
+phase, domain, anchor, and threshold freeze specified by
+`docs/prompts/phase6_t1_v3_0_literature_formula_freeze.md`.
 
-- No active T1 task is pending.
-- The latest T1 convention slice, T1j Kirchhoff Eq. (47), is complete and
-  accepted downstream as sufficient for later bounded Kirchhoff baseline work.
-- `status.md` is the global authority.  As of the latest status, T7bq has
-  accepted the Fig.5/Fig.6 review-grid radial gate, and T0's next scheduled
-  implementation slice is T8aj conservative review-grid data resume, not a T1
-  task.
+Terminal T1 state:
 
-## 2. Completed Work
+`CHECKPOINT / V3.0 ANALYTIC-LITERATURE BENCHMARK CONTRACT FROZEN`
 
-- Phase 0 convention freeze:
-  - Fourier convention `exp(-i k t)`.
-  - Spherical harmonics, spin-weighted harmonics, Wigner-D convention.
-  - `A_plus/A_cross/A_L/A_R`.
-  - Regge-Wheeler gauge and odd/even master-variable normalization.
-  - Strict NP versus project packaged polarization-scalar distinction.
-  - `Psi0/Psi4 -> h_plus/h_cross` production bridge policy.
-- Q014/Q014 curved production bridge:
-  - Production finite-radius polarization uses the incident-frame electric
-    tidal projection / Route B packaged bridge, not flat type-N or helicity
-    packaging.
-  - Li-Hou-Zhao Eq. (35g)-(35h) stars are not same-positive-`k`, same-`m`
-    conjugation rules in the project positive-frequency API.
-- Q005/M5 transmission-normalization design:
-  - Project M5 production quantity is pointwise wave-optics amplification
-    `h_lensed/h_unlensed`, not radial horizon transmission/absorption.
-  - Denominator is the flat/no-lens production-compatible polarization field
-    with the same `exp(-i k t)`, amplitudes, coordinates, and Route B bridge.
-- T1j Kirchhoff Eq. (47) convention freeze:
-  - Decision: `GREEN / EQ47 COMPARISON BASELINE CONVENTIONS FROZEN`.
-  - Eq. (47) is frozen as a scalar/eikonal Kirchhoff comparison baseline only.
-  - Main note: `references/notes/kirchhoff_eq47_conventions.md`.
+This is a T1 candidate checkpoint, not an accepted gate. Root T0 must dispatch
+the already frozen formal T7 read-only contract review. T1 did not contact T7
+or authorize V3.1/V3.2/V3.3/V3.4.
 
-## 3. Incomplete Work
+No radial solver, partial-wave sum, V3 producer, absorption/glory numerical
+scan, benchmark, Li figure, or full test suite was run.
 
-- No current T1 work is required before T8aj.
-- Potential future T1/T6 task, only if T0 schedules it: strict `Psi4` Fig.2
-  diagnostic convention/API design.
-- Future Kirchhoff implementation still needs numerical backend validation for
-  complex `Gamma` and `1F1`, but that is T8/T7 implementation-review scope
-  unless it exposes a new convention conflict.
+## 2. Frozen input verification
 
-## 4. Blocking Issues And Non-Blocking Warnings
+Start identities matched and the same identities must match again at handoff
+verification:
 
-Blocking issues:
+- V3 master prompt:
+  `f8c48d9379efcc2534748e33b62a302ba7bd6fe11282b4b4ad6e7a9ae850b1c7`
+- T1 V3.0 prompt:
+  `03a352b881c97f1f767092340d5dc65f61e800dafde9c28b9f870eaa5ad454cc`
+- V2-to-V3 transition:
+  `4493c1359974bf58abcc4b93ebe30a6ebab5edef9bc229654c873846a95bfebb`
+- dispatch addendum:
+  `5a36c7fc72fcf10241a0ae0261cf220d08830c11466660c8259bfbc71b2c16db`
+- V2 convention contract:
+  `1251392e0799ebafad91d832a128a6ad93a4d9dacf1a07a4fa50f5af2b119517`
+- V2 selected domain:
+  `9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818`
+- current V2 release manifest:
+  `51ddf1580448382be7e182f92cf76bbf53ed39f15418af9e546f357979c743eb`
+- V1 radial manifest:
+  `2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728`
+- V1 production-state manifest:
+  `7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4`
+- V1 selected-independent manifest:
+  `aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c`
+- D-union plan:
+  `de266846ff6672dd04be255a43a1b5899af4753bea0757e00c5c2d60cf2067e3`
 
-- None for the current T0/T8aj path.
+The seven protected radial source hashes are embedded in all three V3.0 JSON
+configs and matched their V2 authority at start. Any end mismatch requires the
+exact frozen HOLD instead of this checkpoint.
 
-Non-blocking warnings:
+## 3. Required V3.0 outputs and SHA-256
 
-- Do not treat old historical status entries saying Kirchhoff Eq. (47) was
-  unfrozen as current.  The current status and T1j note supersede them.
-- T10 handoff may be stale relative to T10g/T7be, but `status.md` and the
-  relevant notes contain the authoritative trail.
-- Kirchhoff Eq. (47) is not a production spin-2 observable; confusing it with
-  `F_plus_complex/F_cross_complex` normalization would be a convention error.
+| File | SHA-256 |
+|---|---|
+| `docs/phase6_v3_0_validation_contract.md` | `0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3` |
+| `docs/phase6_v3_0_formula_map.md` | `e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac` |
+| `docs/phase6_v3_0_phase_taxonomy.md` | `fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460` |
+| `docs/phase6_v3_0_literature_matrix.md` | `088834348e980b81f814340a2a2c460b5bf11239521085c358bed7a90f603328` |
+| `configs/phase6_v3_0_domain.json` | `803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b` |
+| `configs/phase6_v3_0_thresholds.json` | `91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a` |
+| `configs/phase6_v3_0_external_anchor_matrix.json` | `06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485` |
+| `references/notes/phase6_v3_absorption_scattering_conventions.md` | `82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a` |
 
-## 5. Must-Read Files For Next T1
+The pre-V3.0 handoff was copied byte-for-byte to
+`docs/handoffs/archive/T1_2026-08-11_pre_v3_0_freeze.md`; its SHA-256 is
+`6b8013ff6b9d0002caf6d11c2ee3348aa28b865894891c2a338b3160ee05918f`.
 
-Read in this order:
+## 4. Scientific decisions frozen
+
+- `exp(-i omega t)`; existing V2 Schwarzschild tortoise/Jost phase retained.
+- `S_l^p=(-1)^(l+1) A_out^p/A_in^p`; free reference `S=1`.
+- Signed Wronskian currents are distinct from positive incident, outgoing, and
+  horizon fluxes.
+- `Gamma_flux=F_H/F_in` is the direct route;
+  `Gamma_S=1-|S|^2` is an independent consistency route.
+- Tiny positive Gamma is stored and compared in log domain; underflowed zero
+  is not acceptable.
+- Odd/even solves are independent. The Chandrasekhar parity relation is a
+  check, not an even-sector producer.
+- Total absorption uses the equal-parity-weight, gap-free sum beginning at
+  `ell=2`.
+- Page's spin-2 low-frequency law and the `27*pi*M^2` capture scale are the
+  absorption asymptotes.
+- Folacci--Ould El Hadj supplies the adopted exact `f/g`, `S-1`, and
+  total/free/scattered structure.
+- Yennie--Ravenhall--Wilson supplies the adopted recurrence; `q=2` is
+  production and `q=1,2,3` is the ladder.
+- Dolan supplies the low-frequency spin-2 cross section and the Schwarzschild
+  spin-2 `J_4` glory benchmark. Exact-geodesic `b_g=5.3570M` and
+  `b_g^2|db/dtheta|=4.896M^3` are mandatory; Darwin values are diagnostic.
+- An ordinary total-plane-wave partial-wave sum at null infinity is forbidden.
+- Published rasters are qualitative unless a separately reviewed
+  digitization/author-table artifact is frozen. Li is secondary regression.
+
+## 5. Phase taxonomy
+
+- common retarded-time origin: `PASS`
+- frequency-dependent common phase: `PARTIAL`
+- ell-dependent phase: `PASS`
+- odd/even relative phase: `PASS`
+- total/free/scattered reference phase: `PASS`
+- Coulomb/long-range phase subtraction: `PASS`
+- spin-weighted-harmonic phase convention: `PASS`
+
+The common-phase PARTIAL forbids an absolute complex `f/g` phase claim but
+does not block absorption, differential intensity, relative helicity phase, or
+glory features. T1 records both branch contracts as complete candidates; only
+T7 may set the formal branch booleans.
+
+## 6. Completed validation
+
+Read-only/control validation performed:
+
+- all three JSON files parse;
+- canonical sorted-key serialization checks pass;
+- required JSON metadata, nonclaims, exact upstream identities, seven
+  protected file identities, and four distinct stage domains are present;
+- every threshold has stable ID, observable, operator, value, units, domain,
+  rationale/derivation, and blocking stage;
+- anchor roles and parity-independence limitations are explicit;
+- primary-source formula locators and dimensions/signs/conventions were
+  manually audited;
+- scoped `git diff --check`, end protected rehash, process check, and final
+  hash ledger are required at the end of this handoff and must remain clean.
+
+## 7. Incomplete work and blockers
+
+Incomplete by design:
+
+- independent T7 V3.0 contract review has not yet run;
+- no V3 branch is authorized;
+- no V3 science artifact exists.
+
+Blocking issue for this T1 checkpoint: none, provided final rehash and scoped
+checks remain clean.
+
+Nonblocking limitations:
+
+- frequency-dependent absolute common phase remains PARTIAL;
+- Handler--Matzner/Dolan/Folacci published plots are not numerical tables;
+- external/AP backends named in the anchor matrix are future fresh routes, not
+  evidence already generated;
+- full-domain V1/V2/V3 certification, global GREEN, Li equivalence, and
+  finite-radius detector response remain explicit nonclaims.
+
+## 8. Exact next task
+
+Root T0, not T1, must verify the ledger and dispatch the already frozen formal
+T7 read-only review prompt:
+
+`docs/prompts/phase6_t7_v3_0_contract_review.md`
+
+T1 must not contact or start T7, T4, V3.1, or any producer. If T7 later returns
+a bounded repair to T1 through T0, change only the explicitly allowed files,
+preserve the current candidate identities, and create a new artifact revision
+where science/formula/domain/threshold content changes.
+
+## 9. Must-read order for the next T1
 
 1. `project.md`
-2. `status.md`
-3. `docs/handoffs/README.md`
-4. `docs/handoffs/T1_current.md`
-5. `docs/prompts/phase5_new_thread_startup_T0_T10.md`
-6. `docs/physics_spec.md`
-7. `docs/equation_map.md`
-8. `references/manifest.md`
-9. `references/notes/kirchhoff_eq47_conventions.md`
-10. `docs/m5_transmission_normalization.md`
-11. `references/notes/q014_weyl_transform_bridge.md`
-12. `references/notes/q014_curved_polarization_bridge.md`
-13. `references/notes/q013_flat_nolens_polarization_convention.md`
-14. `references/notes/t10g_fig5_fig6_dense_kirchhoff_readiness_plan.md`
-15. `docs/handoffs/T0_current.md`
-16. `docs/handoffs/T7_current.md`
-17. `docs/handoffs/T8_current.md`
+2. YAML header and latest V3 entries in `status.md`
+3. `docs/handoffs/T0_current.md`
+4. this handoff
+5. `docs/prompts/phase6_t1_v3_0_literature_formula_freeze.md`
+6. `docs/prompts/phase6_v3_master_prompt.md`
+7. `docs/phase6_v2_to_v3_transition.md`
+8. `docs/phase6_v2_to_v3_transition_dispatch_addendum.md`
+9. all eight V3.0 outputs
+10. the V2 convention/domain authorities and current V1/V2 manifests
 
-Only inspect PDFs after local notes/specs are insufficient.
+The older Phase 5 startup prompt and the archived pre-V3 handoff are historical,
+not current task authority.
 
-## 6. Frozen Decisions
+## 10. Allowed and forbidden files
 
-- Fourier convention is `exp(-i k t)`.
-- With this Fourier convention:
-  - `exp(-i k r_star)` is ingoing from spatial infinity.
-  - `exp(+i k r_star)` is outgoing toward spatial infinity.
-- Strict NP scalars and project packaged polarization scalars are distinct
-  objects.
-- Curved production polarization uses the incident-frame electric tidal
-  projection / Route B packaged bridge.
-- M5 production amplification uses the flat/no-lens production-compatible
-  denominator, not a tiny-`M` Schwarzschild solve, radial `A_in/A_out`, phase
-  shifts, horizon flux, or Kirchhoff baseline.
-- Kirchhoff Eq. (47) frozen formula:
+This completed task wrote only:
 
-```text
-F_K = exp(pi gamma/2)
-      * (-gamma)^(-i gamma)
-      * Gamma(1+i gamma)
-      * 1F1(-i gamma, 1; -i gamma (xi/xi0)^2)
+- the eight required V3.0 outputs;
+- `docs/handoffs/T1_current.md`;
+- `docs/handoffs/archive/T1_2026-08-11_pre_v3_0_freeze.md`.
 
-gamma = -2 M k
-xi/xi0 = (1/2) sqrt(r/M) tan(theta)
-theta_F = Arg(F_K)
-```
+It did not use the optional permission to append
+`references/manifest.md`, `docs/equation_map.md`, or
+`docs/physics_spec.md`, because the eight dedicated outputs fully carry the
+new mapping and this avoids overlap with the pre-existing dirty worktree.
 
-- `(-gamma)^(-i gamma)` uses the principal real log of `-gamma=2Mk>0`.
-- `Gamma(1+i gamma)` uses the principal complex Euler Gamma branch.
-- `1F1` is Kummer `M(a,b,z)`.
-- Kirchhoff Eq. (47) is polarization independent and comparison-only.
+Forbidden without a new T0 authority:
 
-## 7. Forbidden Actions
+- any `src/`, `scripts/`, `tests/`, or `runs/` change;
+- any V1/V2 config, immutable artifact, protected radial source, Li artifact,
+  another task handoff, or `status.md` change;
+- any solver, partial-wave sum, benchmark, numerical scan, figure generation,
+  full suite, GitHub operation, or downstream dispatch.
 
-Do not do any of the following from T1 without a new T0 prompt and, where
-appropriate, a T7 review path:
+## 11. Verification commands and definition of done
 
-- Reopen Fourier, harmonic, tetrad, RW/Zerilli, Q005/M5, Q014, Q018, Route B,
-  or Kirchhoff Eq. (47) conventions casually.
-- Modify `src/`, `tests/`, `configs/`, or `runs/` for a pure convention task.
-- Run solvers, scattering jobs, radial production jobs, dense scans, or
-  plotting tasks.
-- Treat Kirchhoff Eq. (47) as a denominator, mask, correction, calibration, or
-  production spin-2 prediction.
-- Authorize dense Fig.5/Fig.6 production or paper-style artifacts.
-- Claim final journal-grade or pixel-level reproduction from current T1
-  convention work.
-
-## 8. Superseded Prompts That Must Not Be Reused As Active Tasks
-
-These prompts are completed historical prompts or no longer the current next
-action.  Read them only for provenance if needed:
-
-- `docs/prompts/phase0_t1_physics_conventions.md`
-- `docs/prompts/phase5_t1_m5_transmission_normalization.md`
-- `docs/prompts/phase5_t1j_kirchhoff_eq47_convention_freeze.md`
-- `docs/prompts/phase5_t7aa_m5_normalization_review.md`
-- `docs/prompts/phase5_t7bn_kirchhoff_km4_preflight_batch_review.md`
-
-The current startup reference for a replacement T1 is:
-
-- `docs/prompts/phase5_new_thread_startup_T0_T10.md`
-
-## 9. Exact Next Task
-
-For T1 specifically:
-
-```text
-No active T1 task. Stand by until T0 assigns a new convention/literature gap.
-```
-
-If replacing all threads, use the T1 section of:
-
-```text
-docs/prompts/phase5_new_thread_startup_T0_T10.md
-```
-
-The current non-T1 project next task is T8aj:
-
-```text
-你现在是 T8aj：Fig.5/Fig.6 conservative review-grid data resume 线程。请读取并严格执行 docs/prompts/phase5_t8aj_fig5_fig6_review_grid_resume.md。
-```
-
-## 10. Allowed/Forbidden Files, Verification Commands, Definition Of Done
-
-Allowed files for a future pure T1 convention task, if T0 explicitly assigns
-one:
-
-- `docs/physics_spec.md`
-- `docs/equation_map.md`
-- `docs/validation_plan.md` when validation policy changes
-- `references/manifest.md`
-- `references/notes/*.md`
-- `docs/handoffs/T1_current.md`
-- `docs/handoffs/archive/T1_<date>_<slug>.md`
-- `status.md`
-
-Forbidden unless explicitly assigned:
-
-- `src/`
-- `tests/`
-- `configs/`
-- `runs/`
-- production artifacts, plots, fixtures, or dense-scan outputs
-
-Useful verification commands for the current T1 handoff:
+Required read-only checks:
 
 ```bash
-test -f docs/handoffs/T1_current.md
-test -f docs/handoffs/archive/T1_2026-07-14_kirchhoff_eq47_pre_handoff_format.md
-rg -n "No active T1 task|EQ47 COMPARISON BASELINE CONVENTIONS FROZEN|gamma = -2 M k|Kirchhoff Eq\\. \\(47\\)|Superseded Prompts|Definition Of Done" docs/handoffs/T1_current.md
-rg -n "Handoff 硬规则|T\\*_current|Required Content|Update Rule" project.md docs/handoffs/README.md
+jq empty configs/phase6_v3_0_domain.json
+jq empty configs/phase6_v3_0_thresholds.json
+jq empty configs/phase6_v3_0_external_anchor_matrix.json
+shasum -a 256 <all frozen inputs, seven protected files, D-union plan>
+shasum -a 256 <eight V3.0 outputs and T1 handoffs>
+git diff --check -- <T1 allowed changed files>
+ps -axo pid=,ppid=,command=
 ```
 
-Definition of done for this handoff update:
+Definition of done:
 
-- The old T1 handoff is archived.
-- `docs/handoffs/T1_current.md` contains all required handoff sections from
-  `docs/handoffs/README.md`.
-- The file states that T1 has no current active task.
-- The file preserves the T1j Kirchhoff Eq. (47) GREEN decision and its
-  comparison-only guardrails.
-- The file points the next T1 to the authoritative must-read files and current
-  startup prompt.
+- all eight outputs exist with the ledger above;
+- JSON canonicality/schema/content checks pass;
+- primary-source locators and formula conversions are complete;
+- final protected identities equal the start identities;
+- scoped diff check is clean;
+- no V3 producer/process ran;
+- only T1-allowed files changed;
+- T1 returns only the exact checkpoint recorded in Section 1.

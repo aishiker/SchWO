@@ -1,0 +1,41 @@
+{
+  "exact_root": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/classic_scattering/v3_1_x_external_direct_sentinel_v1_20260813T085010Z_py314",
+  "gate_id": "phase6_v3_1_x_external_direct_route_v1",
+  "implementation_hashes": {
+    "scripts/phase6_v3_1_x_bhpt_direct.wls": "24df8e68eef190dfd43348537bf2ce487aec5947f439f117f072bb96e8751da6",
+    "scripts/phase6_v3_1_x_external_direct.py": "072a3520bb32090e1dd872037f4570cd29a35ffc7d47a0788d426d3840e7e768",
+    "src/schwgw/validation/phase6_v3_external_direct.py": "981c2b220c3e67e400f0d8c420fdf4f89ac57962483fa0a02bf9ed3649948da4",
+    "src/schwgw/validation/phase6_v3_mode_greybody_external_direct_replacement.py": "81a33a4157d6e07b03621bff069c9383914464c16ce4314a9f7a556c7e1cd088",
+    "tests/regression/test_phase6_v3_external_direct_publication.py": "24d26a8a9c2e0ad573b97f76b39db7743f2d6639cd57978be93f0c310062f858",
+    "tests/unit/test_phase6_v3_external_direct.py": "056c7273edbdb612d3fc99c4b493f2fe4c96dc15b8ae7aa3a872587f33f3aaba"
+  },
+  "implementation_review": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/docs/handoffs/archive/T7_2026-08-13_v3_1_x_sentinel_repair_cycle1_dispatch_namespace_delta_review.md",
+    "sha256": "5a2a3a0f531f777ac0c8299078a645cc0a466158078882dd4e3ad2f38631e498"
+  },
+  "invocation": {
+    "command": "sentinel",
+    "cwd": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO",
+    "dispatch_path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/docs/handoffs/archive/T0_2026-08-13_v3_1_x_external_direct_sentinel_dispatch_attempt_0002.json",
+    "dispatch_sha256_source": "outer_cli_argument",
+    "executable": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "launcher": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/scripts/phase6_v3_1_x_external_direct.py",
+    "script": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/scripts/phase6_v3_1_x_external_direct.py"
+  },
+  "observed_environment": {
+    "LC_CTYPE": "C.UTF-8",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "runs/phase5/paper_figures/runtime_overlays/mpmath_1p4p1_py314:src",
+    "__CF_USER_TEXT_ENCODING": "0x1F5:0x19:0x34"
+  },
+  "one_use_id": "92c294a70e73286d998cc47279ec0b1055293c3703441f50b74c8423efba8619",
+  "package_sha256": "6a4ab0f690afab975c981f65fc80e0e3f48541da00c4023330ee94274146f752",
+  "predecessor_science_reused": false,
+  "requested_environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "runs/phase5/paper_figures/runtime_overlays/mpmath_1p4p1_py314:src"
+  },
+  "schema": "schwo.phase6.v3_1_x.external_direct_dispatch.v1",
+  "sentinel_science_reused": false,
+  "stage": "sentinel"
+}

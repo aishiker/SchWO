@@ -30,12 +30,17 @@ def test_fig7_renderer_writes_publication_and_audit_artifacts(tmp_path) -> None:
     assert manifest["no_solver_rerun"] is True
     assert manifest["kM_values"] == [0.5, 1.0, 1.5, 2.0]
     assert manifest["display_policy"] == {
+        "colormap": "viridis",
         "fixed_paper_color_limit": 0.9,
         "color_clipping_is_display_only": True,
         "interpolation_is_display_only": True,
         "numerical_audit_interpolation": "nearest",
         "physical_data_modified": False,
     }
+    assert manifest["overlays"]["event_horizon"]["radius_over_M"] == 2.0
+    assert manifest["overlays"]["light_ring"]["radius_over_M"] == pytest.approx(
+        3.0 * np.sqrt(3.0)
+    )
     assert [record["sha256"] for record in manifest["source_inputs"]] == [
         hashlib.sha256(path.read_bytes()).hexdigest() for path in result_paths
     ]

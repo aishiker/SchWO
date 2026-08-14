@@ -1,0 +1,339 @@
+{
+  "anchors": [
+    {
+      "anchor_id": "V3A-MODE-AP-LOW-001",
+      "blocking_for": [
+        "V3.1"
+      ],
+      "domain_selector": "kM in [0.005,0.01,0.02,0.05]; ell in [2,3,4,8,12] where present; both parities",
+      "independence_requirement": "fresh arbitrary-precision direct integration that does not import or call the protected SchWO radial implementation and extracts A_in, A_out, A_H independently",
+      "observables": [
+        "S_complex",
+        "Gamma_flux",
+        "log_Gamma"
+      ],
+      "parity_policy": "odd and even are separate integrations; parity-derived even is forbidden",
+      "role": "blocking arbitrary-precision anchor for low-frequency and tiny-Gamma modes",
+      "route_type": "arbitrary_precision_independent",
+      "source_or_backend": "fresh AP RW and Zerilli direct solver, 80/120/180 decimal-digit ladder",
+      "stage": "V3.1"
+    },
+    {
+      "anchor_id": "V3A-MODE-AP-TURNING-001",
+      "blocking_for": [
+        "V3.1"
+      ],
+      "domain_selector": "kM in [0.5,1,2,4,8]; every integer ell with abs((ell+0.5)-3*sqrt(3)*kM)<=2; both parities",
+      "independence_requirement": "same independent AP algorithms as V3A-MODE-AP-LOW-001, with independent precision and boundary ladders",
+      "observables": [
+        "S_complex",
+        "Gamma_flux",
+        "Gamma_S",
+        "parity_probability",
+        "parity_relative_phase"
+      ],
+      "parity_policy": "independent odd/even solutions mandatory",
+      "role": "blocking arbitrary-precision anchor at the capture-barrier transition",
+      "route_type": "arbitrary_precision_independent",
+      "source_or_backend": "fresh AP RW and Zerilli direct solver",
+      "stage": "V3.1"
+    },
+    {
+      "anchor_id": "V3A-MODE-AP-EVANESCENT-001",
+      "blocking_for": [
+        "V3.1"
+      ],
+      "domain_selector": "kM in [0.1,0.5,1,2,4,8]; ell nearest l_critical+8 and l_critical+12, clipped to the V3.1 domain; both parities",
+      "independence_requirement": "log-domain AP flux and S extraction; no binary64-zero substitution",
+      "observables": [
+        "S_complex",
+        "log_Gamma_flux",
+        "log_Gamma_S"
+      ],
+      "parity_policy": "independent odd/even solutions mandatory",
+      "role": "blocking arbitrary-precision anchor for evanescent/high-ell modes",
+      "route_type": "arbitrary_precision_independent",
+      "source_or_backend": "fresh AP RW and Zerilli direct solver",
+      "stage": "V3.1"
+    },
+    {
+      "anchor_id": "V3A-MODE-BHPT-RW-001",
+      "blocking_for": [
+        "V3.1"
+      ],
+      "domain_selector": "odd parity at kM=[0.1,0.5,1,2,4] and ell=[2,3,4,nearest critical,critical+8] where valid",
+      "independence_requirement": "external Black Hole Perturbation Toolkit ReggeWheeler MST or Numerical solution; explicit translation of its amplitudes to V3-F02",
+      "observables": [
+        "S_odd_complex",
+        "Gamma_odd"
+      ],
+      "parity_policy": "odd-only external anchor; it cannot certify an independent even solve",
+      "role": "blocking external-backend anchor for selected ordinary/turning/high-ell odd modes",
+      "route_type": "external_backend",
+      "source_or_backend": "Black Hole Perturbation Toolkit ReggeWheeler package documentation and fresh backend output",
+      "stage": "V3.1"
+    },
+    {
+      "anchor_id": "V3A-V2-SPARSE-CONTROL-001",
+      "blocking_for": [],
+      "domain_selector": "the frozen V2 selected 30 radial keys only",
+      "independence_requirement": "immutable identity-bound reuse; no interpolation or expansion",
+      "observables": [
+        "selected complex radial/S controls"
+      ],
+      "parity_policy": "retain the exact V2 route labels",
+      "role": "diagnostic inherited control and provenance continuity only; never a V3 domain substitute",
+      "route_type": "inherited_control",
+      "source_or_backend": "V2 selected release and V1 selected-independent manifests in upstream_identities",
+      "stage": "V3.1"
+    },
+    {
+      "anchor_id": "V3A-ABS-PAGE-LOW-001",
+      "blocking_for": [
+        "V3.2"
+      ],
+      "domain_selector": "fit kM=[0.005,0.01,0.02,0.05] and extrapolate kM->0",
+      "independence_requirement": "primary analytic formula, independent of SchWO numerics",
+      "observables": [
+        "low_frequency_power",
+        "low_frequency_coefficient"
+      ],
+      "parity_policy": "Schwarzschild result is parity/helicity independent after the exact equal-weight total",
+      "role": "blocking low-frequency analytic absorption anchor",
+      "route_type": "primary_literature_analytic",
+      "source_or_backend": "Page 1976, DOI 10.1103/PhysRevD.13.198, Eq. (19), s=2 and a=0",
+      "stage": "V3.2"
+    },
+    {
+      "anchor_id": "V3A-ABS-AP-TOTAL-001",
+      "blocking_for": [
+        "V3.2"
+      ],
+      "domain_selector": "kM=[0.01,0.1,0.5,1,2,4,8]; continuous ell sequence with an independently bounded tail",
+      "independence_requirement": "sum fresh AP odd/even direct-flux modes; do not consume production V3.1 Gamma fields as the independent route",
+      "observables": [
+        "sigma_abs_l_over_M2",
+        "sigma_abs_over_M2",
+        "tail_upper_bound"
+      ],
+      "parity_policy": "equal weight of independently integrated parities",
+      "role": "blocking arbitrary-precision total-absorption anchor",
+      "route_type": "arbitrary_precision_independent",
+      "source_or_backend": "fresh AP RW/Zerilli mode solver and independent sum",
+      "stage": "V3.2"
+    },
+    {
+      "anchor_id": "V3A-ABS-CAPTURE-001",
+      "blocking_for": [
+        "V3.2"
+      ],
+      "domain_selector": "window average over kM=[4,6,8,12]",
+      "independence_requirement": "analytic null-geodesic limit, independent of wave solver",
+      "observables": [
+        "window_averaged_sigma_abs_over_M2"
+      ],
+      "parity_policy": "not parity resolved",
+      "role": "blocking high-frequency scale anchor; pointwise oscillations remain diagnostic",
+      "route_type": "primary_literature_analytic",
+      "source_or_backend": "Dolan CQG 25 Sec. 6.1/Table 1 and Page Eq. (19) discussion: 27*pi*M^2",
+      "stage": "V3.2"
+    },
+    {
+      "anchor_id": "V3A-SCATTER-DOLAN-LOW-001",
+      "blocking_for": [
+        "V3.3"
+      ],
+      "domain_selector": "kM=[0.01,0.02,0.05], theta=[10,170] degrees",
+      "independence_requirement": "closed primary analytic expression; compare complex f/g modulo one common phase and compare cross section directly",
+      "observables": [
+        "f_over_M_complex_mod_common_phase",
+        "g_over_M_complex_mod_common_phase",
+        "M2_inverse_dsigma_dOmega"
+      ],
+      "parity_policy": "helicity-reversal term must arise from independent odd/even S inputs",
+      "role": "blocking low-frequency analytic spin-2 scattering anchor",
+      "route_type": "primary_literature_analytic",
+      "source_or_backend": "Dolan 2008 PRD 77, DOI 10.1103/PhysRevD.77.044004, Eqs. (19), (20), (36)",
+      "stage": "V3.3"
+    },
+    {
+      "anchor_id": "V3A-SCATTER-CAM-001",
+      "blocking_for": [
+        "V3.3"
+      ],
+      "domain_selector": "selected kM=[0.05,0.1] and theta=[10,30,60,90,120,150,170] degrees",
+      "independence_requirement": "independent CAM/MST or direct partial-wave implementation with its own S data and convergence; literature plots alone do not satisfy the anchor",
+      "observables": [
+        "differential_cross_section",
+        "helicity_preserving_magnitude",
+        "helicity_reversing_magnitude"
+      ],
+      "parity_policy": "even must be independently evaluated or explicitly excluded from an independent-even claim",
+      "role": "blocking external-backend selected scattering anchor",
+      "route_type": "external_backend",
+      "source_or_backend": "Folacci--Ould El Hadj 2019 formulation with fresh external CAM/MST/direct output",
+      "stage": "V3.3"
+    },
+    {
+      "anchor_id": "V3A-GLORY-GEODESIC-001",
+      "blocking_for": [
+        "V3.4"
+      ],
+      "domain_selector": "Schwarzschild null geodesics with deflection theta=pi and derivative at pi",
+      "independence_requirement": "fresh null-geodesic quadrature/root solve independent of all radial and partial-wave code",
+      "observables": [
+        "b_glory_over_M",
+        "b_glory_squared_abs_db_dtheta_over_M3",
+        "b_critical_over_M"
+      ],
+      "parity_policy": "not parity resolved",
+      "role": "blocking exact-geodesic glory anchor",
+      "route_type": "independent_geodesic",
+      "source_or_backend": "Dolan CQG 25 text below Eq. (6) and Table 1; exact values 5.3570, 4.896, 3*sqrt(3)",
+      "stage": "V3.4"
+    },
+    {
+      "anchor_id": "V3A-GLORY-SEMICLASSICAL-001",
+      "blocking_for": [
+        "V3.4"
+      ],
+      "domain_selector": "kM=[4,6,8,12], theta=[150,180] degrees",
+      "independence_requirement": "evaluate the closed J4 glory formula from independently converged geodesic parameters and angle grid",
+      "observables": [
+        "first_ring_peak_angle",
+        "first_ring_fwhm",
+        "first_ring_peak_height"
+      ],
+      "parity_policy": "spin-2 Bessel order is exactly 4; theta=pi is a zero, not a peak",
+      "role": "blocking semiclassical feature anchor with separate asymptotic-error thresholds",
+      "route_type": "primary_literature_semiclassical",
+      "source_or_backend": "Dolan CQG 25 Eq. (5), Schwarzschild exact-geodesic parameters",
+      "stage": "V3.4"
+    },
+    {
+      "anchor_id": "V3A-GLORY-CAM-001",
+      "blocking_for": [
+        "V3.4"
+      ],
+      "domain_selector": "selected kM=[4,8,12] feature triples in the backward window",
+      "independence_requirement": "fresh external CAM/MST result or independently implemented Regge-pole reconstruction; no digitization-only substitute",
+      "observables": [
+        "first_ring_peak_angle",
+        "first_ring_fwhm",
+        "first_ring_peak_height"
+      ],
+      "parity_policy": "must preserve helicity channel and spin-harmonic convention",
+      "role": "blocking external-backend glory feature anchor",
+      "route_type": "external_backend",
+      "source_or_backend": "Folacci--Ould El Hadj 2019 Regge-pole framework or equivalent independent CAM/MST backend",
+      "stage": "V3.4"
+    },
+    {
+      "anchor_id": "V3A-HISTORICAL-FIGURES-001",
+      "blocking_for": [],
+      "domain_selector": "published Handler--Matzner, Dolan, and Folacci figures in their stated parameter ranges",
+      "independence_requirement": "visual/qualitative only unless a separate reviewed digitization or author table is frozen",
+      "observables": [
+        "qualitative oscillation morphology",
+        "qualitative glory development",
+        "qualitative absorption trend"
+      ],
+      "parity_policy": "retain each paper's labels and do not infer an independent even solve",
+      "role": "nonblocking qualitative regression",
+      "route_type": "primary_literature_figure_qualitative",
+      "source_or_backend": "Handler--Matzner 1980; Dolan 2008 CQG; Folacci--Ould El Hadj 2019",
+      "stage": "V3.2-V3.4"
+    }
+  ],
+  "artifact_revision": 1,
+  "canonical_serialization": "UTF-8, LF, sorted object keys, two-space indentation, one terminal newline",
+  "created_at_utc": "2026-08-11T11:27:39Z",
+  "global_green_permitted": false,
+  "nonclaims": [
+    "no full-domain V1, V2, or V3 certification",
+    "no global GREEN",
+    "no Li figure equivalence",
+    "no finite-radius observer or detector response",
+    "no ordinary total-plane-wave infinity sum",
+    "no V3 science execution in V3.0"
+  ],
+  "schema": "schwo.phase6.v3_0.external_anchor_matrix.v1",
+  "scientific_stage": "V3.0",
+  "timezone": "UTC",
+  "upstream_identities": {
+    "dispatch_addendum": {
+      "path": "docs/phase6_v2_to_v3_transition_dispatch_addendum.md",
+      "sha256": "5a36c7fc72fcf10241a0ae0261cf220d08830c11466660c8259bfbc71b2c16db"
+    },
+    "phase6_v2_to_v3_transition": {
+      "path": "docs/phase6_v2_to_v3_transition.md",
+      "sha256": "4493c1359974bf58abcc4b93ebe30a6ebab5edef9bc229654c873846a95bfebb"
+    },
+    "protected_d_union_plan": {
+      "path": "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/plan.json",
+      "sha256": "de266846ff6672dd04be255a43a1b5899af4753bea0757e00c5c2d60cf2067e3"
+    },
+    "protected_radial_files": [
+      {
+        "path": "src/schwgw/numerics/radial_solver.py",
+        "sha256": "9b612821535111dd168cc396b8c4159fe216431a855476e397680c5522bf74c9"
+      },
+      {
+        "path": "src/schwgw/numerics/conditioned_radial.py",
+        "sha256": "91e2ae94a0353ec204cea48642a3b5d97ae3900de0232a7f32192b8638c7d7e2"
+      },
+      {
+        "path": "src/schwgw/numerics/scaled_tortoise_radial.py",
+        "sha256": "d040900516ac1881f8c8579476d3b971a3af8139edc8e3a42110aa6ab21498df"
+      },
+      {
+        "path": "src/schwgw/numerics/adaptive_jost_radial.py",
+        "sha256": "3e70defa6f433aa5ef93bd9da9fc86fdca896dd353cff40bef1f1e29ed87b896"
+      },
+      {
+        "path": "src/schwgw/numerics/matching.py",
+        "sha256": "9b1a571b76b176a4b50401e26cc4103c7effcce45c8a78b7af59a269b82d9340"
+      },
+      {
+        "path": "src/schwgw/numerics/physical_boundary_radial.py",
+        "sha256": "fbd94a2368c774d4a73ae194b472eba58c03ae0b042d7d0b7894a5be22f6967f"
+      },
+      {
+        "path": "src/schwgw/numerics/boundary_conditions.py",
+        "sha256": "b6df59207afa1e4a787fe000c22196cbde97a064460c298a97186d68edf56a22"
+      }
+    ],
+    "t1_prompt": {
+      "path": "docs/prompts/phase6_t1_v3_0_literature_formula_freeze.md",
+      "sha256": "03a352b881c97f1f767092340d5dc65f61e800dafde9c28b9f870eaa5ad454cc"
+    },
+    "v1_production_state_manifest": {
+      "path": "runs/phase6/radial_validation/v1_production_state_evidence_v2_20260810_py314/manifest.json",
+      "sha256": "7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4"
+    },
+    "v1_radial_manifest": {
+      "path": "runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314/manifest.json",
+      "sha256": "2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728"
+    },
+    "v1_selected_independent_manifest": {
+      "path": "runs/phase6/radial_validation/v1_radial_selected_acceptance_v1_20260810_py314/manifest.json",
+      "sha256": "aa66df4f449372e1af660cee8b0757d23ab494bd631bde1c229eb2ee29a2d78c"
+    },
+    "v2_convention_contract": {
+      "path": "configs/phase6_v2_0_convention_contract_20260810.json",
+      "sha256": "1251392e0799ebafad91d832a128a6ad93a4d9dacf1a07a4fa50f5af2b119517"
+    },
+    "v2_release_manifest": {
+      "path": "runs/phase6/asymptotic_waveform/v2_selected_release_v2_20260811T083414_py314/manifest.json",
+      "sha256": "51ddf1580448382be7e182f92cf76bbf53ed39f15418af9e546f357979c743eb"
+    },
+    "v2_selected_domain": {
+      "path": "configs/phase6_v2_0_selected_domain_20260810.json",
+      "sha256": "9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818"
+    },
+    "v3_master_prompt": {
+      "path": "docs/prompts/phase6_v3_master_prompt.md",
+      "sha256": "f8c48d9379efcc2534748e33b62a302ba7bd6fe11282b4b4ad6e7a9ae850b1c7"
+    }
+  }
+}

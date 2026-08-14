@@ -1,0 +1,35 @@
+{
+  "schema_version": "schwo_fig8_metadata_correction_v1",
+  "figure": 8,
+  "source_artifact": {
+    "json": "runs/phase5/paper_figures/fig8_direct_mst_20260802/fig8_direct_mst_l502_n1440.json",
+    "json_sha256": "a295582d7c8d062e75fdc88b3fb74bd42a6f283e0b00cc381ccbc193bf59e4ac",
+    "npz": "runs/phase5/paper_figures/fig8_direct_mst_20260802/fig8_direct_mst_l502_n1440.npz",
+    "npz_sha256": "22924f659f5881f024643d04438a031ee245a82a2091b9ba4c0d94a79e84e141",
+    "immutable": true,
+    "historical_metadata_value": {
+      "strict_paper_reproduction_claim": true
+    }
+  },
+  "correction": {
+    "strict_paper_reproduction_claim": false,
+    "paper_equivalence": "YELLOW",
+    "q2_status": "YELLOW-GREEN",
+    "q0_status": "cutoff-dependent diagnostic; not a pixel-equivalence target",
+    "reason": [
+      "the historical low-ell segment used the superseded finite-r_out correction",
+      "the independent BHPT/MST complex-normalization benchmark is not yet executable on this host",
+      "the published Li q=2 reference row remains under audit"
+    ]
+  },
+  "current_implementation": {
+    "fig8_mst_py_sha256": "f9b1128483a2d18ee329c7beaa1520c78d53ce1c716583d1f87bb4d187aa287f",
+    "asymptotic_py_sha256": "8f9c19e04fff93ee54552722c2c972f76d5b32f2bb796a904b527335de331168",
+    "new_artifacts_force_strict_claim_false": true,
+    "low_ell_method": "RW/Zerilli Jost 1/r outer basis with r_out=[300,600,1200] and quadratic 1/r_out extrapolation",
+    "high_ell_method": "direct local MST recurrence",
+    "external_normalization_status": "BLOCKED_WOLFRAM_KERNEL_UNAVAILABLE"
+  },
+  "scientific_arrays_modified": false,
+  "historical_artifact_rewritten": false
+}

@@ -1,8 +1,1625 @@
 # T0 Current Handoff
 
-Date: 2026-08-01
+Date: 2026-08-14
 
 Thread: T0, project coordination and gate scheduling.
+
+## Current authoritative snapshot — V3.1 manually stopped; no active V3 task
+
+The user manually stopped the V3.1 chain after repeated non-ADVANCE loops.
+V3.1 base, V3.1-U, V3.1-X and V3.1-Y are frozen non-accepted branches.
+V3.1-Z had a package candidate and formal T7 review was in progress, but that
+review was interrupted before any formal `ADVANCE` verdict.  No V3.1-Z package
+review, implementation, runtime, dispatch, official science, V3.2 or global
+GREEN is currently authorized.
+
+The current stop report is
+`docs/reports/phase6_v3_1_all_versions_failure_defect_report_20260814.md`
+(`a707e9ca893af160932a0012a03623356b1905f3a45b1b8c0ef5e1c314b13f93`).
+The compact computation/source bundle is
+`SchWO_Phase6_V3_1_all_versions_computation_bundle_20260814.zip`
+(`8fe85269a28ddf912b209c319983f6ff2d47e5cddcb52e8a63f9c9ab9c78414d`);
+its checksum file is
+`SchWO_Phase6_V3_1_all_versions_computation_bundle_20260814.zip.sha256`.
+
+Future work requires a fresh Root-T0 instruction.  Do not resume any heartbeat,
+formal T4/T6/T7 task, Wolfram/BHPT/AP/radial/solver/science run, or V3.2
+transition from the historical authorizations below.
+
+## Superseded snapshot — V3.1-Y frozen; distinct V3.1-Z design active
+
+Formal T7 completed V3.1-Y delta review 2 with the exact verdict:
+
+```text
+ADVANCE_DECISION: ESCALATE
+CLAIM_STATUS: NOT_ASSESSED
+GATE_LABEL: ESCALATE / T0 ADJUDICATION REQUIRED
+```
+
+The immutable review archive is
+`docs/handoffs/archive/T7_2026-08-13_v3_1_y_external_protocol_package_delta_review_2.md`
+(`0ad54e21f62d233e6c26720918c85ac6dfdb12f254f02d6169ed4af348df9dd4`).
+Repair cycle `2/2` is exhausted.  The remaining substantive blocker is the
+absence of uniquely generated predicate-value/comparison/evidence semantics,
+the P00 seed mapping, lifecycle receipt, P17 evidence plan and terminal
+manifest authority.  V3.1-Y repair 3, implementation and runtime are
+permanently forbidden.
+
+Root T0 selected liveness options 2+3 in adjudication
+`docs/handoffs/archive/T0_2026-08-13_v3_1_y_final_escalation_adjudication.md`
+(`6b5d126565ab4f8764d65825c37589e37f52f2576d25593239c028ee1608c3f4`).
+The scientific domain, methods, precision, source/convention identities,
+thresholds and certificates remain unchanged; no claim narrowing occurred.
+
+The sole authorized action is formal T4 task
+`019f5fa6-1288-7c01-8a87-4c4370cf5517` performing a distinct read-only,
+zero-science V3.1-Z architecture analysis under prompt
+`docs/prompts/phase6_t4_v3_1_z_generated_machine_authority_redesign_analysis.md`
+(`6a7a6ecfe6d06be1630a9b9df3c266138c30b5e3bd4de4a2783c748da6b07d14`).
+No V3.1-Z package/implementation/runtime, formal T7 review, V3.2 or global
+GREEN is authorized.
+
+## Prior authoritative snapshot — V3.1-Y package frozen; formal T7 review active
+
+Formal T4 completed the distinct zero-science protocol analysis without any
+Wolfram/BHPT/AP/radial/solver call.  Its main analysis/archive identities are
+`9f04538c...99377` / `e162a1fc...befb`.  It preserves the historical X runtime
+leaf as `UNKNOWN` while statically identifying the undefined Wolfram 14.3
+`StringNormalize` call as the causal source candidate to be independently
+confirmed by a future compatibility root.
+
+Root T0 froze the V3.1-Y package `bbb9e976...16203`, machine contract
+`8079786b...74a7` and design `c3b9a6da...64c7e`.  The contract binds exact 23
+anchors, all four route graphs, 16 thresholds, five certificates, seven
+protected radial identities, the external runtime/source snapshot and a
+parent-acknowledged per-predicate protocol with per-event durable prefix
+checkpoints.  U/X evidence is denylisted and nonpromotable.  All package
+members are direct `0444`/nlink1 and the recursive file-identity graph passed.
+
+Formal T7 task `019f5ed1-b421-7ec2-9bac-8d134855a1ed` is now doing the only
+authorized action: hostile archive-only package review under prompt
+`2c4487fb...cb01`.  T6 implementation, real Wolfram compatibility, micro,
+sentinel, official science and V3.2 remain unauthorized.  V3.1-Y science is
+`NOT_ASSESSED`; no global GREEN.
+
+## Prior authoritative snapshot — V3.1-X frozen; V3.1-Y design analysis active
+
+Formal T7 exhausted V3.1-X repair cycle `2/2` and returned:
+
+```text
+ADVANCE_DECISION: ESCALATE
+CLAIM_STATUS: NOT_ASSESSED
+GATE_LABEL: ESCALATE / T0 ADJUDICATION REQUIRED
+```
+
+The final archive is
+`docs/handoffs/archive/T7_2026-08-13_v3_1_x_sentinel_repair_cycle2_source_ledger_implementation_delta_review.md`,
+SHA-256
+`e5f9b9503e16b053525dfba7dacb661abc433211d49dcccb2c5c9dc442af1dee`.
+The sole real-Wolfram review preflight exited `69` at the opaque WLS semantic
+normalizer before every solver/science call.  The exact leaf predicate remains
+unknown; no formal micro, full sentinel or official evidence exists.
+
+Root T0 froze V3.1-X under adjudication
+`docs/handoffs/archive/T0_2026-08-13_v3_1_x_final_escalation_adjudication.md`
+(`7fd2012a57e86a8b085114c3b68243db616e8437983bf150ee85b2474775cee5`).
+Retry, cycle 3, formal V3.1-X micro/full/official execution and V3.2 are
+forbidden.
+
+The only active task is the distinct design-only V3.1-Y analysis in formal T4
+under prompt
+`docs/prompts/phase6_t4_v3_1_y_external_protocol_redesign_analysis.md`
+(`653cd1e8a20fdb6085c5bf1c3081ca19f1632176a3a915bf20798a885a903fb6`).
+It may write only its analysis and archive and may not invoke Wolfram, BHPT,
+AP or any solver.  A future package and formal T7 package review are required
+before any V3.1-Y implementation.  V3.1 science remains `NOT_ASSESSED`; no
+global GREEN.
+
+## Current authoritative snapshot — V3.1-X authority-bridge package review
+
+Formal T7 exhausted V3.1-X Substage-A repair cycle `2/2` and returned:
+
+```text
+ADVANCE_DECISION: ESCALATE
+CLAIM_STATUS: NOT_ASSESSED
+GATE_LABEL: ESCALATE / T0 ADJUDICATION REQUIRED
+```
+
+Archive
+`docs/handoffs/archive/T7_2026-08-13_v3_1_x_external_direct_route_implementation_delta_recheck_2.md`
+has SHA-256
+`549440b9d528112eb4cad4882fdae16d105295ad8f86e077ebfe1a163edbb26c`.
+All science/numerical implementation items are closed; only the stale fixed
+review authority remains, and it blocks every sentinel before science.
+
+T0 adjudicates by selecting a distinct control-plane redesign, not repair
+cycle 3. Package
+`configs/phase6_v3_1_x_authority_bridge_package.json` has SHA-256
+`d043a1c7198496c9f0314a898585762e10b2df5054ea43250a724f7a9c6e054a`.
+The fixed future review path is predeclared but its digest is bound only by a
+later one-use dispatch, so the graph is non-circular. The only authorized next
+action is formal T7 package review under prompt `a180f5c9...7ca4`. Formal T6,
+sentinel, official science and V3.2 remain unauthorized. V3.1-X science is
+`NOT_ASSESSED`; no global GREEN.
+
+Immediate recovery authority is the YAML current-state header at the very top
+of `status.md`. It records the exact current roots, last independent verdict,
+debts, denylist and only next authorized action. Current state is Phase 6 /
+V3.1-U repair-cycle-2 sentinel `ESCALATE/FAIL`; formal T7 terminal review is
+complete. V3.0 remains independently accepted, but V3.1 is not. Both bounded
+repairs are consumed; retry, cycle 3, official V3.1-U science and V3.2 are
+forbidden. Root T0 has selected a distinct `V3.1-X` zero-science external-route
+redesign gate, not another V3.1-U repair. Formal T4 analysis is complete and
+the distinct V3.1-X package is now frozen for formal T7 initial review.
+
+Naming note: scientific `V3.0` is distinct from artifact revision `r3`.  Legacy
+checkpoint strings such as `V2.2 ... V3 FROZEN` below are quoted historical
+verdicts; new prose must call that artifact `V2.2-r3`.  Future artifact timestamps
+must be UTC with trailing `Z` and carry explicit timezone/revision metadata.
+
+## Current authoritative snapshot — T7 ESCALATE/FAIL; V3.1-X analysis only
+
+Formal T7 returned exactly:
+
+```text
+ADVANCE_DECISION: ESCALATE
+CLAIM_STATUS: FAIL
+GATE_LABEL: ESCALATE / T0 ADJUDICATION REQUIRED
+```
+
+The durable archive is
+`docs/handoffs/archive/T7_2026-08-13_v3_1_u_repair_cycle2_sentinel_review.md`
+(SHA-256
+`e51f32f1f7d633ff78a653d9ab2a0a49d5c1ef0d32c57f84cb9fda63abc80b55`).
+The immutable sentinel root is
+`runs/phase6/classic_scattering/v3_1_u_route_c_sentinel_repair2_v1_20260812T221323Z_py314`:
+all 23 frozen odd anchors were called once, with 14 PASS and nine
+`MST_FAILED`. Its `failure.json` / `failure_manifest.json` SHA-256 values are
+`c80327f5...dc23` / `e9ef19b3...ead4`.
+
+T0 rejects a post-hoc 14-anchor claim because it would be result-conditioned
+selection. Under `review_gate_liveness_protocol.md`, T0 selects redesign
+option 2: formal T4 may perform only the read-only, zero-science analysis in
+`docs/prompts/phase6_t4_v3_1_x_external_route_redesign_analysis.md` (SHA-256
+`4dfe99653bef581837892eba6daeb9a31bff5f60b734115ea85070cc23c2ca07`).
+The analysis must assess a single predeclared direct-integration external route
+for all exact 23 anchors, with no per-key fallback or reuse of sentinel values.
+It may not run Wolfram or any solver, change implementation/tests/configs,
+create evidence roots, dispatch T7 or start V3.2.
+
+## Current package-freeze checkpoint — formal T7 initial review next
+
+Formal T4 completed zero-science analysis with checkpoint
+`V3.1-X EXTERNAL DIRECT-ROUTE REDESIGN ANALYSIS READY FOR T0 PACKAGE FREEZE`.
+Analysis/archive identities are `b937011e...31661` / `0cec21f4...81e7`.
+
+Root T0 froze:
+
+```text
+configs/phase6_v3_1_x_external_direct_route_package.json
+  6a4ab0f690afab975c981f65fc80e0e3f48541da00c4023330ee94274146f752
+docs/phase6_v3_1_x_external_direct_route_design.md
+  9a75c6f80cd8360438d395caf887a13b8c88e97faef94139c6ed4dfeba4fdb8d
+docs/prompts/phase6_t4_v3_1_x_external_direct_route.md
+  3c65164bcad33e7f86e993c2ec9536643cc5f2ec5c179020c923902e8caf4c4f
+docs/prompts/phase6_t7_v3_1_x_external_direct_route_package_review.md
+  7faaab2183328b83dc5c85c82bfb5c6695ca5d028fdab7180538afa7c2c3ce5b
+docs/prompts/phase6_t7_v3_1_x_external_direct_route_science_review.md
+  339d5d9609e37f263ca3b3c615e5048f4059c80accc03183e02a74df6ffebd7f
+```
+
+Formal T7 has now returned exactly `ADVANCE / NOT_ASSESSED / ACCEPT GREEN /
+V3.1-X EXTERNAL DIRECT-ROUTE PACKAGE READY FOR T4`. Archive SHA-256 is
+`4ecfdbbf0df84657fb4a24d0ebb8143c4bb0b01cdc3d925b4eca4bf4df0bad50`.
+There are no failed items or class-A blockers. The only next action is formal
+T4 exact-six-path zero-science implementation/preflight under prompt
+`3c65164b...4c4f`. No Wolfram, dispatch, sentinel, official science or V3.2
+is authorized. V3.1-U remains FAIL and V3.1-X science remains NOT_ASSESSED.
+
+---
+
+## Prior authoritative snapshot — T7 package ADVANCE; formal T4 authorized
+
+Formal T7 package verdict:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: NOT_ASSESSED
+GATE_LABEL: ACCEPT GREEN / V3.1-U REPLACEMENT PACKAGE READY FOR T4
+```
+
+Archive
+`docs/handoffs/archive/T7_2026-08-11_v3_1_hp_unitarity_package_review.md`
+has SHA-256 `9616b3fb4d0999e782e164740f5815f6bcdf46a955910cd2bcfcae032bde75cf`;
+T7 current SHA-256 is
+`61e25ccb891b992cc82426a135dca1bccdaafa3f84ccb9bfa338a6d3e8a4c383`.
+No class-A package blocker was found. T7 independently confirmed unchanged
+domain/threshold/certificates, the non-circular selector, precision margin,
+Route-U independence, fresh-root semantics and all protected identities.
+
+Root T0 must now send the unchanged frozen T4 prompt
+`a1bffc42...2945` to existing formal T4 task
+`019f5fa6-1288-7c01-8a87-4c4370cf5517`. T4 may implement and run all
+pre-execution gates. It may launch one fresh official root only if every gate
+passes, the conservative projected runtime is at most 36 hours, and projected
+bytes remain below one quarter of measured free space. T4 must return terminal
+identities to T0 and may not dispatch T7 or V3.2.
+
+V3.1-U science remains `NOT_ASSESSED`; this package GREEN is not scientific or
+global GREEN.
+
+## Previous authoritative snapshot — V3.1-U package frozen; formal T7 review next
+
+Distinct gate ID:
+`phase6_v3_1_hp_unitarity_deficit_replacement_v1`.
+
+```text
+configs/phase6_v3_1_hp_unitarity_replacement_package.json
+  decde34bcdc90db0bc69be446357e306cfe942c84a8d575902eddaa7d1ff6877
+docs/phase6_v3_1_hp_unitarity_replacement_design.md
+  243f312182528b10a895cef679d195dcedfd97d7a2e02e388449ae3af313dd28
+docs/prompts/phase6_t4_v3_1_hp_unitarity_replacement.md
+  a1bffc42a381489dadd483edf2e6952d97ce236fbad3fe9ca82eb8b0ca862945
+docs/prompts/phase6_t7_v3_1_hp_unitarity_package_review.md
+  a07d3723a89ea65422df947c7534fa6db0a4dfe2ebef4b35235aa4fc8d0c3b6a
+docs/prompts/phase6_t7_v3_1_hp_unitarity_review.md
+  8822263a09bde6d5b0bd3b2c00117eb5ac1648ae9f804a4e71380b27fa90cb82
+```
+
+The replacement retains exact Route A `496/9920`, Route B `102/458`, Route C
+`23`, all 16 thresholds and all five certificate IDs. Fresh Route A completes
+first; a complete route map is frozen using only direct horizon
+`log_Gamma_flux < log(1e-8)`. Each selected mode receives three fresh
+independent Route-U S solves with exponent-derived precision and at least 30
+guard digits. No float64 S expansion, flux-derived Gamma_S, residual-based
+selection, Route-B cache reuse or r3 science reuse is permitted.
+
+Only formal T7 task `019f5ed1-b421-7ec2-9bac-8d134855a1ed` may now review the
+exact package. Expected package-ready verdict, if warranted, is
+`ADVANCE/NOT_ASSESSED / ACCEPT GREEN / V3.1-U REPLACEMENT PACKAGE READY FOR
+T4`. No T4 implementation or numerical work is authorized before that exact
+identity-bound approval.
+
+## Previous authoritative snapshot — T7 ESCALATE/FAIL; distinct redesign only
+
+Formal T7 terminal verdict:
+
+```text
+ADVANCE_DECISION: ESCALATE
+CLAIM_STATUS: FAIL
+GATE_LABEL: ESCALATE / T0 ADJUDICATION REQUIRED
+```
+
+Review archive
+`docs/handoffs/archive/T7_2026-08-11_v3_1_repair_cycle2_delta_review.md`
+has SHA-256 `fe2b1c351fb02e8f67af7cd5e22547d305fe5d4ead2edf681a85f19f1e61c0f3`;
+T7 current SHA-256 is
+`ac2f2396ed7fb255093ca32473b2945dd5886b59ed89a9be036c32939a650c32`.
+Both original class-A blockers are closed, but official mode ordinal 0 fails
+the unchanged `V3T-GAMMA-ROUTES-LOG-001` threshold:
+
+```text
+Gamma_flux = 1.836777608324503e-14
+Gamma_S = 1.8096635301389888e-14
+abs(log(Gamma_flux)-log(Gamma_S)) = 0.01487180343263006
+limit = 0.0002
+ratio = 74.3590171631503
+```
+
+Repair cycle `2/2` is consumed. There is no cycle 3, retry, threshold change,
+protected edit, artifact reuse or V3.2 authorization. The failed immutable root
+`runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314`
+is evidence only and remains forbidden as a success input.
+
+T0 selects governance option 2: a separately frozen algorithm/gate redesign.
+This is a new authority with a new liveness counter, not an isomorphic repair.
+Read-only 80/120-dps evidence identifies float64 cancellation in
+`Gamma_S=1-|S|^2` at `Gamma≈1.84e-14`: the high-precision independent
+S-deficit and direct horizon flux differ by `8.33747531996819e-8` in log, below
+the unchanged `2e-4` threshold, while the Route-A float64 deficit is only
+`82.72` machine-epsilon units and cannot resolve the required `0.0165`-epsilon
+absolute tolerance. The intended redesign must therefore compute the
+small-Gamma S-deficit through a genuinely high-precision independent route for
+every production item to which the frozen threshold applies; it may not recover
+precision by reformatting float64 inputs or infer `Gamma_S` from direct flux.
+
+Next: formal T4 performs read-only coverage/runtime/design analysis. T0 then
+freezes the distinct high-precision unitarity-deficit gate and sends it to the
+formal T7 task for package review. No numerical solver run is authorized before
+that review.
+
+## Previous authoritative snapshot — T7 approved final cycle-2 package; formal T4 next
+
+Formal T7 package verdict:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: NOT_ASSESSED
+GATE_LABEL: ACCEPT GREEN / V3.1 REPAIR CYCLE 2 PACKAGE READY FOR T4
+```
+
+Review archive
+`docs/handoffs/archive/T7_2026-08-11_v3_1_repair_cycle2_package_review.md`
+has SHA-256 `6c3d9371ec2d191f4b6ee10076ad264127bc858142c0972225e2a18638431cc1`;
+T7 current SHA-256 is
+`2e55fd99b18046ecec4381d2c08b82196d78b15dfc8424e355883f50286e277b`.
+T7 independently accepted the mathematical continuation, no-post-hoc rule,
+Route A/B independence and complete production graph. This is package GREEN
+only; V3.1 science remains NOT_ASSESSED.
+
+Root T0 may dispatch the unchanged T4 prompt/package to formal T4 task
+`019f5fa6-1288-7c01-8a87-4c4370cf5517`. T4 must complete every preflight gate
+before any official `r3` root and must stop if the reviewed algorithm itself
+would need to change.
+
+## Previous authoritative snapshot — V3.1 final cycle-2 package frozen; T7 package review next
+
+Frozen package identities:
+
+```text
+configs/phase6_v3_1_repair_cycle2_package.json
+  5bce1966b76c85b49c79cb7d98c481403a4b5006bb48bd2d4d47ea67f879b2c4
+docs/phase6_v3_1_repair_cycle2_design.md
+  746d8753408bdb74cd1a9597108a63cf3c67842dc6cbedcbbb56fb68c0f967a7
+docs/prompts/phase6_t7_v3_1_repair_cycle2_package_review.md
+  27022e735bd61ce7aa41eee26c77f52de77df5aa69ee56d5a41b99b7ec420b19
+docs/prompts/phase6_t4_v3_1_repair_cycle2.md
+  f2d0b45613ca8c10c5b36715379f215644dce31079e577ff11279b478ec81ed9
+docs/prompts/phase6_t7_v3_1_delta_review_cycle2.md
+  8bab4d149876e3876559db021340be1a6151bf6c9c1cd6bcfc29ec653ae29724
+```
+
+All are `0444`. The repair is a V3-local numerically continued Jost match:
+the original frozen match radius remains the science node; a geometry-only
+auxiliary radius initializes the asymptotic columns, which are propagated
+back to the original node. The seven protected radial files, formulas,
+domain, 16 thresholds and exact `496/9920/102/458/23` graph remain unchanged.
+
+Formal T7 task `019f5ed1-b421-7ec2-9bac-8d134855a1ed` must review the exact
+package before formal T4 receives any implementation or numerical authority.
+
+## Previous authoritative snapshot — V3.1 cycle-1 delta REPAIR/FAIL; final package design only
+
+Formal T7 terminal delta verdict is:
+
+```text
+ADVANCE_DECISION: REPAIR
+CLAIM_STATUS: FAIL
+GATE_LABEL: REVIEW YELLOW / V3.1 CHANGES REQUIRED
+```
+
+The durable archive is
+`docs/handoffs/archive/T7_2026-08-11_v3_1_repair_cycle1_delta_review.md`,
+SHA-256 `cbd04d5bba74fef2daffca62f9e80c5c0a6589f89b35812aa8ce10a60592f55b`;
+T7 current SHA-256 is
+`760d42a26be071c2540a53e0db569e6a8d59f592ec2d30749a669951ab7cbce7`.
+The original two class-A items remain open. Repair cycle 1 is consumed, the
+same substantive blocker remains, and one final separately reviewed cycle 2
+is permitted. If it remains after delta review 2, T7 must return
+`ESCALATE / T0 ADJUDICATION REQUIRED`; no cycle 3 is allowed.
+
+The only current action is T0 design/freeze plus formal T7 read-only package
+review. No sentinel or science may run before that approval.
+
+## Previous authoritative snapshot — V3.1 cycle-1 sentinel failed; T7 delta next
+
+Formal T4 completed the mandatory pre-execution sentinel before any official
+root existed:
+
+```text
+key               kM=0.005, odd, ell=2
+required radius   40M
+r_out base        489.8979485566356M
+node graph        20 exact nodes
+result            8 PASS / 12 FAIL
+elapsed           6.093446124927141 s
+```
+
+Only the eight `r_out` multiplier `4/8` nodes passed. The frozen baseline, all
+multiplier-1 nodes, all multiplier-2 nodes and both non-baseline tolerance
+nodes failed. The 12 native failures are seven
+`scaled-tortoise Jost matching inputs are invalid` and five
+`scaled-tortoise incoming Jost coefficient is unresolved`. The package forbids
+post-hoc selection of a successful farther boundary, so cycle 1 stopped.
+
+Durable non-authoritative diagnostic:
+
+```text
+/tmp/schwo_v31_repair_cycle1_route_a_20node_sentinel.json
+  9cfc3f91d722d212a7dfc22ec3746b27d300ce462ca874e0131986e4f39fa892
+stderr
+  31bdbfa60f243467643d168b6df4e96b7667ab30eff6d1557a17f9e7168e1333
+docs/handoffs/archive/T4_2026-08-11_v3_1_repair_cycle1_preexecution_blocker.md
+  12fcdd387c065e0d5f57df6c2b7ae24f7680e6609c7da7f20c685f8fcdf7c30d
+docs/handoffs/T4_current.md
+  1c038d6cf04db42b8d1a78a75b5cac7b91e7568da58fa231933c2b5d1ce063bc
+```
+
+No official `v3_1_mode_greybody_r2_*` root exists. AP, external, synthetic
+publication and runtime/disk gates were not launched after the earlier
+mandatory failure. The five package files, seven protected sources, both r1
+roots and accepted authorities rehash exactly; no process/transient remains.
+
+Root T0 dispatched the frozen formal T7 cycle-1 delta review
+`docs/prompts/phase6_t7_v3_1_delta_review_cycle1.md`
+(`6b247f57...e0498e`) bound to this sentinel and T4 archive to task
+`019f5ed1-b421-7ec2-9bac-8d134855a1ed` using `gpt-5.6-sol/high`. It must decide
+whether the failed class-A item permits the final separately reviewed cycle 2.
+No cycle-2 design or execution is authorized before that verdict.
+
+## Previous authoritative snapshot — formal T4 V3.1 repair cycle 1 active
+
+Formal T7 initial verdict is:
+
+```text
+ADVANCE_DECISION: REPAIR
+CLAIM_STATUS: FAIL
+GATE_LABEL: REVIEW YELLOW / V3.1 CHANGES REQUIRED
+```
+
+The full review is
+`docs/handoffs/archive/T7_2026-08-11_v3_1_initial_failure_review.md`, SHA-256
+`d0cb93d0ade94d0376a09e4207d6059558c04c2b45383fcb42039525dad2d7c5`.
+It freezes two class-A blockers:
+
+1. `v31_route_a_first_node_native_failure`;
+2. `v31_official_runner_incomplete_scope`.
+
+JSONL serialization and the incomplete embedded protected/source start/end
+ledger are class-C control-plane defects. Initial review passed the frozen
+V3.0/domain/inventory/protected identities and immutable failure evidence.
+
+Root T0 has frozen bounded repair cycle `1 of 2`:
+
+```text
+configs/phase6_v3_1_repair_cycle1_package.json
+  a439c5c0f93c8ae4ce5b01e8e6a1d98c8f55eb150615177ccfb5b2a1ee786255
+docs/phase6_v3_1_repair_cycle1_design.md
+  710eecce86e7372c837335ef630cfda94e4e718ac1f7490773e15fa11f349270
+docs/prompts/phase6_t4_v3_1_repair_cycle1.md
+  40324abfede42f5ce484d34909cd1a20eeaf2e9cc35b290a8f40921af116f0d2
+docs/prompts/phase6_t7_v3_1_repair_package_review.md
+  1485857eb0fc9151261031f976daa90234abe4a9b493f1b039cdc5b37e30d1f4
+docs/prompts/phase6_t7_v3_1_delta_review_cycle1.md
+  6b247f5736813d2ba9eb9ea415688a21dd7dc4948659f8bd21d747f90be0498e
+```
+
+All five files are `0444`. The package changes no formula, convention, domain,
+selector, threshold or protected radial byte. Its exact repair path is:
+
+- Route A calls the accepted byte-frozen scaled-tortoise public backend with
+  20 exact nodes per key: `496` modes and `9,920` calls;
+- V3-local independent AP covers `102` keys and `458` precision/boundary
+  nodes, with odd/even independent;
+- fresh external BHPT MST covers `23` odd-only anchors through the exact
+  external-SSD WolframKernel;
+- a synthetic non-scientific end-to-end run must prove the complete
+  `496/9920/102/458/23`, 16-threshold, five-certificate orchestration;
+- real sentinels must pass before any fresh no-overwrite `r2` official root;
+- JSONL and source start/end ledgers are repaired without rewriting `r1`.
+
+Formal T7 approved the unchanged package:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: NOT_ASSESSED
+GATE_LABEL: ACCEPT GREEN / V3.1 REPAIR CYCLE 1 PACKAGE READY FOR T4
+```
+
+The package-review archive is
+`docs/handoffs/archive/T7_2026-08-11_v3_1_repair_cycle1_package_review.md`,
+SHA-256 `1be2473c15a69abdfcd11231d9a393ea7014bdea9ec849990b900a8ba89aa404`;
+T7 current at approval is `f9bf1031...e93fa`. T7 independently confirmed the
+exact `496/9,920/102/458/23` scope, AP boundary allocation, external source and
+kernel identities, synthetic complete-run gate, both forbidden roots and all
+seven protected hashes. This verdict approves execution only; it is not V3.1
+scientific acceptance.
+
+Root T0 dispatched the unchanged frozen T4 prompt/package to formal T4 task
+`019f5fa6-1288-7c01-8a87-4c4370cf5517` using `gpt-5.6-sol/high`. T4 is active.
+It must first close synthetic orchestration, the original failed key's complete
+20-node real sentinel, AP/external sentinels and runtime/disk gates. Only then
+may it create one fresh no-overwrite `r2` root. Scientific failure after
+official start is terminal and may not be edited/retried. Formal T7 delta
+review remains undispatched until T4 returns terminal evidence and T0 verifies
+it. V3.2/global GREEN remain forbidden.
+
+## Previous authoritative snapshot — V3.1 repair cycle 1 package awaiting T7
+
+## Previous authoritative snapshot — V3.1 failed candidate; formal T7 review next
+
+Formal T4 completed the frozen V3.1 task without claiming PASS. The only
+consumed scientific root is:
+
+```text
+runs/phase6/classic_scattering/v3_1_mode_greybody_r1_20260811T120717Z_py314
+  manifest 78ee1b9b9c9490ddb438639d175a7e9f0ec4b46985c7d35fc604f4a497e0e319
+  overall  FAILED_SCIENTIFIC
+```
+
+The first Route-A ladder node, `kM=0.005`, odd, `ell=2`,
+`r_in_eps=1e-8`, `r_out=489.8979485566356`, Jost order 160, failed because
+the stabilized BVP had a singular Jacobian and the protected bidirectional
+fallback returned a non-monotonic grid. Route A/B/C attempts are `1/0/0` and
+no mode completed. The frozen root also preserves a separate publication
+defect: its one valid ladder object was pretty-printed across multiple lines
+in `ladder_records.jsonl`, so strict linewise JSONL reload fails.
+
+The root is immutable `0555`; all 11 direct files are regular `0444`, nlink1,
+and their manifest identities rehash exactly. Numerical certificate is FAIL;
+the other four certificates and independent review are NOT_ASSESSED. It must
+not be modified, resumed, retried or promoted.
+
+The prior immutable preflight diagnostic
+`runs/phase6/classic_scattering/v3_1_mode_greybody_r1_20260811T120359Z_py314`
+(manifest `f2320d5d...9bb8c`) is also forbidden: its executable discovery was
+incomplete. Root T0 subsequently verified the actual external runtime:
+
+```text
+/Volumes/JohnnyTforGR/Applications/Wolfram.app/Contents/MacOS/WolframKernel
+SHA-256 70ad9d850224b4723a04c581e769579cc3df4b4392ae2ed1886780e6b9be046c
+version 14.3.0 for Mac OS X ARM (64-bit) (July 8, 2025)
+```
+
+The project-wide discovery hard rule is now in `project.md` (SHA-256
+`fdba5646eb0d9bb0776ea6148e509d91124871cf371ac08a7229b10e18b63b9a`):
+no task may infer Wolfram absence from PATH/`which`/`wolframscript` without
+probing that exact external-SSD path. T4's corrected external identity/API
+preflight and fresh odd BHPT MST smoke passed before the consumed science run.
+
+T4 evidence identities:
+
+```text
+docs/handoffs/T4_current.md
+  10a44da0f2a7666081ec2e0d897851ac0884f9852ee4acc0cd22d0fd0ec2d94e
+docs/handoffs/archive/T4_2026-08-11_v3_1_terminal_failure.md
+  0dbdeddc7ea7c0aeb1416ce84d6ea317a1ecb844fba11a54e5e82bf9c21c71d4
+```
+
+Root T0 sent the unchanged frozen review prompt
+`docs/prompts/phase6_t7_v3_1_review.md` (`058cea91...3899`) and both immutable
+roots to formal T7 task `019f5ed1-b421-7ec2-9bac-8d134855a1ed` using
+`gpt-5.6-sol/high`. T7 must issue
+the dual-axis decision and complete class-A blocker records before Root T0 may
+design any bounded repair. V3.2 and global GREEN remain forbidden.
+
+## Previous authoritative snapshot — V3.0 accepted; formal T4 V3.1 active
+
+Formal T7 task `019f5ed1-b421-7ec2-9bac-8d134855a1ed` returned:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: PASS
+GATE_LABEL: ACCEPT GREEN / V3.0 ANALYTIC-LITERATURE BENCHMARK CONTRACT READY
+absorption_branch_authorized: true
+phase_sensitive_scattering_branch_authorized: true
+```
+
+T7 independently checked the eight V3.0 hashes, T1 checkpoint, all frozen
+V1/V2/protected identities, primary-source formulae V3-F01--F14, 35 unique
+thresholds, 14 anchors and all four stage domains. It rebuilt V3.1 as 11
+frequencies, 248 continuous `(kM,ell)` pairs and 496 odd/even mode records.
+There are no class-A findings. The common frequency-dependent absolute phase
+remains PARTIAL only for an absolute complex `f/g` phase claim; it does not
+block either branch.
+
+Review identities:
+
+```text
+docs/handoffs/T7_current.md
+  1c58d8b8b8a563cf81edac68bb5a0c56675cfa626bdf5af6a2d0ba3a77d04cfa
+
+docs/handoffs/archive/T7_2026-08-11_v3_0_contract_review.md
+  b672c7f33d2f3cc891f455c6d8123ed846309a07244696da34236f8e254c0126
+```
+
+The accepted eight V3.0 authority files are now read-only `0444` with unchanged
+bytes. T0 froze before execution:
+
+```text
+docs/prompts/phase6_t4_v3_1_mode_greybody.md
+  7e377f64782b8311e111469f53eeb182190d30347ffe0d9853a41b96deeafab6
+
+docs/prompts/phase6_t7_v3_1_review.md
+  058cea918e0c41537b4af8b3973dbe9d378cd3b612aad884ac986d14733d3899
+```
+
+Formal T4 task `019f5fa6-1288-7c01-8a87-4c4370cf5517` has received the frozen
+V3.1 prompt using `gpt-5.6-sol/high`. Its exact scope is:
+
+- Route A: all 496 independent production odd/even modes with full frozen
+  `r_in`, outer/Jost and tolerance ladders;
+- Route B: exact low/turning/evanescent AP-anchor union at 80/120/180 digits,
+  independent RW/Zerilli algorithms and direct horizon-current route;
+- Route C: fresh external BHPT ReggeWheeler odd-only anchors;
+- direct `Gamma_flux` kept independent from `Gamma_S=1-|S|^2`;
+- all 16 V3.1 thresholds and five candidate certificates;
+- fresh UTC-`Z`, no-overwrite immutable evidence root.
+
+Protected radial sources may be called but not modified. T4 must run smoke and
+tests before official execution, freeze implementation/runtime hashes, and may
+not edit/restart around scientific failures. T0 will not dispatch formal T7
+until the terminal root and T4 checkpoint are independently verified.
+
+V3.2, angular scattering, glory, Li figures, finite-radius observers and global
+GREEN remain unauthorized. V3.1 is candidate science only until formal T7
+acceptance.
+
+## Previous authoritative snapshot — V3.0 T1 checkpoint verified; formal T7 review active
+
+Formal T1 task `019f5fb7-9d0a-78b0-af5e-25a663dd153b` returned:
+
+```text
+CHECKPOINT / V3.0 ANALYTIC-LITERATURE BENCHMARK CONTRACT FROZEN
+```
+
+T0 independently verified the eight required output hashes:
+
+| Candidate | SHA-256 |
+|---|---|
+| `docs/phase6_v3_0_validation_contract.md` | `0f8b8c96e01321231377c857ab40d710aa80ac06dce9084029fe2914b1ef37d3` |
+| `docs/phase6_v3_0_formula_map.md` | `e5b556667c28ac8b611430d2dfb4faa5da82b9c7f0c8251251029e3f8c8d0eac` |
+| `docs/phase6_v3_0_phase_taxonomy.md` | `fb91f4cf888dd4984174304783875c9f2e591490df8519bafd2e0b0f73053460` |
+| `docs/phase6_v3_0_literature_matrix.md` | `088834348e980b81f814340a2a2c460b5bf11239521085c358bed7a90f603328` |
+| `configs/phase6_v3_0_domain.json` | `803c02efeaa89d83222d8663de0c3f2da223bab285d46f331e476793a44c263b` |
+| `configs/phase6_v3_0_thresholds.json` | `91fbe1a758bbb2bbf0e3ec3e67e89b400e900674feee727af8f1cff00732ac4a` |
+| `configs/phase6_v3_0_external_anchor_matrix.json` | `06580c6801a4f75104a2018e7873afbe4ec6c6ed900a11c0860ca23f15a44485` |
+| `references/notes/phase6_v3_absorption_scattering_conventions.md` | `82f9c23a9e93e6aaf6cafbddaf62608acf47b976aeff1cda9066733ddad1449a` |
+
+T1 current handoff is `2b4894ed...84fff`; its pre-V3.0 archive is
+`6b8013ff...5918f`. The three JSON candidates parse and have sorted recursive
+keys, LF/one terminal newline, 35 unique threshold IDs, 14 unique anchor IDs
+and exact V3.1--V3.4 domain keys. The protected radial identities, D-union
+plan, frozen prompts and V1/V2 inputs remain exact; scoped diff-check is clean.
+
+Candidate phase taxonomy is six `PASS` plus
+`frequency-dependent common phase=PARTIAL`. T1 made no branch authorization
+claim. Formal T7 task `019f5ed1-b421-7ec2-9bac-8d134855a1ed` has received the
+frozen read-only prompt `docs/prompts/phase6_t7_v3_0_contract_review.md`, SHA
+`74a14af6d9876ac5f29431693a27d6279c7838448c93974fc5a0812a8ad50563`,
+using `gpt-5.6-sol/high`.
+
+V3.1 remains forbidden unless T7 returns exactly `ADVANCE/PASS`, the bounded
+V3.0 GREEN label and `absorption_branch_authorized=true`. No V3 numerical task
+or producer has started. All V3 science remains NOT_ASSESSED; no global GREEN.
+
+## Previous authoritative snapshot — V3.0 formal T1 active
+
+Root T0 fully read and adopted the bounded sequencing in
+`docs/prompts/phase6_v3_master_prompt.md`, SHA-256
+`f8c48d9379efcc2534748e33b62a302ba7bd6fe11282b4b4ad6e7a9ae850b1c7`.
+The V2→V3 transition adjudication is:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: PARTIAL
+GATE_LABEL: ACCEPT GREEN / V2 SELECTED-DOMAIN VALIDATION SUFFICIENT FOR BOUNDED V3.0 CONTRACT FREEZE
+```
+
+It is recorded in `docs/phase6_v2_to_v3_transition.md`, SHA-256
+`4493c1359974bf58abcc4b93ebe30a6ebab5edef9bc229654c873846a95bfebb`.
+The transition is zero science and authorizes only formal T1 V3.0 literature,
+formula, phase, domain and threshold freeze followed by formal T7 review.
+
+The frozen dispatch prompts are:
+
+```text
+docs/prompts/phase6_t1_v3_0_literature_formula_freeze.md
+  03a352b881c97f1f767092340d5dc65f61e800dafde9c28b9f870eaa5ad454cc
+
+docs/prompts/phase6_t7_v3_0_contract_review.md
+  74a14af6d9876ac5f29431693a27d6279c7838448c93974fc5a0812a8ad50563
+```
+
+The bounded task-dispatch correction is
+`docs/phase6_v2_to_v3_transition_dispatch_addendum.md`, SHA-256
+`5a36c7fc72fcf10241a0ae0261cf220d08830c11466660c8259bfbc71b2c16db`.
+It changes no frozen science or prompt identity.
+
+T1 must create the eight exact V3.0 contract/formula/phase/literature/domain/
+threshold/anchor/convention outputs using primary sources and no numerical
+producer. T7's blocking criteria are frozen before T1 starts. T0 may dispatch
+T7 only after T1 returns
+`CHECKPOINT / V3.0 ANALYTIC-LITERATURE BENCHMARK CONTRACT FROZEN` and all
+output identities are verified.
+
+V3.1 may be frozen and dispatched to formal T4 only after formal T7 returns:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: PASS
+GATE_LABEL: ACCEPT GREEN / V3.0 ANALYTIC-LITERATURE BENCHMARK CONTRACT READY
+absorption_branch_authorized: true
+```
+
+The user supplied a screenshot showing the older formal T1 task. A read-only
+local task-index query and the official task reader resolved it as:
+
+```text
+task id: 019f5fb7-9d0a-78b0-af5e-25a663dd153b
+title: 接手T1线程
+archived: false
+cwd: /Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO
+```
+
+The earlier task-list query omitted it because that interface returns only the
+50 most recent non-pinned tasks. Root T0 has now sent the unchanged frozen T1
+prompt to this exact existing task using `gpt-5.6-sol/high`. No new task,
+ad-hoc subagent or substitute role was created. Current dependency state:
+
+- V3.0 formal T1: active;
+- formal T7: not dispatched; awaits the exact T1 checkpoint and output hashes;
+- V3.1 formal T4: not dispatched; awaits T7 `ADVANCE/PASS` and
+  `absorption_branch_authorized=true`;
+- no radial solver, partial-wave sum, absorption/glory scan or Li figure run is
+  authorized.
+
+The current V1/V2 identities all rehash exactly. The V2 accepted-predecessor
+graph contains only V2.1, V2.2-r3 and V2.3-r2; denylisted roots are absent.
+Read-only process/artifact checks found no active V3 science process or
+`runs/phase6/classic_scattering` artifact. Full-domain V1 independent
+certification and V2 absolute phase remain PARTIAL, all V3 science is
+NOT_ASSESSED, and no global GREEN is claimed.
+
+## Previous authoritative snapshot — V2 selected-domain release closed; V3.0 contract freeze pending
+
+Formal T6 built the V2.4 selected-domain release and completed two bounded
+control-plane liveness repairs.  Historical V2.3 and V2.4 read-only
+reconstruction no longer require a live T7 handoff to remain byte-identical to
+its dispatch-time state, while both actual publishers retain strict start/end
+dispatch gates before root creation.  No science, formula, threshold,
+convention, domain, radial result, or accepted V2.1--V2.3 artifact changed.
+
+Formal T7 independently rebuilt the release from native V2.1, V2.2-r3 and
+V2.3-r2 evidence and returned:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: PARTIAL
+GATE_LABEL: ACCEPT GREEN / V2 SELECTED-DOMAIN GAUGE-INVARIANT WAVEFORM AND FLUX VALIDATION COMPLETE
+```
+
+The sole current V2 selected-release authority is:
+
+```text
+runs/phase6/asymptotic_waveform/v2_selected_release_v2_20260811T083414_py314
+  manifest       51ddf1580448382be7e182f92cf76bbf53ed39f15418af9e546f357979c743eb
+  release ledger 8bbc4d098ca64ac256a63a09e4e5744191f314038fe140c131eaf7606f75ba49
+  report         58157a422fabed9be8bb9956c3097296c6dfd30b8d8065d4731edf6fe5a826dc
+  source map     9011a2cff8a944d68234a32cd754c7b6482b61644464fc512b906e2fbec76fb7
+  summary        25dcc333085e3cd7150bf9e954766ae60a942f3a6e51c20ff36a4081077045cb
+```
+
+The root is `0555`; all five direct files are regular `0444`/nlink1.  The r1
+release predecessor remains immutable, but is superseded historical evidence
+and forbidden as current authority.  Its ledger and summary are byte-identical
+to r2; only report/source-map/manifest provenance changed.
+
+The exact release scope is 15 parity pairs, 30 radial keys and 120 ordered
+channels.  All twelve frozen certificates were independently reconstructed:
+eleven are `PASS`, while `V2_ABSOLUTE_PHASE_CONVENTION` remains `PARTIAL`.
+V2.1 algebra residuals are about `8e-80`; all 1440 V2.2 comparators and all
+1320 V2.3 comparator instances pass.  Separate numerical/convention budgets,
+evidence identities, independence boundaries and nonclaims match native
+sources without publisher upgrade.
+
+Fresh verification is targeted `12 passed`; Phase-6/V2 `393 passed,
+2 skipped`; full suite `1579 passed, 119 skipped, 1 xfailed, 104 subtests
+passed`; Ruff, format, compileall, scoped diff, immutable reloads, end hashes
+and process/collision checks all PASS.  The frozen T7-r2 review prompt is
+`docs/prompts/phase6_t7_v2_4_review_v2.md`, SHA-256
+`1643f737dfe711ffb61090310057b4f1a293e86052e9fc3c100ce86fca68cd63`.
+After T7 legally advanced the live handoff to SHA-256
+`678ee97d8d4850049d8dd9a2d8f34c931f474408e58d8a360fbd06129dbfee4f`,
+T0 reran historical `check-only`, immutable temporary-copy reload and the
+focused V2.4 suite; all passed (`12 passed`), directly closing the liveness
+repair in its intended post-review state.
+
+This GREEN is bounded to the frozen selected-domain V2 release only.
+`absolute_phase=PARTIAL`, full-domain V2 `NOT_ASSESSED`, V1 full-domain
+independent certification `PARTIAL`, `global_status=null`, and no global GREEN
+remain mandatory.  It does not certify a complete angular waveform,
+finite-radius observer response, total-plane-wave infinity sum, Li-figure
+equivalence, or V3.  V3 science is not started.  The only authorized next step
+is the control-plane V2→V3 transition and V3.0 contract freeze recorded in the
+`status.md` current-state header; it does not authorize numerical execution.
+
+## Previous authoritative snapshot — V2.3-r2 accepted; V2.4 not started
+
+Root T0 determined that V2.2 required no further scientific optimization
+before V2.3.  Its accepted r3 evidence already satisfied every frozen
+phase-invariant, magnitude and relative-phase criterion; the remaining
+`absolute_phase=PARTIAL` ceiling is explicitly nonblocking under the frozen
+review-gate liveness protocol.
+
+Formal T6 then completed the bounded V2.3 selected-domain flux execution and
+one control-plane-only summary precision repair.  Formal T7 independently
+rebuilt the result from original immutable V1, V2.1, V2.2-r3 and external
+wp60 decimal sources at 100 dps and returned:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: PARTIAL
+GATE_LABEL: ACCEPT GREEN / V2.3 SELECTED-DOMAIN WAVEFORM AND FLUX CLOSURE READY FOR V2.4
+```
+
+The sole current V2.3 authority is:
+
+```text
+runs/phase6/asymptotic_waveform/v2_3_flux_closure_v2_20260811T050013_py314
+  manifest       a0fc62a4e8fc47176832d8b749285e7f0be9cad46e69911900230f591028694b
+  records        ba8617224c89c7122e27d0399dafc510d126dd2b4cfd0ca2d8f741ae2a454d39
+  report         3d8fa27847887f4cb9605f18b1241f948a87362f6a2f3f4e056d678061cd6166
+  source ledger  2c91e4b4f1567b5911e3fda2611b64d303e8dba16484be9d450403225677ac2a
+  summary        336379cf0e20e14af898f4e4dee04523fb851d4c70c23efedfed3d49d935c29f
+```
+
+The root is `0555`; all five direct files are `0444`/nlink1.  The immutable
+predecessor `v2_3_flux_closure_v1_20260811T044845_py314` retains byte-identical
+science records but contains ambient-precision-quantized summary extrema.  It
+is superseded historical evidence and forbidden as current authority.
+
+The independent review closed all 120 ordered records and all 30 radial keys,
+with odd/even 60/60 channels.  Total-outgoing infinity/horizon balance,
+Martel-Poisson normalization, signed currents, extremely small nonzero horizon
+channels and every frozen threshold/exact predicate passed.  The minimum
+external horizon fraction remains
+`9.373615409990476292528436114160436756813021669668934587236550056169801667903105e-1498`;
+no signal floor, omission, fit, binary64 mandatory computation or radial solve
+was used.
+
+Verification is focused `16 passed`; Phase-6/V2 `379 passed, 2 skipped`; full
+suite `1565 passed, 119 skipped, 1 xfailed, 104 subtests passed`; Ruff,
+format, compileall, scoped diff-check, temporary-copy reload and terminal
+identity rehash all PASS.
+
+This GREEN is bounded only to the exact selected-domain infinity/horizon/radial
+flux observable.  `absolute_phase=PARTIAL`, full-domain V2 `NOT_ASSESSED`, V1
+full-domain independent certification `PARTIAL`, `global_status=null`, and no
+global GREEN remain mandatory.  V2.4 has not been dispatched or started.
+
+## Previous authoritative snapshot — V2.2-r3 accepted; V2.3 not started
+
+Formal T6 completed bounded repair cycle 1 and returned:
+
+```text
+CHECKPOINT / V2.2 EXTERNAL WP60 PRECISION REPAIR V3 FROZEN
+```
+
+Here `V3` is the immutable legacy checkpoint label for artifact revision 3;
+it is not the scientific stage V3.
+
+Formal T7 then performed only delta review 1 and returned:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: PARTIAL
+GATE_LABEL: ACCEPT GREEN / V2.2 SELECTED-DOMAIN WAVEFORM ROUTES READY FOR V2.3
+```
+
+The sole current V2.2 authority is:
+
+```text
+runs/phase6/asymptotic_waveform/v2_2_waveform_routes_v3_20260811T113135_py314
+  manifest       3981aeb5424cbac4e7774fc84b5f03d5764561ea21a7338a60f19bf5f0d46660
+  records        2f7b466036d1481766794aa13581dd9824c851a7e405117f94e192d849f526c9
+  report         fc66bb1a66f10257b80827ee292d180b0582587c3291332471971731dc352f9b
+  source ledger  9fdbd6302fdc0eea93cc1ced1db76f2355343b3538dfee35f5145ac8e5b518a1
+  summary        fdd314e760c4fa71c555f9eadb13eeb8389d0b24c0f6e8822eb1005afc9b8b19
+```
+
+The root is `0555`; its five direct files are `0444`/nlink1.  T0 and formal
+T7 independently started from ambient `mp.dps=15`, reopened the original
+immutable external wp60 decimal strings, and reconstructed 120/120 external
+`S_l`, 120/120 Route-C coefficients and 360/360 route-pair records at 80 dps.
+All 1440 comparator gates and 360 signal floors pass.  Route A and Route B
+objects are field-equal between r2 and r3 for 120/120 records; Route B's
+science source and all protected radial identities were unchanged.
+
+The old root
+`runs/phase6/asymptotic_waveform/v2_2_waveform_routes_v2_20260811T104500_py314`
+remains immutable historical evidence, but its external inputs were parsed at
+ambient 15 dps before promotion.  It is superseded and forbidden as current
+V2.2 authority.  The two frozen repair/review prompts are:
+
+```text
+8e1c589ff7381b89d76f23e242d2497c2bab73ffcf7823fd998799a3d3cd97a4  docs/prompts/phase6_t6_v2_2_external_precision_repair_v3.md
+93abcd27bfbba5fad66e1edf4ce6b85614a287a65cdc8814847fea856ff2b118  docs/prompts/phase6_t7_v2_2_external_precision_delta_review_v3.md
+```
+
+Fresh focused verification is `10 passed`; T6's broad verification is
+`363 passed, 2 skipped` for Phase-6/V2 and
+`1549 passed, 119 skipped, 1 xfailed, 104 subtests passed` for the full suite.
+Post-T7 strict reload remains PASS.
+
+This bounded GREEN permits a later Root-T0 V2.3 dispatch; it does not itself
+start V2.3.  `absolute_phase=PARTIAL`, full-domain V2 `NOT_ASSESSED`,
+full-domain V1 independent certification `PARTIAL`, `global_status=null`, and
+no global GREEN remain mandatory.  The historical snapshots below are kept
+for provenance and are not current authority.
+
+## Current authoritative snapshot — V2.2 threshold candidate awaiting formal T7
+
+The user authorized Root T0 to make the bounded scientific-governance choice
+needed to unblock V2.2.  T0 has frozen a candidate threshold package without
+executing a V2.2 route or using future V2.2 output:
+
+```text
+configs/phase6_v2_2_waveform_threshold_contract_20260811.json
+  8c2ab9ca254df9c15e3947479bb0af3bb6204f37d326b52c16a0984604ae005e
+docs/phase6_v2_2_waveform_threshold_rationale_20260811.md
+  c96a0c640ffb2789c34e8e9ff364d42cc6cfe427b374a7cff1299d196b3c91b6
+tests/unit/test_phase6_v2_2_threshold_contract.py
+  71918930e4b1384ab66adaf5e7d89bc55c31c30f156fa6f153332542759c611a
+```
+
+The exact observable is the selected 120-record scattered outgoing MP master
+coefficient `H_sc=F_sector*c_lm*(-1)^ell*(1-S_l)` with fixed, non-fitted
+`C_record=abs(F_sector*c_lm)`.  A/C explicitly propagates the already frozen
+selected V1 `backend_complex_S=2e-6` budget; A/B uses a `1e-12` independent
+observable-map gate; B/C reserves both by triangle allocation (`2.001e-6`).
+Relative magnitude and wrapped phase use a generic `rho>=0.1` signal floor.
+The two immutable source minima are approximately `0.215738`, so all 120
+channels remain mandatory and none is hidden as a near-zero exception.
+
+Absolute phase remains `PARTIAL` by contract while no-fit relative phase,
+magnitude and the fixed-scale phase-invariant comparator are mandatory.
+Separate numerical/convention budgets and all V2.0 nonclaims remain in force.
+The candidate focused suite is `3 passed`; JSON, Ruff and scoped diff checks
+pass.
+
+The formal T7 threshold-review prompt is
+`docs/prompts/phase6_t7_v2_2_threshold_contract_review.md`, SHA-256
+`47f729287ec51087406da2fdfa1bd60e8b30409e0b5f20d712e5322190b0aaaa`.
+The superseding execution/review prompts are:
+
+```text
+docs/prompts/phase6_t6_v2_2_waveform_routes_v2.md
+  4fd8f01c51cb8df41a14e6ac15b46270e6da108a3fba99b366c61c06b0787689
+docs/prompts/phase6_t7_v2_2_review_v2.md
+  bd34c709c730aaf5de4c7c7cb621edb2f64d965bd52669d34753ac34426f3596
+```
+
+The old V2.2 prompts are immutable HOLD predecessors and forbidden for new
+execution.  Formal T6 may be redispatched only after formal T7 returns the
+exact threshold-contract `ADVANCE/PASS` verdict.  There is currently no V2.2
+artifact or numerical process, and V2.3 is not started.
+
+## Current authoritative snapshot — V2.2 pre-execution HOLD
+
+The user explicitly authorized V2.2 and Root T0 dispatched the exact frozen
+T6 prompt.  T6 completed only the dependency/start gate and returned:
+
+```text
+HOLD / V2.2 FROZEN WAVEFORM THRESHOLD ABSENT
+ADVANCE_DECISION: ESCALATE
+CLAIM_STATUS: NOT_ASSESSED
+```
+
+This is not a numerical or route-identity failure.  V2.1, V2.0, D_union and
+all seven protected radial identities match.  The immutable external Route C
+root
+`runs/phase6/radial_validation/v1_external_bhpt_direct_bounded_selected_v1_20260810_py314`
+is `0555`; all 92 manifest entries are direct `0444`/nlink1 and rehash PASS.
+Its exact 30-key order matches the V2.0 domain and V2.1 120-record inventory.
+
+The only blocker is that no pre-execution contract binds applicable numerical
+thresholds for the mandatory A/B, A/C and B/C relative-magnitude,
+wrapped-relative-phase and phase-invariant waveform comparators.  V2.0 and
+V2.1 contain zero applicable threshold fields; the older observable evidence
+contains only null thresholds.  The only non-null external thresholds are
+radial flux/S/Jost/precision gates, which the frozen V2.2 prompt forbids
+repurposing as waveform thresholds.
+
+No V2.2 implementation, route evaluation, test, publication or root was
+created.  No radial solver or figure ran.  Formal T7 was not dispatched and
+V2.3/V2.4 remain blocked.  Exact unblock condition: Root T0/user must first
+freeze an identity-bound V2.2 waveform-threshold contract specifying each
+comparator definition, units, numerical value, route-pair/domain applicability
+and exact path/hash/field, then explicitly authorize redispatch.  T0 must not
+invent or infer those scientific thresholds.  Independent work that does not
+depend on V2.2 may proceed.
+
+## Prior authoritative snapshot — V2.1 accepted; V2.2 not started
+
+Root T0 dispatched the frozen V2.1 T6 and T7 prompts to the existing formal
+tasks.  Both tasks stopped at their required boundaries.  The formal T7
+dual-axis verdict is:
+
+```text
+ADVANCE_DECISION: ADVANCE
+CLAIM_STATUS: PASS
+GATE_LABEL: ACCEPT GREEN / V2.1 MODE-LEVEL ASYMPTOTIC AMPLITUDES READY FOR V2.2
+```
+
+This GREEN is bounded to V2.1 normalization, exact 120-record cardinality,
+the total/free/scattered complex identity and the no-radial/no-frame/
+no-angular-sum boundary.  It is not global GREEN or full-domain V2.
+
+The unique authoritative V2.1 root is:
+
+```text
+runs/phase6/asymptotic_waveform/v2_1_mode_amplitudes_v1_20260810T184729_py314
+  manifest       ae39829a3e95169f88aa7ce95639e5e3d473c9b7db23d6301cea24d40109ad90
+  records        eb0e36ae49a1b868f22279d9948e748a69f89d281890df3e6af5ea4356d1bcc5
+  report         a9fbfd658211eb17b2b7d99177ad233b342eefaafffedf10ba56f0b41fb74a3a
+  source ledger  1f3064dd334dbc4e0af2c8772c3230d5fd58fc8172003595eafb41035acd4dbc
+  summary        ae2e1c226c2330cc6f6fbdbb38381fd4db4ea71d71f504ff766398ab6ede1e27
+```
+
+The root is `0555`; its five files are direct `0444`/nlink1.  T0 strict
+reload and in-memory rebuild independently returned 120 records, 30 radial
+keys, 15 parity pairs and `radial_solve_count=0`.  Formal T7 then bypassed the
+acceptance helper and reconstructed every coefficient directly from the 30
+immutable V1 comparisons.  Its maximum complex difference was
+`7.4457465955746957347e-80`, maximum decomposition residual was
+`1.8448846400653415643e-81`, and the smallest nonzero horizon magnitude was
+`2.803043312209873033e-753`.
+
+Verification was targeted `4 passed`, Phase-6 `353 passed, 2 skipped, 2
+warnings`, and full suite `1539 passed, 119 skipped, 1 xfailed, 151 warnings,
+104 subtests passed`; V2.1-scoped Ruff, compileall and diff checks passed.
+The whole-repository Ruff baseline remains out of scope.  T7 found no class-A
+blocker.  A complete mpmath dependency-tree inventory is recorded as
+`FOLLOW_UP_DEBT`, not a reason to reopen V2.1.
+
+V2.2 has not been dispatched and no V2.2 root exists.  The next frozen prompt
+is `docs/prompts/phase6_t6_v2_2_waveform_routes.md`, SHA-256
+`689a9e7593cb2f928e5f262922118d41b0b05aa1eb7de87688a65c80349cd768`.
+Do not send it until Root T0 receives a separate user instruction to continue
+V2.2.  Full-domain V1 independent scientific certification remains
+`PARTIAL`; angles, angular sums, waveform/Psi4 routes, physical flux, observer
+response, Li figures and full-domain V2 remain unassessed at this gate.
+
+## Prior authoritative snapshot — T7 gate liveness / V2 prompts frozen
+
+The latest user instruction pauses all T6/T7 dispatch while the governance
+revision is reviewed.  No numerical task or formal review was started.  The
+unblock condition is an explicit user next-step instruction after reviewing
+this package.
+
+Frozen governance identities:
+
+```text
+project.md
+  eef98bb10fe3e6a8eb5dcd9e998f4f3c5506a37bbc972f82caada71af2d6fa9f
+docs/review_gate_liveness_protocol.md
+  3dac4a6acf9021ed917cbf911a67d13827a97f3593b67c011ee7c1f162015181
+docs/templates/t7_gate_verdict_template.md
+  3ac1fe9969b253be034aa6a6ccf37d6daa9168c1685554049c143b6d9513179d
+```
+
+Future T7 reviews use two independent axes:
+
+```text
+ADVANCE_DECISION: ADVANCE | REPAIR | ESCALATE
+CLAIM_STATUS: PASS | PARTIAL | FAIL | NOT_ASSESSED
+```
+
+`PARTIAL` does not automatically block advance.  Only a fully specified
+class-A current-gate blocker may set REPAIR.  The initial review freezes the
+four item inventories; a repair review is delta-only.  A gate permits at most
+two bounded repair/review cycles, then the same substantive blocker requires
+`ESCALATE / T0 ADJUDICATION REQUIRED`.  HOLD is restricted to the five
+evidence/control states in the protocol and carries five mandatory recovery
+fields.  Class-C control-plane repair never changes science bytes, formulas,
+thresholds, identities or solver behavior and receives delta verification.
+
+The final frozen V2 chain is:
+
+| stage | SHA-256 | dependency and stop |
+|---|---|---|
+| V2.1 T6 | `d5795b7888fee147eefa408cfdbfaef1771bd5d59a7ca0e3bac9aebce2754f55` | accepted V2.0; stop on identity/input insufficiency; V2 modules/tests/fresh root only |
+| V2.1 T7 | `9d4d14fd0554c32e2809dff52e09d197df50a64092973a2966c152afb098e06f` | V2.1 checkpoint; read-only science; liveness protocol applies |
+| V2.2 T6 | `689a9e7593cb2f928e5f262922118d41b0b05aa1eb7de87688a65c80349cd768` | V2.1 ADVANCE/label; stop on missing frozen route input or threshold; no fit/solver/frame |
+| V2.2 T7 | `0ae8a3c79dfa74ecb01aeca1e0f67f33dbf1530a8cf13aeddf9ff185fd7f9c96` | V2.2 checkpoint; absolute-phase PARTIAL alone is nonblocking |
+| V2.3 T6 | `084d4e8748334aadad786ff6725c823011aacf42e968fab05defca1f2dfe733e` | V2.2 ADVANCE/label; stop on input/threshold/factor mismatch; selected flux only |
+| V2.3 T7 | `2967a985f7df90e810423f6b0004315c706bcf276e2e799d48b6dbdd21bff463` | V2.3 checkpoint; read-only selected-flux gate |
+| V2.4 T6 | `635f08459f876d0be6bd2f9a76acc8bd89cec6ada0529b33318e2010bc500806` | V2.3 ADVANCE/label; release-only, no new science/domain/threshold |
+| V2.4 T7 | `e2e5b69d9d654f0749f5876dfe086ac34d7e18f6f459d35cb33a86b4654ac9a9` | V2.4 checkpoint; honest selected release may retain global null/full-domain PARTIAL |
+
+All prompt files, protocol and template are `0444` with nlink1.  Allowed paths,
+verification commands and phase-specific stop conditions are embedded in each
+prompt.  The frozen order is T6/T7 for V2.1, V2.2, V2.3 and V2.4, followed by
+T0 adjudication.  Do not skip or parallelize dependent gates.
+
+The existing formal tasks to use later are T6
+`019f5faf-bfdd-7aa3-80a9-1c9829daecac` and T7
+`019f5ed1-b421-7ec2-9bac-8d134855a1ed`.  Do not substitute a root child
+subagent for a formal critical T6/T7 review.  When the user authorizes resume,
+send only the exact V2.1 T6 prompt to the formal T6 task with
+`gpt-5.6-sol/high`; do not pre-dispatch V2.1 T7 or V2.2.
+
+V2.0 scientific authorities remain unchanged: contract
+`1251392e0799ebafad91d832a128a6ad93a4d9dacf1a07a4fa50f5af2b119517`,
+domain `9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818`,
+and all seven protected radial hashes.  V2 science is still `NOT_ASSESSED`;
+full-domain V1 independent scientific certification is still `PARTIAL`; no
+global GREEN exists.
+
+## Current authoritative snapshot — 2026-08-10 bounded V2 entry / V2.0 only
+
+Independent T7 returned exactly
+
+```text
+ACCEPT GREEN / V1 RADIAL REPAIR SUFFICIENT FOR BOUNDED V2 ENTRY
+full-domain V1 independent scientific certification remains PARTIAL
+```
+
+GREEN is limited to the transition gate.  The durable read-only review is
+`docs/handoffs/archive/T7_2026-08-10_phase6_v1_to_v2_transition_review.md`;
+the gate summary is `docs/phase6_v1_to_v2_transition_gate_20260810.md`.
+
+Scoped state:
+
+```text
+V1 algorithmic radial domain                         PASS
+V1 production radial-state completeness              PASS
+V1 selected independent numerical validation         PASS
+V1 full-domain independent scientific certification  PARTIAL
+```
+
+Authoritative radial v2 roots are:
+
+```text
+runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314
+  manifest 2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728
+runs/phase6/radial_validation/v1_production_state_evidence_v2_20260810_py314
+  manifest 7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4
+```
+
+The repaired release map/preparation/release remain
+`configs/phase6_v1_repaired_release_map_20260810.json`,
+`runs/phase6/v1_release_preparation_repaired_v2_20260810_py314`, and
+`runs/phase6/v1_release_repaired_v2_20260810_py314`.  Map, canonical
+submission, ledger and release manifest hashes are respectively
+`aef59e5fe9db485b8b5c2b2909befe3777cd9ce6e0e4ecc75200392b52e8fe30`,
+`fc0c45db3cff9c7e68219cf26c298e45e162b6cc40d2598729e6266c4920b72f`,
+`7ef62d6b3ff883570510854ff230821a7d3ca89c8596602df2c36d1cff66e0db`,
+and `a139e76ac28eba5ae4595aa0bfaad6b7a9814fd2301aa7cdfd3f993fd556e594`.
+
+The selected external inventory contains 15 exact odd/even pairs (30 keys):
+`0.5:{2}`, `1:{20,39,40,41}`, `2:{60,79,80,81,153}` and
+`4:{120,159,160,161,360}`.  Coverage is odd/even 15/15, selected low/mid/high
+10/10/10, low-ell absorption 2, operational `r=40M` turning/barrier proxy 18,
+high tail 4, and controls 6.  Do not relabel the proxy as an analytic
+photon-sphere critical-ell result.
+
+The V2.0 zero-science convention freeze is terminal.  Frozen authorities:
+
+```text
+configs/phase6_v2_0_convention_contract_20260810.json
+  1251392e0799ebafad91d832a128a6ad93a4d9dacf1a07a4fa50f5af2b119517
+configs/phase6_v2_0_selected_domain_20260810.json
+  9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818
+```
+
+It freezes the Li→ZM/RW/CPM map, incident `+z` absolute phase and
+`c_lm/A_in_raw` normalization, Jost/tortoise/Fourier phase, total/free/
+scattered/horizon definitions, spin harmonics, asymptotic plus/cross, normalized
+null tetrad/Psi4, flux factors, route provenance and separate uncertainty
+budgets.  The domain is 15 parity pairs, 30 radial keys, 60 channels per unit
+input column and 120 structural records per route; observation angles and a
+complete angular sum are deferred.  No V2 science has been executed.
+
+Forbidden current inputs are the v1 wrappers
+`v1_final_radial_baseline_v1_20260810_py314` and
+`v1_production_state_evidence_v1_20260810_py314`, the 2026-08-09
+map/preparation/release, timed-out external-direct v3, V0 v1, and every
+aborted/stale diagnostic named in `status.md`.  Preserve them without using
+or overwriting them.
+
+Do not modify the radial backend, use finite-radius observer frames, sum a
+total plane wave at null infinity, rerun Li figures, or proceed to V2.1.
+Independent T6/T7 material review is terminal; T7 returned exactly
+`ACCEPT GREEN / V2.0 CONVENTION CONTRACT READY FOR BOUNDED V2.1 IMPLEMENTATION`.
+Read `docs/phase6_v2_0_material_reviews_20260810.md`.  V2.0 stops here and
+does not auto-start V2.1.  V2 scientific validation remains `NOT_ASSESSED`
+and full-domain V1 independent certification remains PARTIAL.
+
+## Current authoritative snapshot — 2026-08-10 repaired V1/V1Q release
+
+Phase-6 V1/V1Q radial repair and consolidation are terminal.  There are no
+active numerical or `screen` processes.  This work did not advance V2--V5 and
+did not rerun a paper figure.
+
+Read first:
+
+1. `docs/phase6_v1_radial_repair_v2_20260810.md`
+2. the top 2026-08-10 section of `status.md`
+3. `runs/phase6/v1_release_repaired_v2_20260810_py314/release_ledger.json`
+4. `audits/SchWO_physical_validation_audit_20260806.md`
+
+Authoritative terminal state:
+
+- bounded external direct RW/Zerilli and the no-fit SchWO comparison pass all
+  frozen thresholds for the exact selected 30-key domain; even is an
+  independent Zerilli solve, not parity-derived;
+- independent 60/80-dps evidence closes `24/24` selected ladders;
+- production exact-eight composition covers `16,048/16,048` modes and
+  `128,384` radial master states;
+- the unified turning-aware generic baseline covers exact frozen `D_union` and
+  passes `17,818/17,818` keys, with zero numerical failure and maximum flux
+  residual `4.9870720886247e-9 < 1e-8`;
+- the full-domain native algorithmic summary is PASS, but its V1/V1Q release
+  projections are `PARTIAL 17818/17818`: independent full-domain precision/
+  backend and convention budgets remain open.
+
+The generic policy is
+`max(300M,sqrt(ell(ell+1))/k) * (1,2,4,8)`, with frozen Jost residual, tail,
+condition-number and determinant gates and `r_in_eps=1e-10`.  It contains no
+Q018, paper, frequency or named-mode envelope.  The formal full-domain root is
+`runs/phase6/radial_validation/v1_final_radial_baseline_v2_20260810_py314`;
+summary/report/manifest hashes are:
+
+```text
+summary   22afce89c31b6c606c3140ae31f2c9d6ef2f1b1c36e65d553be052afbcf332a3
+report    22883fdced4a1b8a93845dbe11179238220075de49548ee8149ba471df8c101d
+manifest  2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728
+```
+
+The fresh repaired release chain is:
+
+```text
+map          configs/phase6_v1_repaired_release_map_20260810.json
+              aef59e5fe9db485b8b5c2b2909befe3777cd9ce6e0e4ecc75200392b52e8fe30
+submission   runs/phase6/v1_release_preparation_repaired_v2_20260810_py314/
+             canonical_submission.json
+              fc0c45db3cff9c7e68219cf26c298e45e162b6cc40d2598729e6266c4920b72f
+release      runs/phase6/v1_release_repaired_v2_20260810_py314/
+ledger        7ef62d6b3ff883570510854ff230821a7d3ca89c8596602df2c36d1cff66e0db
+manifest      a139e76ac28eba5ae4595aa0bfaad6b7a9814fd2301aa7cdfd3f993fd556e594
+```
+
+The 14 certificates are `PASS=2`, `PARTIAL=12`, `FAIL=0`, and
+`NOT_ASSESSED=0`, with `global_status=null`.  PASS is limited to V0
+implementation verification and V6 policy.  The selected 30-key native
+comparison is a scoped PASS, but the release certificate remains PARTIAL
+because the strict release layer does not split its single composite evidence
+role into invented primary/independent envelopes.
+
+Verification: formal V0 full suite is `1533 passed / 120 skipped / 0 failed`;
+the final post-release exact-runtime suite is `1535 passed, 119 skipped,
+1 xfailed, 151 warnings, 104 subtests`.  Native full-domain, preparation, and
+release immutable reloads all pass.
+
+Preserve every historical root.  In particular, the fixed-radius full-domain
+diagnostic remains `17,715 PASS / 103 FAIL`; the original 5,798-key tolerance/
+Jost root has a stale manifest-mode field; the early duplicate-writer root
+remains aborted; and the 2026-08-09 15-certificate release remains the
+immutable pre-repair snapshot.  None is superseded by overwriting.
+
+## Prior authoritative snapshot — 2026-08-09 Phase 6 full V1 released
+
+Phase-6 V1 implementation/evidence release is complete.  This is not a
+project-wide scientific acceptance.  The final immutable ledger contains 15
+per-observable/domain certificates with `PASS=2`, `PARTIAL=6`, `FAIL=6`, and
+`NOT_ASSESSED=1`; `global_status=null`.  The only PASS certificates are V0
+implementation/provenance cleanup and V6 release-policy enforcement.  Li
+figure agreement was not a primary gate, and no full paper figure was rerun.
+
+Read first:
+
+1. `docs/phase6_v1_closeout_20260809.md`
+2. `runs/phase6/v1_release_v1_20260809_py314/release_ledger.json`
+3. `configs/phase6_v1_release_map_20260809.json`
+4. `audits/SchWO_physical_validation_audit_20260806.md`
+
+Authoritative identities:
+
+```text
+release map
+  c2e388e6a93af227a77f5ad26731357f13ae58236811e80b86457deb12aa4c04
+preparation canonical submission
+  6ff1369e7c5e0dc549922a0fed9797e62f9bc9e256253eefd9dbd17b0779dd1e
+preparation manifest
+  a00c6df60a194d73bae420eb6023743f6ca26772b26c38bd2fbaf252258e1a53
+release ledger
+  3f289a9f41c2ee0389e12bdf41b8f331274b3504195411dd0a19f01766f6adb4
+release manifest
+  45339f748e17bdaeb2e2aae2b5cea1988e00c61ca2feca5260e7e54e45df18cf
+```
+
+The accepted preparation root is
+`runs/phase6/v1_release_preparation_v2_20260809_py314`; the release root is
+`runs/phase6/v1_release_v1_20260809_py314`.  Both independently reload and are
+immutable.  Preserve the failed, sealed predecessor
+`runs/phase6/v1_release_preparation_v1_20260809_py314`: it failed before
+canonical submission/manifest publication because native Stage-A prose used
+release-forbidden project/global status wording.  Scientific data were not
+changed; the adapter now performs exactly one domain-qualified phrase rewrite
+and rejects any other such status wording.
+
+Key physical state:
+
+- conditioning campaign: 86/86 shards, 17,818 keys, 19,240 calls; execution
+  integrity PASS, science `12,020 PARTIAL / 5,798 FAIL_CLOSED`;
+- production eight-radius campaign: 80/80 shards, 16,048 terminals;
+  12,666 complete modes/101,328 radial-state records and 3,382 FAIL modes;
+- Stage-A arbitrary precision: exact eight selected anchors, 2 PARTIAL and
+  6 FAIL; this is not production coverage;
+- external BHPT MST: odd selected 84 calibration PARTIAL, maximum complex
+  error about `9.2112e-15`; even remains parity-derived;
+- external BHPT direct v3: terminal `FAIL/EXTERNAL_DIRECT_TIMEOUT` after the
+  full 86,400-second, 800-digit attempt, zero records, no fallback/restart;
+- direct-versus-conditioned comparator: no terminal evidence, therefore
+  NOT_ASSESSED rather than fabricated;
+- V2--V5: five selected-domain certificates, all PARTIAL.  Finite-radius
+  production radial states are not detector responses or infinity waveforms.
+
+All physical certificates retain separate numerical and convention budgets.
+The V0 formal root records the full suite as `1474 passed, 119 skipped,
+1 xfailed, 104 subtests`; post-release-language focused CPython 3.14 tests are
+`58 passed, 2 skipped`; the complete Phase-6 plus legacy-isolation unit suite
+is `311 passed, 2 skipped`.  The final post-publication full-repository run,
+including the three new release-language tests, is `1477 passed, 119 skipped,
+1 xfailed, 149 warnings, 104 subtests`; Ruff/format is clean.
+
+The next scientific version should not rerun paper figures.  It should first
+stabilize the failed Riccati/turning-shell modes, design a bounded independent
+direct RW/Zerilli solver before a fresh 30-key attempt, independently solve
+the even sector, and close large-radius observable, detector, and production
+2x2 transfer domains.  Every new formal result needs a fresh root and must
+remain scoped to its observable/domain; never overwrite failed or accepted
+evidence roots.
+
+## Current authoritative snapshot — 2026-08-06 Phase 6 opened
+
+Third-audit source:
+`audits/SchWO_physical_validation_audit_20260806.md`.
+
+Phase 6 is now the authoritative forward plan. It uses independent physical
+validation, not Li raster agreement, as the primary gate. No global GREEN is
+permitted; acceptance is per observable and parameter domain with separate
+numerical and convention uncertainty budgets.
+
+The first V0 implementation slice is PASS: stale production metadata is
+corrected, unknown solver metadata fails closed, and legacy scalar/NP/
+pseudoinverse adapters are diagnostic-only under `schwgw.scattering.legacy`.
+The compatibility module is retained so historical evidence readers do not
+break. A per-mode radial flux-accounting primitive and the Phase-6 validity
+certificate schema are implemented. Exact CPython 3.14.6 verification passed
+the full suite (`1155 passed, 117 skipped, 1 xfailed, 104 subtests`) and the
+final focused post-metadata suite (`258 passed`). The full suite used the
+existing project-local mpmath 1.4.1 overlay; no environment was installed or
+changed.
+
+### V1 selected-mode radial pilot — authoritative 2026-08-06 snapshot
+
+T0 reused three standby threads with non-overlapping authority: T8 performed
+the production-domain inventory, T7 performed a read-only contract review,
+and T4 was the sole implementation/evidence writer. T7 returned
+`REVIEW YELLOW`; its fail-closed requirements are now implemented in the
+pilot schema. No new task was created and no full paper figure was run.
+
+T8's authoritative inventory is `16,048` deduplicated production
+`(kM,sector,ell)` keys, already including both parities: `6,400` standard and
+`9,648` Q018/dense-local. Static/Li observer-frame products duplicate these
+radial keys and do not enlarge the union. Existing production NPZ files do
+not persist per-mode `psi,dpsi_dr`, backend/fallback identities or complete
+ladders, so they are not V1 radial evidence.
+
+The authoritative selected-pilot root is:
+
+```text
+runs/phase6/radial_validation/
+  v1_selected_mode_pilot_v6b_20260806_py314/
+```
+
+Its evidence/manifest/checkpoint SHA-256 values are respectively:
+
+```text
+600e500e44333298313f6936575a54e0f4dbe7246cec50be4b38707c4bba4b0c
+ec4f57d916ec6bce07a50ceb99f4b9065048bfa5808bc53612786bfaa27deb74
+c6f82625fa5b9de47a33b9a9d5c5f59ecfae2898bd2875d96328767d9493e5f9
+```
+
+The root is mode `0555`; all three files are regular mode `0444`, `nlink=1`.
+Independent T0 reload verified schema, source/dependency/input hashes,
+evidence linkage, direct-flux identities and v5→v6b preservation of the five
+pre-existing scientific baselines. The only Q018 difference was nested
+`runtime_seconds`.
+
+The pilot covers seven keys and explicitly leaves 16,041 production keys
+unassessed:
+
+- low-ell absorptive odd/even `(kM=0.5, ell=2)`;
+- ordinary odd/even `(1,20)`;
+- turning odd/even `(2,120)` at `r_eval=60M`;
+- Q018 odd `(2,153)` at `r_eval=60M`.
+
+The two low-ell modes pass only direct signed-flux internal accounting. Their
+`(F_inf,in,F_inf,out,F_H)` values are
+`(-1.0157281972510868,0.015728197752984473,-1.0)` for odd and
+`(-1.0157281321678795,0.015728132381432048,-1.0)` for even. Relative balance
+residuals are `4.941260338587497e-10` and `2.1024573628170175e-10`.
+`F_H` is twice the returned inner signed current, not `1-|R|^2`; evidence says
+`PASS_INTERNAL_ACCOUNTING_ONLY` and `independently_validated=false`.
+
+All other selected modes pass boundary/effective-Wronskian diagnostics but
+their horizon transmission is unresolved in float64, hence physical flux is
+`NOT_ASSESSED`. All numerical and convention budgets remain open. The
+ordinary odd MST difference `2.718773846158257e-9` exceeds the provisional
+`1e-9` diagnostic line; turning/Q018 odd differences are uncalibrated. The
+low-ell local MST recurrence chooses the wrong `nu` branch and is explicitly
+unavailable for those keys. Even MST evidence remains parity-derived, BHPT
+direct integration is absent, and an independent arbitrary-precision
+RW/Zerilli ODE S-matrix backend is not implemented.
+
+The stale Q018 precision label is fixed in active runtime metadata and future
+producer output: SciPy is `actual_precision_bits=53`, approximately
+`actual_decimal_digits=15.95`, while `requested_precision_dps` is separate.
+Do not mutate v4/v5/v6 artifacts; the empty read-only `v6` root was consumed
+when low-ell MST failed before publication, and `v6b` is authoritative.
+
+Exact verification after V1 implementation: focused radial/MST suite
+`30 passed`, real Q018 metadata probes `2 passed`, and full CPython 3.14 suite
+`1167 passed, 117 skipped, 1 xfailed, 149 warnings, 104 subtests` in
+`338.51 s`. Focused Ruff, compileall, `git diff --check`, artifact permissions,
+hashes and residual-process checks PASS.
+
+Full-domain V1 acceptance and V2–V5 remain open. Do not claim that the generic conditioning backend,
+production-domain Q018 external validation, Martel–Poisson waveform/flux,
+analytic scattering suite, operational detector response, or 2x2 transfer
+matrix is implemented. Do not rerun full paper figures. Existing Fig.5/6
+artifacts remain immutable inputs/secondary regressions.
+
+Fig.4 wording is corrected: the selected probes converge by approximately
+`lmax=160` inside the current algorithm; the open issue is independent
+validation of the Q018/high-ell backend.
+
+Exact next V1 work, before any production-domain scan:
+
+1. implement and independently test an arbitrary-precision RW/Zerilli ODE
+   S-matrix backend on low-ell, ordinary, turning and Q018 anchors;
+2. add source-bound BHPT direct integration and resolve the local MST low-ell
+   `nu` branch without weakening its recurrence checks;
+3. provide an independent even-sector solve rather than a parity-derived
+   value;
+4. finish and calibrate `r_in/r_out/Jost/tolerance/precision` closure rules,
+   then validate a transition/Q018 matrix before considering the 16,048-key
+   production-domain run.
+
+## Current authoritative snapshot — 2026-08-06 Fig.5/6 full rerun closeout
+
+The expensive dual-frame Fig.5/6 rerun is complete. Do not restart it.
+
+- Both roots contain exactly 40 valid NPZ/JSON transaction pairs for
+  `kM=0.1..4.0`, with explicit observer frame, Jost `1/r` basis and
+  `r_out=(1200,1800,2400)`. The App-update interruption occurred after
+  `kM=3.0`; `--resume` validated and preserved those 30 pairs and finished
+  `3.1..4.0` in detached `screen` sessions. No partial transaction exists.
+- Static merged NPZ/sidecar:
+  `c6468da4e4f844461a884976a10c5063019b9e74f8ec5a2cd45247dabc9af776` /
+  `cc78bfaa50ecb4eff42b2691bfe5ed7512d4bf5deef3dadf3139c4976c161605`.
+- Li-literal merged NPZ/sidecar:
+  `a47623535b7b4ae62756c79e80f21f58ca14a0c4e911096efb6d781d73000e55` /
+  `1adf19c0f051f3241a5f430940b3f9f62a21079303cd935421ff0c68481cd4ac`.
+- All arrays are finite with shape `(40,8)`. Maximum mixed-response final
+  `lmax` delta is `4.5309249774413517e-10`; maximum diagonal r-out
+  uncertainty is `8.417822542313249e-4`. Static/Li relative frame deltas
+  remain bounded by the expected `0.0666666666666` convention difference.
+- Render roots are
+  `fig56_jost_rout_render_static_20260806_py314` and
+  `fig56_jost_rout_render_li_20260806_py314`; each contains Fig.5 and Fig.6
+  at `7020 x 3090` PNG/600 DPI plus vector PDF and sidecars.
+- Phase diagnostics JSON identities are `c4c651f2...2806c` (static) and
+  `0ead4863...2ea9` (Li). A single global offset does not solve the mismatch:
+  offset-removed MAE is `0.4140690/0.4195414 rad` (static plus/cross) and
+  `0.4137375/0.4191221 rad` (Li plus/cross).
+- Published-raster comparison JSON identities are `20650856...82661`
+  (static) and `44a09ded...ee73` (Li). Li-literal amplitude is closer to the
+  red markers, but phase is about `0.417 rad` circular MAE in both frames.
+- Focused tests PASS: `27 passed in 1.75s`. Visual/file/hash/shape/finite QA
+  PASS. Exact verdict: production/render closeout COMPLETE; paper phase
+  equivalence YELLOW; strict Li-paper reproduction remains YELLOW.
+
+Next work must not repeat Fig.5/6. Remaining second-audit scientific blockers
+are Fig.4 `kM=2` convergence/equivalence and the other per-figure YELLOW
+boundaries recorded below.
+
+## Current authoritative snapshot — 2026-08-03 second-audit refinement
+
+Read first, in order:
+
+1. `audits/SchWO_second_audit_20260803.md`
+2. `audits/SchWO_second_audit_response_20260803.md`
+3. `runs/phase5/paper_figures/second_audit_refinement_20260803_v2/second_audit_refinement.json`
+4. `runs/phase5/paper_figures/bhpt_mst_benchmark_20260803_v4/comparison.json`
+
+Authoritative verdict:
+
+```text
+GREEN     / Jost outer-basis implementation and bounded diagnostics
+INCOMPLETE/ full-resolution Fig.2/4/5/6 regeneration under the new contract
+GREEN     / external BHPT/MST odd complex-phase benchmark
+YELLOW    / strict Li-paper reproduction
+```
+
+Completed in this slice:
+
+- Production radial paths use RW/Zerilli-derived
+  `exp(±ikr_star) sum a_n/r^n`; bare plane wave is diagnostic-only.
+- Fig.2/4/5/6 compute paths bind `r_out=(300,600,1200)`, quadratic
+  `1/r_out` extrapolation, raw ladders and uncertainty.
+- Direct-curvature paths expose
+  `static_orthonormal | li_literal_cartesian`; generic
+  `physical_claim=false`, while gauge/frame-qualified validity and
+  `paper_equivalence=YELLOW` are explicit.
+- Fig.5/6 diagnostics retain principal/raw, unwrapped, global-offset and
+  offset-removed phase residuals. Existing bounded data still have about
+  `0.65 rad` one-offset-removed global MAE and far panels about `1.32 rad`.
+- Fig.4 bounded `kM=2` shell/Q018 evidence exists, but the full selected-angle
+  all-shell gate is not closed.
+- Fig.8 low `ell=2..19` now uses Jost r-out extrapolation; every new Fig.8
+  dataset must have `strict_paper_reproduction_claim=false`. The historical
+  immutable artifact is corrected by an audit sidecar, not rewritten.
+- External BHPT Toolkit integration is source/license/commit-bound and
+  fail-closed. The immutable v2 blocked root remains valid, but the external
+  SSD kernel was subsequently found at
+  `/Volumes/JohnnyTforGR/Applications/Wolfram.app/Contents/MacOS/WolframKernel`.
+  The v4 run produced all 84 `kM=(0.5,1,1.5,2), ell=20..40` records and
+  passed with maximum complex error `9.211213737287328e-15`. Odd modes are
+  independent BHPT ReggeWheeler MST values; even modes remain explicitly
+  derived by the exact parity relation.
+- Final verification: targeted `69 passed`; full suite
+  `1144 passed, 117 skipped, 1 xfailed, 109 warnings, 104 subtests`;
+  Ruff, compileall and `git diff --check` PASS.
+
+Bounded evidence identities:
+
+- second-audit report:
+  `71656a7aaad5ee98aecdaf979742498e98de037a2060cc5ce85f9d6627c2a534`
+- second-audit response:
+  `e741ca8c984d8244e0f306ca6e308222b589225cb7a707d19e9f4e50870ee9a4`
+- combined NPZ:
+  `2cf3ffae7a36a05a58084f17381264df4426e8bc5422f5dfa068cdcbcf0d0f82`
+- BHPT v4 request/preflight/run/comparison:
+  `66e60512b8a7aa0a61a234980f8eb28cf77a68bdc2c028758020c571ca9a59c3`,
+  `522cb1b52f4d4bb7fc9ffe8a17ab2e8175149e62e7efa922b531dcf668ebfaf9`,
+  `f35d4333a83854632125da5a2c8f5d32cee496374a4f0ccbbea3bfec7d65994f`,
+  `274786add2947174fd6be43224c5e28de4c3da1b14a6fd9f97638a3c55218281`.
+
+Exact next scientific tasks:
+
+1. Run full Fig.2 high-precision Jost r-out ladder.
+2. Run Fig.4 `kM=2` selected-angle/all-shell/angular-grid audit.
+3. Recompute full Fig.5/6 in both frames with the frozen r-out ladder and
+   regenerate phase-residual artifacts.
+4. Re-render and compare the regenerated Fig.2/4/5/6 artifacts panel by panel.
+
+Do not modify or weaken runner equations, frequencies, lmax, tolerances,
+paper marker data, Q018 semantics, canonical accepted artifacts, or scientific
+acceptance thresholds. Do not mutate failed/blocked roots. Do not claim Fig.4
+`kM=2`, Fig.5/6 phase, external MST normalization, or strict Li reproduction
+GREEN.
+
+The user explicitly authorized the full high-cost Fig.2/4/5/6 reruns. They
+must be judged by durable computed artifacts, not by the existence of scripts.
+
+## Current authoritative snapshot — 2026-08-02 audit-repair closeout
+
+The five audit follow-ups are complete. The authoritative state is:
+
+```text
+COMPLETE / FIVE REPAIR COMPUTATION AND RENDER CHAIN
+YELLOW   / STRICT PAPER-FIGURE EQUIVALENCE
+```
+
+- Production now uses direct RW-gauge metric -> linearized Riemann ->
+  incident-frame `E_xx/E_xy`; lower-NP completion is diagnostic-only.
+- Fig.2 independent 80-digit spot check and Fig.8 direct `ell=20..502` MST
+  are closed. Fig.3--7 have been fully recomputed, then Fig.3--8 rendered to
+  PDF/approximately-600-dpi PNG and compared panel by panel.
+- Unified validator PASS:
+  `audit_repairs_validation_odejet.json`, SHA-256
+  `f791d88897d9c877f0ec95defc6cfa083a0c683837a36a7e030f7da5f7d308cb`.
+- Remaining paper-facing differences are scientific uncertainties, not
+  unexecuted repair tasks: Fig.4 `kM=2`, Fig.5/6 phase, Fig.7 longitudinal
+  morphology, and absence of author raw data.
+- Read `docs/reports/SchWO_audit_five_repairs_20260802.md` before any future
+  work. The 2026-08-01 snapshot and all T4af--T4bj gate text below are
+  historical and superseded for current figure work.
 
 ## Current authoritative snapshot — 2026-08-01
 
@@ -9521,3 +11138,72 @@ and project first-stage definition are therefore complete.  No new
 publication plot or paper artifact was rendered during this closeout, so
 completion must not be restated as “every Li-paper panel is newly rendered
 at journal layout.”
+
+## Current paper-facing recalculation boundary (2026-08-03 16:14 +0800)
+
+The earlier project-stage closeout does not close the second-audit strict
+paper-facing requirements. Real recalculation jobs are now active:
+
+- completed 80-digit Fig.2 shell ladder report:
+  `fig2_jost_rout_full_20260803/fig2_high_precision_jost_rout.json`, SHA-256
+  `49d2d1bdc51e8d5e6e7e34940fe88635e258893641474954ca4f35c7f23b765a`;
+- active full Fig.2 all-frequency ladder:
+  `fig2_jost_rout_production_20260803_v2`;
+- active full Fig.5/6 static-frame uniform-40 production:
+  `fig56_jost_rout_static_20260803_v3`, using the condition-certified
+  `(1200,1800,2400)` ladder;
+- active fresh Fig.4 `kM=2`, `n=1025`, `lmax=180` static and Li-literal grids:
+  `fig4_k2_jost_rout_{static,li}_20260803_v2`;
+- active fresh Fig.8 low-ell Jost/direct-MST production from an
+  array-identical metadata-corrected raw view.
+
+The Fig.4 expanded-radius blocker was the old adapter's literal `r_out=300`
+envelope, not a scientific result. The angular driver invokes the unchanged
+solver first and only then a generic required-radius Q018/Jost fallback for
+exact structured failures. Its former `ell=153,r_out=600` case has a
+regression test and boundary residual below `1e-12`.
+
+Do not mark paper equivalence GREEN from running state. After completion,
+merge/render/phase/raster comparison must be performed for both observer
+frames, and the `n=2049,lmax=240` Fig.4 audit must close.
+
+## Exact-runtime correction for the active paper-facing recalculation
+
+The initially launched full-rerun commands accidentally inherited the
+project `.venv` (CPython 3.10.2), not the frozen scientific CPython 3.14.6
+runtime. Root T0 stopped those processes before final publication and froze
+their directories as diagnostic-only. In particular, the five Fig.5/6
+static-frame frequency transactions already present in the old v3 root may
+not be merged or promoted.
+
+Fresh no-overwrite roots with suffix `_20260803_py314` are active under
+CPython 3.14.6, NumPy 2.4.6 and SciPy 1.17.1 for full Fig.2, both Fig.4
+observer frames, both Fig.5/6 observer frames, and all four Fig.8 direct-MST
+frequencies. The optional Fig.8-only `mpmath 1.4.1` overlay is project-local
+at `runs/phase5/paper_figures/runtime_overlays/mpmath_1p4p1_py314`, with
+155 files / 4,075,822 bytes / canonical ledger
+`40c40164b9e68226cc312181cbabb352192baa5612b3cd292b824e0ae1b6c88a`.
+The Python-3.14 preflight MST mode `ell=20,kM=0.5` has recurrence residual
+`3.9679746158402094e-73`; focused runtime tests pass 18/18. Continue only
+from the `_py314` roots and do not treat a running state as scientific PASS.
+
+## Latest strict-paper rerun boundary
+
+Fig.8 direct-MST recomputation has now completed and passed independent
+reload for all four frequencies and `ell=2..502`. The merged 1440-angle NPZ
+is `fig8_direct_mst_jost_rout_20260803_py314/fig8_direct_mst_jost_rout_l502_n1440.npz`,
+SHA `6aa79e4fc08f5e14717db02f7d4e0c018c2d1e97c4e8044555744abc486724ed`;
+sidecar SHA `37ac1385606479ff91aab0e21594739a6ad0ad27db8b769075fec41d341e4cfc`.
+Maximum MST recurrence residual is `1.8548321880019715e-68`, no empirical
+offset/blend is present, and strict-paper claim remains false. Visual
+comparison shows q=2 close to the paper raster but q=0 high-frequency point
+patterns still materially different, so do not upgrade Fig.8 beyond YELLOW.
+
+The first exact-Python Fig.2 root failed at the old internal Q018 envelope
+for `r_out=600,kM=1.5,ell=145,odd`. It is frozen and non-reusable. A bounded
+wrapper repair now recognizes that exact structured envelope error and calls
+the generic required-radius Jost/Q018 solver; exact Python-3.14 blocker tests
+pass 2/2 and Ruff/diff-check pass. Continue only from the fresh full
+`fig2_jost_rout_production_20260803_py314_v2` run. Fig.4 dual-frame grids,
+the full-shell audit, high-resolution n2049/l240 grids and Fig.5/6 dual-frame
+uniform production remain active.

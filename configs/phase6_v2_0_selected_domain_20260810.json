@@ -1,0 +1,141 @@
+{
+  "schema": "schwgw_phase6_v2_0_selected_domain_v1",
+  "domain_id": "v2_0_external30_mode_channels_v1",
+  "contract_only": true,
+  "science_executed": false,
+  "global_green_permitted": false,
+  "li_figure_agreement_primary_gate": false,
+  "purpose": "bounded per-mode V2 asymptotic-normalization and three-route validation domain",
+  "source_key_inventory": {
+    "path": "/Volumes/JohnnyTforGR/ResearchWork/GW_Wave_Optics/SchWO/runs/phase6/v1_execution_contract_v4_20260806/D_external_direct_calibration.jsonl",
+    "sha256": "d572c88259ef4b42b490af263d012a8de880458902dcf5a4d303c9f587cd466b",
+    "radial_key_count": 30,
+    "odd_count": 15,
+    "even_count": 15
+  },
+  "coverage_adjudication": {
+    "frequency_bands": {
+      "selected_low": {
+        "kM": ["0.5", "1"],
+        "radial_key_count": 10
+      },
+      "selected_mid": {
+        "kM": ["2"],
+        "radial_key_count": 10
+      },
+      "selected_high": {
+        "kM": ["4"],
+        "radial_key_count": 10
+      }
+    },
+    "regime_counts": {
+      "low_ell_absorptive": 2,
+      "critical_turning_shell_r40": 18,
+      "high_ell_tail": 4,
+      "subcritical_control": 6
+    },
+    "critical_turning_shell_definition": "ell=40*kM+delta with delta in {-1,0,+1} for kM in {1,2,4}; an operational r=40M turning/barrier proxy, not a photon-sphere analytic critical-ell claim",
+    "frequency_nonclaim": "selected-low/mid/high labels apply only inside this frozen 30-key domain; they do not cover the full V1 frequency extremes kM=0.01,0.05,0.1,8"
+  },
+  "parity_pair_inventory": {
+    "radial_pair_count": 15,
+    "pairing_policy": "each listed (kM,ell) contains exactly one odd and one independently solved even radial key",
+    "pairs": [
+      {"ordinal": 0, "kM": "0.5", "ell": 2, "regime": "low_ell_absorptive"},
+      {"ordinal": 1, "kM": "1", "ell": 20, "regime": "subcritical_control"},
+      {"ordinal": 2, "kM": "1", "ell": 39, "regime": "critical_turning_shell_r40"},
+      {"ordinal": 3, "kM": "1", "ell": 40, "regime": "critical_turning_shell_r40"},
+      {"ordinal": 4, "kM": "1", "ell": 41, "regime": "critical_turning_shell_r40"},
+      {"ordinal": 5, "kM": "2", "ell": 60, "regime": "subcritical_control"},
+      {"ordinal": 6, "kM": "2", "ell": 79, "regime": "critical_turning_shell_r40"},
+      {"ordinal": 7, "kM": "2", "ell": 80, "regime": "critical_turning_shell_r40"},
+      {"ordinal": 8, "kM": "2", "ell": 81, "regime": "critical_turning_shell_r40"},
+      {"ordinal": 9, "kM": "2", "ell": 153, "regime": "high_ell_tail"},
+      {"ordinal": 10, "kM": "4", "ell": 120, "regime": "subcritical_control"},
+      {"ordinal": 11, "kM": "4", "ell": 159, "regime": "critical_turning_shell_r40"},
+      {"ordinal": 12, "kM": "4", "ell": 160, "regime": "critical_turning_shell_r40"},
+      {"ordinal": 13, "kM": "4", "ell": 161, "regime": "critical_turning_shell_r40"},
+      {"ordinal": 14, "kM": "4", "ell": 360, "regime": "high_ell_tail"}
+    ]
+  },
+  "radial_keys": [
+    {"ordinal": 0, "kM": "0.5", "ell": 2, "sector": "odd", "frequency_band": "selected_low", "regime": "low_ell_absorptive"},
+    {"ordinal": 1, "kM": "0.5", "ell": 2, "sector": "even", "frequency_band": "selected_low", "regime": "low_ell_absorptive"},
+    {"ordinal": 2, "kM": "1", "ell": 20, "sector": "odd", "frequency_band": "selected_low", "regime": "subcritical_control"},
+    {"ordinal": 3, "kM": "1", "ell": 39, "sector": "odd", "frequency_band": "selected_low", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 4, "kM": "1", "ell": 40, "sector": "odd", "frequency_band": "selected_low", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 5, "kM": "1", "ell": 41, "sector": "odd", "frequency_band": "selected_low", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 6, "kM": "1", "ell": 20, "sector": "even", "frequency_band": "selected_low", "regime": "subcritical_control"},
+    {"ordinal": 7, "kM": "1", "ell": 39, "sector": "even", "frequency_band": "selected_low", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 8, "kM": "1", "ell": 40, "sector": "even", "frequency_band": "selected_low", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 9, "kM": "1", "ell": 41, "sector": "even", "frequency_band": "selected_low", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 10, "kM": "2", "ell": 60, "sector": "odd", "frequency_band": "selected_mid", "regime": "subcritical_control"},
+    {"ordinal": 11, "kM": "2", "ell": 79, "sector": "odd", "frequency_band": "selected_mid", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 12, "kM": "2", "ell": 80, "sector": "odd", "frequency_band": "selected_mid", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 13, "kM": "2", "ell": 81, "sector": "odd", "frequency_band": "selected_mid", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 14, "kM": "2", "ell": 153, "sector": "odd", "frequency_band": "selected_mid", "regime": "high_ell_tail"},
+    {"ordinal": 15, "kM": "2", "ell": 60, "sector": "even", "frequency_band": "selected_mid", "regime": "subcritical_control"},
+    {"ordinal": 16, "kM": "2", "ell": 79, "sector": "even", "frequency_band": "selected_mid", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 17, "kM": "2", "ell": 80, "sector": "even", "frequency_band": "selected_mid", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 18, "kM": "2", "ell": 81, "sector": "even", "frequency_band": "selected_mid", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 19, "kM": "2", "ell": 153, "sector": "even", "frequency_band": "selected_mid", "regime": "high_ell_tail"},
+    {"ordinal": 20, "kM": "4", "ell": 120, "sector": "odd", "frequency_band": "selected_high", "regime": "subcritical_control"},
+    {"ordinal": 21, "kM": "4", "ell": 159, "sector": "odd", "frequency_band": "selected_high", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 22, "kM": "4", "ell": 160, "sector": "odd", "frequency_band": "selected_high", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 23, "kM": "4", "ell": 161, "sector": "odd", "frequency_band": "selected_high", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 24, "kM": "4", "ell": 360, "sector": "odd", "frequency_band": "selected_high", "regime": "high_ell_tail"},
+    {"ordinal": 25, "kM": "4", "ell": 120, "sector": "even", "frequency_band": "selected_high", "regime": "subcritical_control"},
+    {"ordinal": 26, "kM": "4", "ell": 159, "sector": "even", "frequency_band": "selected_high", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 27, "kM": "4", "ell": 160, "sector": "even", "frequency_band": "selected_high", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 28, "kM": "4", "ell": 161, "sector": "even", "frequency_band": "selected_high", "regime": "critical_turning_shell_r40"},
+    {"ordinal": 29, "kM": "4", "ell": 360, "sector": "even", "frequency_band": "selected_high", "regime": "high_ell_tail"}
+  ],
+  "angular_lift": {
+    "m_values": [-2, 2],
+    "mode_channel_count": 60,
+    "reason": "incidence along +z has only m=+-2 radiative incident channels; Schwarzschild radial amplitudes are m-degenerate but every asymptotic mode remains explicitly m-qualified",
+    "summation_policy": "compare and certify individual scattered-outgoing mode channels first; no total plane-wave sum at null infinity"
+  },
+  "incident_basis": {
+    "propagation_direction": "+z",
+    "positive_frequency_field": "h_in=(A_plus,A_cross) exp[-i omega(t-z)]",
+    "phase_zero_event": "t=z=0",
+    "cartesian_orientation": "right-handed (e_x,e_y,e_z), with phi=0 in the +x half-plane",
+    "unit_columns": [
+      {"column": "plus", "A_plus": [1.0, 0.0], "A_cross": [0.0, 0.0]},
+      {"column": "cross", "A_plus": [0.0, 0.0], "A_cross": [1.0, 0.0]}
+    ],
+    "helicity_conversion": {
+      "A_L": "(A_plus+i A_cross)/sqrt(2)",
+      "A_R": "(A_plus-i A_cross)/sqrt(2)"
+    },
+    "per_column_mode_channel_count": 60,
+    "route_mode_column_record_count": 120,
+    "qualification": "120 is the exact structural inventory for each future route before boundary and diagnostic ladders; it is not a completed science count"
+  },
+  "angular_observation_domain": {
+    "state": "DEFERRED_TO_V2_1",
+    "mode_level_kernel_only": true,
+    "theta": null,
+    "phi": null,
+    "qualification": "the sparse 15-(kM,ell)-pair domain can validate per-mode normalization and parity routes but is not a complete angular partial-wave sum or a scientific polarization-transfer matrix"
+  },
+  "boundaries": ["future_null_infinity", "future_event_horizon"],
+  "boundary_api_aliases": {
+    "future_null_infinity": "future_null_infinity",
+    "future_event_horizon": "event_horizon"
+  },
+  "future_routes": [
+    "A_project_master_to_martel_poisson_strain_flux",
+    "B_rw_metric_to_direct_curvature_to_asymptotic_psi4_strain",
+    "C_external_rw_zerilli_amplitude_to_martel_poisson_strain_flux"
+  ],
+  "forbidden_claims": [
+    "full-domain V1 independent scientific certification",
+    "V2 scientific PASS before three-route evidence exists",
+    "finite-radius observer-frame waveform",
+    "total plane-wave sum at null infinity",
+    "Li-figure agreement as a primary gate",
+    "global GREEN"
+  ]
+}

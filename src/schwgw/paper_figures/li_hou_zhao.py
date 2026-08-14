@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Mapping
 from dataclasses import asdict, dataclass
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -437,6 +437,11 @@ def compute_strict_np_psi4_convergence(
             "not_packaged_polarization_scalars": True,
             "observable": "strict_np_psi4",
             "paper_curve_alignment_claim": False,
+            "independent_arbitrary_precision_spotcheck_completed": False,
+            "high_l_paper_discrepancy_status": (
+                "strong finite-radius evidence, not an independent "
+                "arbitrary-precision proof"
+            ),
             "paper_curve_alignment_note": (
                 "Stable finite-radius recomputation of Eq. (34). The published "
                 "raster has a high-ell theta=pi/6 excursion for kM=1.5 and 2.0 "
@@ -537,7 +542,13 @@ def load_figure1_dataset(path: str | Path) -> Figure1Dataset:
 
 
 def load_figure2_dataset(path: str | Path) -> Figure2Dataset:
-    arrays, metadata = _load_dataset(path, "li_hou_zhao_figure2_strict_np_psi4_v1")
+    arrays, metadata = _load_dataset(
+        path,
+        (
+            "li_hou_zhao_figure2_strict_np_psi4_v1",
+            "li_hou_zhao_figure2_strict_np_psi4_rout_v2",
+        ),
+    )
     expected = {
         "kM_values",
         "theta_values",
@@ -610,11 +621,15 @@ def _save_dataset(
     return npz_path, sidecar_path
 
 
-def _load_dataset(path: str | Path, schema: str) -> tuple[dict[str, NDArray[Any]], dict[str, Any]]:
+def _load_dataset(
+    path: str | Path,
+    schema: str | tuple[str, ...],
+) -> tuple[dict[str, NDArray[Any]], dict[str, Any]]:
     npz_path = Path(path)
     sidecar_path = npz_path.with_suffix(".json")
     metadata = _strict_json(sidecar_path)
-    if metadata.get("schema_version") != schema:
+    accepted_schemas = (schema,) if isinstance(schema, str) else schema
+    if metadata.get("schema_version") not in accepted_schemas:
         raise ValueError("dataset schema mismatch.")
     if metadata.get("npz_sha256") != _sha256_file(npz_path):
         raise ValueError("dataset NPZ identity mismatch.")
@@ -749,7 +764,7 @@ def _base_metadata() -> dict[str, Any]:
         Path("docs/physics_spec.md"),
     )
     return {
-        "created_at_utc": datetime.now(UTC).isoformat(),
+        "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "git_commit": _git_commit(),
         "implementation_sources": {
             str(path): _sha256_file(path.resolve(strict=True)) for path in source_paths

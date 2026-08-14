@@ -1,5 +1,15 @@
 # Kirchhoff Eq. (47) Convention Freeze
 
+> **Superseding 2026-08-02 audit addendum.** This file records the historical
+> T1j decision to transcribe Eq. (47) literally.  A later independent analytic
+> check found that the printed `exp(+pi gamma/2)` sign is inconsistent with
+> both the paper's own Figs. 5--6 and
+> `|F(eta=0)|^2=4*pi*Mk/(1-exp(-4*pi*Mk))`.  Current code therefore defaults
+> to `standard_point_mass`, using `exp(-pi gamma/2)`, and retains the frozen
+> formula below only as `literal_paper_v1` for forensic reproduction.  The
+> branch, no-conjugation, comparison-only and non-denominator decisions remain
+> in force.
+
 Date: 2026-07-09
 
 Thread: T1j

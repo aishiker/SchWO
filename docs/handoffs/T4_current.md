@@ -1,6 +1,318 @@
-# T4 Current Handoff — methods gate complete; paper-facing probe pending
+# T4 Current Handoff — V3.1 manually stopped; no active T4 authority
 
-Last updated: 2026-08-01
+Last updated: 2026-08-14
+
+## Current authorization
+
+None. The user manually stopped the V3.1 chain.  No T4 analysis,
+implementation, compatibility check, source-load micro, sentinel, official
+science, Wolfram/BHPT/AP/radial/solver call, dispatch/root creation, V3.2
+transition or global GREEN is authorized.
+
+The current stop report is
+`docs/reports/phase6_v3_1_all_versions_failure_defect_report_20260814.md`
+(`a707e9ca893af160932a0012a03623356b1905f3a45b1b8c0ef5e1c314b13f93`).
+The compact computation/source bundle is
+`SchWO_Phase6_V3_1_all_versions_computation_bundle_20260814.zip`
+(`8fe85269a28ddf912b209c319983f6ff2d47e5cddcb52e8a63f9c9ab9c78414d`).
+
+Future T4 work requires a fresh Root-T0 instruction. The sections below are
+historical and must not be treated as live authorization.
+
+---
+
+# Prior T4 Current Handoff — V3.1-Z generated machine-authority redesign active
+
+Last updated: 2026-08-13
+
+## Prior authorization
+
+Formal T7 returned `ESCALATE / NOT_ASSESSED` for V3.1-Y delta review 2;
+archive SHA-256 is
+`0ad54e21f62d233e6c26720918c85ac6dfdb12f254f02d6169ed4af348df9dd4`.
+Repair cycle `2/2` is exhausted, and Y repair 3, implementation and runtime are
+forbidden.  Root-T0 adjudication SHA-256 is
+`6b5d126565ab4f8764d65825c37589e37f52f2576d25593239c028ee1608c3f4`.
+
+Formal T4 task `019f5fa6-1288-7c01-8a87-4c4370cf5517` is authorized only for
+the distinct V3.1-Z read-only, zero-science architecture analysis under
+`docs/prompts/phase6_t4_v3_1_z_generated_machine_authority_redesign_analysis.md`
+(`6a7a6ecfe6d06be1630a9b9df3c266138c30b5e3bd4de4a2783c748da6b07d14`).
+It may write only the predeclared analysis and archive.  Wolfram/BHPT/AP/
+radial/solver/science calls, package or implementation files, dispatches,
+roots, T7 contact and V3.2 are forbidden.
+
+---
+
+# Prior T4 Current Handoff — V3.1-Y external protocol redesign analysis complete
+
+## Prior authorization
+
+V3.1-X is terminally frozen after formal T7 returned
+`ESCALATE / NOT_ASSESSED` at repair cycle `2/2`; final review SHA-256 is
+`e5f9b9503e16b053525dfba7dacb661abc433211d49dcccb2c5c9dc442af1dee`.
+No retry, cycle 3, V3.1-X micro/full/official run or V3.2 is authorized.
+
+Root T0 opened a distinct read-only design gate, not another repair.  T4's
+completed exact prompt was
+`docs/prompts/phase6_t4_v3_1_y_external_protocol_redesign_analysis.md`,
+SHA-256
+`653cd1e8a20fdb6085c5bf1c3081ca19f1632176a3a915bf20798a885a903fb6`.
+T4 produced only `docs/phase6_v3_1_y_external_protocol_redesign_analysis.md`
+and its archive, SHA-256 `9f04538c...99377` / `e162a1fc...befb`, with no
+Wolfram, BHPT, AP or solver call.  Root T0 has now frozen package
+`bbb9e976...16203`, contract `8079786b...74a7` and design
+`c3b9a6da...64c7e`; formal T7 package review is active.  T4 has no current
+implementation or execution authority.
+
+---
+
+# Prior T4 Current Handoff — V3.1-X external direct-route redesign analysis ready
+
+## Completed zero-science design checkpoint
+
+T4 completed the exact read-only prompt
+`docs/prompts/phase6_t4_v3_1_x_external_route_redesign_analysis.md`
+(`4dfe99653bef581837892eba6daeb9a31bff5f60b734115ea85070cc23c2ca07`).
+No Wolfram/BHPT/AP/Route A/U/B/C/solver process was launched; no dispatch,
+evidence, sentinel, official or staging root was created.
+
+The recommended distinct gate is
+`phase6_v3_1_x_external_direct_route_redesign_v1`: all exact 23 frozen odd
+anchors use fresh BHPT `NumericalIntegration`, independent `In/Up` solutions,
+controlled Wronskian matching, an exact source-hashed boundary-location
+overlay and no MST/internal fallback or predecessor reuse. The official design
+has seven nodes per key (`161` API calls, `322` boundary solves, `483` match
+records); the predeclared all-domain sentinel has `35` calls and is never
+reused as official science.
+
+Main analysis:
+`docs/phase6_v3_1_x_external_route_redesign_analysis.md`.
+
+Archive:
+`docs/handoffs/archive/T4_2026-08-13_v3_1_x_external_route_redesign_analysis.md`.
+
+Root T0 has now frozen package `6a4ab0f6...f752`, design `9a75c6f8...db8d`,
+future T4 prompt `3c65164b...4c4f`, T7 package prompt `7faaab21...ce5b` and
+future incremental T7 prompt `339d5d96...bd7f`. Formal T7 initial package
+review returned `ADVANCE / NOT_ASSESSED`; archive SHA is
+`4ecfdbbf...bad50`. T4 is now authorized to implement only the exact six new
+paths under frozen prompt `3c65164b...4c4f` and run fake/temp zero-science
+preflight. Wolfram, dispatch, real sentinel/official roots and V3.2 remain
+forbidden. V3.1/V3.1-U remains FAIL and V3.1-X science remains NOT_ASSESSED.
+
+---
+
+# Prior T4 Current Handoff — V3.1-X zero-science external-route redesign analysis
+
+Last updated: 2026-08-13
+
+## Current authorization
+
+Formal T7 has terminally adjudicated the V3.1-U repair-cycle-2 sentinel as:
+
+```text
+ADVANCE_DECISION: ESCALATE
+CLAIM_STATUS: FAIL
+GATE_LABEL: ESCALATE / T0 ADJUDICATION REQUIRED
+```
+
+The immutable 23-anchor sentinel has 14 PASS and nine external BHPT MST
+`$Failed`; both bounded repair cycles are consumed. Retry, repair cycle 3,
+official V3.1-U execution and V3.2 are forbidden.
+
+Root T0 has selected a distinct external-route redesign analysis. T4's exact
+current task is the read-only prompt:
+
+```text
+docs/prompts/phase6_t4_v3_1_x_external_route_redesign_analysis.md
+SHA-256 4dfe99653bef581837892eba6daeb9a31bff5f60b734115ea85070cc23c2ca07
+```
+
+This turn is zero-science and design-only. Do not invoke Wolfram or any
+numerical solver, create a dispatch/evidence root, change code/tests/configs,
+dispatch T7, or start V3.2. Return the required analysis and archive records to
+Root T0; any future implementation requires a separately frozen package and
+formal T7 package review.
+
+---
+
+# Prior T4 Current Handoff — V3.1 repair-cycle-2 terminal scientific failure
+
+Last updated: 2026-08-11
+
+## Unique official r3 stopped on the first frozen scientific threshold
+
+The final reviewed repair package passed every mandatory pre-execution gate:
+the formerly failing Route-A key completed all 20 frozen nodes; the synthetic
+graph reconstructed exact `496/9920/102/458/23`, 16 thresholds and five
+certificates; Route-A strata, AP, fresh external Wolfram and resource/disk
+sentinels all passed.
+
+The one authorized official root was then created and consumed:
+
+```text
+runs/phase6/classic_scattering/v3_1_mode_greybody_r3_20260811T133458Z_py314
+mode ordinal 0: kM=0.005, ell=2, odd
+V3T-GAMMA-ROUTES-LOG-001 observed 0.01487180343263006
+frozen limit 0.0002
+```
+
+The producer stopped immediately after the complete first mode, as required.
+The root is immutable (`0555`; nine regular `0444` nlink1 files; no symlinks,
+lock or residual process). It contains one Route-A mode and 20 ladder records;
+Route B, Route C, certificates and success manifest are absent.
+
+Critical identities:
+
+```text
+failure.json             a6001141310a0629b3b26aa7297891ee37ab06a2a70e29c752e117d237695d47
+failed_evaluation.json   f24765b878f56a849e4c114f73bfb61a5d422bbcf8005db5c799ac4a4b7ecfbc
+failure_manifest.json    ab0f155f14313abed1d95716a30793411ed1d0ac076123933a1b1bbdd9e69fae
+records.jsonl            bff2504d97b5efd390275d2bd090db37d90f8f1849b68eb400ae4471605346ca
+ladder_records.jsonl     93e8a8d02fa8144780a5fd8660b9b68634afe24dda6c7cfd66533b4e86e16397
+route_a_0000 checkpoint  986fb105993871a752803555482d1d56d50947192583459d357f18a3cb26a81c
+run_contract.json        94984670999b04ce78c4328f6ad210d874148c385094e801a0f98480afae08cf
+```
+
+This is a scientific-threshold failure, not a system interruption or an
+implementation exception. Repair cycle 2 of 2 is consumed. T4 will not retry,
+change the threshold, edit a protected radial file, start V3.2 or claim GREEN.
+Root T0 owns read-only verification and any formal T7 delta-review-2 dispatch.
+
+Full terminal archive:
+`docs/handoffs/archive/T4_2026-08-11_v3_1_repair_cycle2_terminal_failure.md`,
+SHA-256 `23957809ffd4d9e0939a070f21ef090cce51d5ed3dd2d36813e6dcefca070d10`.
+
+---
+
+# Prior T4 Current Handoff — V3.1 repair-cycle-1 pre-execution blocker
+
+Last updated: 2026-08-11
+
+## Mandatory Route-A sentinel failed — no official r2 root
+
+Formal T7 approved repair-cycle-1 package execution with
+`ADVANCE / NOT_ASSESSED`; it did not accept V3.1 science. T4 verified the five
+immutable package members and their exact `0444` identities, including:
+
+- package `a439c5c0...786255`;
+- design `710eecce...349270`;
+- T4 prompt `40324abf...16f0d2`;
+- T7 package archive/current `1be2473c...aa404` / `f9bf1031...e93fa`.
+
+Before any official-root creation, T4 ran the mandatory `/tmp` complete
+20-node sentinel for the exact formerly failed Route-A key:
+
+```text
+kM=0.005, odd, ell=2, required_radius=40M
+r_out_base=489.8979485566356
+20 records: PASS 8 / FAIL 12
+elapsed 6.093446124927141 s
+```
+
+Only the eight multiplier-4/8 outer-Jost nodes passed. The frozen baseline,
+all multiplier-1 nodes, all multiplier-2 nodes, and both non-baseline tolerance
+nodes failed. Exceptions were exactly seven
+`scaled-tortoise Jost matching inputs are invalid` and five
+`scaled-tortoise incoming Jost coefficient is unresolved`.
+
+The baseline is immutable under the approved package. Selecting the successful
+multiplier-4/8 nodes would be forbidden favorable post-hoc selection. Closing
+this sentinel therefore requires a protected-backend change or a newly
+reviewed frozen-node-policy change, neither authorized in cycle 1.
+
+Durable diagnostic boundary:
+
+- `/tmp/schwo_v31_repair_cycle1_route_a_20node_sentinel.json`
+  SHA-256 `9cfc3f91d722d212a7dfc22ec3746b27d300ce462ca874e0131986e4f39fa892`;
+- stderr SHA-256
+  `31bdbfa60f243467643d168b6df4e96b7667ab30eff6d1557a17f9e7168e1333`;
+- archive
+  `docs/handoffs/archive/T4_2026-08-11_v3_1_repair_cycle1_preexecution_blocker.md`
+  SHA-256 `12fcdd387c065e0d5f57df6c2b7ae24f7680e6609c7da7f20c685f8fcdf7c30d`.
+
+No `v3_1_mode_greybody_r2_*` root exists. Route B/AP, Route C/external,
+synthetic publication and runtime/disk gates were not launched because gate 4
+failed first. The seven protected radial files, five package members and both
+immutable r1 roots remain unchanged. No related process, lock or transient
+remains. Root T0 owns the read-only blocker audit and any separately reviewed
+repair-cycle-2 decision. No V3.1 PASS, V3.2 or global GREEN is claimed.
+
+---
+
+# Prior T4 Current Handoff — V1 radial authority frozen; V2.0 is convention-only
+
+Last updated: 2026-08-10
+
+## Current authoritative snapshot — 2026-08-10
+
+Independent T7 decision:
+
+```text
+ACCEPT GREEN / V1 RADIAL REPAIR SUFFICIENT FOR BOUNDED V2 ENTRY
+full-domain V1 independent scientific certification remains PARTIAL
+```
+
+This is a bounded transition GREEN only.  V1 algorithmic radial domain,
+production radial-state completeness and selected independent numerical
+validation are scoped PASS; full-domain independent scientific certification
+remains PARTIAL.
+
+T4 must treat these as the only current radial v2 roots:
+
+```text
+v1_final_radial_baseline_v2_20260810_py314
+  manifest 2ceb769e9f67f0a66f115aba23a82d573e400ea155741b7801cfbfcd501a4728
+v1_production_state_evidence_v2_20260810_py314
+  manifest 7508ec43ba066d97acb00e8745b33ee3f422b2a8819c30874a4a03c22b8616f4
+```
+
+The corresponding repaired release is
+`configs/phase6_v1_repaired_release_map_20260810.json` plus
+`v1_release_preparation_repaired_v2_20260810_py314` and
+`v1_release_repaired_v2_20260810_py314`.  The selected external 30 keys cover
+odd/even, selected low/mid/high kM, low-ell absorption, operational
+turning/barrier modes, high-ell tail and controls exactly as recorded in
+`docs/phase6_v1_to_v2_transition_gate_20260810.md`.
+
+The superseded wrappers
+`v1_final_radial_baseline_v1_20260810_py314` and
+`v1_production_state_evidence_v1_20260810_py314`, the 2026-08-09 release
+chain, timed-out external-direct v3, V0 v1, aborted duplicate-writer roots and
+stale-manifest diagnostics are forbidden as current inputs.  Preserve them;
+do not resume, overwrite, or cite them as current authority.
+
+The V2.0 convention freeze is terminal.  Frozen authorities:
+
+```text
+configs/phase6_v2_0_convention_contract_20260810.json
+  1251392e0799ebafad91d832a128a6ad93a4d9dacf1a07a4fa50f5af2b119517
+configs/phase6_v2_0_selected_domain_20260810.json
+  9703286b02544b1c28b45250dec9bad0475d0196d857517f5c2ec3ee03afa818
+```
+
+T4 has no authorized computation or radial edit.  Do not run paper figures,
+finite-radius observer outputs, a total plane-wave infinity sum, or V2 science.
+The contract binds seven protected radial files by exact hash.  Any future T4
+work starts only from a separately reviewed post-V2.0 prompt.  Independent
+T6/T7 material review is complete; the exact T7 decision is
+`ACCEPT GREEN / V2.0 CONVENTION CONTRACT READY FOR BOUNDED V2.1 IMPLEMENTATION`,
+with V2 science still `NOT_ASSESSED`.  V2.1 was not started.
+
+## Current authoritative snapshot — 2026-08-02
+
+The former paper-facing probe is no longer pending. Direct metric-curvature
+production, Fig.2 arbitrary-precision spot checking, Fig.8 direct MST,
+Fig.3--7 recomputation, and final Fig.3--8 render/comparison are complete.
+The unified validator is PASS (SHA-256
+`f791d88897d9c877f0ec95defc6cfa083a0c683837a36a7e030f7da5f7d308cb`).
+
+No T4 numerical child is active or authorized. Strict paper equivalence is
+YELLOW because residual Fig.4-high-frequency, Fig.5/6-phase and
+Fig.7-longitudinal differences remain. These must not be hidden by empirical
+normalization or styling. Current report:
+`docs/reports/SchWO_audit_five_repairs_20260802.md`.
 
 ## Current authoritative snapshot
 

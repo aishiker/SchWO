@@ -10,6 +10,7 @@ from schwgw.scattering import (
     PolarizationResult,
     compute_flat_no_lens_polarization,
     compute_flat_no_lens_partial_wave_diagnostic,
+    compute_flat_no_lens_partial_wave_raw_strict_np_weyl,
     compute_flat_no_lens_partial_wave_strict_np_weyl,
     compute_polarization,
     direct_cartesian_tt_packaged_weyl,
@@ -51,6 +52,12 @@ def test_phase3_selected_probe_smoke_values_are_finite() -> None:
         assert result.diagnostics["radial_solve_count"] == 4.0
         assert result.diagnostics["mode_count"] == 8.0
         assert result.diagnostics["nonzero_coefficient_count"] == 8.0
+        assert result.diagnostics["full_np_pseudoinverse_bridge"] == 1.0
+        assert result.diagnostics["observable_bridge_validated"] == 0.0
+        assert (
+            result.diagnostics["positive_frequency_reality_bridge_validated"]
+            == 0.0
+        )
 
 
 def test_phase3_lmax_scaling_smoke_records_finite_relative_changes() -> None:
@@ -238,6 +245,53 @@ def test_phase3_flat_no_lens_partial_wave_strict_np_matches_direct_tensor_contra
     )
 
     assert _relative_weyl_error(actual, expected) < 1e-5
+
+
+@pytest.mark.parametrize(
+    ("theta", "expected_full_error", "expected_psi4_error"),
+    [
+        (0.4, 0.11862586646193823, 0.017563685045674821),
+        (1.0, 0.9623614893755684, 0.3401586263709983),
+    ],
+)
+def test_phase3_raw_full_np_defect_is_not_hidden_by_type_n_completion(
+    theta: float,
+    expected_full_error: float,
+    expected_psi4_error: float,
+) -> None:
+    common = {
+        "k": K,
+        "r": R_OBS,
+        "theta": theta,
+        "phi": 0.0,
+        "A_plus": 1.0 + 0.0j,
+        "A_cross": 0.0j,
+        "lmax": 40,
+    }
+    raw = compute_flat_no_lens_partial_wave_raw_strict_np_weyl(
+        **common,
+        tetrad="incident",
+    )
+    completed = compute_flat_no_lens_partial_wave_strict_np_weyl(
+        **common,
+        tetrad="incident",
+    )
+    expected = direct_cartesian_tt_strict_np_weyl(
+        k=K,
+        z=R_OBS * np.cos(theta),
+        A_plus=1.0 + 0.0j,
+        A_cross=0.0j,
+    )
+
+    raw_full_error = _relative_weyl_error(raw, expected)
+    raw_psi4_error = abs(raw["Psi4"] - expected["Psi4"]) / abs(expected["Psi4"])
+    completed_error = _relative_weyl_error(completed, expected)
+
+    assert raw_full_error == pytest.approx(expected_full_error, rel=2.0e-12)
+    assert raw_psi4_error == pytest.approx(expected_psi4_error, rel=2.0e-12)
+    assert completed_error < 5.0e-14
+    assert raw_full_error > 1.0e-1
+    assert completed_error < raw_full_error * 1.0e-10
 
 
 @pytest.mark.parametrize(

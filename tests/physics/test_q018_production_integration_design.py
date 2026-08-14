@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 
 import schwgw.numerics as public_numerics
-import schwgw.numerics.radial_solver as radial_solver_module
+from schwgw.numerics.legacy import paper_oracles as legacy_paper_oracles
 from schwgw.backgrounds.schwarzschild import SchwarzschildBackground
 from schwgw.numerics import BoundaryConfig, RadialSolution, solve_radial_mode
 import schwgw.numerics.experimental.q018_rescaled_oracle as q018_oracle_module
@@ -688,7 +688,7 @@ def test_delta0p1_risk_adapter_rejects_unmeasured_ell_or_point_membership(
         RuntimeError,
         match="q018_experimental_oracle_out_of_envelope",
     ) as raised:
-        radial_solver_module._validate_q018_delta0p1_risk_oracle_envelope(
+        legacy_paper_oracles._validate_q018_delta0p1_risk_oracle_envelope(
             sector=Sector.ODD,
             ell=ell,
             k=2.8,
@@ -859,6 +859,10 @@ def test_q018_reviewed_opt_in_returns_local_production_radial_solution(
     assert metadata["r_out"] == 300.0
     assert metadata["rtol"] == 1e-10
     assert metadata["atol"] == 1e-12
+    assert metadata["requested_precision_dps"] == 80
+    assert metadata["actual_precision_bits"] == 53
+    assert metadata["actual_decimal_digits"] == 15.95
+    assert "precision_dps" not in metadata
     assert metadata["finite_psi"] is True
     assert metadata["finite_dpsi_dr"] is True
     assert metadata["finite_A_in"] is True

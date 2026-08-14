@@ -5,7 +5,7 @@ from pathlib import Path
 
 import numpy as np
 
-from schwgw.scattering.kirchhoff import compute_kirchhoff_eq47
+from schwgw.scattering.kirchhoff import compute_kirchhoff
 from schwgw.viz.tablei_uniform import UniformFigureError, render_tablei_uniform_figures
 
 
@@ -23,11 +23,12 @@ def main(argv: list[str] | None = None) -> int:
             kM_values = np.asarray(data["kM_values"], dtype=float)
             radius = np.asarray(data["point_r"], dtype=float)
             theta = np.asarray(data["point_theta"], dtype=float)
-        kirchhoff = compute_kirchhoff_eq47(
+        kirchhoff = compute_kirchhoff(
             kM_values=kM_values,
             r_over_M=radius,
             theta=theta,
             dps=args.kirchhoff_dps,
+            prefactor_convention="standard_point_mass",
         )
         render_tablei_uniform_figures(
             args.merged_npz,
